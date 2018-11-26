@@ -1,0 +1,29 @@
+{
+  "name": "willowapp",
+  "version": "1.0.0",
+  "description": "Willow - Your Free",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharmaavneesh/willow.git"
+  },
+  "author": "Avneesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sharmaavneesh/willow/issues"
+  },
+  "homepage": "https://github.com/sharmaavneesh/willow#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "express": "^4.16.4",
+    "express-flash": "0.0.2",
+    "express-session": "^1.15.6",
+    "pug": "^2.0.3"
+  }
+}
