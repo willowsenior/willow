@@ -3,11 +3,14 @@ const path = require('path');
 const chalk = require('chalk'); // To color highlight the log
 const flash = require('express-flash'); // for displaying error messages
 const session = require('express-session'); //session management
+const sass = require('node-sass-middleware');
 
 /**
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
+const userController = require('./controllers/user');
+
 
 /**
  * Create Express server.
@@ -30,12 +33,30 @@ app.use(session({
     //   url: process.env.MONGODB_URI,
     //   autoReconnect: true,
     // })
-  }));
+}));
+app.use(sass({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public')
+}));
+app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'), { maxAge: 31557600000 }));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/jquery/dist'), { maxAge: 31557600000 }));
+app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts'), { maxAge: 31557600000 }));
 
 /**
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.get('/login', userController.getLogin);
+// app.post('/login', userController.postLogin);
+// app.get('/logout', userController.logout);
+// app.get('/forgot', userController.getForgot);
+// app.post('/forgot', userController.postForgot);
+// app.get('/reset/:token', userController.getReset);
+// app.post('/reset/:token', userController.postReset);
+// app.get('/signup', userController.getSignup);
+// app.post('/signup', userController.postSignup);
 
 
 /**
