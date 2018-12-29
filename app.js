@@ -8,6 +8,9 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const bodyParser = require('body-parser');
+const logger = require('morgan');
+const dotenv = require('dotenv');
+
 
 const dburl = 'mongodb://shashank:shashank1234@ds245347.mlab.com:45347/willowtest'
 
@@ -105,6 +108,15 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 
 
+
+////AUthentication routes
+
+app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
+app.get('/auth/google/callback', passport.authenticate('google', {
+    failureRedirect: '/login'
+}), (req, res) => {
+    res.redirect(req.session.returnTo || '/');
+});
 /**
  * Start Express server.
  */
