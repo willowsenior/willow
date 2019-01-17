@@ -69,6 +69,10 @@ app.use(flash());
 
 /////
 app.use((req, res, next) => {
+    res.locals.user = req.user;
+    next();
+});
+app.use((req, res, next) => {
     // After successful login, redirect back to the intended page
     if (!req.user &&
         req.path !== '/login' &&
@@ -98,7 +102,7 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  */
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
-// app.post('/login', userController.postLogin);
+app.post('/login', userController.postLogin);
 // app.get('/logout', userController.logout);
 // app.get('/forgot', userController.getForgot);
 // app.post('/forgot', userController.postForgot);
