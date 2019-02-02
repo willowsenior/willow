@@ -40,7 +40,7 @@ mongoose.connect(dburl, (err) => {
 });
 mongoose.connection.on('error', (err) => {
     console.error(err);
-    console.log('MongoConnection Error Please check database connection', );
+    console.log('Connection Error Please check database connection', );
     process.exit();
 })
 
@@ -111,10 +111,10 @@ app.post('/login', userController.postLogin);
 // app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
-app.get('/facility',facilityController.getFacility);
-app.get('/facilitysignup',facilityController.getFacilitySignup);
-app.get('/facilitysignup',facilityController.postFacilitySignup);
-app.get('/room',facilityController.getRoom);
+app.get('/facility', facilityController.getFacility);
+app.get('/facilitysignup', facilityController.getFacilitySignup);
+app.post('/facilitysignup', facilityController.postFacilitySignup);
+app.get('/room', facilityController.getRoom);
 
 
 

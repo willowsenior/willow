@@ -80,25 +80,6 @@ exports.postSignup = (req, res, next) => {
         password: req.body.password
     });
 
-    // var userdata = {
-    //     email: req.body.email,
-    //     password: req.body.password
-    // }
-
-    /// TO BE REMOVED LATER
-    console.log('Data being send to DB');
-    console.log(req.body.email);
-    console.log(req.body.password);
-    ///
-
-
-    // User.create(userdata, function(err, user) {
-    //     if (err) {
-    //         return next(err)
-    //     } else {
-    //         return res.redirect('./home')
-    //     }
-    // })
 
 
 

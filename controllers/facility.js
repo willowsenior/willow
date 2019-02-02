@@ -5,69 +5,85 @@ const Facility = require('../models/Facility');
  * Home page.
  */
 exports.getFacility = (req, res, error) => {
-    if(error){
+    if (error) {
         console.log(error);
     }
     res.render('facility', {
-      title: 'Facility'
+        title: 'Facility'
     });
-  };
+};
 
 exports.getRoom = (req, res, error) => {
-    if(error){
+    if (error) {
         console.log(error);
     }
     res.render('room', {
-      title: 'Room'
+        title: 'Room'
     });
 };
-  
+
 
 exports.getFacilitySignup = (req, res, error) => {
-  if(error){
-      console.log(error);
-  }
-  if (!req.user) {
-    return res.redirect('/login');
-  }
-  res.render('facilitysignup', {
-    title: 'Facility'
-  });
+    if (error) {
+        console.log(error);
+    }
+    if (!req.user) {
+        return res.redirect('/login');
+    }
+    res.render('facilitysignup', {
+        title: 'Facility'
+    });
 };
 
 exports.postFacilitySignup = (req, res, next) => {
-  console.log("Here>>>>>>.");
-  const errors = req.validationErrors();
+    console.log("Here>>>>>>.");
+    const errors = req.validationErrors();
 
-  if (errors) {
-      req.flash('errors', errors);
-      return res.redirect('/signup');
-  }
+    if (errors) {
+        req.flash('errors', errors);
+        return res.redirect('/signup');
+    }
 
-  var facility = new Facility({
-      facilityName: req.body.facilityName,
-      contact: req.body.contactNumber,
-      contactName: req.body.contactName,
-      rating: req.body.rating,
-      compliance: req.body.complianceStatus,
-      address:{
-        street:req.body.street,
-        city:req.body.city,
-        state:req.body.state,
-        zip:req.body.zip
-      }
-  });
 
-  // var userdata = {
-  //     email: req.body.email,
-  //     password: req.body.password
-  // }
+    console.log(req.body.facilityName);
+    console.log(req.body.street);
 
-  /// TO BE REMOVED LATER
-  console.log('Data being send to DB');
-  console.log(req.body.facilityName);
-  console.log(req.body.street);
-  ///
+    var facility = new Facility({
+        FacilityName: req.body.facilityName,
+        Address: {
+            street: req.body.street,
+            city: req.body.city,
+            state: req.body.state,
+            zip: req.body.zip
+        },
+        Contact: req.body.contactNumber,
+        ContactName: req.body.contactName,
+        //Email: { type: String, unique: true },
+        // FacilityPhoto:
+        Rating: req.body.rating,
 
-Facility.save(facility);
+        ComplianceStatus: req.body.complianceStatus
+
+
+
+
+    });
+
+    // var userdata = {
+    //     email: req.body.email,
+    //     password: req.body.password
+    // }
+
+    /// TO BE REMOVED LATER
+    console.log('Data being send to DB');
+    console.log(facility);
+
+    ///
+
+    facility.save(function(err) {
+        if (err) {
+            return next(err);
+        }
+        res.send('Facility Created successfully')
+    })
 };

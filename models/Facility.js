@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const facilitySchema = new mongoose.Schema({
-    FacilityName: String,
+    FacilityName: { type: String, unique: true },
     Address: {
         street: String,
         city: String,
@@ -10,10 +10,10 @@ const facilitySchema = new mongoose.Schema({
     },
     Contact: Number,
     ContactName: String,
-    email: { type: String, unique: true },
+    Email: { type: String, unique: true },
     // FacilityPhoto:
     Rating: Number,
-    ComplianceStatus: Boolean
+    ComplianceStatus: String
 }, { timestamps: true });
 
 
