@@ -3,7 +3,7 @@ extends layout
 block content
   .pb-2.mt-2.mb-4.border-bottom
     h3 Sign up
-  form(id='signup-form', method='POST', action='/facilitysignup')
+  form(id='facsignup-form', method='POST', action='/facilitysignup')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right Facility Name
@@ -12,7 +12,7 @@ block content
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right Contact Number
       .col-md-7
-        input.form-control(type='text', name='contactNumber', id='contactNumber', placeholder='XXX-XXX-XXXX', required)
+        input.form-control(type='number', name='contactNumber', id='contactNumber', placeholder='XXX-XXX-XXXX', required)
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right Contact Name
       .col-md-7
@@ -24,7 +24,7 @@ block content
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right Compliance Status
       .col-md-7
-        input.form-control(type='text', name='complianceStatus', id='complianceStatus', placeholder='Compliance Status', optional)
+        input.form-control(type='text', name='complianceStatus', id='complianceStatus', placeholder='Yes/No', optional)
     .form-group.row
         h4.col-md-3.text-right Address
     .form-group.row
