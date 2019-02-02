@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 Sign up
+  form(id='signup-form', method='POST', action='/facilitysignup')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Facility Name
+      .col-md-7
+        input.form-control(type='text', name='facilityName', id='facilityName', placeholder='Facility Name', autofocus, required)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Contact Number
+      .col-md-7
+        input.form-control(type='text', name='contactNumber', id='contactNumber', placeholder='XXX-XXX-XXXX', required)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Contact Name
+      .col-md-7
+        input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name', required)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Rating
+      .col-md-7
+        input.form-control(type='text', name='rating', id='rating', placeholder='Rating', optional)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Compliance Status
+      .col-md-7
+        input.form-control(type='text', name='complianceStatus', id='complianceStatus', placeholder='Compliance Status', optional)
+    .form-group.row
+        h4.col-md-3.text-right Address
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Steet
+      .col-md-7
+        input.form-control(type='text', name='street', id='street', placeholder='Street', optional)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right City
+      .col-md-7
+        input.form-control(type='text', name='city', id='city', placeholder='City', optional)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right State
+      .col-md-7
+        input.form-control(type='text', name='state', id='state', placeholder='State', optional)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Zip
+      .col-md-7
+        input.form-control(type='text', name='zip', id='zip', placeholder='Zip', optional)
+    .form-group.offset-sm-3.col-md-7.pl-2
+      button.btn.btn-success(type='submit')
+        i.fas.fa-user-plus.fa-sm
+        | Submit

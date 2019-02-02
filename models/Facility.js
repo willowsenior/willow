@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const FacilitySchema = new mongoose.Schema({
+const facilitySchema = new mongoose.Schema({
     FacilityName: String,
     Address: {
         street: String,
@@ -16,5 +16,6 @@ const FacilitySchema = new mongoose.Schema({
     ComplianceStatus: Boolean
 }, { timestamps: true });
 
-const Facility = mongoose.model('Facility', FacilitySchema);
+
+const Facility = mongoose.model('Facility', facilitySchema);
 module.exports = Facility;

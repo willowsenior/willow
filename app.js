@@ -19,6 +19,7 @@ const dburl = 'mongodb://shashank:shashank1234@ds245347.mlab.com:45347/willowtes
  */
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
+const facilityController = require('./controllers/facility');
 
 // Passport Config
 const passportConfig = require('./config/passport');
@@ -110,6 +111,10 @@ app.post('/login', userController.postLogin);
 // app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
+app.get('/facility',facilityController.getFacility);
+app.get('/facilitysignup',facilityController.getFacilitySignup);
+app.get('/facilitysignup',facilityController.postFacilitySignup);
+app.get('/room',facilityController.getRoom);
 
 
 

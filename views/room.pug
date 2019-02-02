@@ -1,0 +1,74 @@
+extends layout
+
+block content
+    p.lead Room Details Details
+    .row
+    p.lead Room Profile 1
+        form
+          .row
+            .col-md-3
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Oxygen
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Diabetes
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Price
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Incontinence
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Medic-aid
+            .col-md-3
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Gender
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Private
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') Semi-private
+                .form-check
+                    input#exampleCheck1.form-check-input(type='checkbox')
+                    label.form-check-label(for='exampleCheck1') RespiteCare
+                            
+            .col-md-3
+                .dropdown
+                    button#dropdownMenu1.btn.btn-secondary.dropdown-toggle(type='button',data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | Length of Stay
+                        .dropdown-menu(aria-labelledby='dropdownMenu1')
+                            a.dropdown-item(href='#!') Action
+                            a.dropdown-item(href='#!') Another action
+
+                    button#dropdownMenu1.btn.btn-secondary.dropdown-toggle(type='button',data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | Monthly Payment
+                        .dropdown-menu(aria-labelledby='dropdownMenu1')
+                            a.dropdown-item(href='#!') Action
+                            a.dropdown-item(href='#!') Another action
+
+                    button#dropdownMenu1.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | Room Count
+                        .dropdown-menu(aria-labelledby='dropdownMenu1')
+                            a.dropdown-item(href='#!') Action
+                            a.dropdown-item(href='#!') Another action
+                            
+            .col-md-3
+                .dropdown
+                    button#dropdownMenu1.btn.btn-secondary.dropdown-toggle(type='button',data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | Room Type   
+                        .dropdown-menu(aria-labelledby='dropdownMenu1')
+                            a.dropdown-item(href='#!') Action
+                            a.dropdown-item(href='#!') Another action
+                    
+                    button#dropdownMenu1.btn.btn-secondary.dropdown-toggle(type='button',data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | Number of beds
+                        .dropdown-menu(aria-labelledby='dropdownMenu1')
+                            a.dropdown-item(href='#!') Action
+                            a.dropdown-item(href='#!') Another action
+
+    
+    button.btn.btn-primary.mt-4(type='button') Add
