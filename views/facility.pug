@@ -7,14 +7,11 @@ block content
         thead.thead-light
         tr
             th Name
-            th Facility 1
+            th= facility.FacilityName
         tbody
         tr
             td Address
-            td Facility Address
-        tr
-            td Jacob
-            td Thornton
+            td= facility.Address.street, facility.Address.city, facility.Address.state, facility.Address.zip
     .row
     .row.mt-4
     p.lead Facility Analytics

@@ -5,12 +5,19 @@ const Facility = require('../models/Facility');
  * Home page.
  */
 exports.getFacility = (req, res, error) => {
-    if (error) {
+    Facility.findById(req.param.facility_id)
+    .then((err,facility)=>{
+      console.log(req.param.facility_id);
+      res.render('facility', {
+        title: 'Facility',
+        facility
+      });      
+    })
+    .catch((err) =>{
+      if (error) {
         console.log(error);
-    }
-    res.render('facility', {
-        title: 'Facility'
-    });
+      }
+    })
 };
 
 exports.getRoom = (req, res, error) => {
@@ -37,6 +44,7 @@ exports.getFacilitySignup = (req, res, error) => {
 
 exports.postFacilitySignup = (req, res, next) => {
     console.log("Here>>>>>>.");
+    console.log(req.body.user);
     const errors = req.validationErrors();
 
     if (errors) {
@@ -58,15 +66,11 @@ exports.postFacilitySignup = (req, res, next) => {
         },
         Contact: req.body.contactNumber,
         ContactName: req.body.contactName,
-        //Email: { type: String, unique: true },
+        Email: req.user.email,
         // FacilityPhoto:
         Rating: req.body.rating,
 
         ComplianceStatus: req.body.complianceStatus
-
-
-
-
     });
 
     // var userdata = {
@@ -84,6 +88,7 @@ exports.postFacilitySignup = (req, res, next) => {
         if (err) {
             return next(err);
         }
-        res.send('Facility Created successfully')
+        //res.send('Facility Created successfully')
+        res.redirect('/facility');
     })
 };

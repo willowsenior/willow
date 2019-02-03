@@ -1,3 +1,5 @@
+const Facility = require('../models/Facility');
+
 /**
  * GET /
  * Home page.
@@ -6,8 +8,24 @@ exports.index = (req, res, error) => {
     if(error){
         console.log(error);
     }
-    res.render('home', {
-      title: 'Home'
-    });
+
+    if(!req.user){
+      console.log('Simple Home');
+      res.render('home', {
+        title: 'Home'
+      });
+    } else {
+      console.log('Home with facilities');
+      Facility.find({"Email" : req.user.email})
+      .then((facilities)=>{
+        res.render('home', {
+          title: 'Home',
+          facilities
+        });
+      })
+      .catch((error) => { 
+        console.log(error);
+        res.send('Sorry! Something went wrong.'); })
+    }
   };
   

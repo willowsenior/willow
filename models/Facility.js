@@ -10,7 +10,7 @@ const facilitySchema = new mongoose.Schema({
     },
     Contact: Number,
     ContactName: String,
-    Email: { type: String, unique: true },
+    Email: { type: String },
     // FacilityPhoto:
     Rating: Number,
     ComplianceStatus: String

@@ -104,14 +104,15 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
-// app.get('/logout', userController.logout);
+app.get('/logout', userController.logout);
 // app.get('/forgot', userController.getForgot);
 // app.post('/forgot', userController.postForgot);
 // app.get('/reset/:token', userController.getReset);
 // app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
-app.get('/facility', facilityController.getFacility);
+//app.get('/facility', facilityController.getFacility);
+app.get('/facility/:facility_id', facilityController.getFacility);
 app.get('/facilitysignup', facilityController.getFacilitySignup);
 app.post('/facilitysignup', facilityController.postFacilitySignup);
 app.get('/room', facilityController.getRoom);
