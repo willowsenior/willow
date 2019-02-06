@@ -11,7 +11,7 @@ block content
         tbody
         tr
             td Address
-            td= facility.Address.street, facility.Address.city, facility.Address.state, facility.Address.zip
+            td= facility.Address.street +', ' + facility.Address.city +', ' +facility.Address.state+', '+facility.Address.zip
     .row
     .row.mt-4
     p.lead Facility Analytics
@@ -28,7 +28,11 @@ block content
             td Analytics 5
             td Analytics 6
     .row.mt-4
-    p.lead Room Profile 1
+    if rooms && rooms.length
+        .row
+            h4.rooms
+    p.lead Room Profile 1 
+        i.fas.fa-edit
         form
           .row
             .col-md-3

@@ -5,15 +5,16 @@ const Facility = require('../models/Facility');
  * Home page.
  */
 exports.getFacility = (req, res, error) => {
-    Facility.findById(req.param.facility_id)
-    .then((err,facility)=>{
-      console.log(req.param.facility_id);
+    var id = req.params.facility_id;
+    console.log("ID:   "+id);
+    Facility.findById(id)
+    .then((facility)=>{
       res.render('facility', {
         title: 'Facility',
         facility
       });      
     })
-    .catch((err) =>{
+    .catch((error) =>{
       if (error) {
         console.log(error);
       }
@@ -52,7 +53,6 @@ exports.postFacilitySignup = (req, res, next) => {
         return res.redirect('/signup');
     }
 
-
     console.log(req.body.facilityName);
     console.log(req.body.street);
 
@@ -88,7 +88,18 @@ exports.postFacilitySignup = (req, res, next) => {
         if (err) {
             return next(err);
         }
+        Facility.findById({"_id" : facility._id})
+        .then((currentFacility)=>{
+          res.render('facility', {
+            title: 'Facility',
+            currentFacility
+          });
+        })
+        .catch((error) => { 
+          console.log(error);
+          res.send('Sorry! Something went wrong.'); 
+        })
         //res.send('Facility Created successfully')
-        res.redirect('/facility');
+        //res.redirect('/facility/'+currentFacility._id);
     })
 };

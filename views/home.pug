@@ -12,15 +12,18 @@ block content
         - for (var i = 0; i < facilities.length; i++)
             br
             .row
-              .col-md-6
+              facilities
+            .row
+              .col-md-6 
                 .card
                   .card-body
                     h4.card-title= facilities[i].FacilityName
                     p.card-text
                       | Some quick example text to build on the card title
                       | and make up the bulk of the card&apos;s content.
+                    
                     - var facility_id = facilities[i]._id.toString();
-                    a.btn.btn-primary(href='/facility/facility_id') Details 
+                    a.btn.btn-primary(href='/facility/'+facility_id) Details 
               .col-md-6
                 if facilities.length > 1
                   .card

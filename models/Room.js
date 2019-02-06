@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const RoomSchema = new mongoose.Schema({
+    FacilityID: String,
     FacilityName: String,
     RoomName: String,
     RoomCat: String,
@@ -13,7 +14,15 @@ const RoomSchema = new mongoose.Schema({
         Private: Boolean,
         SemiPrivate: Boolean,
         Medicaid: Boolean,
-        RespiteCare: Boolean
+        RespiteCare: Boolean,
+        Eating : Boolean,
+        Transfers : Boolean,
+        Mobility : Boolean,
+        Toileting : Boolean,
+        Verbal_Disruption : Boolean,
+        Physical_Aggression : Boolean,
+        Socially_Inapproriate_Behaviour : Boolean,
+        Hallucinations : Boolean,
     }
 }, { timestamps: true });
 
