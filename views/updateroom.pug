@@ -1,0 +1,89 @@
+extends layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 Room Sign up 
+  form(id='roomsignup-form-put', method='PUT', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRoom._id)
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-boldRoom.text-middle Name
+      .col-md-4
+        input.form-control(type='text', name='roomName', id='roomName', placeholder='Room Name', value= currentRoom.RoomName, autofocus, required)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-middle Room Count
+      .col-md-4
+        input.form-control(type='number', name='count', id='count', placeholder='Room Count', autofocus, required)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-middle Gender
+      .col-md-4
+        .col-md-12
+            input.form-radio-input(type='radio', name='radio', id='radio')
+            label.form-radio-label.ml-4(for='radio') Male
+        .col-md-12
+            input.form-radio-input(type='radio', name='radio', id='radio')
+            label.form-radio-label.ml-4(for='radio') Female
+    br
+    .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-middle General Info
+        .col-md-3
+            .form-check
+                input.form-check-input(type='checkbox', name='semiprivate', id='semiprivate', placeholder='semiprivate' value=1)
+                label.form-check-label(for='semiprivate') Semi-private
+            .form-check
+                input.form-check-input(type='checkbox', name='private', id='private', placeholder='private' value=1)
+                label.form-check-label(for='private') Private
+            .form-check
+                input.form-check-input(type='checkbox', name='respiteCare', id='respiteCare', placeholder='respiteCare' value=1)
+                label.form-check-label(for='respiteCare') Respite Care
+            .form-check
+                input.form-check-input(type='checkbox', name='medicaid', id='medicaid', placeholder='medicaid' value=1)
+                label.form-check-label(for='medicaid') Medic-aid
+            .form-check
+                input.form-check-input(type='checkbox', name='oxygen', id='oxygen', placeholder='oxygen' value=1)
+                label.form-check-label(for='oxygen') Oxygen
+            .form-check
+                input.form-check-input(type='checkbox', name='incontinence', id='incontinence', placeholder='incontinence' value=1)
+                label.form-check-label(for='incontinence') Incontinence
+            .form-check
+                input.form-check-input(type='checkbox', name='price', id='price', placeholder='price' value=1)
+                label.form-check-label(for='price') Price
+            .form-check
+                input.form-check-input(type='checkbox', name='diabetes', id='diabetes', placeholder='diabetes' value=1)
+                label.form-check-label(for='diabetes') Diabetes
+    br
+    .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-middle Does your facility accomodate the following ADLs?
+        .col-md-3
+            .form-check
+                input.form-check-input(type='checkbox', name='eating', id='eating', placeholder='eating' value=1)
+                label.form-check-label(for='eating') Eating
+            .form-check
+                input.form-check-input(type='checkbox', name='transfers', id='transfers', placeholder='transfers' value=1)
+                label.form-check-label(for='transfers') Transfers
+            .form-check
+                input.form-check-input(type='checkbox', name='mobility', id='mobility', placeholder='mobility' value=1)
+                label.form-check-label(for='mobility') Mobility
+            .form-check
+                input.form-check-input(type='checkbox', name='toileting', id='toileting', placeholder='toileting' value=1)
+                label.form-check-label(for='toileting') Toileting
+    br
+    .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-middle Does your facility has following behaviourial issues?
+        .col-md-3
+            .form-check
+                input.form-check-input(type='checkbox', name='verbalDisruption', id='verbalDisruption', placeholder='verbalDisruption' value=1)
+                label.form-check-label(for='verbalDisruption') Verbal Disruption
+            .form-check
+                input.form-check-input(type='checkbox', name='physicalAggression', id='physicalAggression', placeholder='physicalAggression' value=1)
+                label.form-check-label(for='physicalAggression') Physical Aggression
+            .form-check
+                input.form-check-input(type='checkbox', name='sociallyInapproriateBehaviour', id='sociallyInapproriateBehaviour', placeholder='sociallyInapproriateBehaviour' value=1)
+                label.form-check-label(for='sociallyInapproriateBehaviour') Socially Inapproriate Behaviour
+            .form-check
+                input.form-check-input(type='checkbox', name='hallucinations', id='hallucinations', placeholder='hallucinations' value=1)
+                label.form-check-label(for='hallucinations') Hallucinations
+    br
+    .form-group.offset-sm-3.col-md-7.pl-2
+      button.btn.btn-success(type='submit')
+        i.fas.fa-user-plus.fa-sm
+        | Submit

@@ -26,13 +26,16 @@ block content
                     a.btn.btn-primary(href='/facility/'+facility_id) Details 
               .col-md-6
                 if facilities.length > 1
-                  .card
-                    .card-body
-                      h4.card-title= facilities[++i].FacilityName
-                      p.card-text
-                        | Some quick example text to build on the card title
-                        | and make up the bulk of the card&apos;s content.
-                      a.btn.btn-primary(href='#!') Go somewhere
+                  -i= i+1
+                  if facilities[i]
+                    .card
+                      .card-body
+                        h4.card-title= facilities[i].FacilityName
+                        p.card-text
+                          | Some quick example text to build on the card title
+                          | and make up the bulk of the card&apos;s content.
+                        - var facility_id = facilities[i]._id.toString();
+                        a.btn.btn-primary(href='/facility/'+facility_id) Details
   else                 
     .row
       .col 

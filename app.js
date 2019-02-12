@@ -12,9 +12,9 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 
 
-const dburl = 'mongodb://shashank:shashank1234@ds245347.mlab.com:45347/willowtest'
-//mongodb://<dbuser>:<dbpassword>@ds221405.mlab.com:21405/willowtest1
-//mongodb://<dbuser>:<dbpassword>@ds245347.mlab.com:45347/willowtest
+//const dburl = 'mongodb://shashank:shashank1234@ds245347.mlab.com:45347/willowtest'
+const dburl = 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1'
+
 /**
  * Controllers (route handlers).
  */
@@ -117,7 +117,10 @@ app.get('/facility/:facility_id', facilityController.getFacility);
 app.get('/facilitysignup', facilityController.getFacilitySignup);
 app.post('/facilitysignup', facilityController.postFacilitySignup);
 app.get('/room', facilityController.getRoom);
-
+app.get('/roomsignup/:facility_id', facilityController.getRoomSignup);
+app.post('/roomsignup/:facility_id', facilityController.postRoomSignup);
+app.put('/updateroom/:facility_id/:room_id', facilityController.putRoomUpdate);
+app.get('/updateroom/:facility_id/:room_id', facilityController.getRoomUpdate);
 
 
 ////AUthentication routes
