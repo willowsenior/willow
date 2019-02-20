@@ -12,8 +12,7 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 
 
-//const dburl = 'mongodb://shashank:shashank1234@ds245347.mlab.com:45347/willowtest'
-const dburl = 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1'
+const MONGODB = process.env.MONGODB || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
 
 /**
  * Controllers (route handlers).
@@ -38,7 +37,7 @@ const PORT = process.env.PORT || 8080;
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlparser', true);
-mongoose.connect(dburl, (err) => {
+mongoose.connect(MONGODB, (err) => {
     console.log('Database is connected')
 });
 mongoose.connection.on('error', (err) => {
