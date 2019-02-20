@@ -31,6 +31,8 @@ const passportConfig = require('./config/passport');
  */
 const app = express();
 
+const PORT = process.env.PORT || 8080;
+
 
 /** Connect to database */
 mongoose.set('useFindAndModify', false);
@@ -48,7 +50,7 @@ mongoose.connection.on('error', (err) => {
 /**
  * Express configuration.
  */
-app.set('port', 8080);
+app.set('port', PORT);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(flash());
