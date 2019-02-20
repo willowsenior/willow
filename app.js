@@ -12,7 +12,7 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 
 
-const MONGODB = process.env.MONGODB || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
+const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
 
 /**
  * Controllers (route handlers).
