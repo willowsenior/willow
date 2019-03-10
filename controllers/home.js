@@ -8,7 +8,7 @@ exports.index = (req, res, error) => {
     if(error){
         console.log(error);
     }
-
+    
     if(!req.user){
       console.log('Simple Home');
       res.render('home', {
