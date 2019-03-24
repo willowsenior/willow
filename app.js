@@ -103,32 +103,20 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 /**
  * Primary app routes.
  */
-app.get('/', userController.getLogin);
-app.get('/home', homeController.index);
-//Login
+app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
-app.post('/signup', userController.postSignup);
 // app.get('/forgot', userController.getForgot);
 // app.post('/forgot', userController.postForgot);
 // app.get('/reset/:token', userController.getReset);
 // app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
-app.get('/customersignup', userController.getCustomerSignup);
-
-//Admin
-app.get('/willowadminsignup', userController.getWillowAdminSignup);
-app.post('/willowadminsignup', userController.postWillowAdminSignup);
-app.get('/willowadminsignin', userController.getWillowAdminSignin);
-app.post('/willowadminsignin', userController.postWillowAdminSignin);
-
-//Facility
+app.post('/signup', userController.postSignup);
+//app.get('/facility', facilityController.getFacility);
 app.get('/facility/:facility_id', facilityController.getFacility);
 app.get('/facilitysignup', facilityController.getFacilitySignup);
 app.post('/facilitysignup', facilityController.postFacilitySignup);
-
-//Room
 app.get('/room', facilityController.getRoom);
 app.get('/roomsignup/:facility_id', facilityController.getRoomSignup);
 app.post('/roomsignup/:facility_id', facilityController.postRoomSignup);

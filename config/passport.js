@@ -5,7 +5,6 @@ const { OAuth2Strategy: GoogleStrategy } = require('passport-google-oauth');
 const { OAuthStrategy } = require('passport-oauth');
 
 const User = require('../models/User');
-const Admin = require('../models/Admin');
 var configAuth = require('./auth');
 
 
@@ -21,13 +20,9 @@ passport.deserializeUser((id, done) => {
 /**
  * Sign in using Email and Password.
  */
-passport.use('user', new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-    console.log('here 111');
+passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
     User.findOne({ email: email.toLowerCase() }, (err, user) => {
-        if (err) { 
-            console.log(err);
-            return done(err); 
-        }
+        if (err) { return done(err); }
         if (!user) {
             return done(null, false, { msg: `Email ${email} not found.` });
         }
@@ -40,27 +35,6 @@ passport.use('user', new LocalStrategy({ usernameField: 'email' }, (email, passw
         });
     });
 }));
-
-passport.use('admin',new LocalStrategy({ usernameField: 'email',  }, (email, password, done) => {
-    console.log('here 222');
-    Admin.findOne({ email: email.toLowerCase() }, (err, user) => {
-        if (err) { 
-            console.log(err);
-            return done(err); 
-        }
-        if (!user) {
-            return done(null, false, { msg: `Email ${email} not found.` });
-        }
-        user.comparePassword(password, (err, isMatch) => {
-            if (err) { return done(err); }
-            if (isMatch) {
-                return done(null, user);
-            }
-            return done(null, false, { msg: 'Invalid email or password.' });
-        });
-    });
-}));
-
 /// Sign in using google:
 /**
  * Sign in with Google.

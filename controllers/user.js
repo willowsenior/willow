@@ -1,5 +1,4 @@
 const passport = require('passport');
-const Admin = require('../models/Admin');
 const User = require('../models/User');
 
 /**
@@ -33,7 +32,7 @@ exports.postLogin = (req, res, next) => {
         return res.redirect('/login');
     }
 
-    passport.authenticate('user', (err, user, info) => {
+    passport.authenticate('local', (err, user, info) => {
         if (err) { return next(err); }
         if (!user) {
             console.log(info);
@@ -45,8 +44,7 @@ exports.postLogin = (req, res, next) => {
                 return next(err);
             }
             req.flash('success', { msg: 'Success! You are logged in.' });
-            console.log('User : '+user);
-            res.redirect('/home');
+            res.redirect(req.session.returnTo || '/');
         });
     })(req, res, next);
 };
@@ -74,109 +72,6 @@ exports.getSignup = (req, res) => {
     }
     res.render('account/signup', {
         title: 'Create Account'
-    });
-};
-
-///
-//GET /customersignup
-// Customer Signup page.
-//
-exports.getCustomerSignup = (req, res) => {
-    if (req.user) {
-        return res.redirect('/');
-    }
-    res.render('account/customersignup', {
-        title: 'Create Account'
-    });
-};
-
-exports.getWillowAdminSignup = (req, res) => {
-    if (req.user) {
-        return res.redirect('/');
-    }
-    res.render('account/willowadminsingup', {
-        title: 'Create Admin Account'
-    });
-};
-
-exports.postWillowAdminSignup = (req, res, next) => {
-    req.assert('email', 'Email is not valid').isEmail();
-    req.assert('password', 'Password must be at least 4 characters long').len(4);
-    req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
-    req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
-
-    const errors = req.validationErrors();
-
-    if (errors) {
-        req.flash('errors', errors);
-        return res.redirect('/account/willowadminsingup');
-    }
-
-    var admin = new Admin({
-        email: req.body.email,
-        password: req.body.password,
-        passcode: req.body.passcode
-    });
-
-    Admin.findOne({ email: req.body.email }, (err, existingUser) => {
-        if (err) { return next(err); }
-        if (existingUser) {
-            req.flash('errors', { msg: 'Account with that email address already exists.' });
-            return res.redirect('/account/willowadminsignup');
-        }
-        admin.save((err) => {
-            if (err) { return next(err); }
-            req.logIn(admin, (err) => {
-                if (err) {
-                    return next(err);
-                }
-                res.redirect('home');
-            });
-        });
-    });
-};
-
-//
-//POST /login
-//Sign in using email and password.
-//
-exports.postWillowAdminSignin = (req, res, next) => {
-    req.assert('email', 'Email is not valid').isEmail();
-    req.assert('password', 'Password cannot be blank').notEmpty();
-    req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
-
-    const errors = req.validationErrors();
-
-    if (errors) {
-        console.log(errors);
-        req.flash('errors', errors);
-        return res.redirect('/account/willowadminsignin');
-    }
-
-    passport.authenticate('admin', (err, user, info) => {
-        if (err) { return next(err); }
-        if (!user) {
-            console.log(info);
-            req.flash('errors', info);
-            return res.redirect('/account/willowadminsignin');
-        }
-        req.logIn(user, (err) => {
-            if (err) {
-                return next(err);
-            }
-            req.flash('success', { msg: 'Success! You are logged in.' });
-            console.log('User : '+user);
-            res.redirect('/home');
-        });
-    })(req, res, next);
-};
-
-exports.getWillowAdminSignin = (req, res) => {
-    if (req.user) {
-        return res.redirect('/');
-    }
-    res.render('account/willowadminsignin', {
-        title: 'Admin Sign in'
     });
 };
 
