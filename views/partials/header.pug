@@ -31,5 +31,9 @@
               li.dropdown-item
                 a(href='/account') My Account
               li.divider.dropdown-item
+              if user.isAdmin
+                li.dropdown-item
+                  a(href='/customersignup') Create Customer Signup
+              li.divider.dropdown-item
               li.dropdown-item
                 a(href='/logout') Logout

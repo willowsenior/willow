@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     passwordResetExpires: Date,
     google: String,
     tokens: Array,
-
+    isAdmin: { type: Boolean, default: false},
     profile: {
         name: String,
         gender: String,

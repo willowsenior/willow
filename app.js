@@ -120,6 +120,13 @@ app.get('/logout', userController.logout);
 
 app.get('/customersignup', userController.getCustomerSignup);
 
+//Admin
+app.get('/willowadminsignup', userController.getWillowAdminSignup);
+app.post('/willowadminsignup', userController.postWillowAdminSignup);
+app.get('/willowadminsignin', userController.getWillowAdminSignin);
+app.post('/willowadminsignin', userController.postWillowAdminSignin);
+
+
 //app.get('/facility', facilityController.getFacility);
 app.get('/facility/:facility_id', facilityController.getFacility);
 app.get('/facilitysignup', facilityController.getFacilitySignup);
