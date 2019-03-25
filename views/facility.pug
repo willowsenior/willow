@@ -13,6 +13,19 @@ block content
             td= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip 
     br
     br
+    p.lead Level of Assistance
+    .row
+    - for (var key in currentFacility.FacilityFeatures)
+        -if(key != '$init')
+            -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
+                    .col-md-6
+                        table.table
+                            thead.thead-light
+                                tr
+                                    td.col-md-6.text-left= key
+                                    td.col-md-6.text-left= currentFacility.FacilityFeatures[key]
+    br
+    br
     .row
     p.lead Room Details
     .col

@@ -6,7 +6,6 @@ const Room = require('../models/Room');
  * Home page.
  */
 exports.getFacility = (req, res, error) => {
-    console.log(' >>>> getFacility >>>>>');
     var id = req.params.facility_id;
     console.log("ID:   "+id);
     var currentFacility;
@@ -25,7 +24,7 @@ exports.getFacility = (req, res, error) => {
         Room.find({'FacilityID':id})
         .then((rooms)=>{
           currentRooms = rooms;
-          console.log('currentRooms: '+ currentRooms);   
+          console.log('currentRooms: '+ currentRooms); 
           res.render('facility', {
             title: 'Facility',
             currentFacility,
@@ -40,6 +39,8 @@ exports.getFacility = (req, res, error) => {
         });        
     }) 
 };
+
+
 
 exports.getRoom = (req, res, error) => {
     console.log(' >>>> getRoom >>>>>');
