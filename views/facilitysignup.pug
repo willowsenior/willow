@@ -2,7 +2,7 @@ extends layout
 
 block content
   .pb-2.mt-2.mb-4.border-bottom
-    h3 Sign up
+    h3 Create Permanent Facility Profile
   form(id='facsignup-form', method='POST', action='/facilitysignup')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
@@ -17,14 +17,6 @@ block content
       label.col-md-3.col-form-label.font-weight-bold.text-right Contact Name
       .col-md-7
         input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name', required)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Rating
-      .col-md-7
-        input.form-control(type='text', name='rating', id='rating', placeholder='Rating', optional)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Compliance Status
-      .col-md-7
-        input.form-control(type='text', name='complianceStatus', id='complianceStatus', placeholder='Yes/No', optional)
     .form-group.row
         h4.col-md-3.text-right Address
     .form-group.row
@@ -43,7 +35,66 @@ block content
       label.col-md-3.col-form-label.font-weight-bold.text-right Zip
       .col-md-7
         input.form-control(type='text', name='zip', id='zip', placeholder='Zip', optional)
+    br
+    hr
+    br
+    .form-group.row
+    h4.col-md-7.text-right Set the level of assistance that your facility can accomodate
+    br
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Eating
+      .col-md-7
+        //input.form-control(type='text', name='zip', id='zip', placeholder='Zip', optional)
+        .form-check
+            input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', placeholder='eating_noassistance' value=1)
+            label.mb-2.form-check-label(for='eating_noassistance') We do not provide any assistance
+        .form-check
+            input.form-check-input(type='checkbox', name='eating_intermittent', id='eating_intermittent', placeholder='eating_intermittent' value=1)
+            label.mb-2.form-check-label(for='eating_intermittent') We can provide some intermittent supervision (e.g. cutting up food, buttering butter or opening of milk carton)
+        .form-check
+            input.form-check-input(type='checkbox', name='eating_continual', id='eating_continual', placeholder='eating_continual' value=1)
+            label.mb-2.form-check-label(for='eating_continual') We can provide continual help(meal would not be eaten without assistance)
+        .form-check
+            input.form-check-input(type='checkbox', name='eating_byhand', id='eating_byhand', placeholder='eating_byhand' value=1)
+            label.mb-2.form-check-label(for='eating_byhand') We can feed a senior completely by hand(no senior participation)
+        .form-check
+            input.form-check-input(type='checkbox', name='eating_tube', id='eating_tube', placeholder='eating_tube' value=1)
+            label.mb-2.form-check-label(for='eating_tube') We can provide Tube or Parental Feeding for food intake
+    br
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Daily Living
+      .col-md-7
+        //input.form-control(type='text', name='zip', id='zip', placeholder='Zip', optional)
+        .form-check
+            input.form-check-input(type='checkbox', name='dailyliving_intermittent', id='dailyliving_intermittent', placeholder='dailyliving_intermittent' value=1)
+            label.mb-2.form-check-label(for='dailyliving_intermittent') Requires some intermittent supervision/ physical assistance for difficult maneuvers only
+        .form-check
+            input.form-check-input(type='checkbox', name='dailyliving_oneperson', id='dailyliving_oneperson', placeholder='dailyliving_oneperson' value=1)
+            label.mb-2.form-check-label(for='dailyliving_oneperson') Requires 1 Person to provide constant supervision / physical assistance
+        .form-check
+            input.form-check-input(type='checkbox', name='dailyliving_twopeople', id='dailyliving_twopeople', placeholder='dailyliving_twopeople' value=1)
+            label.mb-2.form-check-label(for='dailyliving_twopeople') Requires 2 People to provide constant supervision / physical assistance
+        .form-check
+            input.form-check-input(type='checkbox', name='dailyliving_bed', id='dailyliving_bed', placeholder='dailyliving_bed' value=1)
+            label.mb-2.form-check-label(for='dailyliving_bed') Cannot and Does Not Get Out of Bed
+    br
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right Behaviourial Assessment
+      .col-md-7
+        //input.form-control(type='text', name='zip', id='zip', placeholder='Zip', optional)
+        .form-check
+            input.form-check-input(type='checkbox', name='behaviourial_disruption1', id='behaviourial_disruption1', placeholder='behaviourial_disruption1' value=1)
+            label.mb-2.form-check-label(for='behaviourial_disruption1') Infrequent disruption (no yelling within the past 7 days)
+        .form-check
+            input.form-check-input(type='checkbox', name='behaviourial_aggression1', id='behaviourial_aggression1', placeholder='behaviourial_aggression1' value=1)
+            label.mb-2.form-check-label(for='behaviourial_aggression1') Infrequent aggression (no hitting within the past 7 days)
+        .form-check
+            input.form-check-input(type='checkbox', name='behaviourial_disruption2', id='behaviourial_disruption2', placeholder='behaviourial_disruption2' value=1)
+            label.mb-2.form-check-label(for='behaviourial_disruption2') Unpredictable disruption at least once a week
+        .form-check
+            input.form-check-input(type='checkbox', name='behaviourial_aggression2', id='behaviourial_aggression2', placeholder='behaviourial_aggression2' value=1)
+            label.mb-2.form-check-label(for='behaviourial_aggression2') Unpredictable aggression at least once a week
     .form-group.offset-sm-3.col-md-7.pl-2
       button.btn.btn-success(type='submit')
         i.fas.fa-user-plus.fa-sm
-        | Submit
+        | Signup

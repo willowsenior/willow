@@ -12,8 +12,21 @@ const facilitySchema = new mongoose.Schema({
     ContactName: String,
     Email: { type: String },
     // FacilityPhoto:
-    Rating: Number,
-    ComplianceStatus: String
+    FacilityFeatures: {
+        Eating_noassistance: Boolean,
+        Eating_intermittent: Boolean,
+        Eating_continual: Boolean,
+        Eating_byhand: Boolean,
+        Eating_tube: Boolean,
+        Dailyliving_intermittent: Boolean,
+        Dailyliving_oneperson: Boolean,
+        Dailyliving_twopeople : Boolean,
+        Dailyliving_bed : Boolean,
+        Behaviourial_disruption1 : Boolean,
+        Behaviourial_aggression1 : Boolean,
+        Behaviourial_disruption2 : Boolean,
+        Behaviourial_aggression2 : Boolean,
+    }
 }, { timestamps: true });
 
 

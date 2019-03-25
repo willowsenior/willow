@@ -208,7 +208,6 @@ exports.putRoomUpdate = (req, res, error) => {
 };
 
 exports.getFacilitySignup = (req, res, error) => {
-    console.log(' >>>> getFacilitySignup >>>>>');
     if (!req.user) {
       return res.redirect('/login');
     }
@@ -218,8 +217,6 @@ exports.getFacilitySignup = (req, res, error) => {
 };
 
 exports.postFacilitySignup = (req, res, next) => {
-    console.log(' >>>> postFacilitySignup >>>>>');
-    console.log(req.body.user);
     const errors = req.validationErrors();
 
     if (errors) {
@@ -239,9 +236,21 @@ exports.postFacilitySignup = (req, res, next) => {
         ContactName: req.body.contactName,
         Email: req.user.email,
         // FacilityPhoto:
-        Rating: req.body.rating,
-
-        ComplianceStatus: req.body.complianceStatus
+        FacilityFeatures: {
+          Eating_noassistance: req.body.eating_noassistance,
+          Eating_intermittent: req.body.eating_intermittent,
+          Eating_continual: req.body.eating_continual,
+          Eating_byhand: req.body.eating_byhand,
+          Eating_tube: req.body.eating_tube,
+          Dailyliving_intermittent: req.body.dailyliving_intermittent,
+          Dailyliving_oneperson: req.body.dailyliving_oneperson,
+          Dailyliving_twopeople: req.body.dailyliving_twopeople,
+          Dailyliving_bed : req.body.dailyliving_bed,
+          Behaviourial_disruption1 : req.body.behaviourial_disruption1,
+          Behaviourial_aggression1 : req.body.behaviourial_aggression1,
+          Behaviourial_disruption2 : req.body.behaviourial_disruption2,
+          Behaviourial_aggression2 : req.body.behaviourial_aggression2
+        }
     });
 
     // var userdata = {
