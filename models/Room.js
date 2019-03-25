@@ -6,24 +6,12 @@ const RoomSchema = new mongoose.Schema({
     RoomName: String,
     RoomCount: Number,
     Gender: String,
-    RoomFeatures: {
-        Oxygen: Boolean,
-        Diabetes: Boolean,
-        Price: Boolean,
-        Incontinence: Boolean,
-        Private: Boolean,
-        SemiPrivate: Boolean,
-        Medicaid: Boolean,
-        RespiteCare: Boolean,
-        Eating : Boolean,
-        Transfers : Boolean,
-        Mobility : Boolean,
-        Toileting : Boolean,
-        Verbal_Disruption : Boolean,
-        Physical_Aggression : Boolean,
-        Socially_Inapproriate_Behaviour : Boolean,
-        Hallucinations : Boolean,
-    }
+    RoomType: { type: String, enum: ['Private', 'Semi-Private', 'Suit', 'Studio Apartment'] },
+    Range: {
+        min: { type: Number, min: 0 },
+        max: { type: Number, min: 0 }
+    },
+    MedicAid: String
 }, { timestamps: true });
 
 const Room = mongoose.model('Room', RoomSchema);

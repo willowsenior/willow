@@ -76,10 +76,8 @@ exports.getRoomSignup = (req, res, error) => {
 
 
 exports.postRoomSignup = (req, res, error) => {
-  console.log(' >>>> postRoomSignup >>>>>');
   const errors = req.validationErrors();
   var id = req.params.facility_id;
-  
   
   Facility.findById(id)
   .then((facility)=>{
@@ -89,24 +87,12 @@ exports.postRoomSignup = (req, res, error) => {
       RoomName: req.body.roomName,
       RoomCount: req.body.count,
       Gender: req.body.radio,
-      RoomFeatures: {
-          Oxygen: req.body.oxygen,
-          Diabetes: req.body.diabetes,
-          Price: req.body.price,
-          Incontinence: req.body.incontinence,
-          Private: req.body.private,
-          SemiPrivate: req.body.semiPrivate,
-          Medicaid: req.body.medicaid,
-          RespiteCare: req.body.respiteCare,
-          Eating : req.body.eating,
-          Transfers : req.body.transfers,
-          Mobility : req.body.mobility,
-          Toileting : req.body.toileting,
-          Verbal_Disruption : req.body.verbalDisruption,
-          Physical_Aggression : req.body.physicalAggression,
-          Socially_Inapproriate_Behaviour : req.body.sociallyInapproriateBehaviour,
-          Hallucinations : req.body.hallucinations
-      }
+      RoomType: req.body.roomtype,
+      Range:{
+        min: req.body.min,
+        max: req.body.max
+      },
+      MedicAid: req.body.medicaid
     });
   
     /// TO BE REMOVED LATER
