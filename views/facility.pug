@@ -1,7 +1,9 @@
 extends layout
 
 block content
-    p.lead Facility Details
+    h5 Facility
+        a.col-md-3(href="/updatefacility/"+currentFacility._id)
+            h6.i.ml-4.fas.fa-edit  Update Facility Information
     .row
     table.table
         thead.thead-light
@@ -24,7 +26,7 @@ block content
                                 tr
                                     td.col-md-6.text-left= key
                                     td.col-md-6.text-left= currentFacility.FacilityFeatures[key]
-    br
+    hr
     br
     .row
     p.lead Room Details
@@ -37,16 +39,21 @@ block content
                             if currentRooms && currentRooms.length
                                 - for (var i = 0; i < currentRooms.length; i++)
                                     h6= currentRooms[i].RoomName
-                                        a(href="/updateroom/"+currentFacility._id+'/'+currentRooms[i]._id)
-                                            i.ml-4.fas.fa-edit
-                                    table.table
-                                        thead.thead-light
-                                        tr
-                                            th Total Count 
-                                            th= currentRooms[i].RoomName
-                                        tr
-                                            td Available 
-                                            td something
+                                        a.col-md-3(href="/updateroom/"+currentFacility._id+'/'+currentRooms[i]._id)
+                                            h6.i.ml-4.fas.fa-edit  Update Room Information
+                                    .row
+                                        .col-md-12
+                                            table.table
+                                                thead.thead-light
+                                                tr
+                                                    th.text-left Total Count 
+                                                    th.text-left= currentRooms[i].RoomCount
+                                                tr
+                                                    td.text-left Room Type 
+                                                    td.text-left= currentRooms[i].RoomType
+                                                tr
+                                                    td.text-left Range 
+                                                    td.text-left #{currentRooms[i].Range.min} 'to' #{currentRooms[i].Range.max}
                             else    
                                 p.lead No room profiles are registered under this facility
 

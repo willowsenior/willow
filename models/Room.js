@@ -6,7 +6,7 @@ const RoomSchema = new mongoose.Schema({
     RoomName: String,
     RoomCount: Number,
     Gender: String,
-    RoomType: { type: String, enum: ['Private', 'Semi-Private', 'Suit', 'Studio Apartment'] },
+    RoomType: String,
     Range: {
         min: { type: Number, min: 0 },
         max: { type: Number, min: 0 }
