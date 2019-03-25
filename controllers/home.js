@@ -18,10 +18,14 @@ exports.index = (req, res, error) => {
       console.log('Home with facilities');
       Facility.find({"Email" : req.user.email})
       .then((facilities)=>{
-        res.render('home', {
-          title: 'Home',
-          facilities
-        });
+        if(facilities.length === 1){
+          res.redirect('/facility/'+facilities[0]._id);
+        }else{
+          res.render('home', {
+            title: 'Home',
+            facilities
+          });
+        }
       })
       .catch((error) => { 
         console.log(error);

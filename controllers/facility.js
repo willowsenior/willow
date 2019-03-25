@@ -14,17 +14,17 @@ exports.getFacility = (req, res, error) => {
     Facility.findById(id)
     .then((facility)=>{
         currentFacility = facility;
-        console.log('facility'+facility);
-        console.log('currentFacility: '+currentFacility);
-        console.log(currentFacility.Address);
-        console.log(currentFacility.Address.street);
+        //console.log('facility'+facility);
+        //console.log('currentFacility: '+currentFacility);
+        //console.log(currentFacility.Address);
+        //console.log(currentFacility.Address.street);
         return Promise.resolve(currentFacility);
     })
     .then(()=>{
         Room.find({'FacilityID':id})
         .then((rooms)=>{
           currentRooms = rooms;
-          console.log('currentRooms: '+ currentRooms); 
+          //console.log('currentRooms: '+ currentRooms); 
           res.render('facility', {
             title: 'Facility',
             currentFacility,
@@ -41,7 +41,6 @@ exports.getFacility = (req, res, error) => {
 };
 
 
-
 exports.getRoom = (req, res, error) => {
     console.log(' >>>> getRoom >>>>>');
     if (error) {
@@ -54,7 +53,6 @@ exports.getRoom = (req, res, error) => {
 
 
 exports.getRoomSignup = (req, res, error) => {
-  console.log(' >>>> getRoomSignup >>>>>');
   var id = req.params.facility_id;
   var currentFacility;
 
@@ -125,7 +123,6 @@ exports.postRoomSignup = (req, res, error) => {
 
 
 exports.getRoomUpdate = (req, res, error) => {
-  console.log(">>>> getRoomUpdate >>>>")
   var facility_id = req.params.facility_id;
   var room_id = req.params.room_id;
   var currentRoom;
@@ -159,26 +156,28 @@ exports.getRoomUpdate = (req, res, error) => {
 };
 
 exports.putRoomUpdate = (req, res, error) => {
-  console.log(' >>>> putRoomUpdate >>>>>');
-  console.log('req.body.user: '+req.body.user);
   const errors = req.validationErrors();
 
   if (errors) {
       req.flash('errors', errors);
       return res.redirect('/signup');
   }
-
-  Facility.findByIdAndUpdate(req.param.facility_id,{$set: req.body})
+  var facilityID = req.params.facility_id;
+  Facility.findByIdAndUpdate(facilityID,{$set: req.body})
   .then((facility)=>{
-    roomId = req.param.facility_id;
+    console.log(facilityID);
+    roomId = req.params.room_id;
+    console.log(roomId);
     console.log('roomId:  '+roomId);
     res.render('/facility/'+facility._id,{
       title: 'Room Signup',
       facility,
       roomId
     });
+    return Promise.resolve()
   })
   .catch((error)=>{
+    console.log("ERRRRRRR");
     if(error){
       console.log(error);
     }
@@ -247,7 +246,7 @@ exports.postFacilitySignup = (req, res, next) => {
 
     /// TO BE REMOVED LATER
     console.log('Data being send to DB');
-    console.log(facility);
+    //console.log(facility);
 
     facility.save(function(err) {
         if(err){
