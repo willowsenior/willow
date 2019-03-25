@@ -28,4 +28,11 @@ exports.index = (req, res, error) => {
         res.send('Sorry! Something went wrong.'); })
     }
   };
+
+exports.getContact = (req, res) => {
+    res.render('contact', {
+        title: 'Contact'
+    });
+};
+
   

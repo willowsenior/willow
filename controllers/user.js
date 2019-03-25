@@ -14,7 +14,6 @@ exports.getLogin = (req, res) => {
     });
 };
 
-
 //
 //POST /login
 //Sign in using email and password.
@@ -40,7 +39,7 @@ exports.postLogin = (req, res, next) => {
         }
 
         if (!user) {
-            console.log(info);
+            //console.log(info);
             req.flash('errors', info);
             return res.redirect('/login');
         }
@@ -135,6 +134,62 @@ exports.getCustomerSignup = (req, res) => {
         title: 'Create Account'
     });
 };
+
+exports.getAdminCustomerSignup = (req, res) => {
+    // if (req.user) {
+    //     return res.redirect('/home');
+    // }
+    res.render('account/admincustomersignup', {
+        title: 'Create Customer Account'
+    });
+};
+
+exports.postAdminCustomerSignup = (req, res, next) => {
+    req.assert('email', 'Email is not valid').isEmail();
+    req.assert('password', 'Password must be at least 4 characters long').len(4);
+    req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+    req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
+
+    const errors = req.validationErrors();
+
+    if(!req.user || !req.user.isAdmin){
+        req.flash('errors', errors);
+        return res.redirect('willowadminsignin');
+    }
+    
+    if (errors) {
+        req.flash('errors', errors);
+        return res.redirect('admincustomersignup');
+    }
+
+    var customer = new User({
+        email: req.body.email,
+        password: req.body.password
+    });
+
+    User.findOne({ email: req.body.email }, (err, existingUser) => {
+        if (err) { return next(err); }
+        
+        if (existingUser) {
+            req.flash('errors', { msg: 'Account with that email address already exists.' });
+            return res.redirect('admincustomersignup');
+        }
+        customer.save((err) => {
+            console.log('saving ');
+            if (err) { return next(err); }
+            // req.logIn(admin, (err) => {
+            //     if (err) {
+            //         return next(err);
+            //     }
+            //     res.redirect('/home');
+            // });
+
+            console.log("Customer created: "+ req.body.email);
+            res.redirect('/home');
+        });
+    });
+};
+
 
 exports.getWillowAdminSignup = (req, res) => {
     if (req.user) {

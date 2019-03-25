@@ -108,24 +108,22 @@ app.get('/', userController.getLogin);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
+app.get('/customersignup', userController.getCustomerSignup);
+app.get('/contact', homeController.getContact);
 // app.get('/forgot', userController.getForgot);
 // app.post('/forgot', userController.postForgot);
 // app.get('/reset/:token', userController.getReset);
 // app.post('/reset/:token', userController.postReset);
 
-/* TO BE UNCOMMENTED IN FUTURE ***
-//app.get('/signup', userController.getSignup);
-//app.post('/signup', userController.postSignup);
-*/
 
-app.get('/customersignup', userController.getCustomerSignup);
 
 //Admin
 app.get('/willowadminsignup', userController.getWillowAdminSignup);
 app.post('/willowadminsignup', userController.postWillowAdminSignup);
 app.get('/willowadminsignin', userController.getWillowAdminSignin);
 app.post('/willowadminsignin', userController.postWillowAdminSignin);
-
+app.get('/admincustomersignup', userController.getAdminCustomerSignup);
+app.post('/admincustomersignup', userController.postAdminCustomerSignup);
 
 //app.get('/facility', facilityController.getFacility);
 app.get('/facility/:facility_id', facilityController.getFacility);
@@ -139,13 +137,13 @@ app.get('/updateroom/:facility_id/:room_id', facilityController.getRoomUpdate);
 
 
 ////AUthentication routes
-
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: '/login'
 }), (req, res) => {
     res.redirect(req.session.returnTo || '/');
 });
+
 /**
  * Start Express server.
  */
