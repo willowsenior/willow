@@ -8,8 +8,11 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const logger = require('morgan');
 const dotenv = require('dotenv');
+//const errorHandler = require('errorhandler');
+//const expressStatusMonitor = require('express-status-monitor');
 
 
 const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
@@ -52,9 +55,12 @@ mongoose.connection.on('error', (err) => {
 app.set('port', PORT);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.use(methodOverride('_method'));
 app.use(flash());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(expressValidator());
 app.use(session({
     resave: true,
@@ -75,6 +81,8 @@ app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
 });
+
+
 app.use((req, res, next) => {
     // After successful login, redirect back to the intended page
     if (!req.user &&

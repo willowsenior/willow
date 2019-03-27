@@ -1,6 +1,7 @@
 const passport = require('passport');
 const User = require('../models/User');
 
+
 /**
  * GET /login
  * Login page.
@@ -39,8 +40,11 @@ exports.postLogin = (req, res, next) => {
         }
 
         if (!user) {
-            //console.log(info);
+            console.log(info);
             req.flash('errors', info);
+            // res.render('account/login', {
+            //     title: 'Login'
+            // });
             return res.redirect('/login');
         }
         req.logIn(user, (err) => {

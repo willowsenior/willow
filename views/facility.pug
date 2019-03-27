@@ -6,30 +6,36 @@ block content
     .col
         .row.mt-4 
             .col
-                form
+                
                     .row
                         - for (var i = 0; i < currentRooms.length; i++)
-                            br
-                            .row
                             .col-md-6
                                 .card-deck
-                                    .card.ml-4.mr-4
+                                    .card.mr-4.mt-4.mb-4
                                         .card-body
                                             h4.card-title= currentRooms[i].RoomName
-                                            form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString())
+                                            form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
                                                 input(type='hidden', name='_csrf', value=_csrf)
                                                 .form-group.row
                                                     label.col-md-3.col-form-label.font-weight-bold.text-left Room Count
-                                                    .col-md-4
+                                                    .col-md-7
                                                         input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
                                                 .form-group.row
                                                     label.col-md-3.col-form-label.font-weight-bold.text-left(for='roomtype') Room Type
-                                                    .col-md-4
+                                                    .col-md-7
                                                         select.form-control(id='roomtype' name='roomtype' )
                                                             option(selected= currentRooms[i].RoomType==='Private') Private
                                                             option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
                                                             option(selected= currentRooms[i].RoomType==='Suit') Suit
                                                             option(selected= currentRooms[i].RoomType==='Suit') Studio Apartment
+                                                .form-group.row
+                                                    label.col-md-3.col-form-label.font-weight-bold.text-middle Room Rent Range
+                                                    .col-md-3
+                                                        input.form-control(type='number', name='min', id='min', value=currentRooms[i].Range.min, autofocus, required)
+                                                    .col-md-1
+                                                        label.font-weight-bold.text-right to  
+                                                    .col-md-3
+                                                        input.form-control(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
                                                 .form-group.offset-sm-3.col-md-7.pl-2
                                                     button.btn.btn-success(type='submit')
                                                         | Update Room
@@ -91,12 +97,14 @@ block content
     - for (var key in currentFacility.FacilityFeatures)
         -if(key != '$init')
             -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
-                    .col-md-6
-                        table.table
-                            thead.thead-light
+                    table.table
+                        thead.thead-light
+                            .col-md-6
                                 tr
-                                    td.col-md-6.text-left= key
-                                    td.col-md-6.text-left= currentFacility.FacilityFeatures[key]
+                                    //td.col-md-6.text-right= myconstants.constants(key)
+                                    //td.text-left= key
+                                    //.col-md-6
+                                    td.text-left= myconstants.constants(key)
     hr
     br
 

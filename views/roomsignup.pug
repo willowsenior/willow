@@ -49,17 +49,19 @@ block content
             input.form-radio-input(type='radio', name='medicaid', id='medicaid' value = 'N')
             label.form-radio-label.ml-4(for='radio') No
     br
-    p.lead.text-middle Level of Assistance Accomodated in the Facility
+    p.lead Level of Assistance
+    .row
     - for (var key in currentFacility.FacilityFeatures)
         -if(key != '$init')
             -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
-                
-                    .col-md-6
-                        table.table
-                            thead.thead-light
+                    table.table
+                        thead.thead-light
+                            .col-md-6
                                 tr
-                                    td.col-md-6.text-left= key
-                                    td.col-md-6.text-left= currentFacility.FacilityFeatures[key]
+                                    //td.col-md-6.text-right= myconstants.constants(key)
+                                    //td.text-left= key
+                                    //.col-md-6
+                                    td.text-left= myconstants.constants(key)
     .form-group.offset-sm-3.col-md-7.pl-2
       button.btn.btn-success(type='submit')
         | Add a Room
