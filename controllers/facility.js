@@ -278,10 +278,8 @@ exports.postFacilitySignup = (req, res, next) => {
           Behaviourial_unpredictable : req.body.behaviourial_unpredictable
         }
     });
-    
-    /// TO BE REMOVED LATER
-    console.log('Data being send to DB');
-    //console.log(facility);
+
+    console.log('Data being send to DB now!');
 
     facility.save(function(err) {
         if(err){
