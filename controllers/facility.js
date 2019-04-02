@@ -278,12 +278,7 @@ exports.postFacilitySignup = (req, res, next) => {
           Behaviourial_unpredictable : req.body.behaviourial_unpredictable
         }
     });
-
-    // var userdata = {
-    //     email: req.body.email,
-    //     password: req.body.password
-    // }
-
+    
     /// TO BE REMOVED LATER
     console.log('Data being send to DB');
     //console.log(facility);
