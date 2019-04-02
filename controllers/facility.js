@@ -167,7 +167,6 @@ exports.putRoomUpdate = (req, res, error) => {
   // });
 };
 
-
 exports.getRoomUpdate = (req, res, error) => {
   console.log('get room >>> ');
   var facility_id = req.params.facility_id;
@@ -207,7 +206,8 @@ exports.getFacilitySignup = (req, res, error) => {
       return res.redirect('/login');
     }
     res.render('facilitysignup', {
-        title: 'Facility'
+        title: 'Facility',
+        myconstants
     });
 };
 
@@ -218,7 +218,6 @@ exports.postFacilitySignup = (req, res, next) => {
         req.flash('errors', errors);
         return res.redirect('/signup');
     }
-
     var facility = new Facility({
         FacilityName: req.body.facilityName,
         Address: {
@@ -230,6 +229,16 @@ exports.postFacilitySignup = (req, res, next) => {
         Contact: req.body.contactNumber,
         ContactName: req.body.contactName,
         Email: req.user.email,
+        Hallucination: req.body.hallucinations,
+        MemoryCare: req.body.memorycare,
+        InsulinShots: req.body.insulinshots,
+        OxygenTank: req.body.oxygentank,
+        ChangeOxygenTank: req.body.changeoxygentank,
+        AllTimeOxygen: req.body.alltimeoxygen,
+        ChangeCatheter: req.body.changecatheter,
+        MedicationManagement: req.body.medicationmanagement,
+        LiquidDiets: req.body.liquiddiets,
+        GroundDiets: req.body.grounddiets,
         // FacilityPhoto:
         FacilityFeatures: {
           Eating_noassistance: req.body.eating_noassistance,
@@ -237,14 +246,36 @@ exports.postFacilitySignup = (req, res, next) => {
           Eating_continual: req.body.eating_continual,
           Eating_byhand: req.body.eating_byhand,
           Eating_tube: req.body.eating_tube,
-          Dailyliving_intermittent: req.body.dailyliving_intermittent,
-          Dailyliving_oneperson: req.body.dailyliving_oneperson,
-          Dailyliving_twopeople: req.body.dailyliving_twopeople,
-          Dailyliving_bed : req.body.dailyliving_bed,
-          Behaviourial_disruption1 : req.body.behaviourial_disruption1,
-          Behaviourial_aggression1 : req.body.behaviourial_aggression1,
-          Behaviourial_disruption2 : req.body.behaviourial_disruption2,
-          Behaviourial_aggression2 : req.body.behaviourial_aggression2
+          Transfers_none: req.body.transfers_none,
+          Transfers_intermittent: req.body.transfers_intermittent,
+          Transfers_oneperson: req.body.transfers_oneperson,
+          Transfers_twoperson: req.body.transfers_twoperson,
+          Transfers_cannot: req.body.transfers_cannot,
+          Mobiliy_noassisstance: req.body.mobiliy_noassisstance,
+          Mobiliy_intermittent: req.body.mobiliy_intermittent,
+          Mobiliy_continual: req.body.mobiliy_continual,
+          Mobiliy_wheels: req.body.mobiliy_wheels,
+          Mobiliy_cannotmove: req.body.mobiliy_cannotmove,
+          Toileting_noassisstance: req.body.toileting_noassisstance,
+          Toileting_bowel: req.body.toileting_bowel,
+          Toileting_continual: req.body.toileting_continual,
+          Toileting_nobathroomincontinent: req.body.toileting_nobathroomincontinent,
+          Toileting_bathroomincontinent: req.body.toileting_bathroomincontinent,
+          Verbal_none: req.body.verbal_none,
+          Verbal_infrequent: req.body.verbal_infrequent,
+          Verbal_predictable: req.body.verbal_predictable,
+          Verbal_onceunpredictable: req.body.verbal_onceunpredictable,
+          Verbal_multipleunpredictable: req.body.verbal_multipleunpredictable,
+          Physical_none: req.body.physical_none,
+          Physical_infrequent: req.body.physical_infrequent,
+          Physical_predictable: req.body.physical_predictable,
+          Physical_onceunpredictable: req.body.physical_onceunpredictable,
+          Physical_multipleunpredictable: req.body.physical_multipleunpredictable,
+          Behaviourial_none : req.body.behaviourial_none,
+          Behaviourial_yesnondisruptive : req.body.behaviourial_yesnondisruptive,
+          Behaviourial_infrequent : req.body.behaviourial_infrequent,
+          Behaviourial_frequent : req.body.behaviourial_frequent,
+          Behaviourial_unpredictable : req.body.behaviourial_unpredictable
         }
     });
 
