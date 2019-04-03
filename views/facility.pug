@@ -39,38 +39,6 @@ block content
                                                 .form-group.offset-sm-3.col-md-7.pl-2
                                                     button.btn.btn-success(type='submit')
                                                         | Update Room
-
-
-                            //.col-md-6 
-                                .card
-                                .card-body
-                                    h4.card-title= currentRooms[i].RoomName
-                                    p.card-text
-                                    | Some quick example text to build on the card title
-                                    | and make up the bulk of the card&apos;s content.
-                                    
-                                    - var room_id = currentRooms[i]._id.toString();
-                                    a.btn.btn-primary(href='/room/'+room_id) Details 
-                        //.col
-                            if currentRooms && currentRooms.length
-                                - for (var i = 0; i < currentRooms.length; i++)
-                                    h6= currentRooms[i].RoomName
-                                        a.col-md-3(href="/updateroom/"+currentFacility._id+'/'+currentRooms[i]._id)
-                                            h6.i.ml-4.fas.fa-edit  Update Room Information
-                                    .row
-                                        .col-md-12
-                                            table.table
-                                                thead.thead-light
-                                                tr
-                                                    th.text-left Total Count 
-                                                    th.text-left= currentRooms[i].RoomCount
-                                                tr
-                                                    td.text-left Room Type 
-                                                    td.text-left= currentRooms[i].RoomType
-                                                tr
-                                                    
-                            else    
-                                p.lead No room profiles are registered under this facility
     
     a(href="/roomsignup/"+currentFacility._id)
         button.btn.btn-primary.mt-4(type='button') Add Room +

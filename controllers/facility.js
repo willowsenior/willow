@@ -8,7 +8,6 @@ const myconstants = require('../utils/constants');
  */
 exports.getFacility = (req, res, error) => {
     var id = req.params.facility_id;
-    //console.log("ID:   "+id);
     var currentFacility;
     var currentRooms;
 
@@ -21,7 +20,6 @@ exports.getFacility = (req, res, error) => {
         Room.find({'FacilityID':id})
         .then((rooms)=>{
           currentRooms = rooms;
-          //console.log('currentRooms: '+ currentRooms); 
           res.render('facility', {
             title: 'Facility',
             currentFacility,
@@ -40,7 +38,6 @@ exports.getFacility = (req, res, error) => {
 
 
 exports.getRoom = (req, res, error) => {
-    //console.log(' >>>> getRoom >>>>>');
     if (error) {
         console.log(error);
     }
@@ -57,7 +54,6 @@ exports.getRoomSignup = (req, res, error) => {
   Facility.findById(id)
   .then((facility)=>{
     currentFacility = facility;
-    //console.log('facility>>> '+currentFacility);
     res.render('roomsignup',{
       title: 'Room Sign up',
       currentFacility,
@@ -73,15 +69,6 @@ exports.getRoomSignup = (req, res, error) => {
 
 
 exports.postRoomSignup = (req, res, error) => {
-  // req.check().custom(() => { 
-  //   console.log('max:'+ req.body.max);
-  //   console.log('min:' + req.body.min);  
-  //   if (req.body.max < req.body.min) {
-  //     req.assert('errors','Max > min');
-  //     return error('Max > min');
-  //   }
-  //   return error(errors);
-  // });
   const errors = req.validationErrors();
   var id = req.params.facility_id;
   
@@ -100,11 +87,6 @@ exports.postRoomSignup = (req, res, error) => {
       },
       MedicAid: req.body.medicaid
     });
-  
-    /// TO BE REMOVED LATER
-    //console.log('Room being send to DB');
-    //console.log(room);
-    //console.log('req.body.oxygen: '+req.body.Oxygen);
   
     room.save(function(err) {
   
@@ -128,14 +110,12 @@ exports.postRoomSignup = (req, res, error) => {
 };
 
 exports.putRoomUpdate = (req, res, error) => {
-  console.log('put room >>> ');
   const errors = req.validationErrors();
 
   if (errors) {
       req.flash('errors', errors);
       return res.redirect('/signup');
   }
-  //var facilityId = req.params.facility_id;
   var roomId = req.params.room_id;
   Room.findByIdAndUpdate(roomId,{$set: {
       RoomCount: req.body.count,
@@ -148,7 +128,6 @@ exports.putRoomUpdate = (req, res, error) => {
   .exec()
   .then((room)=>{
     res.redirect('/facility/'+req.params.facility_id);
-    //res.send(room);
   })
   .catch((error)=>{
     console.log("ERRRRRRR");
@@ -156,19 +135,9 @@ exports.putRoomUpdate = (req, res, error) => {
       console.log(error);
     }
   });
-
-
-  // facility.save(function(err) {
-  //     if(err){
-  //       console.log(err);
-  //       return err;
-  //     }
-  //     res.redirect('/facility/'+facility._id);
-  // });
 };
 
 exports.getRoomUpdate = (req, res, error) => {
-  console.log('get room >>> ');
   var facility_id = req.params.facility_id;
   var room_id = req.params.room_id;
   var currentRoom;

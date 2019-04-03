@@ -42,9 +42,6 @@ exports.postLogin = (req, res, next) => {
         if (!user) {
             console.log(info);
             req.flash('errors', info);
-            // res.render('account/login', {
-            //     title: 'Login'
-            // });
             return res.redirect('/login');
         }
         req.logIn(user, (err) => {
@@ -140,9 +137,6 @@ exports.getCustomerSignup = (req, res) => {
 };
 
 exports.getAdminCustomerSignup = (req, res) => {
-    // if (req.user) {
-    //     return res.redirect('/home');
-    // }
     res.render('account/admincustomersignup', {
         title: 'Create Customer Account'
     });
@@ -181,12 +175,6 @@ exports.postAdminCustomerSignup = (req, res, next) => {
         customer.save((err) => {
             console.log('saving ');
             if (err) { return next(err); }
-            // req.logIn(admin, (err) => {
-            //     if (err) {
-            //         return next(err);
-            //     }
-            //     res.redirect('/home');
-            // });
 
             console.log("Customer created: "+ req.body.email);
             res.redirect('/home');

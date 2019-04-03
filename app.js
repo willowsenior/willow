@@ -11,8 +11,6 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const logger = require('morgan');
 const dotenv = require('dotenv');
-//const errorHandler = require('errorhandler');
-//const expressStatusMonitor = require('express-status-monitor');
 
 
 const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
@@ -133,7 +131,7 @@ app.post('/willowadminsignin', userController.postWillowAdminSignin);
 app.get('/admincustomersignup', userController.getAdminCustomerSignup);
 app.post('/admincustomersignup', userController.postAdminCustomerSignup);
 
-//app.get('/facility', facilityController.getFacility);
+//Facility
 app.get('/facility/:facility_id', facilityController.getFacility);
 app.get('/facilitysignup', facilityController.getFacilitySignup);
 app.post('/facilitysignup', facilityController.postFacilitySignup);
