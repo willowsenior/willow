@@ -35,12 +35,126 @@ footer {
   }
 }
 
+
+// Text Elements
+// -------------------------
+
+h1 {
+    font-size: $header-font;
+}
+h2 {
+    font-size: $sub-header-font;
+}
+h3 {
+    font-size: $section-header;
+}
+h4 {
+    font-size: $body-font-lg;
+    color: $black-middle;
+}
+p, 
+span {
+    font-size: $body-font-lg;
+}
+
+label {
+    &.col-form-label {
+        font-size: $body-font-lg;
+        color: $black-middle;
+        &.col-form-label__stacked {
+            position: absolute;
+            left: 15px;
+            top: -5px;
+            + * {
+                margin-top: 30px;
+            }
+        }
+    }
+    &.form-check-label {
+        font-size: $body-font-sm;
+    }
+
+}
+
+
+
+// Form Elements
+// -------------------------
+
+form {
+    width: 80vw;
+    min-width: 400px;
+    margin: auto;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-section {
+    position: relative;
+    margin-top: 4em;
+    margin-bottom: 3em;
+    > * {
+        padding-left: 0px;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        width: 150px;
+        left: 0;
+        height: 1px;
+        background-color: $black-light;
+    }
+    
+}
+
+
 // Input Fields
 // -------------------------
 
 textarea {
   resize: vertical;
 }
+
+input.form-control {
+    border: 1px solid #e5e5e5;
+    font-size: $body-font-lg;
+    background-color: white !important;
+    &:active, &:focus {
+        border-color: #737373;
+    }
+}
+
+input {
+    &:placeholder-shown {
+        color: $placeholder-color !important;
+    }
+    &::placeholder {
+        color: $placeholder-color !important;
+    }
+    &::-webkit-input-placeholder {
+        color: $placeholder-color !important;
+    } 
+    &:-moz-placeholder {
+        color: $placeholder-color !important;
+    }
+    &::-moz-placeholder {
+        color: $placeholder-color !important;
+    }
+    &:-ms-input-placeholder  {
+        color: $placeholder-color !important;
+    }   
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 
 // Navbar
 // -------------------------
@@ -147,3 +261,38 @@ textarea {
 .far {
   margin-right: 6px;
 }
+
+
+
+// Buttons
+// ------------------------
+$primary-button-width: 250px;
+.btn-primary {
+    display: block;
+    position: relative;
+    width: $primary-button-width;
+    border: none;
+    transition: box-shadow 100ms;
+    border-radius: 4px;
+    -webkit-box-shadow: 1px 1px 25px $black-middle;
+    -moz-box-shadow:    1px 1px 25px $black-middle;
+    box-shadow:         1px 1px 25px $black-middle;
+    &:not(:disabled):not(.disabled) {
+        &:hover {
+            background-color: $primary-color;
+            background: $primary-color;
+        }
+        &:active, &:focus, :active:focus {
+            border-color: transparent;
+            border: none;
+            background-color: $primary-color;
+            background: $primary-color;
+            -webkit-box-shadow: inset 1px 1px 10px $dark-blue-shadow, 1px 1px 15px $black-middle;
+            -moz-box-shadow:    inset 1px 1px 10px $dark-blue-shadow, 1px 1px 15px $black-middle;
+            box-shadow:         inset 1px 1px 10px $dark-blue-shadow, 1px 1px 15px $black-middle;
+        }
+    }
+  
+}
+
+

@@ -2,23 +2,25 @@ extends layout
 
 block content
   .pb-2.mt-2.mb-4.border-bottom
-    h3 Create Permanent Facility Profile
+    h1 Create Permanent Facility Profile
   form(id='facsignup-form', method='POST', action='/facilitysignup')
     input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.form-section
+        h3.col-md-3.text-left Facility Info
     .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Facility Name
+      label.col-form-label.col-form-label__stacked Facility Name
       .col-md-7
         input.form-control(type='text', name='facilityName', id='facilityName', placeholder='Facility Name', autofocus, required)
     .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Contact Number
+      label.col-form-label.col-form-label__stacked Contact Number
       .col-md-7
         input.form-control(type='number', name='contactNumber', id='contactNumber', placeholder='XXX-XXX-XXXX', required)
     .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Contact Name
+      label.col-form-label.col-form-label__stacked Contact Name
       .col-md-7
         input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name', required)
-    .form-group.row
-        h4.col-md-3.text-right Address
+    .form-group.form-section
+        h3.col-md-3.text-left Address
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right Steet
       .col-md-7
@@ -38,8 +40,9 @@ block content
     br
     hr
     br
-    .form-group.row
-    h4.col-md-7.text-right Set the level of assistance that your facility can accomodate
+    .form-group.form-section
+        h3.col-md-6.text-left Assistance Accomodations
+            h4.col-md-6.text-left What level of assistance can your facility provide?
     br
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right Eating
