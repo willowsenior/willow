@@ -36,8 +36,54 @@ footer {
 }
 
 
+// Bootstrap Extensions
+// -------------------------
+
+.col {
+    &.center-contents {
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+$margin-slug: m !default;
+$padding-slug: p !default;
+$class-dir-top: t !default;
+$class-dir-bottom: b !default;
+$class-dir-right: r !default;
+$class-dir-left: l !default;
+
+@for $i from 0 through 100 {
+    .#{$margin-slug}-#{$class-dir-top}-#{$i} {
+        margin-top: 0px + $i;
+    }
+    .#{$margin-slug}-#{$class-dir-bottom}-#{$i} {
+        margin-bottom: 0px + $i;
+    }
+    .#{$padding-slug}-#{$class-dir-top}-#{$i} {
+        padding-top: 0px + $i;
+    }
+    .#{$padding-slug}-#{$class-dir-bottom}-#{$i} {
+        padding-bottom: 0px + $i;
+    }
+    .#{$padding-slug}-#{$class-dir-left}-#{$i} {
+        padding-left: 0px + $i;
+    }
+    .#{$padding-slug}-#{$class-dir-right}-#{$i} {
+        padding-right: 0px + $i;
+    }
+}
+
+
 // Text Elements
 // -------------------------
+h1, h2 {
+    font-family: $headings-font-family;
+}
+
+h3, h4, p, span, a, button {
+    font-family: $font-family-base;
+}
 
 h1 {
     font-size: $header-font;
@@ -50,41 +96,72 @@ h3 {
 }
 h4 {
     font-size: $body-font-lg;
-    color: $black-middle;
+    color: $grey-middle;
 }
 p, 
 span {
     font-size: $body-font-lg;
 }
 
-label {
-    &.col-form-label {
-        font-size: $body-font-lg;
-        color: $black-middle;
-        &.col-form-label__stacked {
-            position: absolute;
-            left: 15px;
-            top: -5px;
-            + * {
-                margin-top: 30px;
-            }
-        }
+a {
+    color: $willow-blue;
+    &:hover {
+        text-decoration: none;
+        color: $willow-blue;
     }
-    &.form-check-label {
-        font-size: $body-font-sm;
-    }
+}
 
+.text-grey {
+    color: $grey-light;
 }
 
 
 
 // Form Elements
 // -------------------------
-
+$form-padding-top: 4em;
 form {
+    
     width: 80vw;
     min-width: 400px;
     margin: auto;
+    &#facsignup-form {
+        .form-section {
+            position: relative;
+            padding-left: 75px;
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: 1;
+                top: $form-padding-top;
+                height: 30px;
+                width: 30px;
+                left: 0;
+                background-color: white;
+                border: 2px solid $willow-green;
+                color: white;
+                border-radius: 50%;
+                color: $grey-middle;
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                z-index: 0;
+                top: $form-padding-top;
+                height: 100%;
+                width: 1px;
+                left: 14px;
+                background-color: $willow-green;
+            }
+            //start at 2 because of the shadow input
+            // &:nth-child(2) { 
+            //     &:before { content: "1"; } 
+            // }
+        }
+    }
+    .form-group__inline {
+        position: relative;
+    }
 }
 
 .form-group {
@@ -93,21 +170,48 @@ form {
 
 .form-section {
     position: relative;
-    margin-top: 4em;
-    margin-bottom: 3em;
-    > * {
-        padding-left: 0px;
+    padding-top: $form-padding-top;
+    padding-bottom: 3em;
+    .form-group {
+        &:not(.form-section-header) { padding-left: 30px; }
+        margin-bottom: 1em;
     }
-    &:after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        width: 150px;
-        left: 0;
-        height: 1px;
-        background-color: $black-light;
+    .form-section-header {
+        margin-bottom: 3em;
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            width: 150px;
+            left: 0;
+            height: 1px;
+            background-color: $grey-light;
+        }
     }
-    
+}
+
+.form-check + .form-check {
+    margin-top: 8px;
+}
+
+label {
+    &.col-form-label {
+        font-size: $body-font-lg;
+        color: $black-dull;
+        padding-left: 15px;
+        &.col-form-label__stacked {
+            position: absolute;
+            top: -5px;
+            + * {
+                margin-top: 30px;
+            }
+        }
+    }
+    &.form-check-label {
+        font-size: $body-font-sm;
+        padding-left: 10px;
+    }
+
 }
 
 
@@ -153,6 +257,20 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+.form-check-input {
+    width: 17px;
+    height: 17px;
+    background: #fff;
+    border-radius: .21428571rem;
+    -webkit-transition: border .1s ease,opacity .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+    transition: border .1s ease,opacity .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+    transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease;
+    transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+    border: 1px solid #d4d4d5;
+    margin-top: 1px;
+    margin-right: 2px;
 }
 
 
@@ -267,32 +385,85 @@ input[type=number]::-webkit-outer-spin-button {
 // Buttons
 // ------------------------
 $primary-button-width: 250px;
-.btn-primary {
+
+.btn-willow {
     display: block;
     position: relative;
     width: $primary-button-width;
     border: none;
     transition: box-shadow 100ms;
-    border-radius: 4px;
-    -webkit-box-shadow: 1px 1px 25px $black-middle;
-    -moz-box-shadow:    1px 1px 25px $black-middle;
-    box-shadow:         1px 1px 25px $black-middle;
+    border-radius: 100px;
+    font-size: 22px;
+    padding: 12px 36px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $willow-green;
+    background: $willow-green;
+    color: white;
+    -webkit-box-shadow: 0px 12px 18px -6px rgba(0,0,0,0.3);
+    -moz-box-shadow:    0px 12px 18px -6px rgba(0,0,0,0.3);
+    box-shadow: 0px 12px 18px -6px rgba(0,0,0,0.3);
     &:not(:disabled):not(.disabled) {
-        &:hover {
-            background-color: $primary-color;
-            background: $primary-color;
+        &:hover, &:focus {
+            background-color: $willow-green;
+            background: $willow-green;
+            -webkit-box-shadow: inset 0 -10px 10px -9px $willow-green-very-dark, 0px 12px 18px -6px rgba(0,0,0,0.3);
+            -moz-box-shadow:    inset 0 -10px 10px -9px $willow-green-very-dark, 0px 12px 18px -6px rgba(0,0,0,0.3);
+            box-shadow:         inset 0 -10px 10px -9px $willow-green-very-dark, 0px 12px 18px -6px rgba(0,0,0,0.3);
+            border: none;
         }
-        &:active, &:focus, :active:focus {
+        &:active, :active:focus {
             border-color: transparent;
             border: none;
-            background-color: $primary-color;
-            background: $primary-color;
-            -webkit-box-shadow: inset 1px 1px 10px $dark-blue-shadow, 1px 1px 15px $black-middle;
-            -moz-box-shadow:    inset 1px 1px 10px $dark-blue-shadow, 1px 1px 15px $black-middle;
-            box-shadow:         inset 1px 1px 10px $dark-blue-shadow, 1px 1px 15px $black-middle;
+            background-color: $willow-green;
+            background: $willow-green;
+            opacity: 0.9;
         }
     }
   
 }
+
+// Header
+// --------------------------
+.navbar {
+    .nav {
+        li.active { 
+            a.nav-link { color: $willow-green !important; } 
+        }
+    }
+}
+
+
+
+
+// Home Page
+// --------------------------
+
+.hero-image {
+    position: fixed;
+    height: 90vh;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(../willow-hero-no-logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity 200ms;
+    opacity: 1;
+}
+
+#hero-polygon {
+    position: fixed;
+    bottom: 10vh;
+    left: 0;
+    height: 10vw;
+    width: 100%;
+}
+
+
+
 
 

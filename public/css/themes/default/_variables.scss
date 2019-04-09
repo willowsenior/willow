@@ -1,3 +1,19 @@
+// Fonts
+// ------------------------
+
+@font-face {
+  font-family: 'league_spartan';
+  src: url('../../../fonts/leaguespartan-bold.eot');
+  src: url('../../../fonts/leaguespartan-bold.eot?#iefix') format('embedded-opentype'),
+  url('../../../fonts/leaguespartan-bold.woff2') format('woff2'),
+  url('../../../fonts/leaguespartan-bold.woff') format('woff'),
+  url('../../../fonts/leaguespartan-bold.ttf') format('truetype'),
+  url('../../../fonts/leaguespartan-bold.svg#league_spartanregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 // Brand Colors
 // -------------------------
 
@@ -9,8 +25,8 @@ $brand-info: #5bc0dd;
 
 // Typography
 // -------------------------
-$font-family-base: "HelveticaNeue-CondensedBold", "Helvetica Neue", Arial, sans-serif;
-$headings-font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue", Arial, sans-serif;
+$font-family-base: "Montserrat", sans-serif;
+$headings-font-family: "league_spartan", sans-serif;
 
 
 $header-font: 25px;
@@ -69,9 +85,20 @@ $card-spacer-x: 0.75rem;
 // -------------------------
 $black: #fff;
 $black-dull: #7a7979;
-$black-middle: #b2b2b2;
-$black-light: #e5e5e5;
+$grey-middle: #b2b2b2;
+$grey-light: #e5e5e5;
 $placeholder-color: #e5e5e5;
+
+$willow-green: #13d270;
+$willow-blue: #252b58;
+$willow-blue-bg: #0c4a7c;
+$willow-green-dark: #14a726;
+$willow-green-very-dark: #2a5b30;
+
+// Primary Header Font: League Spartan
+// Subtitle Font: Montserrat
+// Paragraph: Montserrat
+
 
 
 $primary-color: #007bff;
