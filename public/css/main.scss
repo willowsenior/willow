@@ -125,40 +125,6 @@ form {
     width: 80vw;
     min-width: 400px;
     margin: auto;
-    &#facsignup-form {
-        .form-section {
-            position: relative;
-            padding-left: 75px;
-            &:before {
-                content: "";
-                position: absolute;
-                z-index: 1;
-                top: $form-padding-top;
-                height: 30px;
-                width: 30px;
-                left: 0;
-                background-color: white;
-                border: 2px solid $willow-green;
-                color: white;
-                border-radius: 50%;
-                color: $grey-middle;
-            }
-            &:after {
-                content: "";
-                position: absolute;
-                z-index: 0;
-                top: $form-padding-top;
-                height: 100%;
-                width: 1px;
-                left: 14px;
-                background-color: $willow-green;
-            }
-            //start at 2 because of the shadow input
-            // &:nth-child(2) { 
-            //     &:before { content: "1"; } 
-            // }
-        }
-    }
     .form-group__inline {
         position: relative;
     }
@@ -192,26 +158,6 @@ form {
 
 .form-check + .form-check {
     margin-top: 8px;
-}
-
-label {
-    &.col-form-label {
-        font-size: $body-font-lg;
-        color: $black-dull;
-        padding-left: 15px;
-        &.col-form-label__stacked {
-            position: absolute;
-            top: -5px;
-            + * {
-                margin-top: 30px;
-            }
-        }
-    }
-    &.form-check-label {
-        font-size: $body-font-sm;
-        padding-left: 10px;
-    }
-
 }
 
 
@@ -259,6 +205,27 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+
+label {
+    &.col-form-label {
+        font-size: $body-font-lg;
+        color: $black-medium;
+        padding-left: 15px;
+        &.col-form-label__stacked {
+            position: absolute;
+            top: -5px;
+            + * {
+                margin-top: 30px;
+            }
+        }
+    }
+    &.check-group-label {
+        top: -10px;
+    }
+
+}
+
+// Custom Checkbox
 .form-check-input {
     width: 17px;
     height: 17px;
@@ -273,6 +240,123 @@ input[type=number]::-webkit-outer-spin-button {
     margin-right: 2px;
 }
 
+label.form-check-label, .form-radio-label {
+    display: block;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: $body-font-sm;
+    padding-left: 20px;
+    margin: 10px 0px;
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+    input:checked ~ .checkmark, input:checked ~ .radio {
+      background-color: $willow-green;
+      border-color: $willow-green;
+    }
+    input:checked ~ .checkmark:after, input:checked ~ .radio:after {
+        display: block;
+    }
+    .checkmark, .radio {
+        position: absolute;
+        top: 0;
+        left: -20px;
+        height: 20px;
+        width: 20px;
+        background: #fff;
+        border-radius: .21428571rem;
+        -webkit-transition: border .1s ease,opacity .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+        transition: border .1s ease,opacity .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+        transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease;
+        transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+        border: 1px solid #d4d4d5;
+        &:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    }
+}
+
+// Custom Radio - extends checkmark
+label.form-radio-label {
+    .radio {
+        border-radius: 50%;
+        &:after {
+            top: 4px;
+            left: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+        }
+    }
+}
+
+// Custom Toggle
+.form-radio-label {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        &:checked + .knob {
+            background-color: $willow-green;
+            box-shadow: 0 0 1px $willow-green;
+            &:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+            }
+        }
+        &:focus + .knob {
+            box-shadow: 0 0 1px $willow-green;
+        }
+    }
+    .knob {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 34px;
+        &:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+    }
+}
 
 // Navbar
 // -------------------------
@@ -395,21 +479,31 @@ $primary-button-width: 250px;
     border-radius: 100px;
     font-size: 22px;
     padding: 12px 36px;
+    height: 60px;
     margin-left: auto;
     margin-right: auto;
     background-color: $willow-green;
     background: $willow-green;
     color: white;
-    -webkit-box-shadow: 0px 12px 18px -6px rgba(0,0,0,0.3);
-    -moz-box-shadow:    0px 12px 18px -6px rgba(0,0,0,0.3);
-    box-shadow: 0px 12px 18px -6px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+    -moz-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+    -webkit-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+    -o-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+    -ms-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
     &:not(:disabled):not(.disabled) {
         &:hover, &:focus {
             background-color: $willow-green;
             background: $willow-green;
-            -webkit-box-shadow: inset 0 -10px 10px -9px $willow-green-very-dark, 0px 12px 18px -6px rgba(0,0,0,0.3);
-            -moz-box-shadow:    inset 0 -10px 10px -9px $willow-green-very-dark, 0px 12px 18px -6px rgba(0,0,0,0.3);
-            box-shadow:         inset 0 -10px 10px -9px $willow-green-very-dark, 0px 12px 18px -6px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -moz-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -webkit-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -o-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
             border: none;
         }
         &:active, :active:focus {
@@ -462,6 +556,82 @@ $primary-button-width: 250px;
     height: 10vw;
     width: 100%;
 }
+
+button.btn-willow.btn-willow__hero {
+    background-color: $willow-green;
+    background: $willow-green;
+    box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+   -moz-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+   -webkit-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+   -o-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+   -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+    border: none;
+    &:not(:disabled):not(.disabled) {
+        &:hover, &:focus {
+            background-color: $willow-green;
+            background: $willow-green;
+            box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+           -moz-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+           -webkit-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+           -o-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+           -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+            border: none;
+            opacity: 0.9;
+        }
+        &:active, :active:focus {
+            border-color: transparent;
+            border: none;
+            background-color: $willow-green;
+            background: $willow-green;
+            opacity: 0.8;
+        }
+    }
+}
+
+
+// Facility Sign-Up Page
+// -------------------------
+
+#facsignup-form {
+    padding-bottom: 75px;
+    .form-section {
+        position: relative;
+        padding-left: 75px;
+        &:before {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            top: $form-padding-top;
+            height: 30px;
+            width: 30px;
+            left: 0;
+            background-color: white;
+            border: 2px solid $willow-green;
+            color: white;
+            border-radius: 50%;
+            color: $grey-middle;
+        }
+        &:after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            top: $form-padding-top;
+            height: 100%;
+            width: 1px;
+            left: 14px;
+            background-color: $willow-green;
+        }
+        //start at 2 because of the shadow input
+        // &:nth-child(2) { 
+        //     &:before { content: "1"; } 
+        // }
+    }
+}
+
+
+
+
+
 
 
 
