@@ -1,11 +1,12 @@
 extends layout
 
 block content
-  h1 Willow 
-  p.lead A platform for Senior Healthcare
-  hr
-  br
-  br
+  if facilities && facilities.length
+    h1 Willow 
+    p.lead A platform for Senior Healthcare
+    hr
+    br
+    br
   if facilities && facilities.length
     .row
       .col
@@ -41,7 +42,7 @@ block content
     .hero-image-overlay
     svg#hero-polygon(xmlns='http://www.w3.org/2000/svg', viewbox='0 0 100 100', preserveaspectratio='none')
         polygon(fill='white', points='0,100 100,0 100,100')               
-    .row.text-center
+    .row.text-center.hero-text
       .col.col-lg-7.col-sm-12.center-contents
         h1.text-center.font-weight-bolder.text-white Fill Vacancies.
         h3.text-center.text-grey.m-t-10 The Willow Senior Placement Platform connects your facility to active local prospects that meet your ideal resident profile..
