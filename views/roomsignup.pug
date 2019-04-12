@@ -7,59 +7,66 @@ block content
   form(id='roomsignup-form', method='POST', action='/roomsignup/'+currentFacility._id.toString())
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
-      label.col-md-3.col-form-label.font-weight-boldRoom.text-middle Room Name
+      label.col-form-label.col-form-label__stacked Room Name
       .col-md-4
         input.form-control(type='text', name='roomName', id='roomName', placeholder='Room Name', autofocus, required)
     .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Room Count
+      label.col-form-label.col-form-label__stacked Room Count
       .col-md-4
         input.form-control(type='number', name='count', id='count', placeholder='Room Count', autofocus, required)
     .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-middle(for='roomtype') Room Type
-        .col-md-4
+        label.col-form-label.col-form-label__stacked(for='roomtype') Room Type
+        .col-md-3.col-sm-4
             select.form-control(id='roomtype' name='roomtype')
-                option Private
-                option Semi-Private
-                option Suit
-                option Studio Apartment
+              option Private
+              option Semi-Private
+              option Suit
+              option Studio Apartment
     .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Room Rent Range
+      label.col-form-label.col-form-label__stacked Room Rent Range
+      .col-md-7.form-group__inline
+        .col-md-3
+          input.form-control.text-right(type='number', name='min', id='min', placeholder='0.00', step='0.01', autofocus, required)
+        .col-md-1.text-center
+          label to 
+        .col-md-3 
+          input.form-control.text-right(type='number', name='max', id='max', placeholder='0.00', autofocus, required)
+    .form-group.row
+      label.col-sm-3.col-md-2.col-form-label Gender
       .col-md-3
-        input.form-control(type='number', name='min', id='min', placeholder='0.00', autofocus, required)
-      .col-md-1
-        label.font-weight-bold.text-right to  
+        .col-md-12
+          label.form-radio-label.ml-4(for='gender') Male
+            input.form-radio-input(type='radio', name='gender', id='radio' value = 'M')
+            span.radio
+        .col-md-12
+          label.form-radio-label.ml-4(for='gender') Female
+            input.form-radio-input(type='radio', name='gender', id='radio' value = 'F')
+            span.radio
+    .form-group.row
+      label.col-sm-3.col-md-2.col-form-label Medicaid Bed
       .col-md-3
-        input.form-control(type='number', name='max', id='max', placeholder='0.00', autofocus, required)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Gender
-      .col-md-4
         .col-md-12
-            input.form-radio-input(type='radio', name='radio', id='radio' value = 'M')
-            label.form-radio-label.ml-4(for='radio') Male
-        .col-md-12
-            input.form-radio-input(type='radio', name='radio', id='radio' value = 'F')
-            label.form-radio-label.ml-4(for='radio') Female
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Medicaid Bed
-      .col-md-4
-        .col-md-12
+          label.form-radio-label.ml-4(for='medicaid') Yes
             input.form-radio-input(type='radio', name='medicaid', id='medicaid' value = 'Y')
-            label.form-radio-label.ml-4(for='radio') Yes
+            span.radio
         .col-md-12
+          label.form-radio-label.ml-4(for='medicaid') No
             input.form-radio-input(type='radio', name='medicaid', id='medicaid' value = 'N')
-            label.form-radio-label.ml-4(for='radio') No
+            span.radio
     br
-    p.lead Level of Assistance
-    .row
-    - for (var key in currentFacility.FacilityFeatures)
-        -if(key != '$init')
-            -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
-                    table.table
-                        thead.thead-light
-                            .col-md-6
-                                tr
+    -if(currentFacility.FacilityFeatures.length)
+      p.lead Level of Assistance
+      .row
+      - for (var key in currentFacility.FacilityFeatures)
+          -if(key != '$init')
+              -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
+                      table.table
+                          thead.thead-light
+                              .col-md-6
+                                  tr
                                     td.text-left= myconstants.constants(key)
-    .form-group.offset-sm-3.col-md-7.pl-2
-      button.btn.btn-success(type='submit')
+    .form-group.offset-sm-2.col-md-6.pl-2
+      button.btn.btn-willow.btn-signup-form(type='submit')
+        i.fas.fa-plus.fa-sm
         | Add a Room
 

@@ -132,6 +132,19 @@ form {
 
 .form-group {
     position: relative;
+    margin-bottom: 2em !important;
+    + .form-group {
+        margin-top: 1em;
+    }
+    .form-group__inline {
+        > * {
+            display: inline-block;
+            vertical-align: middle;
+            &:first-child {
+                padding-left: 0px;
+            }
+        }
+    }
 }
 
 .form-section {
@@ -161,6 +174,7 @@ form {
 }
 
 
+
 // Input Fields
 // -------------------------
 
@@ -178,6 +192,7 @@ input.form-control {
 }
 
 input {
+    caret-color: $black-medium;
     &:placeholder-shown {
         color: $placeholder-color !important;
     }
@@ -358,6 +373,31 @@ label.form-radio-label {
     }
 }
 
+// Custom Select Box
+// ------------------------
+
+select.form-control {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 1.5em;
+    background-origin: content-box;
+    background-image: url('../../icons/dropdown-arrow.png');
+    .select-items {
+        position: absolute;
+        background-color: white;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+
+    }
+}
+
+
+
 // Navbar
 // -------------------------
 
@@ -469,6 +509,13 @@ label.form-radio-label {
 // Buttons
 // ------------------------
 $primary-button-width: 250px;
+
+form {
+    .btn-willow {
+        margin-top: 3em;
+        margin-bottom: 3em;
+    }
+}
 
 .btn-willow {
     display: block;
@@ -626,6 +673,11 @@ button.btn-willow.btn-willow__hero {
         //     &:before { content: "1"; } 
         // }
     }
+}
+
+
+#roomsignup-form {
+    padding-bottom: 75px;
 }
 
 
