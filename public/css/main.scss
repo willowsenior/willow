@@ -191,6 +191,11 @@ input.form-control {
     }
 }
 
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; }
+input:focus::-moz-placeholder { color:transparent; }
+input:focus:-ms-input-placeholder { color:transparent; }
+
 input {
     caret-color: $black-medium;
     &:placeholder-shown {
@@ -705,11 +710,12 @@ $form-max: 90vw;
         margin-bottom: 1em;
     }
     .auth-form-header {
+        position: relative;
         margin-bottom: 0.5em;
         &:after {
             content: "";
             position: absolute;
-            bottom: -10px;
+            bottom: -25px;
             width: 150px;
             left: 50%;
             transform: translateX(-50%);
@@ -730,6 +736,11 @@ $form-max: 90vw;
     justify-content: center;
     align-items: center;
     padding: 15px;
+    text-align: left;
+    input::-webkit-input-placeholder { color:transparent; }
+    input:-moz-placeholder { color:transparent; }
+    input::-moz-placeholder { color:transparent; }
+    input:-ms-input-placeholder { color:transparent; }
 }
 
 .login-wrapper {
@@ -751,7 +762,20 @@ $input-height: 57px;
     border-bottom: 2px solid $black-dull;
     margin-bottom: 2em;
     + .input-wrapper {
-        margin-top: 1em;
+        margin-top: 3em;
+    }
+    &.has-value input {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        background-color: white !important;
+        outline-color: white !important;
+        + span::after {
+            top: -20px;
+            font-size: $body-font-sm;
+        }
+        + span::before {
+            width: 100%;
+        }
     }
     input {
         display: block;
