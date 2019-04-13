@@ -697,6 +697,8 @@ button.btn-willow.btn-willow__hero {
 $form-width: 750px;
 $form-max: 90vw;
 
+$input-width: 350px;
+
 .auth-form {
     position: relative;
     padding-top: $form-padding-top;
@@ -741,6 +743,9 @@ $form-max: 90vw;
     input:-moz-placeholder { color:transparent; }
     input::-moz-placeholder { color:transparent; }
     input:-ms-input-placeholder { color:transparent; }
+    button.btn-willow {
+        margin-top: 1.5em;
+    }
 }
 
 .login-wrapper {
@@ -755,7 +760,7 @@ $form-max: 90vw;
 
 $input-height: 57px;
 .input-wrapper {
-    width: 300px;
+    width: $input-width;
     max-width: 100%;
     margin: auto;
     position: relative;
@@ -834,6 +839,36 @@ $input-height: 57px;
   
         }
     }
+}
+
+.forgot-password {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: left;
+    p, a {
+        font-size: $body-font-sm;
+        padding: 0px;
+    }
+    p {
+        color: $grey-middle;
+        line-height: 1em;
+        width: $input-width;
+        margin: auto;
+    }
+    a {
+        color: $willow-green;
+        vertical-align: middle;
+        padding-left: 3px;
+        line-height: 0.8em;
+        &:hover {
+            text-transform: none;
+            color: $willow-green;
+            opacity: 0.8;
+        }
+    }
+
 }
 
 

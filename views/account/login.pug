@@ -15,12 +15,13 @@ block content
           .input-wrapper#password-wrapper
             input(type='password', name='password', id='password', autocomplete='current-password', required)
             span.focus-action(data-placeholder="Password")
-          .form-group
-            .offset-sm-3.col-md-7.pl-2
-              button.col-md-3.btn.btn-primary(type='submit')
-                i.far.fa-user.fa-sm
-                | Login
-              a.btn.btn-link(href='/forgot') Forgot your password?
+          button.col-md-3.btn.btn-willow(type='submit')
+            i.far.fa-user.fa-sm
+            | Login
+        .forgot-password
+          p Forgot your
+            a.btn.btn-link(href='/forgot') password?
+
           //.form-group
             .offset-sm-3.col-md-7.pl-2
               hr
