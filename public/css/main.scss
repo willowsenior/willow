@@ -878,7 +878,15 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
 }
 
+// Footer
+// ------------------------
 
+.footer-content {
+    p {
+        color: $black-dull;
+        font-size: $body-font-sm;
+    }
+}
 
 
 

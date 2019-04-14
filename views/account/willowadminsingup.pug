@@ -1,27 +1,108 @@
 extends ../layout
 
 block content
-  .pb-2.mt-2.mb-4.border-bottom
-    h3 Admin Sign up
-  form(id='signup-form', method='POST' action='/willowadminsignup')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email
-      .col-md-7
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, autocomplete='email', required)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') Password
-      .col-md-7
-        input.form-control(type='password', name='password', id='password', placeholder='Password', autocomplete='new-password', required)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword') Confirm Password
-      .col-md-7
-        input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', autocomplete='new-password', required)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right(for='sharedPasscode') Passcode
-      .col-md-7
-        input.form-control(type='passcode', name='passcode', id='passcode', placeholder='passcode', required)
-    .form-group.offset-sm-3.col-md-7.pl-2
-      button.btn.btn-success(type='submit')
-        i.fas.fa-user-plus.fa-sm
-        | Signup
+
+  .auth-form
+    .auth-form-header
+      h3 Admin Sign up
+    .login-container
+      .login-wrapper.p-t-50.p-b-50
+        form(id='signup-form', method='POST' action='/willowadminsignup')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .input-wrapper#email-wrapper
+            input(type='email', name='email', id='email', value="", autofocus, autocomplete='email', required)
+            span.focus-action(data-placeholder="Email")
+          .input-wrapper#password-wrapper
+            input(type='password', name='password', id='password', autocomplete='new-password', required)
+            span.focus-action(data-placeholder="Password")
+          .input-wrapper#confirm-password-wrapper
+            input(type='password', name='confirmPassword', id='confirmPassword', autocomplete='new-password', required)
+            span.focus-action(data-placeholder="Confirm Password")
+          .input-wrapper#passcode-wrapper
+            input(type='passcode', name='passcode', id='passcode', required)
+            span.focus-action(data-placeholder="Passcode")
+          button.col-md-3.btn.btn-willow(type='submit')
+            i.far.fa-user.fa-sm
+            | Signup
+
+
+  script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+  script.
+    $(document).ready( function() {
+      var email_input = document.getElementById('email'),
+          email_value = email_input.value,
+          pw_input = document.getElementById('password'),
+          pw_value = pw_input.value, 
+          pw_confirm_input = document.getElementById('confirmPassword'),
+          pw_confirm_value = pw_confirm_input.value,
+          passcode_input = document.getElementById('passcode'),
+          passcode_value = passcode_input.value;
+
+      email_input.addEventListener('input', function (evt) {
+          var email_value = document.getElementById('email').value;
+          if (email_value && email_value.length > 0) {
+            document.getElementById('email-wrapper').classList.add('has-value');
+            console.log('changed email value now', email_value);
+          } else {
+            document.getElementById('email-wrapper').classList.remove('has-value');
+          }
+      });
+      email_input.addEventListener('change', function (evt) {
+          var email_value = document.getElementById('email').value;
+          if (email_value && email_value.length > 0) {
+            document.getElementById('email-wrapper').classList.add('has-value');
+            console.log('changed email value now', email_value);
+          } else {
+            document.getElementById('email-wrapper').classList.remove('has-value');
+          }
+      });
+
+      pw_input.addEventListener('input', function (evt) {
+          var pw_value = document.getElementById('password').value;
+          if (pw_value && pw_value.length > 0) {
+            document.getElementById('password-wrapper').classList.add('has-value');
+            console.log('changed pw value now', pw_value);
+          } else {
+            document.getElementById('password-wrapper').classList.remove('has-value');
+          }
+      });
+      pw_input.addEventListener('change', function (evt) {
+          var pw_value = document.getElementById('password').value;
+          if (pw_value && pw_value.length > 0) {
+            document.getElementById('password-wrapper').classList.add('has-value');
+            console.log('changed pw value now', pw_value);
+          } else {
+            document.getElementById('password-wrapper').classList.remove('has-value');
+          }
+      });
+
+      pw_confirm_input.addEventListener('input', function (evt) {
+          var pw_confirm_value = document.getElementById('confirmPassword').value;
+          if (pw_confirm_value && pw_confirm_value.length > 0) {
+            document.getElementById('confirm-password-wrapper').classList.add('has-value');
+            console.log('changed pw value now', pw_confirm_value);
+          } else {
+            document.getElementById('confirm-password-wrapper').classList.remove('has-value');
+          }
+      });
+      pw_confirm_input.addEventListener('change', function (evt) {
+          var pw_confirm_value = document.getElementById('confirmPassword').value;
+          if (pw_confirm_value && pw_confirm_value.length > 0) {
+            document.getElementById('confirm-password-wrapper').classList.add('has-value');
+            console.log('changed pw value now', pw_confirm_value);
+          } else {
+            document.getElementById('confirm-password-wrapper').classList.remove('has-value');
+          }
+      });
+
+      passcode_input.addEventListener('input', function (evt) {
+          var passcode_value = document.getElementById('passcode').value;
+          if (passcode_value && passcode_value.length > 0) {
+            document.getElementById('passcode-wrapper').classList.add('has-value');
+            console.log('changed passcode value now', passcode_value);
+          } else {
+            document.getElementById('passcode-wrapper').classList.remove('has-value');
+          }
+      });
+
+    });

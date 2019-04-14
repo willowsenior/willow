@@ -1,21 +1,74 @@
 extends ../layout
 
 block content
-  .pb-2.mt-2.mb-4.border-bottom
-    h3 Admin Sign in
-  form(method='POST' action='/willowadminsignin')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email
-      .col-md-7
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, autocomplete='email', required)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') Password
-      .col-md-7
-        input.form-control(type='password', name='password', id='password', placeholder='Password', autocomplete='current-password', required)
-    .form-group
-      .offset-sm-3.col-md-7.pl-2
-        button.col-md-3.btn.btn-primary(type='submit')
-          i.far.fa-user.fa-sm
-          | Login
-        a.btn.btn-link(href='/forgot') Forgot your password?
+  .auth-form
+    .auth-form-header
+      h3 Admin Sign in
+    .login-container
+      .login-wrapper.p-t-50.p-b-50
+        form(id="login" method='POST' action='/willowadminsignin')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .input-wrapper#email-wrapper
+            input(type='email', name='email', id='email', value="", autofocus, autocomplete='email', required)
+            span.focus-action(data-placeholder="Email")
+          .input-wrapper#password-wrapper
+            input(type='password', name='password', id='password', autocomplete='current-password', required)
+            span.focus-action(data-placeholder="Password")
+          button.col-md-3.btn.btn-willow(type='submit')
+            i.far.fa-user.fa-sm
+            | Login
+        .forgot-password
+          p Forgot your
+            a.btn.btn-link(href='/forgot') password?
+
+
+  script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+  script.
+    $(document).ready( function() {
+      var email_input = document.getElementById('email'),
+          email_value = email_input.value,
+          pw_input = document.getElementById('password'),
+          pw_value = email_input.value;
+
+      email_input.addEventListener('input', function (evt) {
+          var email_value = document.getElementById('email').value;
+          if (email_value && email_value.length > 0) {
+            document.getElementById('email-wrapper').classList.add('has-value');
+            console.log('changed email value now', email_value);
+          } else {
+            document.getElementById('email-wrapper').classList.remove('has-value');
+          }
+      });
+
+      email_input.addEventListener('change', function (evt) {
+          var email_value = document.getElementById('email').value;
+          if (email_value && email_value.length > 0) {
+            document.getElementById('email-wrapper').classList.add('has-value');
+            console.log('changed email value now', email_value);
+          } else {
+            document.getElementById('email-wrapper').classList.remove('has-value');
+          }
+      });
+
+      pw_input.addEventListener('input', function (evt) {
+          var pw_value = document.getElementById('password').value;
+          if (pw_value && pw_value.length > 0) {
+            document.getElementById('password-wrapper').classList.add('has-value');
+            console.log('changed pw value now', pw_value);
+          } else {
+            document.getElementById('password-wrapper').classList.remove('has-value');
+          }
+      });
+
+      pw_input.addEventListener('change', function (evt) {
+          var pw_value = document.getElementById('password').value;
+          if (pw_value && pw_value.length > 0) {
+            document.getElementById('password-wrapper').classList.add('has-value');
+            console.log('changed pw value now', pw_value);
+          } else {
+            document.getElementById('password-wrapper').classList.remove('has-value');
+          }
+      });
+    });
+
+

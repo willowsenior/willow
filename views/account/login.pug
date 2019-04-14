@@ -52,7 +52,27 @@ block content
           }
       });
 
+      email_input.addEventListener('change', function (evt) {
+          var email_value = document.getElementById('email').value;
+          if (email_value && email_value.length > 0) {
+            document.getElementById('email-wrapper').classList.add('has-value');
+            console.log('changed email value now', email_value);
+          } else {
+            document.getElementById('email-wrapper').classList.remove('has-value');
+          }
+      });
+
       pw_input.addEventListener('input', function (evt) {
+          var pw_value = document.getElementById('password').value;
+          if (pw_value && pw_value.length > 0) {
+            document.getElementById('password-wrapper').classList.add('has-value');
+            console.log('changed pw value now', pw_value);
+          } else {
+            document.getElementById('password-wrapper').classList.remove('has-value');
+          }
+      });
+
+      pw_input.addEventListener('change', function (evt) {
           var pw_value = document.getElementById('password').value;
           if (pw_value && pw_value.length > 0) {
             document.getElementById('password-wrapper').classList.add('has-value');
