@@ -3,7 +3,7 @@ extends layout
 block content
   .pb-2.mt-2.mb-4.border-bottom
     h1 Create Permanent Facility Profile
-  form(id='facsignup-form', method='POST', action='/facilitysignup')
+  form.body-form(id='facsignup-form', method='POST', action='/facilitysignup')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-section
         .form-group.form-section-header
