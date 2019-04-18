@@ -57,8 +57,8 @@ block content
                               label.font-weight-bold.text-right to
                           .col-md-5 
                             input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
-                    .form-group.offset-sm-3.col-md-7.pl-2
-                        button.btn.btn-success(type='submit')
+                    .form-group
+                        button.btn.btn-secondary(type='submit')
                             | Update Room
 
         a(href="/roomsignup/"+currentFacility._id)
