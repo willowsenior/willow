@@ -69,13 +69,11 @@ exports.getRoomSignup = (req, res, error) => {
 
 
 exports.postRoomSignup = (req, res, error) => {
-  console.log('>>>> postRoomSignup');
   const errors = req.validationErrors();
   var id = req.params.facility_id;
   
   Facility.findById(id)
   .then((facility)=>{
-    console.log(facility);
     var room = new Room({
       FacilityID: id,
       FacilityName: facility.FacilityName,
@@ -160,7 +158,6 @@ exports.postRoomSignup = (req, res, error) => {
 };
 
 exports.putRoomUpdate = (req, res, error) => {
-  console.log('>>>> putRoomUpdate');
   const errors = req.validationErrors();
 
   if (errors) {
@@ -189,7 +186,6 @@ exports.putRoomUpdate = (req, res, error) => {
 };
 
 exports.putFullRoomUpdate = (req, res, error) => {
-  console.log('>>>> putFullRoomUpdate');
   console.log(req.body);
   const errors = req.validationErrors();
 
