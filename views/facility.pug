@@ -6,8 +6,7 @@ block content
     .col
         .row.mt-4 
             .col
-                
-                    .row
+                .row
                         - for (var i = 0; i < currentRooms.length; i++)
                             .col-md-6
                                 .card-deck
@@ -37,8 +36,11 @@ block content
                                                     .col-md-3
                                                         input.form-control(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
                                                 .form-group.offset-sm-3.col-md-7.pl-2
-                                                    button.btn.btn-success(type='submit')
+                                                    button.btn.btn-success(type='submit').col-md-5
                                                         | Update Room
+                                                    a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
+                                                        button.btn.btn-success(type='button')
+                                                            | Full Detail
     
     a(href="/roomsignup/"+currentFacility._id)
         button.btn.btn-primary.mt-4(type='button') Add Room +
