@@ -86,6 +86,7 @@ exports.postRoomSignup = (req, res, error) => {
         max: req.body.max
       },
       MedicAid: req.body.medicaid,
+      Wandergaurd: req.body.wandergaurd,
       Hallucination: facility.Hallucination,
       MemoryCare: facility.MemoryCare,
       InsulinShots: facility.InsulinShots,
@@ -204,6 +205,7 @@ exports.putFullRoomUpdate = (req, res, error) => {
       max: req.body.max
     },
     MedicAid: req.body.medicaid,
+    Wandergaurd: req.body.wandergaurd,
     Hallucination: req.body.hallucinations,
     MemoryCare: req.body.memorycare,
     InsulinShots: req.body.insulinshots,

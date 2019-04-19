@@ -12,6 +12,7 @@ const RoomSchema = new mongoose.Schema({
         max: { type: Number, min: 0 }
     },
     MedicAid: String,
+    Wandergaurd: String,
     Hallucination: String,
     MemoryCare: String,
     InsulinShots: Number,
