@@ -187,7 +187,6 @@ exports.putRoomUpdate = (req, res, error) => {
 };
 
 exports.putFullRoomUpdate = (req, res, error) => {
-  console.log(req.body);
   const errors = req.validationErrors();
 
   if (errors) {
@@ -276,15 +275,12 @@ exports.getRoomUpdate = (req, res, error) => {
   Facility.findById(facility_id)
   .then((facility)=>{
     currentFacility = facility;
-    console.log('facility update '+currentFacility);
     return Promise.resolve(currentFacility);
   })
   .then(()=>{
-    console.log('get room update >> ');
     Room.findById(room_id)
     .then((room)=>{
       currentRoom = room;
-      console.log('currentRoom: '+ currentRoom); 
       res.render('updateroom', {
         title: 'Room',
         currentFacility,
