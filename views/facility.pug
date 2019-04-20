@@ -62,10 +62,10 @@ block content
                           .col-md-5 
                             input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
                     .form-group
-                        button.btn.btn-secondary(type='submit')
-                            | Update Room
+                        //button.btn.btn-secondary(type='submit')
+                            //| Update Room
                         a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
-                            button.btn.btn-success(type='button')
+                             button.btn.btn-secondary(type='button')
                                 | Full Detail
 
         a(href="/roomsignup/"+currentFacility._id)
