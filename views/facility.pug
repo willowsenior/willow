@@ -11,6 +11,10 @@ block content
             h5= currentFacility.FacilityName
             a.edit-button(href="/updatefacility/"+currentFacility._id)
               i.ml-4.fas.fa-edit
+        .row
+          .col
+            h5= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
+
         br
         .row
           .col
@@ -60,6 +64,9 @@ block content
                     .form-group
                         button.btn.btn-secondary(type='submit')
                             | Update Room
+                        a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
+                            button.btn.btn-success(type='button')
+                                | Full Detail
 
         a(href="/roomsignup/"+currentFacility._id)
             button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +

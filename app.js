@@ -121,8 +121,6 @@ app.get('/contact', homeController.getContact);
 // app.get('/reset/:token', userController.getReset);
 // app.post('/reset/:token', userController.postReset);
 
-
-
 //Admin
 app.get('/willowadminsignup', userController.getWillowAdminSignup);
 app.post('/willowadminsignup', userController.postWillowAdminSignup);
@@ -140,6 +138,7 @@ app.get('/roomsignup/:facility_id', facilityController.getRoomSignup);
 app.post('/roomsignup/:facility_id', facilityController.postRoomSignup);
 app.put('/updateroom/:facility_id/:room_id', facilityController.putRoomUpdate);
 app.get('/updateroom/:facility_id/:room_id', facilityController.getRoomUpdate);
+app.put('/updatefullroom/:facility_id/:room_id', facilityController.putFullRoomUpdate);
 
 
 ////AUthentication routes

@@ -53,6 +53,19 @@ block content
           label.form-radio-label.ml-4(for='no') No
             input.form-radio-input(type='radio', name='medicaid', id='no' value = 'N')
             span.radio
+
+
+    .form-group.row
+      label.col-sm-3.col-md-2.col-form-label Is this room within a secure unit/ have a Wanderguard?
+      .col-md-3
+        .col-md-12
+          label.form-radio-label.ml-4(for='yes') Yes
+            input.form-radio-input(type='radio', name='wandergaurd', id='yes' value = 'Y')
+            span.radio
+        .col-md-12
+          label.form-radio-label.ml-4(for='yes') No
+            input.form-radio-input(type='radio', name='wandergaurd', id='no' value = 'N')
+            span.radio
     br
     -if(currentFacility.FacilityFeatures.length)
       p.lead Level of Assistance
