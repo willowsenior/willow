@@ -48,6 +48,15 @@ block content
         .col-md-12
             input.form-radio-input(type='radio', name='medicaid', id='medicaid' value = 'N')
             label.form-radio-label.ml-4(for='radio') No
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-middle Is this room within a secure unit/ have a Wanderguard?
+      .col-md-4
+        .col-md-12
+            input.form-radio-input(type='radio', name='wandergaurd', id='wandergaurd' value = 'Y')
+            label.form-radio-label.ml-4(for='radio') Yes
+        .col-md-12
+            input.form-radio-input(type='radio', name='wandergaurd', id='wandergaurd' value = 'N')
+            label.form-radio-label.ml-4(for='radio') No
     br
     p.lead Level of Assistance
     .row
@@ -61,5 +70,5 @@ block content
                                     td.text-left= myconstants.constants(key)
     .form-group.offset-sm-3.col-md-7.pl-2
       button.btn.btn-success(type='submit')
-        | Add a Room
+        | Add Room
 

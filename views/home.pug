@@ -19,9 +19,6 @@ block content
                   .card-body
                     h4.card-title= facilities[i].FacilityName
                     p.card-text
-                      | Some quick example text to build on the card title
-                      | and make up the bulk of the card&apos;s content.
-                    
                     - var facility_id = facilities[i]._id.toString();
                     a.btn.btn-primary(href='/facility/'+facility_id) Details 
               .col-md-6

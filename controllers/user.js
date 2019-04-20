@@ -131,8 +131,10 @@ exports.getCustomerSignup = (req, res) => {
     if (req.user) {
         return res.redirect('/home');
     }
+    const email = 'will@willowsenior.care';
     res.render('account/customersignup', {
-        title: 'Create Account'
+        title: 'Create Account',
+        email
     });
 };
 
