@@ -2,8 +2,16 @@ extends layout
 
 block content
   .pb-2.mt-2.mb-4.border-bottom
-    h3 Room Sign up 
-  form.body-form(id='roomsignup-form123', method='POST', action='/updatefullroom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=PUT')
+  .row
+    .col-md-6
+      h3 Update Room Details
+    .col-md-6
+      form(id='roomsignup-form123', method='POST', action='/deleteRoom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=DELETE')
+        .form-group
+          button.btn.btn-danger(type='submit')
+            | Delete Room
+
+  form(id='roomsignup-form123', method='POST', action='/updatefullroom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=PUT')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
       label.col-md-3.col-form-label.font-weight-boldRoom.text-middle Room Name
@@ -56,7 +64,8 @@ block content
         .col-md-12
             input.form-radio-input(type='radio', name='wandergaurd', id='wandergaurd' value = 'N' checked= currentRoom.MedicAid==='N')
             label.form-radio-label.ml-4(for='radio') No
-        br
+    br
+    br
     p.lead Level of Assistance
     br
     .form-group.row

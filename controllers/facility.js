@@ -186,6 +186,32 @@ exports.putRoomUpdate = (req, res, error) => {
   });
 };
 
+exports.deleteRoom = (req, res, error) => {
+  var roomId = req.params.room_id;
+  Room.findById(roomId, (err,room) => {
+    if (err) {
+      req.flash('errors', err);
+      return res.redirect('/signup');
+    }
+    Room.deleteOne(room,(err)=>{
+      if (err) {
+        req.flash('errors', err);
+        return res.redirect('/signup');
+      }
+    });
+  })
+  .exec()
+  .then(()=>{
+    res.redirect('/facility/'+req.params.facility_id);
+  })
+  .catch((error)=>{
+    console.log("ERRRRRRR");
+    if(error){
+      console.log(error);
+    }
+  });
+}
+
 exports.putFullRoomUpdate = (req, res, error) => {
   const errors = req.validationErrors();
 
