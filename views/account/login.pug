@@ -9,10 +9,10 @@ block content
       .login-wrapper.p-t-50.p-b-50
         form.body-form(id="login" method='POST' action='/login')
           input(type='hidden', name='_csrf', value=_csrf)
-          .input-wrapper#email-wrapper
+          .input-wrapper.has-value#email-wrapper
             input(type='email', name='email', id='email', value="", autofocus, autocomplete='email', required)
             span.focus-action(data-placeholder="Email")
-          .input-wrapper#password-wrapper
+          .input-wrapper.has-value#password-wrapper
             input(type='password', name='password', id='password', autocomplete='current-password', required)
             span.focus-action(data-placeholder="Password")
           button.col-md-3.btn.btn-willow(type='submit')

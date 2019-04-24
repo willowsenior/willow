@@ -437,6 +437,14 @@ select.form-control {
 // Navbar
 // -------------------------
 
+
+.navbar {
+    .logo {
+        height: 50px;
+        width: auto;
+    }
+}
+
 .navbar-nav img {
   width: 30px;
   min-height: 30px;
