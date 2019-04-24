@@ -1,11 +1,12 @@
 extends layout
 
 block content
-  h1 Willow 
-  p.lead A platform for Senior Healthcare
-  hr
-  br
-  br
+  if facilities && facilities.length
+    h1 Willow 
+    p.lead A platform for Senior Healthcare
+    hr
+    br
+    br
   if facilities && facilities.length
     .row
       .col
@@ -33,18 +34,16 @@ block content
                           | and make up the bulk of the card&apos;s content.
                         - var facility_id = facilities[i]._id.toString();
                         a.btn.btn-primary(href='/facility/'+facility_id) Details
-  else                 
-    .row
-      .col 
-        h1.text-center.font-weight-bolder Fill Vacancies.
-        h3.text-center The Willow Senior Placement Platform connects your facility to active local prospects that meet your ideal resident profile..
-  br
-  br
-  hr
-  br
-  br
-  .row
-    .col
-      div.text-center
-        a(href='/facilitysignup')
-          button.btn.btn-success(type='button')  Add Facility 
+  else  
+    .hero-image
+    .hero-image-overlay
+    svg#hero-polygon(xmlns='http://www.w3.org/2000/svg', viewbox='0 0 100 100', preserveaspectratio='none')
+        polygon(fill='white', points='0,100 100,0 100,100')               
+    .row.text-center.hero-text
+      .col.col-lg-7.col-sm-12.center-contents
+        h1.text-center.font-weight-bolder.text-white Fill Vacancies.
+        h3.text-center.text-grey.m-t-10 The Willow Senior Placement Platform connects your facility to active local prospects that meet your ideal resident profile..
+        div.text-center.m-t-50
+          a(href='/facilitysignup')
+            button.btn.btn-willow.btn-willow__hero(type='button')  Add Facility 
+      

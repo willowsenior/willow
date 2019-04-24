@@ -2,274 +2,338 @@ extends layout
 
 block content
   .pb-2.mt-2.mb-4.border-bottom
-    h3 Create Permanent Facility Profile
-  form(id='facsignup-form', method='POST', action='/facilitysignup')
+    h1 Create Permanent Facility Profile
+  form.body-form(id='facsignup-form', method='POST', action='/facilitysignup')
     input(type='hidden', name='_csrf', value=_csrf)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Facility Name
-      .col-md-7
-        input.form-control(type='text', name='facilityName', id='facilityName', placeholder='Facility Name', autofocus, required)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Contact Number
-      .col-md-7
-        input.form-control(type='number', name='contactNumber', id='contactNumber', placeholder='XXX-XXX-XXXX', required)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Contact Name
-      .col-md-7
-        input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name', required)
-    .form-group.row
-        h4.col-md-3.text-right Address
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Steet
-      .col-md-7
-        input.form-control(type='text', name='street', id='street', placeholder='Street', optional)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right City
-      .col-md-7
-        input.form-control(type='text', name='city', id='city', placeholder='City', optional)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right State
-      .col-md-7
-        input.form-control(type='text', name='state', id='state', placeholder='State', optional)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Zip
-      .col-md-7
-        input.form-control(type='text', name='zip', id='zip', placeholder='Zip', optional)
-    br
-    hr
-    br
-    .form-group.row
-    h4.col-md-7.text-right Set the level of assistance that your facility can accomodate
-    br
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Eating
-      .col-md-7
-        .form-check
-            input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', placeholder='eating_noassistance' value=1)
-            label.mb-2.form-check-label(for='eating_noassistance')= myconstants.constants('Eating_noassistance')
-        .form-check
-            input.form-check-input(type='checkbox', name='eating_intermittent', id='eating_intermittent', placeholder='eating_intermittent' value=1)
-            label.mb-2.form-check-label(for='eating_intermittent')= myconstants.constants('Eating_intermittent')
-        .form-check
-            input.form-check-input(type='checkbox', name='eating_continual', id='eating_continual', placeholder='eating_continual' value=1)
-            label.mb-2.form-check-label(for='eating_continual')= myconstants.constants('Eating_continual')
-        .form-check
-            input.form-check-input(type='checkbox', name='eating_byhand', id='eating_byhand', placeholder='eating_byhand' value=1)
-            label.mb-2.form-check-label(for='eating_byhand')= myconstants.constants('Eating_byhand')
-        .form-check
-            input.form-check-input(type='checkbox', name='eating_tube', id='eating_tube', placeholder='eating_tube' value=1)
-            label.mb-2.form-check-label(for='eating_tube')= myconstants.constants('Eating_tube')
+    .form-section
+        .form-group.form-section-header
+            h3.text-left Facility Info
+        .form-group.row
+          label.col-form-label.col-form-label__stacked Facility Name
+          .col-md-6
+            input.form-control(type='text', name='facilityName', id='facilityName', placeholder='Facility Name', autofocus, required)
+        .form-group.row
+          label.col-form-label.col-form-label__stacked Contact Number
+          .col-md-6
+            input.form-control(type='number', name='contactNumber', id='contactNumber', placeholder='XXX-XXX-XXXX', required)
+        .form-group.row
+          label.col-form-label.col-form-label__stacked Contact Name
+          .col-md-6
+            input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name', required)
+
+    .form-section
+        .form-group.form-section-header
+            h3.text-left Address
+        .form-group.row
+          label.col-form-label.col-form-label__stacked Steet
+          .col-md-6
+            input.form-control(type='text', name='street', id='street', placeholder='Street', optional)
+        .form-group.row
+          label.col-form-label.col-form-label__stacked City
+          .col-md-6
+            input.form-control(type='text', name='city', id='city', placeholder='City', optional)
+        .form-group.row
+          .form-group__inline
+            label.col-form-label.col-form-label__stacked State
+            .col-md-12
+                input.form-control(type='text', name='state', id='state', placeholder='State', optional)
+          .form-group__inline
+            label.col-form-label.col-form-label__stacked Zip
+            .col-md-12
+                input.form-control(type='text', name='zip', id='zip', placeholder='Zip', optional)
+          
+    .form-section
+        .form-group.form-section-header
+            h3.text-left General Assistance Accomodations
+                h4.text-left What level of assistance can your facility provide?
+
+        .form-group.row
+          label.col-form-label.col-form-label__stacked.check-group-label Eating
+          .col-md-6
+            .form-check
+                label.form-check-label(for='eating_noassistance')= myconstants.constants('Eating_noassistance')
+                    input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', placeholder='eating_noassistance' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='eating_intermittent')= myconstants.constants('Eating_intermittent')
+                    input.form-check-input(type='checkbox', name='eating_intermittent', id='eating_intermittent', placeholder='eating_intermittent' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='eating_continual')= myconstants.constants('Eating_continual')
+                    input.form-check-input(type='checkbox', name='eating_continual', id='eating_continual', placeholder='eating_continual' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='eating_byhand')= myconstants.constants('Eating_byhand')
+                    input.form-check-input(type='checkbox', name='eating_byhand', id='eating_byhand', placeholder='eating_byhand' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='eating_tube')= myconstants.constants('Eating_tube')
+                    input.form-check-input(type='checkbox', name='eating_tube', id='eating_tube', placeholder='eating_tube' value=1)
+                    span.checkmark
+        br 
+        .form-group.row
+          label.col-form-label.col-form-label__stacked.check-group-label Transfers
+          .col-md-6
+            .form-check
+                label.form-check-label(for='transfers_none')= myconstants.constants('Transfers_none')
+                    input.form-check-input(type='checkbox', name='transfers_none', id='transfers_none', placeholder='transfers_none' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='transfers_intermittent')= myconstants.constants('Transfers_intermittent')
+                    input.form-check-input(type='checkbox', name='transfers_intermittent', id='transfers_intermittent', placeholder='transfers_intermittent' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='transfers_oneperson')= myconstants.constants('Transfers_oneperson')
+                    input.form-check-input(type='checkbox', name='transfers_oneperson', id='transfers_oneperson', placeholder='transfers_oneperson' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='transfers_twoperson')= myconstants.constants('Transfers_twoperson')
+                    input.form-check-input(type='checkbox', name='transfers_twoperson', id='transfers_twoperson', placeholder='transfers_twoperson' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='transfers_cannot')= myconstants.constants('Transfers_cannot')
+                    input.form-check-input(type='checkbox', name='transfers_cannot', id='transfers_cannot', placeholder='transfers_cannot' value=1)
+                    span.checkmark
+        br    
+        .form-group.row
+          label.col-form-label.col-form-label__stacked.check-group-labelMobility
+          .col-md-6
+            .form-check
+                label.form-check-label(for='mobiliy_noassisstance')= myconstants.constants('Mobiliy_noassisstance')
+                    input.form-check-input(type='checkbox', name='mobiliy_noassisstance', id='mobiliy_noassisstance', placeholder='mobiliy_noassisstance' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='mobiliy_intermittent')= myconstants.constants('Mobiliy_intermittent')
+                    input.form-check-input(type='checkbox', name='mobiliy_intermittent', id='mobiliy_intermittent', placeholder='mobiliy_intermittent' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='mobiliy_continual')= myconstants.constants('Mobiliy_continual')
+                    input.form-check-input(type='checkbox', name='mobiliy_continual', id='mobiliy_continual', placeholder='mobiliy_continual' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='mobiliy_wheels')= myconstants.constants('Mobiliy_wheels')
+                    input.form-check-input(type='checkbox', name='mobiliy_wheels', id='mobiliy_wheels', placeholder='mobiliy_wheels' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='mobiliy_cannotmove')= myconstants.constants('Mobiliy_cannotmove')
+                    input.form-check-input(type='checkbox', name='mobiliy_cannotmove', id='mobiliy_cannotmove', placeholder='mobiliy_cannotmove' value=1)
+                    span.checkmark
+        br     
+        .form-group.row
+          label.col-form-label.col-form-label__stacked.check-group-label Toileting
+          .col-md-6
+            .form-check
+                label.form-check-label(for='toileting_noassisstance')= myconstants.constants('Toileting_noassisstance')
+                    input.form-check-input(type='checkbox', name='toileting_noassisstance', id='toileting_noassisstance', placeholder='toileting_noassisstance' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='toileting_bowel')= myconstants.constants('Toileting_bowel')
+                    input.form-check-input(type='checkbox', name='toileting_bowel', id='toileting_bowel', placeholder='toileting_bowel' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='toileting_continual')= myconstants.constants('Toileting_continual')
+                    input.form-check-input(type='checkbox', name='toileting_continual', id='toileting_continual', placeholder='toileting_continual' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='toileting_nobathroomincontinent')= myconstants.constants('Toileting_nobathroomincontinent')
+                    input.form-check-input(type='checkbox', name='toileting_nobathroomincontinent', id='toileting_nobathroomincontinent', placeholder='toileting_nobathroomincontinent' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='toileting_bathroomincontinent')= myconstants.constants('Toileting_bathroomincontinent')
+                    input.form-check-input(type='checkbox', name='toileting_bathroomincontinent', id='toileting_bathroomincontinent', placeholder='toileting_bathroomincontinent' value=1)
+                    span.checkmark
+        br 
+        .form-group.row
+          label.col-form-label.col-form-label__stacked.check-group-label Verbal
+          .col-md-6
+            .form-check
+                label.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
+                    input.form-check-input(type='checkbox', name='verbal_none', id='verbal_none', placeholder='verbal_none' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='verbal_infrequent')= myconstants.constants('Verbal_infrequent')
+                    input.form-check-input(type='checkbox', name='verbal_infrequent', id='verbal_infrequent', placeholder='verbal_infrequent' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='verbal_predictable')= myconstants.constants('Verbal_predictable')
+                    input.form-check-input(type='checkbox', name='verbal_predictable', id='verbal_predictable', placeholder='verbal_predictable' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='verbal_onceunpredictable')= myconstants.constants('Verbal_onceunpredictable')
+                    input.form-check-input(type='checkbox', name='verbal_onceunpredictable', id='verbal_onceunpredictable', placeholder='verbal_onceunpredictable' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='verbal_multipleunpredictable')= myconstants.constants('Verbal_multipleunpredictable')
+                    input.form-check-input(type='checkbox', name='verbal_multipleunpredictable', id='verbal_multipleunpredictable', placeholder='verbal_multipleunpredictable' value=1)
+                    span.checkmark
+        br 
+        .form-group.row
+          label.col-form-label.col-form-label__stacked.check-group-label Physical
+          .col-md-6
+            .form-check
+                label.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
+                    input.form-check-input(type='checkbox', name='physical_none', id='physical_none', placeholder='physical_none' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='physical_infrequent')= myconstants.constants('Physical_infrequent')
+                    input.form-check-input(type='checkbox', name='physical_infrequent', id='physical_infrequent', placeholder='physical_infrequent' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='physical_predictable')= myconstants.constants('Physical_predictable')
+                    input.form-check-input(type='checkbox', name='physical_predictable', id='physical_predictable', placeholder='physical_predictable' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='physical_onceunpredictable')= myconstants.constants('Physical_onceunpredictable')
+                    input.form-check-input(type='checkbox', name='physical_onceunpredictable', id='physical_onceunpredictable', placeholder='physical_onceunpredictable' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='physical_multipleunpredictable')= myconstants.constants('Physical_multipleunpredictable')
+                    input.form-check-input(type='checkbox', name='physical_multipleunpredictable', id='physical_multipleunpredictable', placeholder='physical_multipleunpredictable' value=1)
+                    span.checkmark
+        br 
+        .form-group.row
+          label.col-form-label.col-form-label__stacked.check-group-label Behaviour
+          .col-md-6
+            .form-check
+                label.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
+                    input.form-check-input(type='checkbox', name='behaviourial_none', id='behaviourial_none', placeholder='behaviourial_none' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='behaviourial_yesnondisruptive')= myconstants.constants('Behaviourial_yesnondisruptive')
+                    input.form-check-input(type='checkbox', name='behaviourial_yesnondisruptive', id='behaviourial_yesnondisruptive', placeholder='behaviourial_yesnondisruptive' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='behaviourial_infrequent')= myconstants.constants('Behaviourial_infrequent')
+                    input.form-check-input(type='checkbox', name='behaviourial_infrequent', id='behaviourial_infrequent', placeholder='behaviourial_infrequent' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='behaviourial_frequent')= myconstants.constants('Behaviourial_frequent')
+                    input.form-check-input(type='checkbox', name='behaviourial_frequent', id='behaviourial_frequent', placeholder='behaviourial_frequent' value=1)
+                    span.checkmark
+            .form-check
+                label.form-check-label(for='behaviourial_unpredictable')= myconstants.constants('Behaviourial_unpredictable')
+                    input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable', placeholder='behaviourial_unpredictable' value=1)
+                    span.checkmark
+
+    .form-section
+        .form-group.form-section-header
+            h3.text-left Specialized Assistance Accomodations
+                h4.text-left What types of special assistance can your facility provide?
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-form-label How Many Insulin Shots Can You Administer?
+          .col-md-4
+            input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', autofocus, required)
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-form-label Hallucinations
+          .col-md-4
+            .col-md-12
+                label.form-radio-label.ml-4(for='hallucinations') Yes
+                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations' value = 'Y')
+                    span.radio
+            .col-md-12
+                label.form-radio-label.ml-4(for='hallucinations') No
+                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations' value = 'N')
+                    span.radio
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-form-label Memory Care
+          .col-md-4
+            .col-md-12
+                label.form-radio-label.ml-4(for='memorycare') Yes
+                    input.form-radio-input(type='radio', name='memorycare', id='memorycare' value = 'Y')
+                    span.radio
+            .col-md-12
+                label.form-radio-label.ml-4(for='memorycare') No
+                    input.form-radio-input(type='radio', name='memorycare', id='memorycare' value = 'N')
+                    span.radio
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-form-label Would you Take a Resident with an Oxygen Tank?
+          .col-md-4
+            .col-md-12
+                label.form-radio-label.ml-4(for='oxygentank') Yes
+                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank' value = 'Y')
+                    span.radio
+            .col-md-12
+                label.form-radio-label.ml-4(for='oxygentank') No
+                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank' value = 'N')
+                    span.radio
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
+          .col-md-4
+            .col-md-12
+                label.form-radio-label.ml-4(for='changeoxygentank') Yes
+                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank' value = 'Y')
+                    span.radio
+            .col-md-12
+                label.form-radio-label.ml-4(for='changeoxygentank') No
+                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank' value = 'N')
+                    span.radio
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-form-label Would you take a Resident who needs to be on oxygen at all times?
+          .col-md-4
+            .col-md-12
+                label.form-radio-label.ml-4(for='alltimeoxygen') Yes
+                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen' value = 'Y')
+                    span.radio
+            .col-md-12
+                label.form-radio-label.ml-4(for='alltimeoxygen') No
+                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen' value = 'N')
+                    span.radio
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
+          .col-md-4
+            .col-md-12
+                label.form-radio-label.ml-4(for='changecatheter') Yes
+                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter' value = 'Y')
+                    span.radio
+            .col-md-12
+                label.form-radio-label.ml-4(for='changecatheter') No
+                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter' value = 'N')
+                    span.radio
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-form-label Do you provide medication management?
+          .col-md-4
+            .col-md-12
+                label.form-radio-label.ml-4(for='medicationmanagement') Yes
+                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement' value = 'Y')
+                    span.radio
+            .col-md-12
+                label.form-radio-label.ml-4(for='medicationmanagement') No
+                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement' value = 'N')
+                    span.radio
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
+          .col-md-4
+            .col-md-12
+                label.form-radio-label.ml-4(for='liquiddiets') Yes
+                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets' value = 'Y')
+                    span.radio
+            .col-md-12
+                label.form-radio-label.ml-4(for='liquiddiets') No
+                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets' value = 'N')
+                    span.radio
+        br 
+        .form-group.row
+          label.col-lg-3.col-md-5.col-form-label Do you provide ground diets for residents?
+          .col-md-4
+            .col-md-12
+                label.form-radio-label.ml-4(for='grounddiets') Yes
+                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets' value = 'Y')
+                    span.radio
+            .col-md-12
+                label.form-radio-label.ml-4(for='grounddiets') No
+                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets' value = 'N')
+                    span.radio
     br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Transfers
-      .col-md-7
-        .form-check
-            input.form-check-input(type='checkbox', name='transfers_none', id='transfers_none', placeholder='transfers_none' value=1)
-            label.mb-2.form-check-label(for='transfers_none')= myconstants.constants('Transfers_none')
-        .form-check
-            input.form-check-input(type='checkbox', name='transfers_intermittent', id='transfers_intermittent', placeholder='transfers_intermittent' value=1)
-            label.mb-2.form-check-label(for='transfers_intermittent')= myconstants.constants('Transfers_intermittent')
-        .form-check
-            input.form-check-input(type='checkbox', name='transfers_oneperson', id='transfers_oneperson', placeholder='transfers_oneperson' value=1)
-            label.mb-2.form-check-label(for='transfers_oneperson')= myconstants.constants('Transfers_oneperson')
-        .form-check
-            input.form-check-input(type='checkbox', name='transfers_twoperson', id='transfers_twoperson', placeholder='transfers_twoperson' value=1)
-            label.mb-2.form-check-label(for='transfers_twoperson')= myconstants.constants('Transfers_twoperson')
-        .form-check
-            input.form-check-input(type='checkbox', name='transfers_cannot', id='transfers_cannot', placeholder='transfers_cannot' value=1)
-            label.mb-2.form-check-label(for='transfers_cannot')= myconstants.constants('Transfers_cannot')
-    br    
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Mobility
-      .col-md-7
-        .form-check
-            input.form-check-input(type='checkbox', name='mobiliy_noassisstance', id='mobiliy_noassisstance', placeholder='mobiliy_noassisstance' value=1)
-            label.mb-2.form-check-label(for='mobiliy_noassisstance')= myconstants.constants('Mobiliy_noassisstance')
-        .form-check
-            input.form-check-input(type='checkbox', name='mobiliy_intermittent', id='mobiliy_intermittent', placeholder='mobiliy_intermittent' value=1)
-            label.mb-2.form-check-label(for='mobiliy_intermittent')= myconstants.constants('Mobiliy_intermittent')
-        .form-check
-            input.form-check-input(type='checkbox', name='mobiliy_continual', id='mobiliy_continual', placeholder='mobiliy_continual' value=1)
-            label.mb-2.form-check-label(for='mobiliy_continual')= myconstants.constants('Mobiliy_continual')
-        .form-check
-            input.form-check-input(type='checkbox', name='mobiliy_wheels', id='mobiliy_wheels', placeholder='mobiliy_wheels' value=1)
-            label.mb-2.form-check-label(for='mobiliy_wheels')= myconstants.constants('Mobiliy_wheels')
-        .form-check
-            input.form-check-input(type='checkbox', name='mobiliy_cannotmove', id='mobiliy_cannotmove', placeholder='mobiliy_cannotmove' value=1)
-            label.mb-2.form-check-label(for='mobiliy_cannotmove')= myconstants.constants('Mobiliy_cannotmove')
-    br     
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Toileting
-      .col-md-7
-        .form-check
-            input.form-check-input(type='checkbox', name='toileting_noassisstance', id='toileting_noassisstance', placeholder='toileting_noassisstance' value=1)
-            label.mb-2.form-check-label(for='toileting_noassisstance')= myconstants.constants('Toileting_noassisstance')
-        .form-check
-            input.form-check-input(type='checkbox', name='toileting_bowel', id='toileting_bowel', placeholder='toileting_bowel' value=1)
-            label.mb-2.form-check-label(for='toileting_bowel')= myconstants.constants('Toileting_bowel')
-        .form-check
-            input.form-check-input(type='checkbox', name='toileting_continual', id='toileting_continual', placeholder='toileting_continual' value=1)
-            label.mb-2.form-check-label(for='toileting_continual')= myconstants.constants('Toileting_continual')
-        .form-check
-            input.form-check-input(type='checkbox', name='toileting_nobathroomincontinent', id='toileting_nobathroomincontinent', placeholder='toileting_nobathroomincontinent' value=1)
-            label.mb-2.form-check-label(for='toileting_nobathroomincontinent')= myconstants.constants('Toileting_nobathroomincontinent')
-        .form-check
-            input.form-check-input(type='checkbox', name='toileting_bathroomincontinent', id='toileting_bathroomincontinent', placeholder='toileting_bathroomincontinent' value=1)
-            label.mb-2.form-check-label(for='toileting_bathroomincontinent')= myconstants.constants('Toileting_bathroomincontinent')
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Verbal
-      .col-md-7
-        .form-check
-            input.form-check-input(type='checkbox', name='verbal_none', id='verbal_none', placeholder='verbal_none' value=1)
-            label.mb-2.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
-        .form-check
-            input.form-check-input(type='checkbox', name='verbal_infrequent', id='verbal_infrequent', placeholder='verbal_infrequent' value=1)
-            label.mb-2.form-check-label(for='verbal_infrequent')= myconstants.constants('Verbal_infrequent')
-        .form-check
-            input.form-check-input(type='checkbox', name='verbal_predictable', id='verbal_predictable', placeholder='verbal_predictable' value=1)
-            label.mb-2.form-check-label(for='verbal_predictable')= myconstants.constants('Verbal_predictable')
-        .form-check
-            input.form-check-input(type='checkbox', name='verbal_onceunpredictable', id='verbal_onceunpredictable', placeholder='verbal_onceunpredictable' value=1)
-            label.mb-2.form-check-label(for='verbal_onceunpredictable')= myconstants.constants('Verbal_onceunpredictable')
-        .form-check
-            input.form-check-input(type='checkbox', name='verbal_multipleunpredictable', id='verbal_multipleunpredictable', placeholder='verbal_multipleunpredictable' value=1)
-            label.mb-2.form-check-label(for='verbal_multipleunpredictable')= myconstants.constants('Verbal_multipleunpredictable')
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Physical
-      .col-md-7
-        .form-check
-            input.form-check-input(type='checkbox', name='physical_none', id='physical_none', placeholder='physical_none' value=1)
-            label.mb-2.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
-        .form-check
-            input.form-check-input(type='checkbox', name='physical_infrequent', id='physical_infrequent', placeholder='physical_infrequent' value=1)
-            label.mb-2.form-check-label(for='physical_infrequent')= myconstants.constants('Physical_infrequent')
-        .form-check
-            input.form-check-input(type='checkbox', name='physical_predictable', id='physical_predictable', placeholder='physical_predictable' value=1)
-            label.mb-2.form-check-label(for='physical_predictable')= myconstants.constants('Physical_predictable')
-        .form-check
-            input.form-check-input(type='checkbox', name='physical_onceunpredictable', id='physical_onceunpredictable', placeholder='physical_onceunpredictable' value=1)
-            label.mb-2.form-check-label(for='physical_onceunpredictable')= myconstants.constants('Physical_onceunpredictable')
-        .form-check
-            input.form-check-input(type='checkbox', name='physical_multipleunpredictable', id='physical_multipleunpredictable', placeholder='physical_multipleunpredictable' value=1)
-            label.mb-2.form-check-label(for='physical_multipleunpredictable')= myconstants.constants('Physical_multipleunpredictable')
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right Behaviour
-      .col-md-7
-        .form-check
-            input.form-check-input(type='checkbox', name='behaviourial_none', id='behaviourial_none', placeholder='behaviourial_none' value=1)
-            label.mb-2.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
-        .form-check
-            input.form-check-input(type='checkbox', name='behaviourial_yesnondisruptive', id='behaviourial_yesnondisruptive', placeholder='behaviourial_yesnondisruptive' value=1)
-            label.mb-2.form-check-label(for='behaviourial_yesnondisruptive')= myconstants.constants('Behaviourial_yesnondisruptive')
-        .form-check
-            input.form-check-input(type='checkbox', name='behaviourial_infrequent', id='behaviourial_infrequent', placeholder='behaviourial_infrequent' value=1)
-            label.mb-2.form-check-label(for='behaviourial_infrequent')= myconstants.constants('Behaviourial_infrequent')
-        .form-check
-            input.form-check-input(type='checkbox', name='behaviourial_frequent', id='behaviourial_frequent', placeholder='behaviourial_frequent' value=1)
-            label.mb-2.form-check-label(for='behaviourial_frequent')= myconstants.constants('Behaviourial_frequent')
-        .form-check
-            input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable', placeholder='behaviourial_unpredictable' value=1)
-            label.mb-2.form-check-label(for='behaviourial_unpredictable')= myconstants.constants('Behaviourial_unpredictable')
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle How Many Insulin Shots Could You Administer to a Resident Daily?
-      .col-md-4
-        input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', autofocus, required)
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Hallucinations
-      .col-md-4
-        .col-md-12
-            input.form-radio-input(type='radio', name='hallucinations', id='hallucinations' value = 'Y')
-            label.form-radio-label.ml-4(for='hallucinations') Yes
-        .col-md-12
-            input.form-radio-input(type='radio', name='hallucinations', id='hallucinations' value = 'N')
-            label.form-radio-label.ml-4(for='hallucinations') No
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Memory Care
-      .col-md-4
-        .col-md-12
-            input.form-radio-input(type='radio', name='memorycare', id='memorycare' value = 'Y')
-            label.form-radio-label.ml-4(for='memorycare') Yes
-        .col-md-12
-            input.form-radio-input(type='radio', name='memorycare', id='memorycare' value = 'N')
-            label.form-radio-label.ml-4(for='memorycare') No
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Would you Take a Resident with an Oxygen Tank?
-      .col-md-4
-        .col-md-12
-            input.form-radio-input(type='radio', name='oxygentank', id='oxygentank' value = 'Y')
-            label.form-radio-label.ml-4(for='oxygentank') Yes
-        .col-md-12
-            input.form-radio-input(type='radio', name='oxygentank', id='oxygentank' value = 'N')
-            label.form-radio-label.ml-4(for='oxygentank') No
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
-      .col-md-4
-        .col-md-12
-            input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank' value = 'Y')
-            label.form-radio-label.ml-4(for='changeoxygentank') Yes
-        .col-md-12
-            input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank' value = 'N')
-            label.form-radio-label.ml-4(for='changeoxygentank') No
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Would you take a Resident who needs to be on oxygen at all times?
-      .col-md-4
-        .col-md-12
-            input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen' value = 'Y')
-            label.form-radio-label.ml-4(for='alltimeoxygen') Yes
-        .col-md-12
-            input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen' value = 'N')
-            label.form-radio-label.ml-4(for='alltimeoxygen') No
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Would you take a Resident who cannot change their own catheter/colostomy bag?
-      .col-md-4
-        .col-md-12
-            input.form-radio-input(type='radio', name='changecatheter', id='changecatheter' value = 'Y')
-            label.form-radio-label.ml-4(for='changecatheter') Yes
-        .col-md-12
-            input.form-radio-input(type='radio', name='changecatheter', id='changecatheter' value = 'N')
-            label.form-radio-label.ml-4(for='changecatheter') No
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Do you provide medication management?
-      .col-md-4
-        .col-md-12
-            input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement' value = 'Y')
-            label.form-radio-label.ml-4(for='medicationmanagement') Yes
-        .col-md-12
-            input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement' value = 'N')
-            label.form-radio-label.ml-4(for='medicationmanagement') No
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Do you provide thickened liquid diets for residents?
-      .col-md-4
-        .col-md-12
-            input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets' value = 'Y')
-            label.form-radio-label.ml-4(for='liquiddiets') Yes
-        .col-md-12
-            input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets' value = 'N')
-            label.form-radio-label.ml-4(for='liquiddiets') No
-    br 
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-middle Do you provide ground diets for residents?
-      .col-md-4
-        .col-md-12
-            input.form-radio-input(type='radio', name='grounddiets', id='grounddiets' value = 'Y')
-            label.form-radio-label.ml-4(for='grounddiets') Yes
-        .col-md-12
-            input.form-radio-input(type='radio', name='grounddiets', id='grounddiets' value = 'N')
-            label.form-radio-label.ml-4(for='grounddiets') No
-    br 
-    .form-group.offset-sm-3.col-md-7.pl-2
-      button.btn.btn-success(type='submit')
+    .form-group.offset-sm-1.col-md-6.pl-2
+      button.btn.btn-willow.btn-signup-form(type='submit')
         i.fas.fa-user-plus.fa-sm
         | Signup

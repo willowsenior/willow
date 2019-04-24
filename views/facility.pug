@@ -1,80 +1,73 @@
 extends layout
 
 block content
-    .row
-    p.lead Room Details
-    .col
-        .row.mt-4 
-            .col
-                .row
-                        - for (var i = 0; i < currentRooms.length; i++)
-                            .col-md-6
-                                .card-deck
-                                    .card.mr-4.mt-4.mb-4
-                                        .card-body
-                                            h4.card-title= currentRooms[i].RoomName
-                                            form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
-                                                input(type='hidden', name='_csrf', value=_csrf)
-                                                .form-group.row
-                                                    label.col-md-3.col-form-label.font-weight-bold.text-left Room Count
-                                                    .col-md-7
-                                                        input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
-                                                .form-group.row
-                                                    label.col-md-3.col-form-label.font-weight-bold.text-left(for='roomtype') Room Type
-                                                    .col-md-7
-                                                        select.form-control(id='roomtype' name='roomtype' )
-                                                            option(selected= currentRooms[i].RoomType==='Private') Private
-                                                            option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
-                                                            option(selected= currentRooms[i].RoomType==='Suit') Suit
-                                                            option(selected= currentRooms[i].RoomType==='Suit') Studio Apartment
-                                                .form-group.row
-                                                    label.col-md-3.col-form-label.font-weight-bold.text-middle Room Rent Range
-                                                    .col-md-3
-                                                        input.form-control(type='number', name='min', id='min', value=currentRooms[i].Range.min, autofocus, required)
-                                                    .col-md-1
-                                                        label.font-weight-bold.text-right to  
-                                                    .col-md-3
-                                                        input.form-control(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
-                                                .form-group.offset-sm-3.col-md-7.pl-2
-                                                    button.btn.btn-success(type='submit').col-md-5
-                                                        | Update Room
-                                                    a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
-                                                        button.btn.btn-success(type='button')
-                                                            | Full Detail
-    
-    a(href="/roomsignup/"+currentFacility._id)
-        button.btn.btn-primary.mt-4(type='button') Add Room +
-    br
-    br
-    br
-    hr(style='border:none;height:3px;background-color:black;')
-    h5 Facility
-        a.col-md-3(href="/updatefacility/"+currentFacility._id)
-            h6.i.ml-4.fas.fa-edit  Update Facility Information
-    .row
-    table.table
-        thead.thead-light
-        tr
-            th Name
-            th= currentFacility.FacilityName
-        tr
-            td Address
-            td= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip 
-    br
-    br
-    p.lead Level of Assistance
-    .row
-    - for (var key in currentFacility.FacilityFeatures)
-        -if(key != '$init')
-            -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
-                    table.table
-                        thead.thead-light
-                            .col-md-6
-                                tr
-                                    //td.col-md-6.text-right= myconstants.constants(key)
-                                    //td.text-left= key
-                                    //.col-md-6
-                                    td.text-left= myconstants.constants(key)
-    hr
-    br
+  .pb-2.mt-2.mb-4.border-bottom
+    h1 Manage Facility
+  .content-with-aside
+    .side-col
+      .side-col__card
+        .row
+          .col.inline-contents
+            h5= currentFacility.FacilityName
+            a.edit-button(href="/updatefacility/"+currentFacility._id)
+              i.ml-4.fas.fa-edit
+        .row
+          .col
+            h5= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
+
+        br
+        .row
+          .col
+            p Level of Assistance:
+             - for (var key in currentFacility.FacilityFeatures)
+              -if(key != '$init')
+                -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
+                  table.table
+                    thead.thead-light
+                      .col-md-6
+                        tr
+                          td.text-left= myconstants.constants(key)
+    .main-col.col
+      .main-col-section
+        .main-col-section-header
+          p Room Details
+        .row
+          - for (var i = 0; i < currentRooms.length; i++)
+            .col-md-6
+              .card-deck
+                .card.mr-4.mt-4.mb-4
+                  .card-body
+                    h4.card-title= currentRooms[i].RoomName
+                    form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
+                      input(type='hidden', name='_csrf', value=_csrf)
+                      .form-group.row
+                        label.col-form-label.col-form-label__stacked Room Count
+                        .col-md-6
+                          input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
+                      .form-group.row
+                        label.col-form-label.col-form-label__stacked(for='roomtype') Room Type
+                        .col-md-6
+                          select.form-control(id='roomtype' name='roomtype' )
+                            option(selected= currentRooms[i].RoomType==='Private') Private
+                            option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
+                            option(selected= currentRooms[i].RoomType==='Suit') Suit
+                            option(selected= currentRooms[i].RoomType==='Suit') Studio Apartment
+                      .form-group.row
+                        label.col-form-label.col-form-label__stacked Room Rent Range
+                        .col-md-12.form-group__inline
+                          .col-md-5
+                            input.form-control.text-right(type='number', name='min', id='min', value=currentRooms[i].Range.min, autofocus, required)
+                          .col-md-2
+                              label.font-weight-bold.text-right to
+                          .col-md-5 
+                            input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
+                    .form-group
+                        //button.btn.btn-secondary(type='submit')
+                            //| Update Room
+                        a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
+                             button.btn.btn-secondary(type='button')
+                                | Full Detail
+
+        a(href="/roomsignup/"+currentFacility._id)
+            button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
 

@@ -35,6 +35,177 @@ footer {
   }
 }
 
+.content-with-aside {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .main-col {
+        width: 66%;
+        float: left;
+        padding: 0px 20px;
+        margin-bottom: 100px;
+    }
+    .side-col {
+        width: 33%;
+        float: left;
+        margin-bottom: 100px;
+    }
+    .side-col__card {
+        position: relative;
+        padding: 15px;
+        border: 1px solid $grey-light;
+        min-height: 15px;
+        border-radius: 2px;
+    }
+}
+
+
+
+// Bootstrap Extensions
+// -------------------------
+
+.col {
+    &.center-contents {
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+$margin-slug: m !default;
+$padding-slug: p !default;
+$class-dir-top: t !default;
+$class-dir-bottom: b !default;
+$class-dir-right: r !default;
+$class-dir-left: l !default;
+
+@for $i from 0 through 100 {
+    .#{$margin-slug}-#{$class-dir-top}-#{$i} {
+        margin-top: 0px + $i;
+    }
+    .#{$margin-slug}-#{$class-dir-bottom}-#{$i} {
+        margin-bottom: 0px + $i;
+    }
+    .#{$padding-slug}-#{$class-dir-top}-#{$i} {
+        padding-top: 0px + $i;
+    }
+    .#{$padding-slug}-#{$class-dir-bottom}-#{$i} {
+        padding-bottom: 0px + $i;
+    }
+    .#{$padding-slug}-#{$class-dir-left}-#{$i} {
+        padding-left: 0px + $i;
+    }
+    .#{$padding-slug}-#{$class-dir-right}-#{$i} {
+        padding-right: 0px + $i;
+    }
+}
+
+
+// Text Elements
+// -------------------------
+h1, h2 {
+    font-family: $headings-font-family;
+}
+
+h3, h4, h5, p, span, a, button {
+    font-family: $font-family-base;
+}
+
+h1 {
+    font-size: $header-font;
+}
+h2 {
+    font-size: $sub-header-font;
+}
+h3 {
+    font-size: $section-header;
+}
+h4 {
+    font-size: $body-font-lg;
+    color: $grey-middle;
+}
+h5, h6 {
+    font-size: $body-font-lg;
+}
+
+p, 
+span {
+    font-size: $body-font-lg;
+}
+
+a {
+    color: $willow-blue;
+    &:hover {
+        text-decoration: none;
+        color: $willow-blue;
+    }
+}
+
+.text-grey {
+    color: $grey-light;
+}
+
+
+
+// Form Elements
+// -------------------------
+$form-padding-top: 4em;
+form {
+    margin: auto;
+    width: 100%;
+    &.body-form {
+        width: 80vw;
+        min-width: 400px;
+    }
+    .form-group__inline {
+        position: relative;
+    }
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 2em !important;
+    + .form-group {
+        margin-top: 1em;
+    }
+    .form-group__inline {
+        > * {
+            display: inline-block;
+            vertical-align: middle;
+            &:first-child {
+                padding-left: 0px;
+            }
+        }
+    }
+}
+
+.form-section {
+    position: relative;
+    padding-top: $form-padding-top;
+    padding-bottom: 3em;
+    .form-group {
+        &:not(.form-section-header) { padding-left: 30px; }
+        margin-bottom: 1em;
+    }
+    .form-section-header {
+        margin-bottom: 3em;
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            width: 150px;
+            left: 0;
+            height: 1px;
+            background-color: $grey-light;
+        }
+    }
+}
+
+.form-check + .form-check {
+    margin-top: 8px;
+}
+
+
+
 // Input Fields
 // -------------------------
 
@@ -42,8 +213,237 @@ textarea {
   resize: vertical;
 }
 
+input.form-control {
+    border: 1px solid #e5e5e5;
+    font-size: $body-font-lg;
+    background-color: white !important;
+    &:active, &:focus {
+        border-color: #737373;
+    }
+}
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; }
+input:focus::-moz-placeholder { color:transparent; }
+input:focus:-ms-input-placeholder { color:transparent; }
+
+input {
+    caret-color: $black-medium;
+    &:placeholder-shown {
+        color: $placeholder-color !important;
+    }
+    &::placeholder {
+        color: $placeholder-color !important;
+    }
+    &::-webkit-input-placeholder {
+        color: $placeholder-color !important;
+    } 
+    &:-moz-placeholder {
+        color: $placeholder-color !important;
+    }
+    &::-moz-placeholder {
+        color: $placeholder-color !important;
+    }
+    &:-ms-input-placeholder  {
+        color: $placeholder-color !important;
+    }   
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+label {
+    &.col-form-label {
+        font-size: $body-font-lg;
+        color: $black-medium;
+        padding-left: 15px;
+        &.col-form-label__stacked {
+            position: absolute;
+            top: -5px;
+            + * {
+                margin-top: 30px;
+            }
+        }
+    }
+    &.check-group-label {
+        top: -10px;
+    }
+
+}
+
+// Custom Checkbox
+.form-check-input {
+    width: 17px;
+    height: 17px;
+    background: #fff;
+    border-radius: .21428571rem;
+    -webkit-transition: border .1s ease,opacity .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+    transition: border .1s ease,opacity .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+    transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease;
+    transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+    border: 1px solid #d4d4d5;
+    margin-top: 1px;
+    margin-right: 2px;
+}
+
+label.form-check-label, .form-radio-label {
+    display: block;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: $body-font-sm;
+    padding-left: 20px;
+    margin: 10px 0px;
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+    input:checked ~ .checkmark, input:checked ~ .radio {
+      background-color: $willow-green;
+      border-color: $willow-green;
+    }
+    input:checked ~ .checkmark:after, input:checked ~ .radio:after {
+        display: block;
+    }
+    .checkmark, .radio {
+        position: absolute;
+        top: 0;
+        left: -20px;
+        height: 20px;
+        width: 20px;
+        background: #fff;
+        border-radius: .21428571rem;
+        -webkit-transition: border .1s ease,opacity .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+        transition: border .1s ease,opacity .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+        transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease;
+        transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease,-webkit-transform .1s ease,-webkit-box-shadow .1s ease;
+        border: 1px solid #d4d4d5;
+        &:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    }
+}
+
+// Custom Radio - extends checkmark
+label.form-radio-label {
+    .radio {
+        border-radius: 50%;
+        &:after {
+            top: 4px;
+            left: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+        }
+    }
+}
+
+// Custom Toggle
+.form-radio-label {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        &:checked + .knob {
+            background-color: $willow-green;
+            box-shadow: 0 0 1px $willow-green;
+            &:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+            }
+        }
+        &:focus + .knob {
+            box-shadow: 0 0 1px $willow-green;
+        }
+    }
+    .knob {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 34px;
+        &:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+    }
+}
+
+// Custom Select Box
+// ------------------------
+
+select.form-control {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 1.5em;
+    background-origin: content-box;
+    background-image: url('../../icons/dropdown-arrow.png');
+    .select-items {
+        position: absolute;
+        background-color: white;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+
+    }
+}
+
+
+
 // Navbar
 // -------------------------
+
+
+.navbar {
+    .logo {
+        height: 50px;
+        width: auto;
+    }
+}
 
 .navbar-nav img {
   width: 30px;
@@ -147,3 +547,494 @@ textarea {
 .far {
   margin-right: 6px;
 }
+
+
+
+// Buttons
+// ------------------------
+$primary-button-width: 250px;
+$sm-button-width: 175px;
+
+form {
+    .btn-willow {
+        margin-top: 3em;
+        margin-bottom: 3em;
+    }
+}
+
+.btn-secondary {
+    display: block;
+    position: relative;
+    width: $sm-button-width;
+    border: none;
+    transition: box-shadow 100ms;
+    border-radius: 8px;
+    font-size: 15px;
+    padding: 10px 24px;
+    height: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $willow-blue;
+    background: $willow-blue;
+    color: white;
+    box-shadow: 0 10px 20px 0px rgba(5, 32, 54, 0.2);
+    -moz-box-shadow: 0 10px 20px 0px rgba(5, 32, 54, 0.2);
+    -webkit-box-shadow: 0 10px 20px 0px rgba(5, 32, 54, 0.2);
+    -o-box-shadow: 0 10px 20px 0px rgba(5, 32, 54, 0.2);
+    -ms-box-shadow: 0 10px 20px 0px rgba(5, 32, 54, 0.2);
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    &:not(:disabled):not(.disabled) {
+        &:hover, &:focus {
+            opacity: 0.9;
+            background-color: $willow-blue;
+            background: $willow-blue;
+            box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -moz-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -webkit-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -o-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+            border: none;
+            opacity: 0.9;
+        }
+        &:active, :active:focus {
+            border-color: transparent;
+            border: none;
+            background-color: $willow-blue;
+            background: $willow-blue;
+            opacity: 1;
+        }
+    }
+}
+
+.btn-willow {
+    display: block;
+    position: relative;
+    min-width: $primary-button-width;
+    border: none;
+    transition: box-shadow 100ms;
+    border-radius: 100px;
+    font-size: 22px;
+    padding: 12px 36px;
+    height: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $willow-green;
+    background: $willow-green;
+    color: white;
+    box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+    -moz-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+    -webkit-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+    -o-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+    -ms-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    &.btn-willow-sm {
+        height: 50px;
+        width: $sm-button-width;
+        padding: 6px 16px;
+        font-size: 14px;
+    }
+    &:not(:disabled):not(.disabled) {
+        &:hover, &:focus {
+            background-color: $willow-green;
+            background: $willow-green;
+            box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -moz-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -webkit-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -o-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+           -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+            border: none;
+        }
+        &:active, :active:focus {
+            border-color: transparent;
+            border: none;
+            background-color: $willow-green;
+            background: $willow-green;
+            opacity: 0.9;
+        }
+    }
+  
+}
+
+// Header
+// --------------------------
+.navbar {
+    .nav {
+        li.active { 
+            a.nav-link { color: $willow-green !important; } 
+        }
+    }
+}
+
+
+
+
+// Home Page
+// --------------------------
+
+.hero-image {
+    position: fixed;
+    height: 90vh;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(../willow-hero-no-logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    transition: opacity 200ms;
+    opacity: 1;
+}
+
+#hero-polygon {
+    position: fixed;
+    bottom: 10vh;
+    left: 0;
+    height: 5vw;
+    width: 100%;
+}
+
+button.btn-willow.btn-willow__hero {
+    background-color: $willow-green;
+    background: $willow-green;
+    box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+   -moz-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+   -webkit-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+   -o-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+   -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+    border: none;
+    &:not(:disabled):not(.disabled) {
+        &:hover, &:focus {
+            background-color: $willow-green;
+            background: $willow-green;
+            box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+           -moz-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+           -webkit-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+           -o-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+           -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 1);
+            border: none;
+            opacity: 0.9;
+        }
+        &:active, :active:focus {
+            border-color: transparent;
+            border: none;
+            background-color: $willow-green;
+            background: $willow-green;
+            opacity: 0.8;
+        }
+    }
+}
+
+.hero-text {
+    margin-top: 25vh;
+}
+
+
+// Facility Sign-Up Page
+// -------------------------
+
+#facsignup-form {
+    padding-bottom: 75px;
+    .form-section {
+        position: relative;
+        padding-left: 75px;
+        &:before {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            top: $form-padding-top;
+            height: 30px;
+            width: 30px;
+            left: 0;
+            background-color: white;
+            border: 2px solid $willow-green;
+            color: white;
+            border-radius: 50%;
+            color: $grey-middle;
+        }
+        &:after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            top: $form-padding-top;
+            height: 100%;
+            width: 1px;
+            left: 14px;
+            background-color: $willow-green;
+        }
+        //start at 2 because of the shadow input
+        // &:nth-child(2) { 
+        //     &:before { content: "1"; } 
+        // }
+    }
+}
+
+
+#roomsignup-form {
+    padding-bottom: 75px;
+}
+
+
+// Login/Register Form Pages
+// ------------------------------
+
+
+$form-width: 750px;
+$form-max: 90vw;
+
+$input-width: 350px;
+
+.auth-form {
+    position: relative;
+    padding-top: $form-padding-top;
+    padding-bottom: 10px;
+    text-align: center;
+    margin: auto;
+    max-width: $form-max;
+    width: $form-width;
+    .form-group {
+        &:not(.form-section-header) { padding-left: 30px; }
+        margin-bottom: 1em;
+    }
+    .auth-form-header {
+        position: relative;
+        margin-bottom: 0.5em;
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: -25px;
+            width: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 1px;
+            background-color: $grey-light;
+        }
+    }
+}
+
+.login-container {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    text-align: left;
+    input::-webkit-input-placeholder { color:transparent; }
+    input:-moz-placeholder { color:transparent; }
+    input::-moz-placeholder { color:transparent; }
+    input:-ms-input-placeholder { color:transparent; }
+    button.btn-willow {
+        margin-top: 1.5em;
+    }
+}
+
+.login-wrapper {
+    position: relative;
+    max-width: $form-max;
+    width: $form-width;
+    form {
+        position: relative;
+        width: 100%;
+    }
+}
+
+$input-height: 57px;
+.input-wrapper {
+    width: $input-width;
+    max-width: 100%;
+    margin: auto;
+    position: relative;
+    border-bottom: 2px solid $black-dull;
+    margin-bottom: 2em;
+    + .input-wrapper {
+        margin-top: 3em;
+    }
+    &.has-value input {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        background-color: white !important;
+        outline-color: white !important;
+        + span::after {
+            top: -20px;
+            font-size: $body-font-sm;
+        }
+        + span::before {
+            width: 100%;
+        }
+    }
+    input {
+        display: block;
+        width: 100%;
+        height: $input-height; //55 plus the 2px height of the focus span
+        background: transparent;
+        padding: 0 5px;
+        border-color: transparent !important;
+        &:focus {
+            border-color: transparent !important;
+            box-shadow: none !important;
+            background-color: white !important;
+            outline-color: white !important;
+            + span::after {
+                top: -20px;
+                font-size: $body-font-sm;
+            }
+            + span::before {
+                width: 100%;
+            }
+        }
+    }
+    span {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        &::before, &::after {
+            display: block;
+            position: absolute;
+            left: 0;
+            -webkit-transition: all 400ms;
+            -o-transition: all 400ms;
+            -moz-transition: all 400ms;
+            transition: all 400ms;
+        }
+        &::before {
+            content: "";
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: $willow-green;
+        }
+        &::after {
+            content: attr(data-placeholder);
+            top: 15px;
+            width: 100%;
+            padding-left: 5px;
+            font-family: $font-family-base;
+            font-size: $body-font-lg;
+            color: $grey-middle;
+            
+  
+        }
+    }
+}
+
+.forgot-password {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: left;
+    p, a {
+        font-size: $body-font-sm;
+        padding: 0px;
+    }
+    p {
+        color: $grey-middle;
+        line-height: 1em;
+        width: $input-width;
+        margin: auto;
+    }
+    a {
+        color: $willow-green;
+        vertical-align: middle;
+        padding-left: 3px;
+        line-height: 0.8em;
+        &:hover {
+            text-transform: none;
+            color: $willow-green;
+            opacity: 0.8;
+        }
+    }
+
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+// Footer
+// ------------------------
+
+.footer-content {
+    p {
+        color: $black-dull;
+        font-size: $body-font-sm;
+    }
+}
+
+
+// Facility Manage Page
+// ------------------------
+
+.main-col-section-header {
+    position: relative;
+    margin-bottom: 1em;
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        width: 150px;
+        left: 0;
+        height: 1px;
+        background-color: $grey-light;
+    }
+}
+
+.inline-contents {
+    > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.edit-button {
+    position: absolute;
+    right: 0px;
+    top: -2px;
+    i {
+        font-size: $body-font-sm;
+        font-weight: 400;
+        color: $black;
+    }
+}
+
+table {
+    tr:first-child {
+        td {
+            border-top: none;
+        }
+    }
+}
+
+
+.card-body {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    &:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+}
+
+
+
+

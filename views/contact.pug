@@ -1,15 +1,16 @@
 extends layout
 
 block content
-  .pb-2.mt-2.mb-4.border-bottom
-    h3 Contact
-      br
-      br
-      br
-      br
-      hr
-      .row
-        .col 
-          h5.text-center Please send your query to 
-            h5.text-center Will Zacher at  
-              a.font-weight-bold(href='#') will@willowsenior.care
+  .auth-form
+    .auth-form-header
+      h3 Contact
+    br
+    br
+    .row
+      .col 
+        p.text-center Questions? Email
+          p.text-center Will Zacher at  
+            a.font-weight-bold(href='mailto:will@willowsenior.care', target='_blank') will@willowsenior.care
+
+
+  
