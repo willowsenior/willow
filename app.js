@@ -15,6 +15,10 @@ const dotenv = require('dotenv');
 
 const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
 
+module.exports= {
+    MONGODB
+}
+
 /**
  * Controllers (route handlers).
  */
@@ -139,6 +143,8 @@ app.post('/roomsignup/:facility_id', facilityController.postRoomSignup);
 app.put('/updateroom/:facility_id/:room_id', facilityController.putRoomUpdate);
 app.get('/updateroom/:facility_id/:room_id', facilityController.getRoomUpdate);
 app.put('/updatefullroom/:facility_id/:room_id', facilityController.putFullRoomUpdate);
+
+app.get('/download', homeController.getDownload);
 
 
 ////AUthentication routes
