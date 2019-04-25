@@ -66,13 +66,13 @@ block content
                             input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
                     .form-group
                         .row
-                            .col-md-12
+                            .col-md-6
                                 button.btn.btn-secondary(type='submit')
                                     | Update Room
-                            //.col-md-12
-                                //a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
-                                    //button.btn.btn-subtle(type='button')
-                                        //| Full Detail
+                            .col-md-6
+                                a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
+                                    button.btn.btn-secondary(type='button')
+                                        | Full Detail
 
         a(href="/roomsignup/"+currentFacility._id)
             button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
