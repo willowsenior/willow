@@ -61,6 +61,7 @@ footer {
 
 
 
+
 // Bootstrap Extensions
 // -------------------------
 
@@ -158,6 +159,13 @@ form {
     }
     .form-group__inline {
         position: relative;
+    }
+}
+
+
+.header-row {
+    .form-group {
+        margin-bottom: 0px !important;
     }
 }
 
@@ -442,6 +450,7 @@ select.form-control {
     .logo {
         height: 50px;
         width: auto;
+        max-width: 100%;
     }
 }
 
@@ -562,6 +571,24 @@ form {
     }
 }
 
+.btn-subtle {
+    display: block;
+    position: relative;
+    width: $sm-button-width;
+    border: none;
+    background-color: none;
+    font-size: 15px;
+    padding: 10px 24px;
+    height: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    color: $black-dull;
+    text-align: center;
+    &:hover, &:focus {
+        opacity: 0.9
+    }
+}
+
 .btn-secondary {
     display: block;
     position: relative;
@@ -625,11 +652,11 @@ form {
     background-color: $willow-green;
     background: $willow-green;
     color: white;
-    box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
-    -moz-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
-    -webkit-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
-    -o-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
-    -ms-box-shadow: 0 10px 30px 0px rgba(87, 184, 70, 0.5);
+    box-shadow: 0 5px 15px 0px rgba(87, 184, 70, 0.4);
+    -moz-box-shadow: 0 5px 15px 0px rgba(87, 184, 70, 0.4);
+    -webkit-box-shadow: 0 5px 15px 0px rgba(87, 184, 70, 0.4);
+    -o-box-shadow: 0 5px 15px 0px rgba(87, 184, 70, 0.4);
+    -ms-box-shadow: 0 5px 15px 0px rgba(87, 184, 70, 0.4);
 
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
@@ -645,11 +672,11 @@ form {
         &:hover, &:focus {
             background-color: $willow-green;
             background: $willow-green;
-            box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
-           -moz-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
-           -webkit-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
-           -o-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
-           -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
+            box-shadow: 0 5px 15px 0px rgba(51, 51, 51, 0.3);
+           -moz-box-shadow: 0 5px 15px 0px rgba(51, 51, 51, 0.3);
+           -webkit-box-shadow: 0 5px 15px 0px rgba(51, 51, 51, 0.3);
+           -o-box-shadow: 0 5px 15px 0px rgba(51, 51, 51, 0.3);
+           -ms-box-shadow: 0 5px 15px 0px rgba(51, 51, 51, 0.3);
             border: none;
         }
         &:active, :active:focus {
@@ -1028,10 +1055,22 @@ table {
 
 
 .card-body {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
     transition: 0.3s;
+    a.card-body__edit {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        color: $willow-blue;
+    }
+    i.fa-chevon-right {
+        font-size: 11px;
+        margin-left: 5px;
+        color: $willow-blue;
+    }
     &:hover {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.1);
     }
 }
 

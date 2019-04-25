@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .pb-2.mt-2.mb-4.border-bottom
+  .pb-2.mt-4.mb-4.border-bottom
     h1 Manage Facility
   .content-with-aside
     .side-col
@@ -38,6 +38,9 @@ block content
                 .card.mr-4.mt-4.mb-4
                   .card-body
                     h4.card-title= currentRooms[i].RoomName
+                    a.card-body__edit(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
+                        | More Detail 
+                        i.fas.fa-chevron-right.fa-sm
                     form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
                       input(type='hidden', name='_csrf', value=_csrf)
                       .form-group.row
@@ -63,13 +66,13 @@ block content
                             input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
                     .form-group
                         .row
-                            .col-md-6
+                            .col-md-12
                                 button.btn.btn-secondary(type='submit')
                                     | Update Room
-                            .col-md-6
-                                a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
-                                    button.btn.btn-secondary(type='button')
-                                        | Full Detail
+                            //.col-md-12
+                                //a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
+                                    //button.btn.btn-subtle(type='button')
+                                        //| Full Detail
 
         a(href="/roomsignup/"+currentFacility._id)
             button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
