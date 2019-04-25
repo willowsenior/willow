@@ -15,10 +15,6 @@ const dotenv = require('dotenv');
 
 const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
 
-module.exports= {
-    MONGODB
-}
-
 /**
  * Controllers (route handlers).
  */

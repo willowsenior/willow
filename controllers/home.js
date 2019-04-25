@@ -2,8 +2,6 @@ const Facility = require('../models/Facility');
 const User = require('../models/User');
 const Rooms = require('../models/Room');
 const json2xls = require('json2xls');
-const fs = require('fs');
-const db = require('MONGODB');
 const mongoXlsx = require('mongo-xlsx');
 
 /**
