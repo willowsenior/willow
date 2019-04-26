@@ -8,48 +8,64 @@ block content
       .side-col__card
         .row
           .col.inline-contents
-            h5= currentFacility.FacilityName
-            a.edit-button(href="/updatefacility/"+currentFacility._id)
-              i.ml-4.fas.fa-edit
+            h5.mb-4.font-weight-bold= 'Name :  ' +currentFacility.FacilityName
+            //a.edit-button(href="/updatefacility/"+currentFacility._id)
+              //i.ml-4.fas.fa-edit
         .row
           .col
-            h5= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
+            h5.mb-4.font-weight-bold= 'Address :  ' +currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
+        .row
+          .col
+              h5.pb-2.mb-4.border-bottom.font-weight-bold Level of Assistance :
+              - for (var key in currentFacility.FacilityFeatures)
+                -if(key != '$init')
+                  -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
+                    table.table
+                      thead.thead-light
+                        .col-md-6
+                          tr
+                            -if(key.indexOf('Eating') > -1)
+                              p.table-label.text-left= 'Eating'
+                            -else if (key.indexOf('Mobility') > -1 || key.indexOf('Mobiliy') > -1)
+                              p.table-label.text-left= 'Mobility'
+                            -else if (key.indexOf('Transfers') > -1)
+                              p.table-label.text-left= 'Transfers'
+                            -else if (key.indexOf('Toileting') > -1)
+                              p.table-label.text-left= 'Toileting'
+                            -else if (key.indexOf('Verbal') > -1)
+                              p.table-label.text-left= 'Verbal'
+                            -else if (key.indexOf('Physical') > -1)
+                              p.table-label.text-left= 'Physical'
+                            -else if (key.indexOf('Behaviourial') > -1)
+                              p.table-label.text-left= 'Behaviourial'
+                            -else
+                              p.table-label.text-left= key
+                          tr
+                            td.text-left= myconstants.constants(key)
 
-        br
-        .row
-          .col
-            p Level of Assistance:
-             - for (var key in currentFacility.FacilityFeatures)
-              -if(key != '$init')
-                -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
-                  table.table
-                    thead.thead-light
-                      .col-md-6
-                        tr
-                          td.text-left= myconstants.constants(key)
     .main-col.col
       .main-col-section
         .main-col-section-header
           p Room Details
         .row
           - for (var i = 0; i < currentRooms.length; i++)
-            .col-md-6
+            .col-md-12.col-lg-6
               .card-deck
                 .card.mr-4.mt-4.mb-4
                   .card-body
                     h4.card-title= currentRooms[i].RoomName
-                    a.card-body__edit(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
-                        | More Detail 
-                        i.fas.fa-chevron-right.fa-sm
+                    //a.card-body__edit(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
+                        //| Room Detail 
+                        //i.fas.fa-chevron-right.fa-sm
                     form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
                       input(type='hidden', name='_csrf', value=_csrf)
                       .form-group.row
                         label.col-form-label.col-form-label__stacked Room Count
-                        .col-md-6
+                        .col-md-8
                           input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
                       .form-group.row
                         label.col-form-label.col-form-label__stacked(for='roomtype') Room Type
-                        .col-md-6
+                        .col-md-12
                           select.form-control(id='roomtype' name='roomtype' )
                             option(selected= currentRooms[i].RoomType==='Private') Private
                             option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
@@ -69,10 +85,11 @@ block content
                             .col-md-12
                                 button.btn.btn-secondary(type='submit')
                                     | Update Room
-                            //.col-md-12
-                                //a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
-                                    //button.btn.btn-subtle(type='button')
-                                        //| Full Detail
+                        .row
+                          .col-md-12
+                            a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
+                              button.btn.btn-secondary(type='button')
+                                | Room Detail
 
         a(href="/roomsignup/"+currentFacility._id)
             button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +

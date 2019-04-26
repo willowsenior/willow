@@ -56,6 +56,23 @@ footer {
         border: 1px solid $grey-light;
         min-height: 15px;
         border-radius: 2px;
+        h5 {
+            font-color: $section-header;
+            color: $black;
+        }
+        table {
+            .table-label {
+                color: $black-dull;
+                font-size: $table-label;
+                margin-bottom: 0px !important;
+            }
+            td {
+                color: $grey-middle;
+                font-size: $table-text;
+                border: none;
+                padding-top: 0px;
+            }
+        }
     }
 }
 
@@ -156,6 +173,12 @@ form {
     &.body-form {
         width: 80vw;
         min-width: 400px;
+        &.body-form__centered {
+            width: 500px;
+            max-width: 80vw;
+            margin: auto;
+        }
+
     }
     .form-group__inline {
         position: relative;
@@ -176,12 +199,13 @@ form {
         margin-top: 1em;
     }
     .form-group__inline {
+        // &:first-child {
+        //     padding-left: 0px;
+        // }
         > * {
             display: inline-block;
             vertical-align: middle;
-            &:first-child {
-                padding-left: 0px;
-            }
+            
         }
     }
 }
@@ -211,7 +235,6 @@ form {
 .form-check + .form-check {
     margin-top: 8px;
 }
-
 
 
 // Input Fields
@@ -465,11 +488,15 @@ select.form-control {
   padding-bottom: 0px;
   margin-bottom: 20px;
   display: block;
+    .navbar-brand {
+        padding: 10px 0px !important;
+    }
 }
 
 .navbar-brand{
   font-size: 18px;
   float: left;
+  padding: 10px 0px;
 }
 
 .navbar-toggler {
