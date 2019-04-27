@@ -5,7 +5,7 @@ block content
         h1.col-md-9 Update Room Details
         form.col-md-3(id='roomsignup-form123', method='POST', action='/deleteRoom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=DELETE')
             .form-group
-              button.btn.btn-danger(type='submit')
+              button.btn.btn-danger.btn-delete(type='submit')
                 | Delete Room
 
     form.body-form(id='roomsignup-form123', method='POST', action='/updatefullroom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=PUT')
@@ -41,12 +41,12 @@ block content
               label.col-sm-3.col-md-2.col-form-label Gender
               .col-md-3
                 .col-md-12
-                  label.form-radio-label.ml-4(for='male') Male
-                    input.form-radio-input(type='radio', checked= currentRoom.Gender==='M', name='gender', id='male' value = 'M')
+                  label.form-radio-label.ml-4(for='M') Male
+                    input.form-radio-input(type='radio', checked= currentRoom.Gender==='M', name='gender', id='M' value = 'M')
                     span.radio
                 .col-md-12
-                  label.form-radio-label.ml-4(for='female') Female
-                    input.form-radio-input(type='radio', checked= currentRoom.Gender==='F', name='gender', id='female' value = 'F')
+                  label.form-radio-label.ml-4(for='F') Female
+                    input.form-radio-input(type='radio', checked= currentRoom.Gender==='F', name='gender', id='F' value = 'F')
                     span.radio
 
         .form-section
@@ -68,12 +68,12 @@ block content
               label.col-sm-3.col-md-2.col-form-label Is this room within a secure unit/ have a Wanderguard?
               .col-md-3
                 .col-md-12
-                  label.form-radio-label.ml-4(for='wandergaurd_yes') Yes
-                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='Y', name='wandergaurd', id='wandergaurd_yes' value = 'Y')
+                  label.form-radio-label.ml-4(for='wanderguard_yes') Yes
+                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='Y', name='wanderguard', id='wanderguard_yes' value = 'Y')
                     span.radio
                 .col-md-12
-                  label.form-radio-label.ml-4(for='wandergaurd_no') No
-                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='N', name='wandergaurd', id='wandergaurd_no' value = 'N')
+                  label.form-radio-label.ml-4(for='wanderguard_no') No
+                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='N', name='wanderguard', id='wanderguard_no' value = 'N')
                     span.radio
             
         .form-group.row
