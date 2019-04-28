@@ -195,6 +195,7 @@ exports.getWillowAdminSignup = (req, res) => {
 };
 
 exports.postWillowAdminSignup = (req, res, next) => {
+    console.log('Here 11111');
     const passcode = 'panache';
     req.assert('email', 'Email is not valid').isEmail();
     req.assert('password', 'Password must be at least 4 characters long').len(4);
@@ -202,27 +203,23 @@ exports.postWillowAdminSignup = (req, res, next) => {
     req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
 
     const errors = req.validationErrors();
-
     if (errors) {
         req.flash('errors', errors);
-        return res.redirect('/account/willowadminsingup');
+        return res.redirect('willowadminsingup');
     }
-
     if(req.body.passcode != passcode){
-        return res.redirect('/account/willowadminsingup');
+        return res.redirect('willowadminsingup');
     }
-
     var admin = new User({
         email: req.body.email,
         password: req.body.password,
         isAdmin: true
     });
-
     User.findOne({ email: req.body.email }, (err, existingUser) => {
         if (err) { return next(err); }
         if (existingUser) {
             req.flash('errors', { msg: 'Account with that email address already exists.' });
-            return res.redirect('/account/willowadminsignup');
+            return res.redirect('willowadminsignup');
         }
         admin.save((err) => {
             if (err) { return next(err); }
@@ -255,8 +252,7 @@ exports.postWillowAdminSignin = (req, res, next) => {
 
     passport.authenticate('local', (err, user, info) => {
         if (err) { return next(err); }
-
-        console.log(user);
+        
         if(!user.isAdmin){
             return res.redirect('/login');
         }
@@ -271,7 +267,6 @@ exports.postWillowAdminSignin = (req, res, next) => {
                 return next(err);
             }
             req.flash('success', { msg: 'Success! You are logged in.' });
-            console.log('User : '+user);
             res.redirect('/home');
         });
     })(req, res, next);
