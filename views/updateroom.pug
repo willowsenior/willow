@@ -5,7 +5,7 @@ block content
         h1.col-md-9 Update Room Details
         form.col-md-3(id='roomsignup-form123', method='POST', action='/deleteRoom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=DELETE')
             .form-group
-              button.btn.btn-danger(type='submit')
+              button.btn.btn-danger.btn-delete(type='submit')
                 | Delete Room
 
     form.body-form(id='roomsignup-form123', method='POST', action='/updatefullroom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=PUT')
@@ -41,12 +41,12 @@ block content
               label.col-sm-3.col-md-2.col-form-label Gender
               .col-md-3
                 .col-md-12
-                  label.form-radio-label.ml-4(for='male') Male
-                    input.form-radio-input(type='radio', checked= currentRoom.Gender==='M', name='gender', id='male' value = 'M')
+                  label.form-radio-label.ml-4(for='M') Male
+                    input.form-radio-input(type='radio', checked= currentRoom.Gender==='M', name='gender', id='M' value = 'M')
                     span.radio
                 .col-md-12
-                  label.form-radio-label.ml-4(for='female') Female
-                    input.form-radio-input(type='radio', checked= currentRoom.Gender==='F', name='gender', id='female' value = 'F')
+                  label.form-radio-label.ml-4(for='F') Female
+                    input.form-radio-input(type='radio', checked= currentRoom.Gender==='F', name='gender', id='F' value = 'F')
                     span.radio
 
         .form-section
@@ -57,23 +57,23 @@ block content
                   label.col-sm-3.col-md-2.col-form-label Medicaid Bed
                   .col-md-3
                     .col-md-12
-                      label.form-radio-label.ml-4(for='yes') Yes
-                        input.form-radio-input(type='radio', checked= currentRoom.MedicAid==='Y', name='medicaid', id='yes' value = 'Y')
+                      label.form-radio-label.ml-4(for='medicaid_yes') Yes
+                        input.form-radio-input(type='radio', checked= currentRoom.MedicAid==='Y', name='medicaid', id='medicaid_yes' value = 'Y')
                         span.radio
                     .col-md-12
-                      label.form-radio-label.ml-4(for='no') No
-                        input.form-radio-input(type='radio', checked= currentRoom.MedicAid==='N', name='medicaid', id='no' value = 'N')
+                      label.form-radio-label.ml-4(for='medicaid_no') No
+                        input.form-radio-input(type='radio', checked= currentRoom.MedicAid==='N', name='medicaid', id='medicaid_no' value = 'N')
                         span.radio
             .form-group.row
               label.col-sm-3.col-md-2.col-form-label Is this room within a secure unit/ have a Wanderguard?
               .col-md-3
                 .col-md-12
-                  label.form-radio-label.ml-4(for='yes') Yes
-                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='Y', name='wandergaurd', id='yes' value = 'Y')
+                  label.form-radio-label.ml-4(for='wanderguard_yes') Yes
+                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='Y', name='wanderguard', id='wanderguard_yes' value = 'Y')
                     span.radio
                 .col-md-12
-                  label.form-radio-label.ml-4(for='no') No
-                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='N', name='wandergaurd', id='no' value = 'N')
+                  label.form-radio-label.ml-4(for='wanderguard_no') No
+                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='N', name='wanderguard', id='wanderguard_no' value = 'N')
                     span.radio
             
         .form-group.row
@@ -125,7 +125,7 @@ block content
                     span.checkmark
         br    
         .form-group.row
-          label.col-form-label.col-form-label__stacked.check-group-labelMobility
+          label.col-form-label.col-form-label__stacked.check-group-label Mobility
           .col-md-6
             .form-check
                 label.form-check-label(for='mobiliy_noassisstance')= myconstants.constants('Mobiliy_noassisstance')
@@ -257,108 +257,108 @@ block content
           label.col-lg-3.col-md-5.col-form-label Hallucinations
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='hallucinations') Yes
-                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations' value = 'Y', checked= currentRoom.Hallucination==='Y')
+                label.form-radio-label.ml-4(for='hallucinations_yes') Yes
+                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked= currentRoom.Hallucination==='Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='hallucinations') No
-                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations' value = 'N', checked= currentRoom.Hallucination==='N')
+                label.form-radio-label.ml-4(for='hallucinations_no') No
+                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N', checked= currentRoom.Hallucination==='N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Memory Care
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='memorycare') Yes
-                    input.form-radio-input(type='radio', name='memorycare', id='memorycare' value = 'Y', checked= currentRoom.MemoryCare==='Y')
+                label.form-radio-label.ml-4(for='memorycare_yes') Yes
+                    input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked= currentRoom.MemoryCare==='Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='memorycare') No
-                    input.form-radio-input(type='radio', name='memorycare', id='memorycare' value = 'N', checked= currentRoom.MemoryCare==='N')
+                label.form-radio-label.ml-4(for='memorycare_no') No
+                    input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'N', checked= currentRoom.MemoryCare==='N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Would you Take a Resident with an Oxygen Tank?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='oxygentank') Yes
-                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank' value = 'Y', checked= currentRoom.OxygenTank==='Y')
+                label.form-radio-label.ml-4(for='oxygentank_yes') Yes
+                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_yes' value = 'Y', checked= currentRoom.OxygenTank==='Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='oxygentank') No
-                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank' value = 'N', checked= currentRoom.OxygenTank==='N')
+                label.form-radio-label.ml-4(for='oxygentank_no') No
+                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_no' value = 'N', checked= currentRoom.OxygenTank==='N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='changeoxygentank') Yes
-                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank' value = 'Y' checked= currentRoom.ChangeOxygenTank==='Y')
+                label.form-radio-label.ml-4(for='changeoxygentank_yes') Yes
+                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_yes' value = 'Y' checked= currentRoom.ChangeOxygenTank==='Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='changeoxygentank') No
-                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank' value = 'N' checked= currentRoom.ChangeOxygenTank==='N')
+                label.form-radio-label.ml-4(for='changeoxygentank_no') No
+                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_no' value = 'N' checked= currentRoom.ChangeOxygenTank==='N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Would you take a Resident who needs to be on oxygen at all times?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='alltimeoxygen') Yes
-                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen' value = 'Y',  checked= currentRoom.AllTimeOxygen==='Y')
+                label.form-radio-label.ml-4(for='alltimeoxygen_yes') Yes
+                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_yes' value = 'Y',  checked= currentRoom.AllTimeOxygen==='Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='alltimeoxygen') No
-                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen' value = 'N' checked= currentRoom.AllTimeOxygen==='N')
+                label.form-radio-label.ml-4(for='alltimeoxygen_no') No
+                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_no' value = 'N' checked= currentRoom.AllTimeOxygen==='N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='changecatheter') Yes
-                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter' value = 'Y' checked= currentRoom.ChangeCatheter==='Y')
+                label.form-radio-label.ml-4(for='changecatheter_yes') Yes
+                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_yes' value = 'Y' checked= currentRoom.ChangeCatheter==='Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='changecatheter') No
-                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter' value = 'N' checked= currentRoom.ChangeCatheter==='N')
+                label.form-radio-label.ml-4(for='changecatheter_no') No
+                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_no' value = 'N' checked= currentRoom.ChangeCatheter==='N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Do you provide medication management?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='medicationmanagement') Yes
-                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement' value = 'Y' checked= currentRoom.MedicationManagement==='Y')
+                label.form-radio-label.ml-4(for='medicationmanagement_yes') Yes
+                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_yes' value = 'Y' checked= currentRoom.MedicationManagement==='Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='medicationmanagement') No
-                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement' value = 'N' checked= currentRoom.MedicationManagement==='N')
+                label.form-radio-label.ml-4(for='medicationmanagement_no') No
+                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_no' value = 'N' checked= currentRoom.MedicationManagement==='N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='liquiddiets') Yes
-                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets' value = 'Y' checked= currentRoom.LiquidDiets==='Y')
+                label.form-radio-label.ml-4(for='liquiddiets_yes') Yes
+                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_yes' value = 'Y' checked= currentRoom.LiquidDiets==='Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='liquiddiets') No
-                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets' value = 'N' checked= currentRoom.LiquidDiets==='N')
+                label.form-radio-label.ml-4(for='liquiddiets_no') No
+                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_no' value = 'N' checked= currentRoom.LiquidDiets==='N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Do you provide ground diets for residents?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='grounddiets') Yes
-                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets' value = 'Y' checked= currentRoom.GroundDiets==='Y')
+                label.form-radio-label.ml-4(for='grounddiets_yes') Yes
+                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_yes' value = 'Y' checked= currentRoom.GroundDiets==='Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='grounddiets') No
-                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets' value = 'N' checked= currentRoom.GroundDiets==='N')
+                label.form-radio-label.ml-4(for='grounddiets_no') No
+                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_no' value = 'N' checked= currentRoom.GroundDiets==='N')
                     span.radio
         br
         .form-group.offset-sm-3.col-md-7.pl-2
