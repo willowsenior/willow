@@ -2,11 +2,15 @@ extends layout
 
 block content
     .pb-2.mt-4.mb-4.border-bottom.row.header-row
-        h1.col-md-9 Update Room Details
+        h1.col-md-6 Update Room Details
+        .col-md-3.text-right
+            button.btn.btn-secondary.m-r-20(type='submit', form="roomsignup-form123")
+                | Update Room Details
         form.col-md-3(id='roomsignup-form123', method='POST', action='/deleteRoom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=DELETE')
             .form-group
               button.btn.btn-danger.btn-delete(type='submit')
                 | Delete Room
+
 
     form.body-form(id='roomsignup-form123', method='POST', action='/updatefullroom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=PUT')
         .form-section
@@ -360,8 +364,4 @@ block content
                 label.form-radio-label.ml-4(for='grounddiets_no') No
                     input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_no' value = 'N' checked= currentRoom.GroundDiets==='N')
                     span.radio
-        br
-        .form-group.offset-sm-3.col-md-7.pl-2
-          button.btn.btn-willow(type='submit')
-            | Update Room Details
 
