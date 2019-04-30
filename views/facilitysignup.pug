@@ -96,7 +96,7 @@ block content
                     span.checkmark
         br    
         .form-group.row
-          label.col-form-label.col-form-label__stacked.check-group-labelMobility
+          label.col-form-label.col-form-label__stacked.check-group-label Mobility
           .col-md-6
             .form-check
                 label.form-check-label(for='mobiliy_noassisstance')= myconstants.constants('Mobiliy_noassisstance')
@@ -221,7 +221,7 @@ block content
                 h4.text-left What types of special assistance can your facility provide?
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label How Many Insulin Shots Can You Administer?
+          label.col-lg-3.col-md-5.col-form-label How Many Insulin Shots Can You Administer per person per day?
           .col-md-4
             input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', autofocus, required)
         br 
@@ -229,108 +229,108 @@ block content
           label.col-lg-3.col-md-5.col-form-label Hallucinations
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='hallucinations') Yes
-                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations' value = 'Y')
+                label.form-radio-label.ml-4(for='hallucinations_yes') Yes
+                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='hallucinations') No
-                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations' value = 'N')
+                label.form-radio-label.ml-4(for='hallucinations_no') No
+                    input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Memory Care
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='memorycare') Yes
-                    input.form-radio-input(type='radio', name='memorycare', id='memorycare' value = 'Y')
+                label.form-radio-label.ml-4(for='memorycare_yes') Yes
+                    input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='memorycare') No
-                    input.form-radio-input(type='radio', name='memorycare', id='memorycare' value = 'N')
+                label.form-radio-label.ml-4(for='memorycare_no') No
+                    input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Would you Take a Resident with an Oxygen Tank?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='oxygentank') Yes
-                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank' value = 'Y')
+                label.form-radio-label.ml-4(for='oxygentank_yes') Yes
+                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_yes' value = 'Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='oxygentank') No
-                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank' value = 'N')
+                label.form-radio-label.ml-4(for='oxygentank_no') No
+                    input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_no' value = 'N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='changeoxygentank') Yes
-                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank' value = 'Y')
+                label.form-radio-label.ml-4(for='changeoxygentank_yes') Yes
+                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_yes' value = 'Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='changeoxygentank') No
-                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank' value = 'N')
+                label.form-radio-label.ml-4(for='changeoxygentank_no') No
+                    input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_no' value = 'N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Would you take a Resident who needs to be on oxygen at all times?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='alltimeoxygen') Yes
-                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen' value = 'Y')
+                label.form-radio-label.ml-4(for='alltimeoxygen_yes') Yes
+                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_yes' value = 'Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='alltimeoxygen') No
-                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen' value = 'N')
+                label.form-radio-label.ml-4(for='alltimeoxygen_no') No
+                    input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_no' value = 'N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='changecatheter') Yes
-                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter' value = 'Y')
+                label.form-radio-label.ml-4(for='changecatheter_yes') Yes
+                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_yes' value = 'Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='changecatheter') No
-                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter' value = 'N')
+                label.form-radio-label.ml-4(for='changecatheter_no') No
+                    input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_no' value = 'N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Do you provide medication management?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='medicationmanagement') Yes
-                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement' value = 'Y')
+                label.form-radio-label.ml-4(for='medicationmanagement_yes') Yes
+                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_yes' value = 'Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='medicationmanagement') No
-                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement' value = 'N')
+                label.form-radio-label.ml-4(for='medicationmanagement_no') No
+                    input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_no' value = 'N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='liquiddiets') Yes
-                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets' value = 'Y')
+                label.form-radio-label.ml-4(for='liquiddiets_yes') Yes
+                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_yes' value = 'Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='liquiddiets') No
-                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets' value = 'N')
+                label.form-radio-label.ml-4(for='liquiddiets_no') No
+                    input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_no' value = 'N')
                     span.radio
         br 
         .form-group.row
           label.col-lg-3.col-md-5.col-form-label Do you provide ground diets for residents?
           .col-md-4
             .col-md-12
-                label.form-radio-label.ml-4(for='grounddiets') Yes
-                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets' value = 'Y')
+                label.form-radio-label.ml-4(for='grounddiets_yes') Yes
+                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_yes' value = 'Y')
                     span.radio
             .col-md-12
-                label.form-radio-label.ml-4(for='grounddiets') No
-                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets' value = 'N')
+                label.form-radio-label.ml-4(for='grounddiets_no') No
+                    input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_no' value = 'N')
                     span.radio
     br 
     .form-group.offset-sm-1.col-md-6.pl-2

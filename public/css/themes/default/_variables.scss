@@ -34,6 +34,8 @@ $sub-header-font: 22px;
 $section-header: 20px;
 $body-font-lg: 17px;
 $body-font-sm: 15px;
+$table-label: 14px;
+$table-text: 13px;
 
 // Buttons
 // -------------------------
@@ -83,9 +85,10 @@ $card-spacer-x: 0.75rem;
 
 // Custom Colors
 // -------------------------
-$black: #000;
+$black: #000000;
 $black-medium: #656464;
 $black-dull: #7a7979;
+$grey: #737373;
 $grey-middle: #b2b2b2;
 $grey-light: #e5e5e5;
 $placeholder-color: #e5e5e5;
