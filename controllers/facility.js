@@ -36,6 +36,178 @@ exports.getFacility = (req, res, error) => {
     }) 
 };
 
+exports.postFacilitySignup = (req, res, next) => {
+  const errors = req.validationErrors();
+
+  if (errors) {
+      req.flash('errors', errors);
+      return res.redirect('/signup');
+  }
+  var facility = new Facility({
+      FacilityName: req.body.facilityName,
+      Address: {
+          street: req.body.street,
+          city: req.body.city,
+          state: req.body.state,
+          zip: req.body.zip
+      },
+      Contact: req.body.contactNumber,
+      ContactName: req.body.contactName,
+      Email: req.user.email,
+      Hallucination: req.body.hallucinations,
+      MemoryCare: req.body.memorycare,
+      InsulinShots: req.body.insulinshots,
+      OxygenTank: req.body.oxygentank,
+      ChangeOxygenTank: req.body.changeoxygentank,
+      AllTimeOxygen: req.body.alltimeoxygen,
+      ChangeCatheter: req.body.changecatheter,
+      MedicationManagement: req.body.medicationmanagement,
+      LiquidDiets: req.body.liquiddiets,
+      GroundDiets: req.body.grounddiets,
+      // FacilityPhoto:
+      FacilityFeatures: {
+        Eating_noassistance: req.body.eating_noassistance,
+        Eating_intermittent: req.body.eating_intermittent,
+        Eating_continual: req.body.eating_continual,
+        Eating_byhand: req.body.eating_byhand,
+        Eating_tube: req.body.eating_tube,
+        Transfers_none: req.body.transfers_none,
+        Transfers_intermittent: req.body.transfers_intermittent,
+        Transfers_oneperson: req.body.transfers_oneperson,
+        Transfers_twoperson: req.body.transfers_twoperson,
+        Transfers_cannot: req.body.transfers_cannot,
+        Mobiliy_noassisstance: req.body.mobiliy_noassisstance,
+        Mobiliy_intermittent: req.body.mobiliy_intermittent,
+        Mobiliy_continual: req.body.mobiliy_continual,
+        Mobiliy_wheels: req.body.mobiliy_wheels,
+        Mobiliy_cannotmove: req.body.mobiliy_cannotmove,
+        Toileting_noassisstance: req.body.toileting_noassisstance,
+        Toileting_bowel: req.body.toileting_bowel,
+        Toileting_continual: req.body.toileting_continual,
+        Toileting_nobathroomincontinent: req.body.toileting_nobathroomincontinent,
+        Toileting_bathroomincontinent: req.body.toileting_bathroomincontinent,
+        Verbal_none: req.body.verbal_none,
+        Verbal_infrequent: req.body.verbal_infrequent,
+        Verbal_predictable: req.body.verbal_predictable,
+        Verbal_onceunpredictable: req.body.verbal_onceunpredictable,
+        Verbal_multipleunpredictable: req.body.verbal_multipleunpredictable,
+        Physical_none: req.body.physical_none,
+        Physical_infrequent: req.body.physical_infrequent,
+        Physical_predictable: req.body.physical_predictable,
+        Physical_onceunpredictable: req.body.physical_onceunpredictable,
+        Physical_multipleunpredictable: req.body.physical_multipleunpredictable,
+        Behaviourial_none : req.body.behaviourial_none,
+        Behaviourial_yesnondisruptive : req.body.behaviourial_yesnondisruptive,
+        Behaviourial_infrequent : req.body.behaviourial_infrequent,
+        Behaviourial_frequent : req.body.behaviourial_frequent,
+        Behaviourial_unpredictable : req.body.behaviourial_unpredictable
+      }
+  });
+
+  facility.save(function(err) {
+      if(err){
+        console.log(err);
+        return err;
+      }
+      res.redirect('/facility/'+facility._id);
+  });
+};
+
+exports.putFacilityUpdate = (req, res, next) =>{
+  const errors = req.validationErrors();
+
+  if (errors) {
+      req.flash('errors', errors);
+      return res.redirect('/signup');
+  }
+
+  var facilityId = req.params.facility_id;
+  Facility.findByIdAndUpdate(facilityId,{$set: {
+    FacilityName: req.body.facilityName,
+    Address: {
+        street: req.body.street,
+        city: req.body.city,
+        state: req.body.state,
+        zip: req.body.zip
+    },
+    Contact: req.body.contactNumber,
+    ContactName: req.body.contactName,
+    Email: req.user.email,
+    Hallucination: req.body.hallucinations,
+    MemoryCare: req.body.memorycare,
+    InsulinShots: req.body.insulinshots,
+    OxygenTank: req.body.oxygentank,
+    ChangeOxygenTank: req.body.changeoxygentank,
+    AllTimeOxygen: req.body.alltimeoxygen,
+    ChangeCatheter: req.body.changecatheter,
+    MedicationManagement: req.body.medicationmanagement,
+    LiquidDiets: req.body.liquiddiets,
+    GroundDiets: req.body.grounddiets,
+    // FacilityPhoto:
+    FacilityFeatures: {
+      Eating_noassistance: req.body.eating_noassistance,
+      Eating_intermittent: req.body.eating_intermittent,
+      Eating_continual: req.body.eating_continual,
+      Eating_byhand: req.body.eating_byhand,
+      Eating_tube: req.body.eating_tube,
+      Transfers_none: req.body.transfers_none,
+      Transfers_intermittent: req.body.transfers_intermittent,
+      Transfers_oneperson: req.body.transfers_oneperson,
+      Transfers_twoperson: req.body.transfers_twoperson,
+      Transfers_cannot: req.body.transfers_cannot,
+      Mobiliy_noassisstance: req.body.mobiliy_noassisstance,
+      Mobiliy_intermittent: req.body.mobiliy_intermittent,
+      Mobiliy_continual: req.body.mobiliy_continual,
+      Mobiliy_wheels: req.body.mobiliy_wheels,
+      Mobiliy_cannotmove: req.body.mobiliy_cannotmove,
+      Toileting_noassisstance: req.body.toileting_noassisstance,
+      Toileting_bowel: req.body.toileting_bowel,
+      Toileting_continual: req.body.toileting_continual,
+      Toileting_nobathroomincontinent: req.body.toileting_nobathroomincontinent,
+      Toileting_bathroomincontinent: req.body.toileting_bathroomincontinent,
+      Verbal_none: req.body.verbal_none,
+      Verbal_infrequent: req.body.verbal_infrequent,
+      Verbal_predictable: req.body.verbal_predictable,
+      Verbal_onceunpredictable: req.body.verbal_onceunpredictable,
+      Verbal_multipleunpredictable: req.body.verbal_multipleunpredictable,
+      Physical_none: req.body.physical_none,
+      Physical_infrequent: req.body.physical_infrequent,
+      Physical_predictable: req.body.physical_predictable,
+      Physical_onceunpredictable: req.body.physical_onceunpredictable,
+      Physical_multipleunpredictable: req.body.physical_multipleunpredictable,
+      Behaviourial_none : req.body.behaviourial_none,
+      Behaviourial_yesnondisruptive : req.body.behaviourial_yesnondisruptive,
+      Behaviourial_infrequent : req.body.behaviourial_infrequent,
+      Behaviourial_frequent : req.body.behaviourial_frequent,
+      Behaviourial_unpredictable : req.body.behaviourial_unpredictable
+    }
+  }})
+  .exec()
+  .then(()=>{
+    res.redirect('/facility/'+req.params.facility_id);
+  })
+  .catch((error)=>{
+    console.log("ERRRRRRR");
+    if(error){
+      console.log(error);
+    }
+  });
+};
+
+exports.getFacilityUpdate = (req, res, error) => {
+  var facility_id = req.params.facility_id;
+
+  Facility.findById(facility_id)
+  .then((facility)=>{
+    currentFacility = facility;
+    res.render('updatefacility', {
+      title: 'Facility Update',
+      facility,
+      myconstants
+    });
+  }) 
+};
+
 
 exports.getRoom = (req, res, error) => {
     if (error) {
@@ -333,82 +505,5 @@ exports.getFacilitySignup = (req, res, error) => {
     });
 };
 
-exports.postFacilitySignup = (req, res, next) => {
-    const errors = req.validationErrors();
 
-    if (errors) {
-        req.flash('errors', errors);
-        return res.redirect('/signup');
-    }
-    var facility = new Facility({
-        FacilityName: req.body.facilityName,
-        Address: {
-            street: req.body.street,
-            city: req.body.city,
-            state: req.body.state,
-            zip: req.body.zip
-        },
-        Contact: req.body.contactNumber,
-        ContactName: req.body.contactName,
-        Email: req.user.email,
-        Hallucination: req.body.hallucinations,
-        MemoryCare: req.body.memorycare,
-        InsulinShots: req.body.insulinshots,
-        OxygenTank: req.body.oxygentank,
-        ChangeOxygenTank: req.body.changeoxygentank,
-        AllTimeOxygen: req.body.alltimeoxygen,
-        ChangeCatheter: req.body.changecatheter,
-        MedicationManagement: req.body.medicationmanagement,
-        LiquidDiets: req.body.liquiddiets,
-        GroundDiets: req.body.grounddiets,
-        // FacilityPhoto:
-        FacilityFeatures: {
-          Eating_noassistance: req.body.eating_noassistance,
-          Eating_intermittent: req.body.eating_intermittent,
-          Eating_continual: req.body.eating_continual,
-          Eating_byhand: req.body.eating_byhand,
-          Eating_tube: req.body.eating_tube,
-          Transfers_none: req.body.transfers_none,
-          Transfers_intermittent: req.body.transfers_intermittent,
-          Transfers_oneperson: req.body.transfers_oneperson,
-          Transfers_twoperson: req.body.transfers_twoperson,
-          Transfers_cannot: req.body.transfers_cannot,
-          Mobiliy_noassisstance: req.body.mobiliy_noassisstance,
-          Mobiliy_intermittent: req.body.mobiliy_intermittent,
-          Mobiliy_continual: req.body.mobiliy_continual,
-          Mobiliy_wheels: req.body.mobiliy_wheels,
-          Mobiliy_cannotmove: req.body.mobiliy_cannotmove,
-          Toileting_noassisstance: req.body.toileting_noassisstance,
-          Toileting_bowel: req.body.toileting_bowel,
-          Toileting_continual: req.body.toileting_continual,
-          Toileting_nobathroomincontinent: req.body.toileting_nobathroomincontinent,
-          Toileting_bathroomincontinent: req.body.toileting_bathroomincontinent,
-          Verbal_none: req.body.verbal_none,
-          Verbal_infrequent: req.body.verbal_infrequent,
-          Verbal_predictable: req.body.verbal_predictable,
-          Verbal_onceunpredictable: req.body.verbal_onceunpredictable,
-          Verbal_multipleunpredictable: req.body.verbal_multipleunpredictable,
-          Physical_none: req.body.physical_none,
-          Physical_infrequent: req.body.physical_infrequent,
-          Physical_predictable: req.body.physical_predictable,
-          Physical_onceunpredictable: req.body.physical_onceunpredictable,
-          Physical_multipleunpredictable: req.body.physical_multipleunpredictable,
-          Behaviourial_none : req.body.behaviourial_none,
-          Behaviourial_yesnondisruptive : req.body.behaviourial_yesnondisruptive,
-          Behaviourial_infrequent : req.body.behaviourial_infrequent,
-          Behaviourial_frequent : req.body.behaviourial_frequent,
-          Behaviourial_unpredictable : req.body.behaviourial_unpredictable
-        }
-    });
-
-    console.log('Data being send to DB now!');
-
-    facility.save(function(err) {
-        if(err){
-          console.log(err);
-          return err;
-        }
-        res.redirect('/facility/'+facility._id);
-    });
-};
 
