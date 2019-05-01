@@ -79,10 +79,10 @@ exports.postRoomSignup = (req, res, error) => {
       FacilityName: facility.FacilityName,
       RoomName: req.body.roomName,
       RoomCount: req.body.count,
-      Gender: req.body.radio,
+      Gender: req.body.gender,
       RoomType: req.body.roomtype,
       Range:{
-        min: req.body.min,
+        min: req.body.rent,
         max: req.body.max
       },
       MedicAid: req.body.medicaid,
@@ -170,7 +170,7 @@ exports.putRoomUpdate = (req, res, error) => {
       RoomCount: req.body.count,
       RoomType: req.body.roomtype,
       Range:{
-        min: req.body.min,
+        min: req.body.rent,
         max: req.body.max
       }
   }})
@@ -223,10 +223,10 @@ exports.putFullRoomUpdate = (req, res, error) => {
   Room.findByIdAndUpdate(roomId,{$set: {
     RoomName: req.body.roomName,
     RoomCount: req.body.count,
-    Gender: req.body.radio,
+    Gender: req.body.gender,
     RoomType: req.body.roomtype,
     Range:{
-      min: req.body.min,
+      min: req.body.rent,
       max: req.body.max
     },
     MedicAid: req.body.medicaid,
