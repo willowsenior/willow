@@ -127,6 +127,40 @@ footer {
 }
 
 
+.side-tabs {
+    margin-top: 40px;
+    > div {
+        display: flex;
+        flex-wrap: normal;
+        align-content: flex-start;
+    }
+    .tab-content {
+        padding-left: 40px;
+        flex-grow: 1;
+        .form-section {
+            padding-top: 0px;
+        }
+    }
+    .nav-tabs {
+        $tab-width: 200px;
+        display: block;
+        border-right: 1px solid $grey-light;
+        border-bottom: none;
+        min-height: 50vh;
+        max-width: $tab-width;
+        li a {
+            display: block;
+            width: $tab-width;
+            padding: 0px 25px;
+            height: 60px;
+            line-height: 60px;
+            &.active {
+                border-right: 2px solid $willow-green;
+            }
+        }
+    }
+}
+
 
 
 // Bootstrap Extensions
@@ -233,6 +267,9 @@ form {
             width: 500px;
             max-width: 80vw;
             margin: auto;
+        }
+        &.body-form--with-tabs {
+            margin-left: 0px;
         }
 
     }
