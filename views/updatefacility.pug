@@ -36,6 +36,8 @@ block content
     // Here is the actual template logic
     form.body-form.body-form--with-tabs(id='facupdate-form', method='POST', action='/updatefacility/'+currentFacility._id.toString()+'?_method=PUT')
         input(type='hidden', name='_csrf', value=_csrf)
+        button.btn.btn-secondary(type='submit')
+          | Update Facility
         .side-tabs
           +tabs(data)
             each tab, index in data
