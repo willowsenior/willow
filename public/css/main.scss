@@ -54,9 +54,34 @@ footer {
         margin-bottom: 100px;
         .btn-edit {
             position: absolute;
-            right: 20px;
-            top: -2px;
+            right: 15px;
+            top: 15px;
         }
+    }
+    .side-col__updated-card-banner {
+        position: relative;
+        height: 80px;
+        width: 100%;
+        background-color: #1dc971;
+        .img-container {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 10px 20px 0px rgba(5, 32, 54, 0.1);
+            img {
+                height: 60px;
+                width: 60px;
+            }
+        }
+        
+    }
+    .side-col__body {
+        padding: 50px 15px 15px;
+        text-align: center;
     }
     .side-col__card-header {
         position: relative;
@@ -74,7 +99,7 @@ footer {
     }
     .side-col__card {
         position: relative;
-        padding: 15px;
+        //padding: 15px;
         border: 1px solid $grey-light;
         min-height: 15px;
         border-radius: 2px;
@@ -98,6 +123,7 @@ footer {
             }
         }
     }
+    
 }
 
 
@@ -168,7 +194,7 @@ h3 {
     font-size: $section-header;
 }
 h4 {
-    font-size: $body-font-lg;
+    font-size: $body-font-sm;
     color: $grey-middle;
 }
 h5, h6 {
@@ -702,11 +728,14 @@ form {
     border: 1px solid $black;
     color: $black;
     transition: color 200ms;
-    opacity: 0.8;
+    //opacity: 0.8;
     background-color: white;
     box-shadow: none;
     padding-left: 7px;
     padding-right: 7px;
+    &.no-border {
+        border: none;
+    }
     span {
         font-size: 14px;
     }

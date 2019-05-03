@@ -200,9 +200,12 @@ exports.getFacilityUpdate = (req, res, error) => {
   Facility.findById(facility_id)
   .then((facility)=>{
     currentFacility = facility;
+    var currentTab = 'General';
+    console.log('currentTab', currentTab);
     res.render('updatefacility', {
       title: 'Facility Update',
       facility,
+      currentTab,
       myconstants
     });
   }) 

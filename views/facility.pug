@@ -5,27 +5,23 @@ block content
     h1 Manage Facility
   .content-with-aside
     .side-col
-      .row
-        .col
-          h3.side-col__card-header Facility Info
-          button.btn-edit
+      .side-col__card
+        .side-col__updated-card-banner
+          button.btn-edit.no-border
             a(href="/updatefacility/"+currentFacility._id) 
               i.fas.fa-edit
               span Edit
+          .img-container
+            img.logo(src="https://s3.amazonaws.com/willow-assets/large-building.png")
+        .side-col__body
               
-      .side-col__card
-        .row
-          .col
-            h5.font-weight-bold Name :  
-            h5.m-b-40= currentFacility.FacilityName
-            
-        .row
-          .col
-            h5.font-weight-bold Address :  
-            h5.m-b-40= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
-        .row
-          .col
-              h5.pb-2.m-b-15.border-bottom.font-weight-bold Level of Assistance :
+          .row.border-bottom.m-b-20
+            .col.col-md-12.text-center
+              h5.m-b-10= currentFacility.FacilityName
+              h4.m-b-20= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
+          .row
+            .col
+              h5.pb-2.m-b-15.text-left.font-weight-bold Level of Assistance :
               - for (var key in currentFacility.FacilityFeatures)
                 -if(key != '$init')
                   -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
