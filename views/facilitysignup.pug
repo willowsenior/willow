@@ -1,8 +1,15 @@
 extends layout
 
 block content
-  .pb-2.mt-2.mb-4.border-bottom
-    h1 Create Permanent Facility Profile
+  .row.pb-2.m-t-40.mb-4.border-bottom
+    .col-md-8.text-left
+      h1 Create Permanent Facility Profile
+    .col-md-4.text-right
+      .step-form-breadcrumbs.text-center
+        span.step
+        span.step
+        span.step
+        span.step
   form.body-form.body-form__centered
     //.body-form(id='facsignup-form', method='POST', action='/facilitysignup')
     input(type='hidden', name='_csrf', value=_csrf)
@@ -351,11 +358,7 @@ block content
       
       
 
-      .text-center.m-t-40
-        span.step
-        span.step
-        span.step
-        span.step
+      
 
     
 
@@ -409,9 +412,10 @@ block content
 
       function fixStepIndicator(n) {
         // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
+        var i, 
+            x = document.getElementsByClassName("step");
         for (i = 0; i < x.length; i++) {
-          x[i].className = x[i].className.replace(" active", "");
+          x[i].className = x[i].className.replace(" active", " complete");
         }
         //... and adds the "active" class on the current step:
         x[n].className += " active";
