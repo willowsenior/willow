@@ -3,15 +3,18 @@ extends layout
 block content
   .pb-2.mt-2.mb-4.border-bottom
     h1 Create Permanent Facility Profile
-  form.body-form(id='facsignup-form', method='POST', action='/facilitysignup')
+  form.body-form.body-form__centered
+    //.body-form(id='facsignup-form', method='POST', action='/facilitysignup')
     input(type='hidden', name='_csrf', value=_csrf)
-    .form-section
+
+    .step-form-tab
+      .form-section
         .form-group.form-section-header
-            h3.text-left Facility Info
+          h3.text-left Facility Info
         .form-group.row
           label.col-form-label.col-form-label__stacked Facility Name
           .col-md-6
-            input.form-control(type='text', name='facilityName', id='facilityName', placeholder='Facility Name', autofocus, required)
+            input.form-control(type='text', name='facilityName', id='facilityName', placeholder='Facility Name', required)
         .form-group.row
           label.col-form-label.col-form-label__stacked Contact Number
           .col-md-6
@@ -20,10 +23,10 @@ block content
           label.col-form-label.col-form-label__stacked Contact Name
           .col-md-6
             input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name', required)
-
-    .form-section
+    .step-form-tab
+      .form-section
         .form-group.form-section-header
-            h3.text-left Address
+          h3.text-left Address
         .form-group.row
           label.col-form-label.col-form-label__stacked Steet
           .col-md-6
@@ -36,20 +39,20 @@ block content
           .form-group__inline
             label.col-form-label.col-form-label__stacked State
             .col-md-12
-                input.form-control(type='text', name='state', id='state', placeholder='State', optional)
+              input.form-control(type='text', name='state', id='state', placeholder='State', optional)
           .form-group__inline
             label.col-form-label.col-form-label__stacked Zip
             .col-md-12
-                input.form-control(type='text', name='zip', id='zip', placeholder='Zip', optional)
-          
-    .form-section
+              input.form-control(type='text', name='zip', id='zip', placeholder='Zip', optional)
+    .step-form-tab
+      .form-section
         .form-group.form-section-header
             h3.text-left General Assistance Accomodations
                 h4.text-left What level of assistance can your facility provide?
 
         .form-group.row
           label.col-form-label.col-form-label__stacked.check-group-label Eating
-          .col-md-6
+          .col-md-12
             .form-check
                 label.form-check-label(for='eating_noassistance')= myconstants.constants('Eating_noassistance')
                     input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', placeholder='eating_noassistance' value=1)
@@ -73,7 +76,7 @@ block content
         br 
         .form-group.row
           label.col-form-label.col-form-label__stacked.check-group-label Transfers
-          .col-md-6
+          .col-md-12
             .form-check
                 label.form-check-label(for='transfers_none')= myconstants.constants('Transfers_none')
                     input.form-check-input(type='checkbox', name='transfers_none', id='transfers_none', placeholder='transfers_none' value=1)
@@ -97,7 +100,7 @@ block content
         br    
         .form-group.row
           label.col-form-label.col-form-label__stacked.check-group-label Mobility
-          .col-md-6
+          .col-md-12
             .form-check
                 label.form-check-label(for='mobiliy_noassisstance')= myconstants.constants('Mobiliy_noassisstance')
                     input.form-check-input(type='checkbox', name='mobiliy_noassisstance', id='mobiliy_noassisstance', placeholder='mobiliy_noassisstance' value=1)
@@ -121,7 +124,7 @@ block content
         br     
         .form-group.row
           label.col-form-label.col-form-label__stacked.check-group-label Toileting
-          .col-md-6
+          .col-md-12
             .form-check
                 label.form-check-label(for='toileting_noassisstance')= myconstants.constants('Toileting_noassisstance')
                     input.form-check-input(type='checkbox', name='toileting_noassisstance', id='toileting_noassisstance', placeholder='toileting_noassisstance' value=1)
@@ -145,7 +148,7 @@ block content
         br 
         .form-group.row
           label.col-form-label.col-form-label__stacked.check-group-label Verbal
-          .col-md-6
+          .col-md-12
             .form-check
                 label.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
                     input.form-check-input(type='checkbox', name='verbal_none', id='verbal_none', placeholder='verbal_none' value=1)
@@ -169,7 +172,7 @@ block content
         br 
         .form-group.row
           label.col-form-label.col-form-label__stacked.check-group-label Physical
-          .col-md-6
+          .col-md-12
             .form-check
                 label.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
                     input.form-check-input(type='checkbox', name='physical_none', id='physical_none', placeholder='physical_none' value=1)
@@ -193,7 +196,7 @@ block content
         br 
         .form-group.row
           label.col-form-label.col-form-label__stacked.check-group-label Behaviour
-          .col-md-6
+          .col-md-12
             .form-check
                 label.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
                     input.form-check-input(type='checkbox', name='behaviourial_none', id='behaviourial_none', placeholder='behaviourial_none' value=1)
@@ -214,19 +217,19 @@ block content
                 label.form-check-label(for='behaviourial_unpredictable')= myconstants.constants('Behaviourial_unpredictable')
                     input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable', placeholder='behaviourial_unpredictable' value=1)
                     span.checkmark
-
-    .form-section
+    .step-form-tab
+      .form-section
         .form-group.form-section-header
             h3.text-left Specialized Assistance Accomodations
                 h4.text-left What types of special assistance can your facility provide?
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label How Many Insulin Shots Can You Administer per person per day?
+          label.col-lg-8.col-md-8.col-form-label How Many Insulin Shots Can You Administer per person per day?
           .col-md-4
             input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', autofocus, required)
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label Hallucinations
+          label.col-lg-8.col-md-8.col-form-label Hallucinations
           .col-md-4
             .col-md-12
                 label.form-radio-label.ml-4(for='hallucinations_yes') Yes
@@ -238,7 +241,7 @@ block content
                     span.radio
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label Memory Care
+          label.col-lg-8.col-md-8.col-form-label Memory Care
           .col-md-4
             .col-md-12
                 label.form-radio-label.ml-4(for='memorycare_yes') Yes
@@ -250,7 +253,7 @@ block content
                     span.radio
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label Would you Take a Resident with an Oxygen Tank?
+          label.col-lg-8.col-md-8.col-form-label Would you Take a Resident with an Oxygen Tank?
           .col-md-4
             .col-md-12
                 label.form-radio-label.ml-4(for='oxygentank_yes') Yes
@@ -262,7 +265,7 @@ block content
                     span.radio
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
+          label.col-lg-8.col-md-8.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
           .col-md-4
             .col-md-12
                 label.form-radio-label.ml-4(for='changeoxygentank_yes') Yes
@@ -274,7 +277,7 @@ block content
                     span.radio
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label Would you take a Resident who needs to be on oxygen at all times?
+          label.col-lg-8.col-md-8.col-form-label Would you take a Resident who needs to be on oxygen at all times?
           .col-md-4
             .col-md-12
                 label.form-radio-label.ml-4(for='alltimeoxygen_yes') Yes
@@ -286,7 +289,7 @@ block content
                     span.radio
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
+          label.col-lg-8.col-md-8.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
           .col-md-4
             .col-md-12
                 label.form-radio-label.ml-4(for='changecatheter_yes') Yes
@@ -298,7 +301,7 @@ block content
                     span.radio
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label Do you provide medication management?
+          label.col-lg-8.col-md-8.col-form-label Do you provide medication management?
           .col-md-4
             .col-md-12
                 label.form-radio-label.ml-4(for='medicationmanagement_yes') Yes
@@ -310,7 +313,7 @@ block content
                     span.radio
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
+          label.col-lg-8.col-md-8.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
           .col-md-4
             .col-md-12
                 label.form-radio-label.ml-4(for='liquiddiets_yes') Yes
@@ -322,7 +325,7 @@ block content
                     span.radio
         br 
         .form-group.row
-          label.col-lg-3.col-md-5.col-form-label Do you provide ground diets for residents?
+          label.col-lg-8.col-md-8.col-form-label Do you provide ground diets for residents?
           .col-md-4
             .col-md-12
                 label.form-radio-label.ml-4(for='grounddiets_yes') Yes
@@ -332,8 +335,86 @@ block content
                 label.form-radio-label.ml-4(for='grounddiets_no') No
                     input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_no' value = 'N')
                     span.radio
-    br 
-    .form-group.offset-sm-1.col-md-6.pl-2
-      button.btn.btn-willow.btn-signup-form(type='submit')
-        i.fas.fa-user-plus.fa-sm
-        | Signup
+        br 
+        .form-group.offset-sm-1.col-md-6.pl-2
+          button.btn.btn-willow.btn-signup-form(type='submit')
+            i.fas.fa-user-plus.fa-sm
+            | Signup
+
+    .row
+      .col-md-4
+        button.btn-secondary(id='prevBtn', onclick='nextPrev(-1)', type='button')
+          | Previous
+      .col-md-4
+        button.btn-secondary(id='nextBtn', onclick='nextPrev(1)', type='button')
+          | Next
+      
+      
+
+      .text-center.m-t-40
+        span.step
+        span.step
+        span.step
+        span.step
+
+    
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+    script.
+      var currentTab = 0; // Current tab is set to be the first tab (0)
+      showTab(currentTab); // Display the current tab
+
+      function showTab(n) {
+        // This function will display the specified tab of the form...
+        var x = document.getElementsByClassName("step-form-tab");
+        x[n].style.display = "block";
+        //... and fix the Previous/Next buttons:
+        if (n == 0) {
+          document.getElementById("prevBtn").style.display = "none";
+        } else {
+          document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+          //document.getElementById("nextBtn").innerHTML = "Submit";
+        } else {
+          document.getElementById("nextBtn").innerHTML = "Next";
+        }
+        //... and run a function that will display the correct step indicator:
+        fixStepIndicator(n)
+      }
+
+      function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("step-form-tab");
+
+        // Exit the function if any field in the current tab is invalid:
+        //if (n == 1 && !validateForm()) return false;
+
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+
+        // if you have reached the end of the form...
+        if (currentTab >= x.length) {
+          // ... the form gets submitted:
+          //document.getElementById("regForm").submit();
+          return false;
+        }
+
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
+      }
+
+      function fixStepIndicator(n) {
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) {
+          x[i].className = x[i].className.replace(" active", "");
+        }
+        //... and adds the "active" class on the current step:
+        x[n].className += " active";
+      }
+          
+    
