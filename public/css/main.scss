@@ -249,6 +249,12 @@ a {
     }
 }
 
+button {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 .text-grey {
     color: $grey-light;
 }
@@ -367,7 +373,15 @@ form {
         margin-bottom: 1em;
     }
     .form-section-header {
-        margin-bottom: 3em;
+        margin-bottom: 3em !important;
+        &.form-section-header--center {
+            margin-bottom: 5em !important;
+            &:after {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: -2em;
+            }
+        }
         &:after {
             content: "";
             position: absolute;
@@ -1052,6 +1066,11 @@ button.btn-willow.btn-willow__hero {
 
 #roomsignup-form {
     padding-bottom: 75px;
+}
+
+.button-row {
+    justify-content: center;
+    align-items: center;
 }
 
 
