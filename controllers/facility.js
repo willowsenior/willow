@@ -39,6 +39,8 @@ exports.getFacility = (req, res, error) => {
 exports.postFacilitySignup = (req, res, next) => {
   const errors = req.validationErrors();
 
+  //logger.debug('req body for post', req.body);
+
   if (errors) {
       req.flash('errors', errors);
       return res.redirect('/signup');

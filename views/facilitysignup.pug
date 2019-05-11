@@ -10,8 +10,9 @@ block content
         span.step
         span.step
         span.step
-  form.body-form.body-form__centered
-    //.body-form(id='facsignup-form', method='POST', action='/facilitysignup')
+    //input(type="file", id="docpicker", accept=".pdf") 
+  form.body-form.body-form__centered(id='facsignup-form', method='POST', action='/facilitysignup', novalidate)
+    //.body-form(id='facsignup-form', method='POST', action='/facilitysignup', novalidate)
     input(type='hidden', name='_csrf', value=_csrf)
 
     .step-form-tab
@@ -21,15 +22,15 @@ block content
         .form-group.row
           label.col-form-label.col-form-label__stacked Facility Name
           .col-md-10
-            input.form-control(type='text', name='facilityName', id='facilityName', placeholder='Facility Name', required)
+            input.form-control(type='text', name='facilityName', id='facilityName', placeholder='Facility Name')
         .form-group.row
           label.col-form-label.col-form-label__stacked Contact Number
           .col-md-10
-            input.form-control(type='number', name='contactNumber', id='contactNumber', placeholder='XXX-XXX-XXXX', required)
+            input.form-control(type='tel', name='contactNumber', id='contactNumber', placeholder='XXX-XXX-XXXX')
         .form-group.row
           label.col-form-label.col-form-label__stacked Contact Name
           .col-md-6
-            input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name', required)
+            input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name')
     .step-form-tab
       .form-section
         .form-group.form-section-header.form-section-header--center
@@ -371,66 +372,103 @@ block content
       var currentTab = 0; // Current tab is set to be the first tab (0)
       showTab(currentTab); // Display the current tab
 
-      function showTab(n) {
+      function showTab(n, direction) {
         // This function will display the specified tab of the form...
-        var x = document.getElementsByClassName("step-form-tab");
-        x[n].style.display = "block";
+          var x = document.getElementsByClassName("step-form-tab");
+          x[n].style.display = "block";
         //... and fix the Previous/Next buttons:
         if (n == 0) {
           document.getElementById("prevBtn").style.display = "none";
-          //document.getElementById("prevContainer").style.display = "none";
         } else {
           document.getElementById("prevBtn").style.display = "inline";
-          //document.getElementById("prevContainer").style.display = "block";
         }
         if (n == (x.length - 1)) {
-          //document.getElementById("nextBtn").innerHTML = "Submit";
-
           //Show the submit button
-          document.getElementById("prevNextRow").style.display = "none";
-          document.getElementById("submitRow").style.display = "flex";
+            document.getElementById("prevNextRow").style.display = "none";
+            document.getElementById("submitRow").style.display = "flex";
         } else {
           //Don't show the submit row until the end
-          document.getElementById("submitRow").style.display = "none";
-          document.getElementById("nextBtn").innerHTML = "Next";
+            document.getElementById("submitRow").style.display = "none";
+            document.getElementById("nextBtn").innerHTML = "Next";
         }
+
         //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n)
+          fixStepIndicator(n, direction)
       }
 
       function nextPrev(n) {
         // This function will figure out which tab to display
-        var x = document.getElementsByClassName("step-form-tab");
+          var x = document.getElementsByClassName("step-form-tab");
 
-        // Exit the function if any field in the current tab is invalid:
-        //if (n == 1 && !validateForm()) return false;
+        // Exit the function if any field in the current tab is invalid, only for first tab:
+          if (n == 1 && currentTab == 0 && !validateForm(currentTab)) return false;
 
         // Hide the current tab:
-        x[currentTab].style.display = "none";
+          x[currentTab].style.display = "none";
 
         // Increase or decrease the current tab by 1:
-        currentTab = currentTab + n;
+          currentTab = currentTab + n;
 
         // if you have reached the end of the form...
-        if (currentTab >= x.length) {
-          // ... the form gets submitted:
-          //document.getElementById("facsignup-form").submit();
-          return false;
-        }
+          if (currentTab >= x.length) {
+            return false;
+          }
 
         // Otherwise, display the correct tab:
-        showTab(currentTab);
+          showTab(currentTab, n);
       }
 
-      function fixStepIndicator(n) {
+      function fixStepIndicator(n, direction) {
         // This function removes the "active" class of all steps...
-        var i, 
+          var i, 
             x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-          x[i].className = x[i].className.replace(" active", " complete");
-        }
+
+          //... and remove the "complete" class from all future steps in case we went backwards
+          if(direction == -1) {
+            console.log('for i greater than n remove the complete class', x[previousIndex]);
+            x[n].className = x[n].className.replace("complete", "");
+
+            var previousIndex = n + 1;
+            x[previousIndex].className = x[previousIndex].className.replace("active", "");
+            x[previousIndex].className = x[previousIndex].className.replace("complete", "");
+          } else {
+            for (i = 0; i < x.length; i++) {
+              x[i].className = x[i].className.replace("active", " complete");
+            }
+          }
+          
+
+          
+
         //... and adds the "active" class on the current step:
-        x[n].className += " active";
+          x[n].className += " active";
+
+      }
+
+      //====== Only need to validate step-one for required fields ======//
+      function validateForm(currentTab) {
+        // This function deals with validation of the form fields
+          var x, y, i, valid = true;
+          x = document.getElementsByClassName("step-form-tab");
+          y = x[currentTab].getElementsByTagName("input");
+          var formData = $(y).serializeArray();
+          console.log('formData', formData);
+
+        // A loop that checks every input field in the current tab:
+          for (i = 0; i < formData.length; i++) {
+            // If a field is empty...
+            if (formData[i].value == "") {
+              // add an "invalid" class to the field:
+              y[i].className += " invalid";
+              // and set the current valid status to false:
+              valid = false;
+            }
+          }
+        // If the valid status is true, mark the step as finished and valid:
+          //if (valid) {
+            //document.getElementsByClassName("step")[currentTab].className += " finish";
+          //}
+          return valid; // return the valid status
       }
           
     

@@ -775,7 +775,8 @@ form {
     color: $black-dull;
     text-align: center;
     &:hover, &:focus {
-        opacity: 0.9
+        opacity: 0.9;
+        outline: none;
     }
 }
 
@@ -816,6 +817,7 @@ form {
            -ms-box-shadow: 0 10px 30px 0px rgba(51, 51, 51, 0.5);
             border: none;
             opacity: 0.9;
+            outline: none;
         }
         &:active, :active:focus {
             border-color: transparent;
@@ -823,6 +825,7 @@ form {
             background-color: $willow-blue;
             background: $willow-blue;
             opacity: 1;
+            outline: none;
         }
     }
 }
@@ -1029,38 +1032,38 @@ button.btn-willow.btn-willow__hero {
 
 #facsignup-form {
     padding-bottom: 75px;
-    .form-section {
-        position: relative;
-        padding-left: 75px;
-        &:before {
-            content: "";
-            position: absolute;
-            z-index: 1;
-            top: $form-padding-top;
-            height: 30px;
-            width: 30px;
-            left: 0;
-            background-color: white;
-            border: 2px solid $willow-green;
-            color: white;
-            border-radius: 50%;
-            color: $grey-middle;
-        }
-        &:after {
-            content: "";
-            position: absolute;
-            z-index: 0;
-            top: $form-padding-top;
-            height: 100%;
-            width: 1px;
-            left: 14px;
-            background-color: $willow-green;
-        }
-        //start at 2 because of the shadow input
-        // &:nth-child(2) { 
-        //     &:before { content: "1"; } 
-        // }
-    }
+    // .form-section {
+    //     position: relative;
+    //     padding-left: 75px;
+    //     &:before {
+    //         content: "";
+    //         position: absolute;
+    //         z-index: 1;
+    //         top: $form-padding-top;
+    //         height: 30px;
+    //         width: 30px;
+    //         left: 0;
+    //         background-color: white;
+    //         border: 2px solid $willow-green;
+    //         color: white;
+    //         border-radius: 50%;
+    //         color: $grey-middle;
+    //     }
+    //     &:after {
+    //         content: "";
+    //         position: absolute;
+    //         z-index: 0;
+    //         top: $form-padding-top;
+    //         height: 100%;
+    //         width: 1px;
+    //         left: 14px;
+    //         background-color: $willow-green;
+    //     }
+    //     //start at 2 because of the shadow input
+    //     // &:nth-child(2) { 
+    //     //     &:before { content: "1"; } 
+    //     // }
+    // }
 }
 
 
