@@ -129,25 +129,38 @@ footer {
 
 .side-tabs {
     margin-top: 40px;
+    .btn-secondary {
+        max-width: 85%;
+        margin-bottom: 50px;
+    }
     > div {
-        display: flex;
-        flex-wrap: normal;
+        //display: flex;
+        //flex-wrap: wrap;
         align-content: flex-start;
     }
     .tab-content {
+        position: relative;
+        float: right;
+        //200px = tab width
+        width: calc(100vw - 200px);
+        max-width: 70%;
         padding-left: 40px;
-        flex-grow: 1;
+        //flex-grow: 1;
         .form-section {
             padding-top: 0px;
         }
     }
     .nav-tabs {
+        position: fixed;
+        float: left;
+
         $tab-width: 200px;
         display: block;
         border-right: 1px solid $grey-light;
         border-bottom: none;
         min-height: 50vh;
-        max-width: $tab-width;
+        width: $tab-width;
+        max-width: 30%;
         li a {
             display: block;
             width: $tab-width;
