@@ -142,7 +142,7 @@ footer {
         position: relative;
         float: right;
         //200px = tab width
-        width: calc(100vw - 200px);
+        width: calc(100vw - 250px);
         max-width: 70%;
         padding-left: 40px;
         //flex-grow: 1;
@@ -154,19 +154,22 @@ footer {
         position: fixed;
         float: left;
 
-        $tab-width: 200px;
+        $tab-width: 250px;
         display: block;
         border-right: 1px solid $grey-light;
         border-bottom: none;
         min-height: 50vh;
         width: $tab-width;
         max-width: 30%;
+        span {
+            line-height: 60px;
+        }
         li a {
             display: block;
             width: $tab-width;
             padding: 0px 25px;
             height: 60px;
-            line-height: 60px;
+            //line-height: 60px;
             &.active {
                 border-right: 2px solid $willow-green;
             }
@@ -218,6 +221,12 @@ $class-dir-left: l !default;
     }
     .#{$padding-slug}-#{$class-dir-right}-#{$i} {
         padding-right: 0px + $i;
+    }
+}
+
+.hidden-sm {
+    @media (max-width: 992px) {
+        display: none;
     }
 }
 
@@ -295,6 +304,7 @@ form {
     }
     .form-group__inline {
         position: relative;
+        display: inline-block;
     }
 }
 
@@ -659,12 +669,16 @@ select.form-control {
 }
 
 .navbar{
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-bottom: 20px;
-  display: block;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+    display: block;
     .navbar-brand {
         padding: 10px 0px !important;
+    }
+    .divider {
+        border-top: 1px solid $grey-light;
+        width: 100%;
     }
 }
 
@@ -679,6 +693,9 @@ select.form-control {
   float: right;
   margin-bottom: 8px;
   margin-top: 8px;
+  &:focus, &:active {
+    outline: none;
+  }
 }
 
 .navbar-toggler-icon {
