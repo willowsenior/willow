@@ -2,13 +2,17 @@ extends layout
 
 block content
     .pb-2.mt-4.mb-4.border-bottom.row.header-row
-        h1.col-md-9 Update Room Details
-        form.col-md-3(id='roomsignup-form123', method='POST', action='/deleteRoom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=DELETE')
+        h1.col-md-6 Update Room Details
+        .col-md-3.text-right
+            button.btn.btn-secondary.m-r-20(type='submit', form="roomsignup-form_update")
+                | Update Room Details
+        form.col-md-3(id='roomsignup-form_delete', method='POST', action='/deleteRoom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=DELETE')
             .form-group
               button.btn.btn-danger.btn-delete(type='submit')
                 | Delete Room
 
-    form.body-form(id='roomsignup-form123', method='POST', action='/updatefullroom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=PUT')
+
+    form.body-form(id='roomsignup-form_update', method='POST', action='/updatefullroom/'+currentFacility._id.toString()+'/'+currentRoom._id.toString()+'?_method=PUT')
         .form-section
             .form-group.form-section-header
                 h3.text-left General Room Info
@@ -29,6 +33,10 @@ block content
                         option(selected= currentRoom.RoomType==='Suit') Suit
                         option(selected= currentRoom.RoomType==='Studio Apartment') Studio Apartment
             .form-group.row
+              label.col-form-label.col-form-label__stacked Room Rent Rate
+              .col-md-4
+                input.form-control(type='number', name='rent', id='rent',value=currentRoom.Range.min, placeholder='$0.00', autofocus, required)
+            //.form-group.row
               label.col-form-label.col-form-label__stacked Room Rent Range
               .col-md-7.form-group__inline
                 .col-md-3
@@ -69,11 +77,11 @@ block content
               .col-md-3
                 .col-md-12
                   label.form-radio-label.ml-4(for='wanderguard_yes') Yes
-                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='Y', name='wanderguard', id='wanderguard_yes' value = 'Y')
+                    input.form-radio-input(type='radio', checked= currentRoom.Wandergaurd==='Y', name='wandergaurd', id='wanderguard_yes' value = 'Y')
                     span.radio
                 .col-md-12
                   label.form-radio-label.ml-4(for='wanderguard_no') No
-                    input.form-radio-input(type='radio', checked= currentRoom.Wanderguard==='N', name='wanderguard', id='wanderguard_no' value = 'N')
+                    input.form-radio-input(type='radio', checked= currentRoom.Wandergaurd==='N', name='wandergaurd', id='wanderguard_no' value = 'N')
                     span.radio
             
         .form-group.row
@@ -360,8 +368,4 @@ block content
                 label.form-radio-label.ml-4(for='grounddiets_no') No
                     input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_no' value = 'N' checked= currentRoom.GroundDiets==='N')
                     span.radio
-        br
-        .form-group.offset-sm-3.col-md-7.pl-2
-          button.btn.btn-willow(type='submit')
-            | Update Room Details
 

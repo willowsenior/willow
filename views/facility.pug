@@ -86,8 +86,12 @@ block content
                             option(selected= currentRooms[i].RoomType==='Private') Private
                             option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
                             option(selected= currentRooms[i].RoomType==='Suit') Suit
-                            option(selected= currentRooms[i].RoomType==='Suit') Studio Apartment
+                            option(selected= currentRooms[i].RoomType==='Studio Apartment') Studio Apartment
                       .form-group.row
+                        label.col-form-label.col-form-label__stacked Room Rent Rate
+                        .col-md-8
+                          input.form-control(type='number', name='rent', id='rent',value=currentRooms[i].Range.min, autofocus, required)
+                      //.form-group.row
                         label.col-form-label.col-form-label__stacked Room Rent Range
                         .col-md-12.form-group__inline
                           .col-md-5
@@ -97,14 +101,8 @@ block content
                           .col-md-5 
                             input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
                     .form-group
-                        .row
-                            .col-md-6
-                                button.btn.btn-secondary(type='submit')
-                                    | Update Room
-                            .col-md-6
-                                a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id).col-md-7
-                                    button.btn.btn-secondary(type='button')
-                                        | Full Detail
+                            button.btn.btn-secondary(type='submit', form="roomsignup-form1")
+                                | Update Room
 
         a(href="/roomsignup/"+currentFacility._id)
             button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +

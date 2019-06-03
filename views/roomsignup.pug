@@ -23,15 +23,10 @@ block content
               option Suit
               option Studio Apartment
     .form-group.row
-      label.col-form-label.col-form-label__stacked Room Rent Range
-      .col-md-7.form-group__inline
-        .col-md-3
-          input.form-control.text-right(type='number', name='min', id='min', placeholder='0.00', step='0.01', autofocus, required)
-        .col-md-1.text-center
-          label to 
-        .col-md-3 
-          input.form-control.text-right(type='number', name='max', id='max', placeholder='0.00', autofocus, required)
-    .form-group.row
+      label.col-form-label.col-form-label__stacked Room Rent Rate
+      .col-md-4
+        input.form-control(type='number', name='rent', id='rent', placeholder='$0.00', autofocus, required)
+    //.form-group.row
       label.col-form-label.col-form-label__stacked Room Rent Range
       .col-md-7.form-group__inline
         .col-md-3
@@ -44,12 +39,12 @@ block content
       label.col-sm-3.col-md-2.col-form-label Gender
       .col-md-3
         .col-md-12
-          label.form-radio-label.ml-4(for='male') Male
-            input.form-radio-input(type='radio', name='gender', id='male' value = 'M')
+          label.form-radio-label.ml-4(for='M') Male
+            input.form-radio-input(type='radio', name='gender', id = 'M',  value = 'M')
             span.radio
         .col-md-12
-          label.form-radio-label.ml-4(for='female') Female
-            input.form-radio-input(type='radio', name='gender', id='female' value = 'F')
+          label.form-radio-label.ml-4(for='F') Female
+            input.form-radio-input(type='radio', name='gender', id = 'F',  value = 'F')
             span.radio
 
     .form-section
@@ -72,11 +67,11 @@ block content
         .col-md-3
           .col-md-12
             label.form-radio-label.ml-4(for='wanderguard_yes') Yes
-              input.form-radio-input(type='radio', checked= currentFacility.Wanderguard==='Y', name='Wanderguard', id='wanderguard_yes' value = 'Y')
+              input.form-radio-input(type='radio', checked= currentFacility.Wanderguard==='Y', name='wandergaurd', id='wanderguard_yes' value = 'Y')
               span.radio
           .col-md-12
             label.form-radio-label.ml-4(for='wandergaurd_no') No
-              input.form-radio-input(type='radio', checked= currentFacility.Wanderguard==='N', name='Wanderguard', id='wandergaurd_no' value = 'N')
+              input.form-radio-input(type='radio', checked= currentFacility.Wanderguard==='N', name='wandergaurd', id='wandergaurd_no' value = 'N')
               span.radio
     
       .form-group.row
