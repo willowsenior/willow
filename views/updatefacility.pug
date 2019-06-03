@@ -32,12 +32,13 @@ block content
         var data = [
             { title: 'General', active: true },
             { title: 'Location' },
-            { title: 'Standard Care' },
-            { title: 'Specialized Care' }
+            { title: 'Daily Living' },
+            { title: 'Behavioral Problems' },
+            { title: 'Additional Care' }
         ];
 
     // Here is the actual template logic
-    form.body-form.body-form--with-tabs(id='facupdate-form', method='POST', action='/updatefacility/'+currentFacility._id.toString()+'?_method=PUT')
+    form.body-form.body-form--with-tabs(id='facupdate-form', method='POST', action='/updatefacility/'+currentFacility._id.toString()+'?_method=PUT', novalidate)
         input(type='hidden', name='_csrf', value=_csrf)
         .side-tabs
           +tabs(data)
@@ -50,15 +51,15 @@ block content
                     .form-group.row
                       label.col-form-label.col-form-label__stacked Facility Name
                       .col-md-6
-                        input.form-control(type='text', name='facilityName', id='facilityName',value= facility.FacilityName, placeholder='Facility Name', autofocus, required)
+                        input.form-control(type='text', name='facilityName', id='facilityName',value= facility.FacilityName, placeholder='Facility Name')
                     .form-group.row
                       label.col-form-label.col-form-label__stacked Contact Number
                       .col-md-6
-                        input.form-control(type='number', name='contactNumber', id='contactNumber',value= facility.Contact, placeholder='XXX-XXX-XXXX', required)
+                        input.form-control(type='number', name='contactNumber', id='contactNumber',value= facility.Contact, placeholder='XXX-XXX-XXXX')
                     .form-group.row
                       label.col-form-label.col-form-label__stacked Contact Name
                       .col-md-6
-                        input.form-control(type='text', name='contactName', id='contactName',value= facility.ContactName, placeholder='Contact Name', required)
+                        input.form-control(type='text', name='contactName', id='contactName',value= facility.ContactName, placeholder='Contact Name')
                 -else if (this.title == 'Location')
                   .form-section
                     .form-group.form-section-header
@@ -78,12 +79,12 @@ block content
                             input.form-control(type='text', name='state', id='state',value= facility.Address.state, placeholder='State', optional)
                       .form-group__inline
                         label.col-form-label.col-form-label__stacked Zip
-                          .col-md-12
+                        .col-md-12
                             input.form-control(type='text', name='zip', id='zip',value= facility.Address.zip, placeholder='Zip', optional)
-                -else if (this.title == 'Standard Care')
+                -else if (this.title == 'Daily Living')
                   .form-section
                     .form-group.form-section-header
-                      h3.text-left General Assistance Accomodations
+                      h3.text-left Activities of Daily Living
                         h4.text-left What level of assistance can your facility provide?
 
                     .form-group.row
@@ -181,9 +182,14 @@ block content
                           label.form-check-label(for='toileting_bathroomincontinent')= myconstants.constants('Toileting_bathroomincontinent')
                             input.form-check-input(type='checkbox', name='toileting_bathroomincontinent', id='toileting_bathroomincontinent',checked= facility.FacilityFeatures.Toileting_bathroomincontinent, placeholder='toileting_bathroomincontinent' value=1)
                             span.checkmark
-                    br 
+                -else if (this.title == 'Behavioral Problems')
+                  .form-section
+                    .form-group.form-section-header
+                      h3.text-left Behavioral Problems
+                        h4.text-left Does Your Senior Exhibit any Behavioral Problems?
+                    
                     .form-group.row
-                      label.col-form-label.col-form-label__stacked.check-group-label Verbal
+                      label.col-form-label.col-form-label__stacked.check-group-label Verbal Disruption
                       .col-md-6
                         .form-check
                           label.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
@@ -207,7 +213,7 @@ block content
                             span.checkmark
                     br 
                     .form-group.row
-                      label.col-form-label.col-form-label__stacked.check-group-label Physical
+                      label.col-form-label.col-form-label__stacked.check-group-label Physical Aggression
                       .col-md-6
                         .form-check
                           label.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
@@ -231,7 +237,7 @@ block content
                             span.checkmark
                     br 
                     .form-group.row
-                      label.col-form-label.col-form-label__stacked.check-group-label Behaviour
+                      label.col-form-label.col-form-label__stacked.check-group-label Inappropriate Behavior
                       .col-md-6
                         .form-check
                           label.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
@@ -253,19 +259,19 @@ block content
                           label.form-check-label(for='behaviourial_unpredictable')= myconstants.constants('Behaviourial_unpredictable')
                             input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable',checked= facility.FacilityFeatures.Behaviourial_unpredictable, placeholder='behaviourial_unpredictable' value=1)
                             span.checkmark
-                - else if (this.title == 'Specialized Care')
+                - else if (this.title == 'Additional Care')
                   .form-section
                     .form-group.form-section-header
-                      h3.text-left Specialized Assistance Accomodations
+                      h3.text-left Additional Health Accomodations
                         h4.text-left What types of special assistance can your facility provide?
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-form-label How Many Insulin Shots Can You Administer per person per day?
+                      label.col-lg-4.col-md-6.col-form-label How Many Insulin Shots Can You Administer per person per day?
                       .col-md-4
                         input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', autofocus, required, value=facility.InsulinShots)
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-form-label Hallucinations
+                      label.col-lg-4.col-md-6.col-form-label Hallucinations
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='hallucinations_yes') Yes
@@ -277,7 +283,7 @@ block content
                             span.radio
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-form-label Memory Care
+                      label.col-lg-4.col-md-6.col-form-label Memory Care
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='memorycare_yes') Yes
@@ -289,7 +295,7 @@ block content
                             span.radio
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-form-label Would you Take a Resident with an Oxygen Tank?
+                      label.col-lg-4.col-md-6.col-form-label Would you Take a Resident with an Oxygen Tank?
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='oxygentank_yes') Yes
@@ -301,7 +307,7 @@ block content
                             span.radio
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
+                      label.col-lg-4.col-md-6.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='changeoxygentank_yes') Yes
@@ -313,7 +319,7 @@ block content
                             span.radio
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-form-label Would you take a Resident who needs to be on oxygen at all times?
+                      label.col-lg-4.col-md-6.col-form-label Would you take a Resident who needs to be on oxygen at all times?
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='alltimeoxygen_yes') Yes
@@ -325,7 +331,7 @@ block content
                             span.radio
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
+                      label.col-lg-4.col-md-6.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='changecatheter_yes') Yes
@@ -337,7 +343,7 @@ block content
                             span.radio
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-form-label Do you provide medication management?
+                      label.col-lg-4.col-md-6.col-form-label Do you provide medication management?
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='medicationmanagement_yes') Yes
@@ -349,7 +355,7 @@ block content
                             span.radio
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
+                      label.col-lg-4.col-md-6.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='liquiddiets_yes') Yes
@@ -361,7 +367,7 @@ block content
                             span.radio
                     br 
                     .form-group.row
-                      label.col-lg-3.col-md-5.col-form-label Do you provide ground diets for residents?
+                      label.col-lg-4.col-md-6.col-form-label Do you provide ground diets for residents?
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='grounddiets_yes') Yes

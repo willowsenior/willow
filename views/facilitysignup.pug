@@ -2,10 +2,11 @@ extends layout
 
 block content
   .row.pb-2.m-t-40.mb-4.border-bottom
-    .col-md-8.text-left
+    .col-xs-12.col-md-12.col-lg-6.text-left
       h1 Create Permanent Facility Profile
-    .col-md-4.text-right
-      .step-form-breadcrumbs.text-center
+    .col-lg-6.hidden-sm.text-right
+      .step-form-breadcrumbs.text-right
+        span.step
         span.step
         span.step
         span.step
@@ -55,7 +56,7 @@ block content
     .step-form-tab
       .form-section
         .form-group.form-section-header.form-section-header--center
-            h3.text-center General Assistance Accomodations
+            h3.text-center Activities of Daily Living
                 h4.text-center What level of assistance can your facility provide?
 
         .form-group.row
@@ -153,9 +154,14 @@ block content
                 label.form-check-label(for='toileting_bathroomincontinent')= myconstants.constants('Toileting_bathroomincontinent')
                     input.form-check-input(type='checkbox', name='toileting_bathroomincontinent', id='toileting_bathroomincontinent', placeholder='toileting_bathroomincontinent' value=1)
                     span.checkmark
+    .step-form-tab
+      .form-section
+        .form-group.form-section-header.form-section-header--center
+            h3.text-center Behavioral Problems
+                h4.text-center Does Your Senior Exhibit any Behavioral Problems?
         br 
         .form-group.row
-          label.col-form-label.col-form-label__stacked.check-group-label Verbal
+          label.col-form-label.col-form-label__stacked.check-group-label Verbal Disruption
           .col-md-12
             .form-check
                 label.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
@@ -179,7 +185,7 @@ block content
                     span.checkmark
         br 
         .form-group.row
-          label.col-form-label.col-form-label__stacked.check-group-label Physical
+          label.col-form-label.col-form-label__stacked.check-group-label Physical Aggression
           .col-md-12
             .form-check
                 label.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
@@ -203,7 +209,7 @@ block content
                     span.checkmark
         br 
         .form-group.row
-          label.col-form-label.col-form-label__stacked.check-group-label Behaviour
+          label.col-form-label.col-form-label__stacked.check-group-label Inappropriate Behavior
           .col-md-12
             .form-check
                 label.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
@@ -228,7 +234,7 @@ block content
     .step-form-tab
       .form-section
         .form-group.form-section-header.form-section-header--center
-            h3.text-center Specialized Assistance Accomodations
+            h3.text-center Additional Health Accomodations
                 h4.text-center What types of special assistance can your facility provide?
         br 
         .form-group.row
@@ -393,7 +399,7 @@ block content
         }
 
         //... and run a function that will display the correct step indicator:
-          fixStepIndicator(n, direction)
+          fixStepIndicator(n, direction);
       }
 
       function nextPrev(n) {
