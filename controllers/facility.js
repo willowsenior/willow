@@ -37,10 +37,15 @@ exports.getFacility = (req, res, error) => {
 };
 
 exports.postFacilitySignup = (req, res, next) => {
+  let num;
+  if (req && req.body && req.body.contactNumber) {
+    num = req.body.contactNumber;
+    req.body.contactNumber = num.replace(/[^0-9.]/g, "");
+  }
+
   const errors = req.validationErrors();
 
-  //logger.debug('req body for post', req.body);
-
+  console.log('req body for post======>', req.body);
   if (errors) {
       req.flash('errors', errors);
       return res.redirect('/signup');

@@ -18,7 +18,8 @@ block content
           .row.border-bottom.m-b-20
             .col.col-md-12.text-center
               h5.m-b-10= currentFacility.FacilityName
-              h4.m-b-20= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
+              if(currentFacility.Address && currentFacility.Address.street)
+                h4.m-b-20= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
           .row
             .col
               h5.pb-2.m-b-15.text-left.font-weight-bold Level of Assistance :
