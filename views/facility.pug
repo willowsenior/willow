@@ -1,6 +1,37 @@
 extends layout
 
 block content
+  mixin tabs(tabsItems)
+      - var tabActive = function (t) { return t.active ? 'active' : '' }
+
+      mixin tab(index)
+          - tabsItems[index].body = block;
+
+      block
+
+      - tabsItems[0].active = tabsItems[0].active || !tabsItems.some(function (t) { return t.active; })
+
+      div
+          ul.nav.nav-tabs(role="tablist")
+              each tab, index in tabsItems
+                  li(role="presentation")
+                      a(href="#"+"tab-id-" + index, aria-controls="tab-id-" + index, role="tab", data-toggle="tab", class=tabActive(tab))
+                        if tab.icon
+                            span.icon(class=tab.icon)
+                        span= tab.title
+              
+
+          .tab-content
+              each tab, index in tabsItems
+                  .tab-pane(id="tab-id-" + index, role="tabpanel", class=tabActive(tab))
+                      - tab.body && tab.body()
+
+  -
+      var data = [
+          { title: 'Room Details', active: true },
+          { title: 'Matches' }
+      ];
+
   .pb-2.mt-4.mb-4.border-bottom
     h1 Manage Facility
   .content-with-aside
@@ -22,7 +53,7 @@ block content
                 h4.m-b-20= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
           .row
             .col
-              h5.pb-2.m-b-15.text-left.font-weight-bold Level of Assistance :
+              h5.p-l-15.pb-2.m-b-15.text-left.font-weight-bold Level of Assistance :
               - for (var key in currentFacility.FacilityFeatures)
                 -if(key != '$init')
                   -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
@@ -50,57 +81,92 @@ block content
                             td.text-left= myconstants.constants(key)
 
     .main-col.col
-      .main-col-section
-        .main-col-section-header
-          p Room Details
-        .row
-          - for (var i = 0; i < currentRooms.length; i++)
-            .col-md-12.col-lg-6
-              .card-deck
-                .card.mr-4.mt-4.mb-4
-                  .card-body
-                    //a.card-body__edit(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
-                        //| Room Detail 
-                        //i.fas.fa-chevron-right.fa-sm
-                    form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
-                      input(type='hidden', name='_csrf', value=_csrf)
-                      .form-group.row
-                        .btn-edit
-                          a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
-                            i.fas.fa-edit
-                            span Edit
-                        //label.col-form-label.col-form-label__stacked Room Name
-                        .col-md-8
-                          p.card-title= currentRooms[i].RoomName
-                      .form-group.row
-                        label.col-form-label.col-form-label__stacked Room Count
-                        .col-md-8
-                          input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
-                      .form-group.row
-                        label.col-form-label.col-form-label__stacked(for='roomtype') Room Type
-                        .col-md-12
-                          select.form-control(id='roomtype' name='roomtype' )
-                            option(selected= currentRooms[i].RoomType==='Private') Private
-                            option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
-                            option(selected= currentRooms[i].RoomType==='Suit') Suit
-                            option(selected= currentRooms[i].RoomType==='Studio Apartment') Studio Apartment
-                      .form-group.row
-                        label.col-form-label.col-form-label__stacked Room Rent Rate
-                        .col-md-8
-                          input.form-control(type='number', name='rent', id='rent',value=currentRooms[i].Range.min, autofocus, required)
-                      //.form-group.row
-                        label.col-form-label.col-form-label__stacked Room Rent Range
-                        .col-md-12.form-group__inline
-                          .col-md-5
-                            input.form-control.text-right(type='number', name='min', id='min', value=currentRooms[i].Range.min, autofocus, required)
-                          .col-md-2
-                              label.font-weight-bold.text-right to
-                          .col-md-5 
-                            input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
-                    .form-group
-                            button.btn.btn-secondary(type='submit', form="roomsignup-form1")
-                                | Update Room
+      .top-tabs
+          +tabs(data)
+            each tab, index in data
+              +tab(index)
+                -if (this.title == 'Room Details')
+                  .main-col-section
+                    .row
+                      - for (var i = 0; i < currentRooms.length; i++)
+                        .col-md-12.col-lg-6
+                          .card-deck
+                            .card.mr-4.mt-4.mb-4
+                              .card-body
+                                //a.card-body__edit(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
+                                    //| Room Detail 
+                                    //i.fas.fa-chevron-right.fa-sm
+                                form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
+                                  input(type='hidden', name='_csrf', value=_csrf)
+                                  .form-group.row
+                                    .btn-edit
+                                      a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
+                                        i.fas.fa-edit
+                                        span Edit
+                                    //label.col-form-label.col-form-label__stacked Room Name
+                                    .col-md-8
+                                      p.card-title= currentRooms[i].RoomName
+                                  .form-group.row
+                                    label.col-form-label.col-form-label__stacked Room Count
+                                    .col-md-8
+                                      input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
+                                  .form-group.row
+                                    label.col-form-label.col-form-label__stacked(for='roomtype') Room Type
+                                    .col-md-12
+                                      select.form-control(id='roomtype' name='roomtype' )
+                                        option(selected= currentRooms[i].RoomType==='Private') Private
+                                        option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
+                                        option(selected= currentRooms[i].RoomType==='Suit') Suit
+                                        option(selected= currentRooms[i].RoomType==='Studio Apartment') Studio Apartment
+                                  .form-group.row
+                                    label.col-form-label.col-form-label__stacked Room Rent Rate
+                                    .col-md-8
+                                      input.form-control(type='number', name='rent', id='rent',value=currentRooms[i].Range.min, autofocus, required)
+                                  //.form-group.row
+                                    label.col-form-label.col-form-label__stacked Room Rent Range
+                                    .col-md-12.form-group__inline
+                                      .col-md-5
+                                        input.form-control.text-right(type='number', name='min', id='min', value=currentRooms[i].Range.min, autofocus, required)
+                                      .col-md-2
+                                          label.font-weight-bold.text-right to
+                                      .col-md-5 
+                                        input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
+                                .form-group
+                                        button.btn.btn-secondary(type='submit', form="roomsignup-form1")
+                                            | Update Room
 
-        a(href="/roomsignup/"+currentFacility._id)
-            button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
+                    a.m-t-20(href="/roomsignup/"+currentFacility._id)
+                      button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
+
+                -else if (this.title == 'Matches')
+                  .main-col-section
+                    .row
+                      .col.col-xs-12
+                        table.match-table
+                          thead
+                            tr
+                              th Room Name
+                              th Room Rent
+                              th Contact ID
+                          tbody
+                            tr
+                              td Room Testing A
+                              td $594
+                              td 23576932
+                                span.unread
+                            tr
+                              td Room Testing A
+                              td $594
+                              td 23576932
+                            tr
+                              td Room Testing A
+                              td $594
+                              td 23576932
+                            tr
+                              td Room Testing A
+                              td $594
+                              td 23576932
+
+
+
 

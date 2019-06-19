@@ -177,6 +177,34 @@ footer {
     }
 }
 
+.top-tabs {
+    > div {
+        align-content: flex-start;
+    }
+    .tab-content {
+        position: relative;
+        width: 100%;
+        .form-section {
+            padding-top: 0px;
+        }
+    }
+    .nav-tabs {
+        display: flex;
+        align-content: flex-start;
+        width: 100%;
+        border-bottom: 1px solid $grey-light;
+        margin-bottom: 30px;
+        li a {
+            display: block;
+            padding: 0px 20px 10px;
+            width: 100%;
+            &.active {
+                border-bottom: 2px solid $willow-green;
+            }
+        }
+    }
+}
+
 
 
 
@@ -560,6 +588,43 @@ label.form-check-label, .form-radio-label {
         }
     }
 }
+
+
+// Custom Table
+.match-table {
+    width: 100%;
+    thead {
+        border-bottom: 1px solid $grey-middle;
+    }
+    td, th {
+        position: relative;
+        color: $black-dull;
+    }
+    td { padding: 15px 10px; }
+    th { padding: 10px; }
+    tbody {
+        tr {
+            &:nth-child(odd) {
+                background-color: #f1f1f1;
+            }
+            &:nth-child(even) {
+                background-color: white;
+            }
+        }
+        .unread {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            background-color: $willow-green;
+        }
+    }
+}
+
+
 
 // Custom Radio - extends checkmark
 label.form-radio-label {
