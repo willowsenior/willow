@@ -129,6 +129,8 @@ app.post('/willowadminsignin', userController.postWillowAdminSignin);
 app.get('/admincustomersignup', userController.getAdminCustomerSignup);
 app.post('/admincustomersignup', userController.postAdminCustomerSignup);
 
+app.get('createseniorrecord', userController.getSeniorRecordCreate)
+
 //Facility
 app.get('/facility/:facility_id', facilityController.getFacility);
 app.get('/facilitysignup', facilityController.getFacilitySignup);
