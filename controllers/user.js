@@ -84,6 +84,19 @@ exports.getSignup = (req, res) => {
     });
 };
 
+//** * GET /senior
+//* Create a new local account.
+//
+exports.getSeniorRecordCreate = (req, res) => {
+    if (!req.user.isAdmin) {
+        return res.redirect('/');
+    }
+    res.render('account/seniorrecordcreate', {
+        title: 'Create Senior Record'
+    });
+};
+
+
 //** * POST /signup
 //* Create a new local account.
 //
