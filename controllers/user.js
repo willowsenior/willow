@@ -92,7 +92,8 @@ exports.getSeniorRecordCreate = (req, res) => {
         return res.redirect('/');
     }
     res.render('account/seniorrecordcreate', {
-        title: 'Create Senior Record'
+        title: 'Create Senior Record',
+        myconstants
     });
 };
 
