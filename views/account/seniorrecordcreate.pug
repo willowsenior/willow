@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
 
@@ -6,7 +6,8 @@ block content
         .col-xs-12.col-md-12.col-lg-6.text-left
             h1 Senior Room Profile
         .col-lg-6.hidden-sm.text-right
-            .step-form-breadcrumbs.text-right
+            .step-form-breadcrumbs.breadcrumbs-flex.text-right
+                span.step
                 span.step
                 span.step
                 span.step
@@ -21,7 +22,7 @@ block content
                     h3.text-center Timeframe
                 .form-group.row
                     label.col-lg-8.col-md-8.col-form-label I am looking for placement in
-                    .col-md-4
+                    .col-md-12.full-width-radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='placement_1month') Less than 1 month
                                 input.form-radio-input(type='radio', name='placement', id='placement_1month' value = 1)
@@ -45,15 +46,15 @@ block content
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact Email
                         .col-md-10
-                            input.form-control(type='email', name='contactEmail', id='contactEmail', placeholder='Email', autofocus, autocomplete='email', required)
+                            input.form-control(type='email', name='contactEmail', id='contactEmail', placeholder='Email', autofocus, autocomplete='email')
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact relationship to the senior
                         .col-md-6
-                            input.form-control(type='text', name='contactRelationship', id='contactRelationship', placeholder='Contact Relationship', autofocus, required)
+                            input.form-control(type='text', name='contactRelationship', id='contactRelationship', placeholder='Contact Relationship')
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact relationship to the senior
                         .col-md-6
-                            input.form-control(type='text', name='contactRelationship', id='contactRelationship', placeholder='Contact Relationship', autofocus, required)
+                            input.form-control(type='text', name='contactRelationship', id='contactRelationship', placeholder='Contact Relationship')
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Please check any of the following that apply
                     .col-md-12
@@ -122,9 +123,9 @@ block content
                                 input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', placeholder='eating_noassistance' value=1, checked= currentSenior.Eating_noassistance)
                                 span.checkmark
                         .form-check
-                              label.form-check-label(for='eating_intermittent')= myconstants.constants('Eating_intermittent')
-                                  input.form-check-input(type='checkbox', name='eating_intermittent', id='eating_intermittent', placeholder='eating_intermittent', value=1, checked= currentSenior.Eating_intermittent)
-                                  span.checkmark
+                            label.form-check-label(for='eating_intermittent')= myconstants.constants('Eating_intermittent')
+                                input.form-check-input(type='checkbox', name='eating_intermittent', id='eating_intermittent', placeholder='eating_intermittent', value=1, checked= currentSenior.Eating_intermittent)
+                                span.checkmark
                         .form-check
                             label.form-check-label(for='eating_continual')= myconstants.constants('Eating_continual')
                                 input.form-check-input(type='checkbox', name='eating_continual', id='eating_continual', placeholder='eating_continual' value=1, checked= currentSenior.Eating_continual)
@@ -132,11 +133,11 @@ block content
                         .form-check
                             label.form-check-label(for='eating_byhand')= myconstants.constants('Eating_byhand')
                                 input.form-check-input(type='checkbox', name='eating_byhand', id='eating_byhand', placeholder='eating_byhand' value=1, checked= currentSenior.Eating_byhand)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='eating_tube')= myconstants.constants('Eating_tube')
-                              input.form-check-input(type='checkbox', name='eating_tube', id='eating_tube', placeholder='eating_tube' value=1, checked= currentSenior.Eating_tube)
-                              span.checkmark
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='eating_tube')= myconstants.constants('Eating_tube')
+                                input.form-check-input(type='checkbox', name='eating_tube', id='eating_tube', placeholder='eating_tube' value=1, checked= currentSenior.Eating_tube)
+                                span.checkmark
                 br 
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Transfers
@@ -217,74 +218,74 @@ block content
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Verbal Disruption
                     .col-md-6
-                      .form-check
-                          label.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
-                              input.form-check-input(type='checkbox', name='verbal_none', id='verbal_none', placeholder='verbal_none' value=1, , checked= currentSenior.Verbal_none)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='verbal_infrequent')= myconstants.constants('Verbal_infrequent')
-                              input.form-check-input(type='checkbox', name='verbal_infrequent', id='verbal_infrequent', placeholder='verbal_infrequent' value=1, checked= currentSenior.Verbal_infrequent)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='verbal_predictable')= myconstants.constants('Verbal_predictable')
-                              input.form-check-input(type='checkbox', name='verbal_predictable', id='verbal_predictable', placeholder='verbal_predictable' value=1, checked= currentSenior.Verbal_predictable)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='verbal_onceunpredictable')= myconstants.constants('Verbal_onceunpredictable')
-                              input.form-check-input(type='checkbox', name='verbal_onceunpredictable', id='verbal_onceunpredictable', placeholder='verbal_onceunpredictable' value=1, checked= currentSenior.Verbal_onceunpredictable)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='verbal_multipleunpredictable')= myconstants.constants('Verbal_multipleunpredictable')
-                              input.form-check-input(type='checkbox', name='verbal_multipleunpredictable', id='verbal_multipleunpredictable', placeholder='verbal_multipleunpredictable' value=1, checked= currentSenior.Verbal_multipleunpredictable)
-                              span.checkmark
+                        .form-check
+                            label.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
+                                input.form-check-input(type='checkbox', name='verbal_none', id='verbal_none', placeholder='verbal_none' value=1, , checked= currentSenior.Verbal_none)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='verbal_infrequent')= myconstants.constants('Verbal_infrequent')
+                                input.form-check-input(type='checkbox', name='verbal_infrequent', id='verbal_infrequent', placeholder='verbal_infrequent' value=1, checked= currentSenior.Verbal_infrequent)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='verbal_predictable')= myconstants.constants('Verbal_predictable')
+                                input.form-check-input(type='checkbox', name='verbal_predictable', id='verbal_predictable', placeholder='verbal_predictable' value=1, checked= currentSenior.Verbal_predictable)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='verbal_onceunpredictable')= myconstants.constants('Verbal_onceunpredictable')
+                                input.form-check-input(type='checkbox', name='verbal_onceunpredictable', id='verbal_onceunpredictable', placeholder='verbal_onceunpredictable' value=1, checked= currentSenior.Verbal_onceunpredictable)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='verbal_multipleunpredictable')= myconstants.constants('Verbal_multipleunpredictable')
+                                input.form-check-input(type='checkbox', name='verbal_multipleunpredictable', id='verbal_multipleunpredictable', placeholder='verbal_multipleunpredictable' value=1, checked= currentSenior.Verbal_multipleunpredictable)
+                                span.checkmark
                 br
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Physical Aggression
                     .col-md-6
-                      .form-check
-                          label.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
-                              input.form-check-input(type='checkbox', name='physical_none', id='physical_none', placeholder='physical_none' value=1, checked= currentSenior.Physical_none)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='physical_infrequent')= myconstants.constants('Physical_infrequent')
-                              input.form-check-input(type='checkbox', name='physical_infrequent', id='physical_infrequent', placeholder='physical_infrequent' value=1, checked= currentSenior.Physical_infrequent)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='physical_predictable')= myconstants.constants('Physical_predictable')
-                              input.form-check-input(type='checkbox', name='physical_predictable', id='physical_predictable', placeholder='physical_predictable' value=1, checked= currentSenior.Physical_predictable)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='physical_onceunpredictable')= myconstants.constants('Physical_onceunpredictable')
-                              input.form-check-input(type='checkbox', name='physical_onceunpredictable', id='physical_onceunpredictable', placeholder='physical_onceunpredictable' value=1, checked= currentSenior.Physical_onceunpredictable)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='physical_multipleunpredictable')= myconstants.constants('Physical_multipleunpredictable')
-                              input.form-check-input(type='checkbox', name='physical_multipleunpredictable', id='physical_multipleunpredictable', placeholder='physical_multipleunpredictable' value=1, checked= currentSenior.Physical_multipleunpredictable)
-                              span.checkmark
+                        .form-check
+                            label.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
+                                input.form-check-input(type='checkbox', name='physical_none', id='physical_none', placeholder='physical_none' value=1, checked= currentSenior.Physical_none)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='physical_infrequent')= myconstants.constants('Physical_infrequent')
+                                input.form-check-input(type='checkbox', name='physical_infrequent', id='physical_infrequent', placeholder='physical_infrequent' value=1, checked= currentSenior.Physical_infrequent)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='physical_predictable')= myconstants.constants('Physical_predictable')
+                                input.form-check-input(type='checkbox', name='physical_predictable', id='physical_predictable', placeholder='physical_predictable' value=1, checked= currentSenior.Physical_predictable)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='physical_onceunpredictable')= myconstants.constants('Physical_onceunpredictable')
+                                input.form-check-input(type='checkbox', name='physical_onceunpredictable', id='physical_onceunpredictable', placeholder='physical_onceunpredictable' value=1, checked= currentSenior.Physical_onceunpredictable)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='physical_multipleunpredictable')= myconstants.constants('Physical_multipleunpredictable')
+                                input.form-check-input(type='checkbox', name='physical_multipleunpredictable', id='physical_multipleunpredictable', placeholder='physical_multipleunpredictable' value=1, checked= currentSenior.Physical_multipleunpredictable)
+                                span.checkmark
                 br
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Socially Inappropriate Behavior
                     .col-md-6
-                      .form-check
-                          label.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
-                              input.form-check-input(type='checkbox', name='behaviourial_none', id='behaviourial_none', placeholder='behaviourial_none', value=1, checked= currentSenior.Behaviourial_none)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='behaviourial_yesnondisruptive')= myconstants.constants('Behaviourial_yesnondisruptive')
-                              input.form-check-input(type='checkbox', name='behaviourial_yesnondisruptive', id='behaviourial_yesnondisruptive', placeholder='behaviourial_yesnondisruptive' value=1, checked= currentSenior.Behaviourial_yesnondisruptive)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='behaviourial_infrequent')= myconstants.constants('Behaviourial_infrequent')
-                              input.form-check-input(type='checkbox', name='behaviourial_infrequent', id='behaviourial_infrequent', placeholder='behaviourial_infrequent' value=1, checked= currentSenior.Behaviourial_infrequent)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='behaviourial_frequent')= myconstants.constants('Behaviourial_frequent')
-                              input.form-check-input(type='checkbox', name='behaviourial_frequent', id='behaviourial_frequent', placeholder='behaviourial_frequent' value=1, checked= currentSenior.Behaviourial_frequent)
-                              span.checkmark
-                      .form-check
-                          label.form-check-label(for='behaviourial_unpredictable')= myconstants.constants('Behaviourial_unpredictable')
-                              input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable', placeholder='behaviourial_unpredictable' value=1, checked= currentSenior.Behaviourial_unpredictable)
-                              span.checkmark
+                        .form-check
+                            label.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
+                                input.form-check-input(type='checkbox', name='behaviourial_none', id='behaviourial_none', placeholder='behaviourial_none', value=1, checked= currentSenior.Behaviourial_none)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='behaviourial_yesnondisruptive')= myconstants.constants('Behaviourial_yesnondisruptive')
+                                input.form-check-input(type='checkbox', name='behaviourial_yesnondisruptive', id='behaviourial_yesnondisruptive', placeholder='behaviourial_yesnondisruptive' value=1, checked= currentSenior.Behaviourial_yesnondisruptive)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='behaviourial_infrequent')= myconstants.constants('Behaviourial_infrequent')
+                                input.form-check-input(type='checkbox', name='behaviourial_infrequent', id='behaviourial_infrequent', placeholder='behaviourial_infrequent' value=1, checked= currentSenior.Behaviourial_infrequent)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='behaviourial_frequent')= myconstants.constants('Behaviourial_frequent')
+                                input.form-check-input(type='checkbox', name='behaviourial_frequent', id='behaviourial_frequent', placeholder='behaviourial_frequent' value=1, checked= currentSenior.Behaviourial_frequent)
+                                span.checkmark
+                        .form-check
+                            label.form-check-label(for='behaviourial_unpredictable')= myconstants.constants('Behaviourial_unpredictable')
+                                input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable', placeholder='behaviourial_unpredictable' value=1, checked= currentSenior.Behaviourial_unpredictable)
+                                span.checkmark
                 br
                 .form-group.row
                     label.col-lg-3.col-md-5.col-form-label Hallucinations
@@ -309,7 +310,7 @@ block content
                 .form-group.row
                     label.col-lg-3.col-md-5.col-form-label How Many Insulin Shots Can You Administer?
                     .col-md-4
-                        input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', autofocus, required, value=currentSenior.InsulinShots)
+                        input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', value=currentSenior.InsulinShots)
                 br 
                 .form-group.row
                     label.col-lg-3.col-md-5.col-form-label Hallucinations
@@ -422,7 +423,7 @@ block content
                 .form-group.row
                     label.col-lg-3.col-md-5.col-form-label Any Other Health Information You'd Like to Include?
                     .col-md-4
-                        input.form-control(type='number', name='otherInformation', id='otherInformation', placeholder='Special Diets, Smoket, etc.', autofocus, required, value=currentSenior.otherHealthInformation)
+                        input.form-control(type='number', name='otherInformation', id='otherInformation', placeholder='Special Diets, Smoket, etc.', value=currentSenior.otherHealthInformation)
                 br 
                 .form-group.row
                     label.col-lg-3.col-md-5.col-form-label Memory Care
@@ -461,19 +462,19 @@ block content
                 | Signup
         .row.button-row(id="submitRow")
             .col-md-6
-              button.btn-subtle(id='prevBtn', onclick='nextPrev(-1)', type='button')
-                | Previous
+                button.btn-subtle(id='prevBtn', onclick='nextPrev(-1)', type='button')
+                    | Previous
             .col-md-6
-              button.btn-secondary(type='submit')
-                i.fas.fa-user-plus.fa-sm
-                | Signup
+                button.btn-secondary(type='submit')
+                    i.fas.fa-user-plus.fa-sm
+                    | Signup
         .row.button-row(id="prevNextRow")
-          .col-md-6
-            button.btn-subtle(id='prevBtn', onclick='nextPrev(-1)', type='button')
-              | Previous
-          .col-md-6(id="nextContainer")
-            button.btn-secondary(id='nextBtn', onclick='nextPrev(1)', type='button')
-              | Next
+            .col-md-6
+                button.btn-subtle(id='prevBtn', onclick='nextPrev(-1)', type='button')
+                    | Previous
+            .col-md-6(id="nextContainer")
+                button.btn-secondary(id='nextBtn', onclick='nextPrev(1)', type='button')
+                    | Next
       
       
 
@@ -484,51 +485,25 @@ block content
       var currentTab = 0; // Current tab is set to be the first tab (0)
       showTab(currentTab); // Display the current tab
 
-      //Phone Number Parsing
-      $(document).ready( function() {
-        var phone_input = document.getElementById('contactNumber');
-        phone_input.addEventListener('input', function (evt) {
-          var number_value = document.getElementById('contactNumber').value,
-              final_value;
-          if (number_value.length >= 14) return;
-
-          if (number_value.length == 3) {
-            //reformat and return phone number
-            number_value = number_value.replace(/[^\d]/g, "");
-            final_value = number_value.replace(/(\d{3})/, "($1) ");
-          } else if (number_value.length == 10) {
-
-            number_value = number_value.replace(/[^\d]/g, "");
-            final_value = number_value.replace(/(\d{3})(\d{3})/, "($1) $2-");
-
-          } else if (number_value.length == 14) {
-            //reformat and return phone number
-            number_value = number_value.replace(/[^\d]/g, "");
-            final_value = number_value.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
-          } else {
-            final_value = number_value
-          }
-
-          document.getElementById('contactNumber').value = final_value;
-        });
-      });
-
       function showTab(n, direction) {
-        // This function will display the specified tab of the form...
+        console.log('show tabe??', n);
+
+        //=== This function will display the specified tab of the form...
           var x = document.getElementsByClassName("step-form-tab");
           x[n].style.display = "block";
-        //... and fix the Previous/Next buttons:
+
+        //===... and fix the Previous/Next buttons:
         if (n == 0) {
           document.getElementById("prevBtn").style.display = "none";
         } else {
           document.getElementById("prevBtn").style.display = "inline";
         }
         if (n == (x.length - 1)) {
-          //Show the submit button
+          //=== Show the submit button
             document.getElementById("prevNextRow").style.display = "none";
             document.getElementById("submitRow").style.display = "flex";
         } else {
-          //Don't show the submit row until the end
+          //=== Don't show the submit row until the end
             document.getElementById("submitRow").style.display = "none";
             document.getElementById("nextBtn").innerHTML = "Next";
         }
@@ -560,11 +535,11 @@ block content
       }
 
       function fixStepIndicator(n, direction) {
-        // This function removes the "active" class of all steps...
+        //=== This function removes the "active" class of all steps...
           var i, 
             x = document.getElementsByClassName("step");
 
-          //... and remove the "complete" class from all future steps in case we went backwards
+          //=== ... and remove the "complete" class from all future steps in case we went backwards
           if(direction == -1) {
             console.log('for i greater than n remove the complete class', x[previousIndex]);
             x[n].className = x[n].className.replace("complete", "");
@@ -596,6 +571,7 @@ block content
           console.log('formData', formData);
 
         // A loop that checks every input field in the current tab:
+
           for (i = 0; i < formData.length; i++) {
             // If a field is empty...
             if (formData[i].value == "") {
@@ -606,9 +582,6 @@ block content
             }
           }
         // If the valid status is true, mark the step as finished and valid:
-          //if (valid) {
-            //document.getElementsByClassName("step")[currentTab].className += " finish";
-          //}
           return valid; // return the valid status
       }
           

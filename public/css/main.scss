@@ -383,6 +383,35 @@ form {
     }
 }   
 
+.step-form-breadcrumbs.breadcrumbs-flex {
+    span.step {
+        $circle-size: 15px;
+        $gap-width: 20px;
+        $line-width: ($gap-width*2) + $circle-size;
+        position: relative;
+        height: $circle-size;
+        width: $circle-size;
+        margin: 0 $gap-width;
+        background-color: white;
+        border: 2px solid $grey-light;
+        border-radius: 50%;
+        display: inline-block;
+        &:not(:first-child) {
+            &:before {
+                content: "";
+                z-index: -1;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 2px;
+                right: 0px;
+                width: $line-width;
+                background-color: $grey-light;
+            }
+        }
+    }
+}
+
 
 
 .step-form-tab {
@@ -627,6 +656,7 @@ label.form-check-label, .form-radio-label {
 
 
 // Custom Radio - extends checkmark
+
 label.form-radio-label {
     .radio {
         border-radius: 50%;
@@ -642,6 +672,12 @@ label.form-radio-label {
 }
 
 // Custom Toggle
+.full-width-radio {
+    .form-radio-label {
+        display: block;
+        width: 100%;
+    }
+}
 .form-radio-label {
     position: relative;
     display: inline-block;

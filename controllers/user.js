@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/User');
+const myconstants = require('../utils/constants');
 
 
 /**
@@ -91,8 +92,12 @@ exports.getSeniorRecordCreate = (req, res) => {
     if (!req.user.isAdmin) {
         return res.redirect('/');
     }
+    var currentSenior = {
+        Senior_Living: false
+    };
     res.render('account/seniorrecordcreate', {
         title: 'Create Senior Record',
+        currentSenior,
         myconstants
     });
 };
