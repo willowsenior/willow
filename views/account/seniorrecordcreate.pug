@@ -76,13 +76,225 @@ block content
                         label.form-radio-label.ml-4(for='senior_living_no') No
                             input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'N', checked= currentSenior.Senior_Living==='N')
                             span.radio
+    .step-form-tab
+        .form-section
+            .form-group.form-section-header.form-section-header--center
+                h3.text-center Senior Information
             .form-group.row
-                label.col-form-label.col-form-label__stacked.check-group-label By Selecting the Box below, you are agreeing to our Privacy Policy and our Terms and Conditions.
-                .col-md-12
+                label.col-sm-3.col-md-2.col-form-label Gender
+                .col-md-3
+                    .col-md-12
+                        label.form-radio-label.ml-4(for='M') Male
+                        input.form-radio-input(type='radio', name='gender', id = 'M',  value = 'M')
+                        span.radio
+                    .col-md-12
+                        label.form-radio-label.ml-4(for='F') Female
+                        input.form-radio-input(type='radio', name='gender', id = 'F',  value = 'F')
+                        span.radio
+            .form-group.row
+                label.col-form-label.col-form-label__stacked Age
+                .col-md-4
+                    input.form-control(type='number', pattern='^[0–9]$', name='age', id='age', placeholder='Age')
+            .form-group.row
+                label.col-form-label.col-form-label__stacked Zip Code
+                .col-md-4
+                    input.form-control(type='number', pattern='^[0–9]$', name='zipCode', id='zipCode', placeholder='ZipCode')
+            .form-group.row
+                label.col-lg-3.col-md-5.col-form-label I would like the Senior to live with me
+                .col-md-4
+                    .col-md-12
+                        label.form-radio-label.ml-4(for='senior_living_yes') Yes
+                        input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'Y', checked= currentSenior.Senior_Living==='Y')
+                        span.radio
+                    .col-md-12
+                        label.form-radio-label.ml-4(for='senior_living_no') No
+                            input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'N', checked= currentSenior.Senior_Living==='N')
+                            span.radio
+    .step-form-tab
+        .form-section
+            .form-group.form-section-header
+                h3.text-left General Assistance Accomodations
+            .form-group.row
+                label.col-form-label.col-form-label__stacked.check-group-label Eating
+                .col-md-6
                     .form-check
-                        label.form-check-label(for='agree_terms') I agree
-                            input.form-check-input(type='checkbox', name='agree_terms', id='agree_terms', placeholder='agree_terms' value=1)
+                        label.form-check-label(for='eating_noassistance')= myconstants.constants('Eating_noassistance')
+                            input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', placeholder='eating_noassistance' value=1, checked= currentSenior.Eating_noassistance)
                             span.checkmark
+                    .form-check
+                          label.form-check-label(for='eating_intermittent')= myconstants.constants('Eating_intermittent')
+                              input.form-check-input(type='checkbox', name='eating_intermittent', id='eating_intermittent', placeholder='eating_intermittent', value=1, checked= currentSenior.Eating_intermittent)
+                              span.checkmark
+                    .form-check
+                        label.form-check-label(for='eating_continual')= myconstants.constants('Eating_continual')
+                            input.form-check-input(type='checkbox', name='eating_continual', id='eating_continual', placeholder='eating_continual' value=1, checked= currentSenior.Eating_continual)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='eating_byhand')= myconstants.constants('Eating_byhand')
+                            input.form-check-input(type='checkbox', name='eating_byhand', id='eating_byhand', placeholder='eating_byhand' value=1, checked= currentSenior.Eating_byhand)
+                          span.checkmark
+                  .form-check
+                      label.form-check-label(for='eating_tube')= myconstants.constants('Eating_tube')
+                          input.form-check-input(type='checkbox', name='eating_tube', id='eating_tube', placeholder='eating_tube' value=1, checked= currentSenior.Eating_tube)
+                          span.checkmark
+            br 
+            .form-group.row
+                label.col-form-label.col-form-label__stacked.check-group-label Transfers
+                .col-md-6
+                    .form-check
+                        label.form-check-label(for='transfers_none')= myconstants.constants('Transfers_none')
+                            input.form-check-input(type='checkbox', name='transfers_none', id='transfers_none', placeholder='transfers_none' value=1, checked= currentSenior.Transfers_none)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='transfers_intermittent')= myconstants.constants('Transfers_intermittent')
+                            input.form-check-input(type='checkbox', name='transfers_intermittent', id='transfers_intermittent', placeholder='transfers_intermittent' value=1, checked= currentSenior.Transfers_intermittent)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='transfers_oneperson')= myconstants.constants('Transfers_oneperson')
+                            input.form-check-input(type='checkbox', name='transfers_oneperson', id='transfers_oneperson', placeholder='transfers_oneperson' value=1, checked= currentSenior.Transfers_oneperson)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='transfers_twoperson')= myconstants.constants('Transfers_twoperson')
+                            input.form-check-input(type='checkbox', name='transfers_twoperson', id='transfers_twoperson', placeholder='transfers_twoperson' value=1, checked= currentSenior.Transfers_twoperson)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='transfers_cannot')= myconstants.constants('Transfers_cannot')
+                            input.form-check-input(type='checkbox', name='transfers_cannot', id='transfers_cannot', placeholder='transfers_cannot' value=1, checked= currentSenior.Transfers_cannot)
+                            span.checkmark
+            br    
+            .form-group.row
+                label.col-form-label.col-form-label__stacked.check-group-label Mobility
+                .col-md-6
+                    .form-check
+                        label.form-check-label(for='mobiliy_noassisstance')= myconstants.constants('Mobiliy_noassisstance')
+                            input.form-check-input(type='checkbox', name='mobiliy_noassisstance', id='mobiliy_noassisstance', placeholder='mobiliy_noassisstance' value=1, checked= currentSenior.Mobiliy_noassisstance)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='mobiliy_intermittent')= myconstants.constants('Mobiliy_intermittent')
+                            input.form-check-input(type='checkbox', name='mobiliy_intermittent', id='mobiliy_intermittent', placeholder='mobiliy_intermittent' value=1, checked= currentSenior.Mobiliy_intermittent)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='mobiliy_continual')= myconstants.constants('Mobiliy_continual')
+                            input.form-check-input(type='checkbox', name='mobiliy_continual', id='mobiliy_continual', placeholder='mobiliy_continual' value=1, checked= currentSenior.Mobiliy_continual)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='mobiliy_wheels')= myconstants.constants('Mobiliy_wheels')
+                            input.form-check-input(type='checkbox', name='mobiliy_wheels', id='mobiliy_wheels', placeholder='mobiliy_wheels' value=1, checked= currentSenior.Mobiliy_wheels)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='mobiliy_cannotmove')= myconstants.constants('Mobiliy_cannotmove')
+                            input.form-check-input(type='checkbox', name='mobiliy_cannotmove', id='mobiliy_cannotmove', placeholder='mobiliy_cannotmove' value=1, checked= currentSenior.Mobiliy_cannotmove)
+                            span.checkmark
+            br     
+            .form-group.row
+                label.col-form-label.col-form-label__stacked.check-group-label Toileting
+                .col-md-6
+                    .form-check
+                        label.form-check-label(for='toileting_noassisstance')= myconstants.constants('Toileting_noassisstance')
+                            input.form-check-input(type='checkbox', name='toileting_noassisstance', id='toileting_noassisstance', placeholder='toileting_noassisstance' value=1, checked= currentSenior.Toileting_noassisstance)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='toileting_bowel')= myconstants.constants('Toileting_bowel')
+                            input.form-check-input(type='checkbox', name='toileting_bowel', id='toileting_bowel', placeholder='toileting_bowel' value=1, checked= currentSenior.Toileting_bowel)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='toileting_continual')= myconstants.constants('Toileting_continual')
+                            input.form-check-input(type='checkbox', name='toileting_continual', id='toileting_continual', placeholder='toileting_continual' value=1, checked= currentSenior.Toileting_continual)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='toileting_nobathroomincontinent')= myconstants.constants('Toileting_nobathroomincontinent')
+                            input.form-check-input(type='checkbox', name='toileting_nobathroomincontinent', id='toileting_nobathroomincontinent', placeholder='toileting_nobathroomincontinent' value=1, checked= currentSenior.Toileting_nobathroomincontinent)
+                            span.checkmark
+                    .form-check
+                        label.form-check-label(for='toileting_bathroomincontinent')= myconstants.constants('Toileting_bathroomincontinent')
+                            input.form-check-input(type='checkbox', name='toileting_bathroomincontinent', id='toileting_bathroomincontinent', placeholder='toileting_bathroomincontinent' value=1, checked= currentSenior.Toileting_bathroomincontinent)
+                            span.checkmark
+
+
+
+
+
+
+
+
+
+        .form-section
+            .form-group.form-section-header.form-section-header--center
+                h3.text-center Does the senior need assistance with any of the following?
+            .form-group.row
+                label.col-form-label.col-form-label__stacked.check-group-label Activites of Daily Living
+            .form-group.row
+                .col-md-12
+                  .form-check
+                      label.form-check-label(for='senior_living_noassistance') They do not need assistance with anything
+                          input.form-check-input(type='checkbox', name='senior_living_noassistance', id='senior_living_noassistance', placeholder='senior_living_noassistance' value=1, checked= currentSenior.senior_living_noassistance)
+                          span.checkmark
+                .col-md-12
+                  .form-check
+                      label.form-check-label(for='senior_eating_assistance') Eating
+                          input.form-check-input(type='checkbox', name='senior_eating_assistance', id='senior_eating_assistance', placeholder='senior_eating_assistance' value=1, checked= currentSenior.senior_eating_assistance)
+                          span.checkmark
+                .col-md-12
+                  .form-check
+                      label.form-check-label(for='senior_transfers_assistance') Transfers (Moving between the bed and a chair for example)
+                          input.form-check-input(type='checkbox', name='senior_transfers_assistance', id='senior_transfers_assistance', placeholder='senior_transfers_assistance' value=1, checked= currentSenior.senior_transfers_assistance)
+                          span.checkmark
+                .col-md-12
+                  .form-check
+                      label.form-check-label(for='senior_mobility_assistance') Mobility
+                          input.form-check-input(type='checkbox', name='senior_mobility_assistance', id='senior_mobility_assistance', placeholder='senior_mobility_assistance' value=1, checked= currentSenior.senior_mobility_assistance)
+                          span.checkmark
+                .col-md-12
+                  .form-check
+                      label.form-check-label(for='senior_toileting_assistance') Toileting
+                          input.form-check-input(type='checkbox', name='senior_toileting_assistance', id='senior_toileting_assistance', placeholder='senior_toileting_assistance' value=1, checked= currentSenior.senior_toileting_assistance)
+                          span.checkmark
+
+            .form-group.row(id="eatingRow")
+                label.col-form-label.col-form-label__stacked.check-group-label Eating
+
+            .form-group.row(id="transfersRow")
+                label.col-form-label.col-form-label__stacked.check-group-label Transfers
+        
+            .form-group.row(id="mobilityRow")
+                label.col-form-label.col-form-label__stacked.check-group-label Mobility
+      
+            .form-group.row(id="toiletingRow")
+                label.col-form-label.col-form-label__stacked.check-group-label Toileting
+
+    .step-form-tab
+        .form-section
+            .form-group.form-section-header.form-section-header--center
+                h3.text-center Does Your Senior Have Any Behavioral Needs?
+            .form-group.row
+                label.col-form-label.col-form-label__stacked.check-group-label Does Your Senior Exhibit any Behavioral Problems?
+            .form-group.row
+                .col-md-4
+                    .col-md-12
+                        label.form-radio-label.ml-4(for='behavioral_issues_yes') Yes
+                        input.form-radio-input(type='radio', name='behavioral_issues_yes', id='behavioral_issues_yes' value = 'Y', checked= currentSenior.Behavioral_Issues==='Y')
+                        span.radio
+                    .col-md-12
+                        label.form-radio-label.ml-4(for='behavioral_issues_no') No
+                            input.form-radio-input(type='radio', name='behavioral_issues_no', id='behavioral_issues_no' value = 'N', checked= currentSenior.behavioral_issues_==='N')
+                            span.radio
+            .form-group.row(id="behaviorsSection")
+                label.col-form-label.col-form-label__stacked.check-group-label Behaviors
+
+            .form-group.row(id="eatingRow")
+                label.col-form-label.col-form-label__stacked.check-group-label Eating
+
+            .form-group.row(id="transfersRow")
+                label.col-form-label.col-form-label__stacked.check-group-label Transfers
+        
+            .form-group.row(id="mobilityRow")
+                label.col-form-label.col-form-label__stacked.check-group-label Mobility
+      
+            .form-group.row(id="toiletingRow")
+                label.col-form-label.col-form-label__stacked.check-group-label Toileting
+
+
+
 
         //br 
         //.form-group.offset-sm-1.col-md-6.pl-2

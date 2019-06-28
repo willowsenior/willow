@@ -42,9 +42,10 @@ exports.constants = (key) => {
         Behaviourial_frequent : 'Frequent Disruptive Behavior (at least once a week)',
         Behaviourial_unpredictable: 'Unpredictable Disruptive Behavior (Multiple times per week)',
 
-
+        //Senior
         Power_attorney: 'I have the Power of Attorney',
-        Healthcare_proxy: 'I am the Healthcare Proxy for this Senior'
+        Healthcare_proxy: 'I am the Healthcare Proxy for this Senior',
+
     };
     return ADL_MAPPING[key];
 };
