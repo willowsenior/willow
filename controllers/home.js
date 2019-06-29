@@ -1,7 +1,6 @@
 const Facility = require('../models/Facility');
 const User = require('../models/User');
 const Rooms = require('../models/Room');
-const json2xls = require('json2xls');
 const mongoXlsx = require('mongo-xlsx');
 
 /**
@@ -19,7 +18,6 @@ exports.index = (req, res, error) => {
         title: 'Home'
       });
     } else {
-      console.log('Home with facilities');
       Facility.find({"Email" : req.user.email})
       .then((facilities)=>{
         if(facilities.length === 1){
