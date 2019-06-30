@@ -28,12 +28,11 @@ exports.getFacility = (req, res, error) => {
           });
         })
         .catch((err) =>{
-          console.log('currentRooms: error'); 
-          if (err) {
-            console.log(err);
-          }
+          console.error('Error on fetching rooms: ', err); 
         });        
-    }) 
+    }).catch((error) => {
+      console.error('Error on fetching facility', err);
+    })
 };
 
 exports.postFacilitySignup = (req, res, next) => {
