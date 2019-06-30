@@ -131,6 +131,8 @@ app.post('/admincustomersignup', userController.postAdminCustomerSignup);
 
 //Senior
 app.get('/createseniorrecord', userController.getSeniorRecordCreate)
+app.get('/viewseniors', userController.viewAllSeniors)
+app.get('/viewseniormatch/:senior_id', userController.viewSeniorMatch)
 
 //Facility
 app.get('/facility/:facility_id', facilityController.getFacility);

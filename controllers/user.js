@@ -85,7 +85,7 @@ exports.getSignup = (req, res) => {
     });
 };
 
-//** * GET /senior
+//** Start creating a /senior
 //* Create a new local account.
 //
 exports.getSeniorRecordCreate = (req, res) => {
@@ -100,6 +100,56 @@ exports.getSeniorRecordCreate = (req, res) => {
         currentSenior,
         myconstants
     });
+};
+
+//** POST creating a /senior
+//* Create a new local account.
+//
+exports.createSenior = (req, res) => {
+    if (!req.user.isAdmin) {
+        return res.redirect('/');
+    }
+    
+    // Facility.find({"Email" : req.user.email})
+    //   .then((facilities)=>{
+    //     if(facilities.length === 1){
+    //       res.redirect('/facility/'+facilities[0]._id);
+    //     }else{
+    //       res.render('home', {
+    //         title: 'Home',
+    //         facilities
+    //       });
+    //     }
+    // });
+};
+
+exports.viewAllSeniors = (req, res) => {
+    if (!req.user.isAdmin) {
+        return res.redirect('/');
+    }
+    var currentSenior = {
+        Senior_Living: false
+    };
+    res.render('seniors/viewallseniors', {
+        title: 'View All Seniors',
+        myconstants
+    });
+
+};
+
+exports.viewSeniorMatch = (req, res) => {
+  console.log('is this hitting');
+  if (!req.user.isAdmin) {
+      return res.redirect('/');
+  }
+   var currentSenior = {
+        _id: '23785639487'
+   };
+  res.render('seniors/viewseniormatch', {
+      title: 'View Senior Match',
+      currentSenior,
+      myconstants
+  });
 };
 
 

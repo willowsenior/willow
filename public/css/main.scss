@@ -431,6 +431,42 @@ form {
     display: none;
 }
 
+.table-search {
+    .inputgroup {
+        position:relative;
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        vertical-align: middle;
+    }
+    .search {
+        border-radius: 8px;
+        height: 30px;
+        line-height: 30px;
+        padding: 3px 6px 3px 32px;
+        border: none;
+        font-size: 13px;
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px solid #CCC;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+    }
+    .inputgroup .innericon {
+        position: absolute;
+        top: 4px;
+        left: 8px;
+        z-index: 2;
+        display: block;
+        text-align: center;
+        pointer-events: none;
+    }
+
+    .searchicon:before {
+       content: "\f109"; 
+    }
+}
+
+
 
 
 .header-row {
@@ -646,6 +682,7 @@ label.form-check-label, .form-radio-label {
     th { padding: 10px; }
     tbody {
         tr {
+            cursor: pointer;
             &:nth-child(odd) {
                 background-color: #f1f1f1;
             }
