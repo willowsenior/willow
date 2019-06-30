@@ -409,6 +409,19 @@ form {
                 background-color: $grey-light;
             }
         }
+         &.active {
+            border-color: $willow-green;
+            &:before {
+                background-color: $willow-green;
+            }
+        }
+        &.complete {
+            background-color: $willow-green;
+            border-color: $willow-green;
+            &:before {
+                background-color: $willow-green;
+            }
+        }
     }
 }
 

@@ -41,20 +41,16 @@ block content
                     h3.text-center Contact Info
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact Name
-                        .col-md-10
-                            input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name')
+                    .col-md-10
+                        input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name')
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact Email
-                        .col-md-10
-                            input.form-control(type='email', name='contactEmail', id='contactEmail', placeholder='Email', autofocus, autocomplete='email')
+                    .col-md-10
+                        input.form-control(type='email', name='contactEmail', id='contactEmail', placeholder='Email', autofocus, autocomplete='email')
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact relationship to the senior
-                        .col-md-6
-                            input.form-control(type='text', name='contactRelationship', id='contactRelationship', placeholder='Contact Relationship')
-                .form-group.row
-                    label.col-form-label.col-form-label__stacked Contact relationship to the senior
-                        .col-md-6
-                            input.form-control(type='text', name='contactRelationship', id='contactRelationship', placeholder='Contact Relationship')
+                    .col-md-6
+                        input.form-control(type='text', name='contactRelationship', id='contactRelationship', placeholder='Contact Relationship')
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Please check any of the following that apply
                     .col-md-12
@@ -67,12 +63,12 @@ block content
                                 input.form-check-input(type='checkbox', name='healthcare_proxy', id='healthcare_proxy', placeholder='healthcare_proxy' value=1)
                                 span.checkmark
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label I would like the Senior to live with me
+                    label.col-lg-5.col-md-6.col-form-label I would like the Senior to live with me
                     .col-md-4
                         .col-md-12
                             label.form-radio-label.ml-4(for='senior_living_yes') Yes
-                            input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'Y', checked= currentSenior.Senior_Living==='Y')
-                            span.radio
+                                input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'Y', checked= currentSenior.Senior_Living==='Y')
+                                span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='senior_living_no') No
                                 input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'N', checked= currentSenior.Senior_Living==='N')
@@ -86,12 +82,12 @@ block content
                     .col-md-3
                         .col-md-12
                             label.form-radio-label.ml-4(for='M') Male
-                            input.form-radio-input(type='radio', name='gender', id = 'M',  value = 'M')
-                            span.radio
+                                input.form-radio-input(type='radio', name='gender', id = 'M',  value = 'M')
+                                span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='F') Female
-                            input.form-radio-input(type='radio', name='gender', id = 'F',  value = 'F')
-                            span.radio
+                                input.form-radio-input(type='radio', name='gender', id = 'F',  value = 'F')
+                                span.radio
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Age
                     .col-md-4
@@ -100,24 +96,13 @@ block content
                     label.col-form-label.col-form-label__stacked Zip Code
                     .col-md-4
                         input.form-control(type='number', pattern='^[0–9]$', name='zipCode', id='zipCode', placeholder='ZipCode')
-                .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label I would like the Senior to live with me
-                    .col-md-4
-                        .col-md-12
-                            label.form-radio-label.ml-4(for='senior_living_yes') Yes
-                            input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'Y', checked= currentSenior.Senior_Living==='Y')
-                            span.radio
-                        .col-md-12
-                            label.form-radio-label.ml-4(for='senior_living_no') No
-                                input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'N', checked= currentSenior.Senior_Living==='N')
-                                span.radio
         .step-form-tab
             .form-section
                 .form-group.form-section-header
                     h3.text-left General Assistance Accomodations
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Eating
-                    .col-md-6
+                    .col-md-10
                         .form-check
                             label.form-check-label(for='eating_noassistance')= myconstants.constants('Eating_noassistance')
                                 input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', placeholder='eating_noassistance' value=1, checked= currentSenior.Eating_noassistance)
@@ -141,7 +126,7 @@ block content
                 br 
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Transfers
-                    .col-md-6
+                    .col-md-10
                         .form-check
                             label.form-check-label(for='transfers_none')= myconstants.constants('Transfers_none')
                                 input.form-check-input(type='checkbox', name='transfers_none', id='transfers_none', placeholder='transfers_none' value=1, checked= currentSenior.Transfers_none)
@@ -165,7 +150,7 @@ block content
                 br    
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Mobility
-                    .col-md-6
+                    .col-md-10
                         .form-check
                             label.form-check-label(for='mobiliy_noassisstance')= myconstants.constants('Mobiliy_noassisstance')
                                 input.form-check-input(type='checkbox', name='mobiliy_noassisstance', id='mobiliy_noassisstance', placeholder='mobiliy_noassisstance' value=1, checked= currentSenior.Mobiliy_noassisstance)
@@ -189,7 +174,7 @@ block content
                 br     
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Toileting
-                    .col-md-6
+                    .col-md-10
                         .form-check
                             label.form-check-label(for='toileting_noassisstance')= myconstants.constants('Toileting_noassisstance')
                                 input.form-check-input(type='checkbox', name='toileting_noassisstance', id='toileting_noassisstance', placeholder='toileting_noassisstance' value=1, checked= currentSenior.Toileting_noassisstance)
@@ -217,7 +202,7 @@ block content
                 br
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Verbal Disruption
-                    .col-md-6
+                    .col-md-10
                         .form-check
                             label.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
                                 input.form-check-input(type='checkbox', name='verbal_none', id='verbal_none', placeholder='verbal_none' value=1, , checked= currentSenior.Verbal_none)
@@ -241,7 +226,7 @@ block content
                 br
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Physical Aggression
-                    .col-md-6
+                    .col-md-10
                         .form-check
                             label.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
                                 input.form-check-input(type='checkbox', name='physical_none', id='physical_none', placeholder='physical_none' value=1, checked= currentSenior.Physical_none)
@@ -265,7 +250,7 @@ block content
                 br
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Socially Inappropriate Behavior
-                    .col-md-6
+                    .col-md-10
                         .form-check
                             label.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
                                 input.form-check-input(type='checkbox', name='behaviourial_none', id='behaviourial_none', placeholder='behaviourial_none', value=1, checked= currentSenior.Behaviourial_none)
@@ -289,7 +274,7 @@ block content
                 br
                 .form-group.row
                     label.col-lg-3.col-md-5.col-form-label Hallucinations
-                    .col-md-4
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_yes') Yes
                                 input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked= currentSenior.Hallucination==='Y')
@@ -303,18 +288,14 @@ block content
                 .form-group.form-section-header
                     h3.text-left Senior's Health Information
                 br
-                .form-section
-                    .form-group.form-section-header
-                        h3.text-left Additional Health Issues
-                br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label How Many Insulin Shots Can You Administer?
+                    label.col-lg-6.col-md-6.col-form-label How Many Insulin Shots Can You Administer?
                     .col-md-4
                         input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', value=currentSenior.InsulinShots)
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Hallucinations
-                    .col-md-4
+                    label.col-lg-6.col-md-6.col-form-label Hallucinations
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_yes') Yes
                                 input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked= currentSenior.Hallucination==='Y')
@@ -326,7 +307,7 @@ block content
                 br 
                 .form-group.row
                     label.col-lg-3.col-md-5.col-form-label Memory Care
-                    .col-md-4
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_yes') Yes
                                 input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked= currentSenior.MemoryCare==='Y')
@@ -337,8 +318,8 @@ block content
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Would you Take a Resident with an Oxygen Tank?
-                    .col-md-4
+                    label.col-lg-6.col-md-6.col-form-label Would you Take a Resident with an Oxygen Tank?
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='oxygentank_yes') Yes
                                 input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_yes' value = 'Y', checked= currentSenior.OxygenTank==='Y')
@@ -349,8 +330,8 @@ block content
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
-                    .col-md-4
+                    label.col-lg-6.col-md-6.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='changeoxygentank_yes') Yes
                                 input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_yes' value = 'Y' checked= currentSenior.ChangeOxygenTank==='Y')
@@ -361,8 +342,8 @@ block content
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Would you take a Resident who needs to be on oxygen at all times?
-                    .col-md-4
+                    label.col-lg-6.col-md-6.col-form-label Would you take a Resident who needs to be on oxygen at all times?
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='alltimeoxygen_yes') Yes
                                 input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_yes' value = 'Y',  checked= currentSenior.AllTimeOxygen==='Y')
@@ -373,8 +354,8 @@ block content
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
-                    .col-md-4
+                    label.col-lg-6.col-md-6.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='changecatheter_yes') Yes
                                 input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_yes' value = 'Y' checked= currentSenior.ChangeCatheter==='Y')
@@ -385,8 +366,8 @@ block content
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Do you provide medication management?
-                    .col-md-4
+                    label.col-lg-6.col-md-6.col-form-label Do you provide medication management?
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='medicationmanagement_yes') Yes
                                 input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_yes' value = 'Y' checked= currentSenior.MedicationManagement==='Y')
@@ -397,8 +378,8 @@ block content
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
-                    .col-md-4
+                    label.col-lg-6.col-md-6.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='liquiddiets_yes') Yes
                                 input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_yes' value = 'Y' checked= currentSenior.LiquidDiets==='Y')
@@ -409,8 +390,8 @@ block content
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Do you provide ground diets for residents?
-                    .col-md-4
+                    label.col-lg-6.col-md-6.col-form-label Do you provide ground diets for residents?
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='grounddiets_yes') Yes
                                 input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_yes' value = 'Y' checked= currentSenior.GroundDiets==='Y')
@@ -419,15 +400,10 @@ block content
                             label.form-radio-label.ml-4(for='grounddiets_no') No
                                 input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_no' value = 'N' checked= currentSenior.GroundDiets==='N')
                                 span.radio
-                br
-                .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Any Other Health Information You'd Like to Include?
-                    .col-md-4
-                        input.form-control(type='number', name='otherInformation', id='otherInformation', placeholder='Special Diets, Smoket, etc.', value=currentSenior.otherHealthInformation)
-                br 
+                                br 
                 .form-group.row
                     label.col-lg-3.col-md-5.col-form-label Memory Care
-                    .col-md-4
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_yes') Yes
                                 input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked= currentSenior.MemoryCare==='Y')
@@ -438,8 +414,8 @@ block content
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Does Your Senior Need a Secure Memory Care Unit (Do They Wander Off?)
-                    .col-md-4
+                    label.col-lg-6.col-md-6.col-form-label Does Your Senior Need a Secure Memory Care Unit (Do They Wander Off?)
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_unit_yes') Yes
                                 input.form-radio-input(type='radio', name='memorycare_unit_yes', id='memorycare_yes' value = 'Y', checked= currentSenior.MemoryCareUnit==='Y')
@@ -448,11 +424,11 @@ block content
                             label.form-radio-label.ml-4(for='memorycare__unit_no') No
                                 input.form-radio-input(type='radio', name='memorycare__unit_no', id='memorycare__unit_no' value = 'N', checked= currentSenior.MemoryCareUnit==='N')
                                 span.radio
-
-
-
-
-
+                br
+                .form-group.row
+                    label.col-lg-12.col-md-12.col-form-label Any Other Health Information You'd Like to Include?
+                    .col-md-12
+                        input.form-control(type='number', name='otherInformation', id='otherInformation', placeholder='Special Diets, Smoket, etc.', value=currentSenior.otherHealthInformation)
 
 
             //br 
@@ -462,7 +438,7 @@ block content
                 | Signup
         .row.button-row(id="submitRow")
             .col-md-6
-                button.btn-subtle(id='prevBtn', onclick='nextPrev(-1)', type='button')
+                button.btn-subtle(id='prevBtn2', onclick='nextPrev(-1)', type='button')
                     | Previous
             .col-md-6
                 button.btn-secondary(type='submit')
@@ -470,7 +446,7 @@ block content
                     | Signup
         .row.button-row(id="prevNextRow")
             .col-md-6
-                button.btn-subtle(id='prevBtn', onclick='nextPrev(-1)', type='button')
+                button.btn-subtle(id='prevBtn1', onclick='nextPrev(-1)', type='button')
                     | Previous
             .col-md-6(id="nextContainer")
                 button.btn-secondary(id='nextBtn', onclick='nextPrev(1)', type='button')
@@ -482,8 +458,11 @@ block content
 
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
     script.
-      var currentTab = 0; // Current tab is set to be the first tab (0)
-      showTab(currentTab); // Display the current tab
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        $(document).ready( function() {
+            showTab(currentTab); // Display the current tab
+        });
+
 
       function showTab(n, direction) {
         console.log('show tabe??', n);
@@ -493,19 +472,18 @@ block content
           x[n].style.display = "block";
 
         //===... and fix the Previous/Next buttons:
-        if (n == 0) {
-          document.getElementById("prevBtn").style.display = "none";
-        } else {
-          document.getElementById("prevBtn").style.display = "inline";
-        }
+
+
         if (n == (x.length - 1)) {
           //=== Show the submit button
             document.getElementById("prevNextRow").style.display = "none";
             document.getElementById("submitRow").style.display = "flex";
+            document.getElementById("prevBtn1").style.display = "none";
         } else {
           //=== Don't show the submit row until the end
             document.getElementById("submitRow").style.display = "none";
             document.getElementById("nextBtn").innerHTML = "Next";
+            document.getElementById("prevBtn2").style.display = "none";
         }
 
         //... and run a function that will display the correct step indicator:
@@ -516,15 +494,18 @@ block content
         // This function will figure out which tab to display
           var x = document.getElementsByClassName("step-form-tab");
 
-        // Exit the function if any field in the current tab is invalid, only for first tab:
-          if (n == 1 && currentTab == 0 && !validateForm(currentTab)) return false;
+        // Exit the function if any field in the current tab is invalid, only for first tab
+        if (n == 1 && currentTab == 0 && !validateForm(currentTab)) return false;
 
-        // Hide the current tab:
+        // Exit the function if we're on the first tab and trying previous
+        if (currentTab + n <= 0) return;
+
+        // Hide the current tab
           x[currentTab].style.display = "none";
 
-        // Increase or decrease the current tab by 1:
+        // Increase or decrease the current tab by 1
           currentTab = currentTab + n;
-
+          
         // if you have reached the end of the form...
           if (currentTab >= x.length) {
             return false;
