@@ -1,4 +1,5 @@
 const Facility = require('../models/Facility');
+const SeniorMatchController = require('./seniorMatch');
 const Room = require('../models/Room');
 const myconstants = require('../utils/constants');
 
@@ -19,13 +20,18 @@ exports.getFacility = (req, res, error) => {
     .then(()=>{
         Room.find({'FacilityID':id})
         .then((rooms)=>{
-          currentRooms = rooms;
-          res.render('facility', {
-            title: 'Facility',
-            currentFacility,
-            currentRooms,
-            myconstants
-          });
+           SeniorMatchController.getSeniorMatchesByFacilityId(currentFacility._id).then((matches) => {
+            currentRooms = rooms;
+            res.render('facility', {
+              title: 'Facility',
+              currentFacility,
+              currentRooms,
+              myconstants
+            });
+          })
+          .catch((error) => { 
+            console.log(error);
+            res.send('Sorry! Something went wrong.'); })
         })
         .catch((err) =>{
           console.error('Error on fetching rooms: ', err); 

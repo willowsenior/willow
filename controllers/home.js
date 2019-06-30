@@ -1,4 +1,5 @@
 const Facility = require('../models/Facility');
+const SeniorMatchController = require('./seniorMatch');
 const User = require('../models/User');
 const Rooms = require('../models/Room');
 const mongoXlsx = require('mongo-xlsx');

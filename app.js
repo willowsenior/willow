@@ -128,11 +128,6 @@ app.post('/willowadminsignin', userController.postWillowAdminSignin);
 app.get('/admincustomersignup', userController.getAdminCustomerSignup);
 app.post('/admincustomersignup', userController.postAdminCustomerSignup);
 
-//Senior
-app.get('/createseniorrecord', userController.getSeniorRecordCreate)
-app.get('/viewseniors', userController.viewAllSeniors)
-app.get('/viewseniormatch/:senior_id', userController.viewSeniorMatch)
-
 //Facility
 app.get('/facility/:facility_id', facilityController.getFacility);
 app.get('/facilitysignup', facilityController.getFacilitySignup);
@@ -149,20 +144,35 @@ app.delete('/deleteRoom/:facility_id/:room_id', facilityController.deleteRoom);
 
 app.get('/download', homeController.getDownload);
 
-//Seniors
-app.post('/seniorsignup', seniorController.postCreateSenior);
-app.get('/seniorbyid/:senior_id', seniorController.getSeniorById);
-app.get('/seniorbylastname', seniorController.getSearchSeniorByName);
-app.delete('/deletesenior/:senior_id', seniorController.deleteSenior);
-app.post('/seniorupdate/:senior_id', seniorController.postUpdateSenior);
 
-//SeniorMatches
+//Senior: Navigate to create senior and create senior
+app.get('/createseniorrecord', seniorController.getSeniorRecordCreate);
+app.post('/seniorsignup', seniorController.postCreateSenior);
+
+//Senior: Navigate to view all seniors, GET seniors
+app.get('/viewseniors', seniorController.viewAllSeniors);
+app.get('/getseniors', seniorController.getSeniors);
+// app.get('/seniorbyid/:senior_id', seniorController.getSeniorById);
+// app.get('/seniorbylastname', seniorController.getSearchSeniorByName);
+
+// Senior/Match: Navigate to view one senior match, update senior, delete senior
+app.get('/viewseniormatch/:seniormatch_id', seniorMatchController.viewSeniorMatch);
+app.post('/seniorupdate/:senior_id', seniorController.postUpdateSenior);
+app.delete('/deletesenior/:senior_id', seniorController.deleteSenior);
+
+
+// Senior Matches: Create match, Remove Match, Patch Match
 app.post('/seniormatchcreate', seniorMatchController.postCreateSeniorMatch);
-app.get('/seniormatchbyid/:seniormatch_id', seniorMatchController.getSeniorMatchById);
-app.get('/seniormatchbyfacilityid/:facility_id', seniorMatchController.getSeniorMatchesByFacilityId);
-app.patch('/seniormatchviewed/:seniormatch_id', seniorMatchController.patchSeniorMatchMarkAsViewed);
 app.delete('/deleteseniormatch/:seniormatch_id', seniorMatchController.deleteSeniorMatch);
 app.post('/updateseniormatch/:seniormatch_id', seniorMatchController.postUpdateSeniorMatch);
+
+
+// Run this method when loading home facility page
+//app.get('/seniormatchbyfacilityid/:facility_id', seniorMatchController.getSeniorMatchesByFacilityId);
+// Run this method when you GET a match
+//app.patch('/seniormatchviewed/:seniormatch_id', seniorMatchController.patchSeniorMatchMarkAsViewed);
+
+
 
 ////AUthentication routes
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));

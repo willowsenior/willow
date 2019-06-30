@@ -1,4 +1,5 @@
 const SeniorMatchModel = require('../models/SeniorMatch');
+const SeniorController = require('./senior');
 
 exports.postCreateSeniorMatch = (req, res) => {
     const errors = req.validationErrors();
@@ -23,7 +24,9 @@ exports.postCreateSeniorMatch = (req, res) => {
     })
   };
 
-  exports.getSeniorMatchById = (req, res) => {
+
+  //Get the match and the senior
+  exports.viewSeniorMatch = (req, res) => {
     const errors = req.validationErrors();
     var id = req.params.seniormatch_id;
 
@@ -34,7 +37,25 @@ exports.postCreateSeniorMatch = (req, res) => {
 
     SeniorMatchModel.findById(id)
     .then((seniorMatch)=>{
+        //Then get the senior (seniorMatch.SeniorID)
+       SeniorController.getSeniorById({params: {senior_id: seniorMatch.SeniorID}})
+       .then((currentSenior)=>{
+            //Mark as viewed
+            patchSeniorMatchMarkAsViewed(currentSenior._id);
+            
+            res.render('seniors/viewseniormatch', {
+              title: 'View Senior Match',
+              seniorMatch,
+              currentSenior,
+              myconstants
+            });
         })
+        .catch((error)=>{
+            if(error){
+                console.log(error);
+            }
+        });
+     })
     .catch((error)=>{
         if(error){
             console.log(error);
@@ -79,14 +100,8 @@ exports.postUpdateSeniorMatch = (req, res) => {
     }});
 };
 
-exports.patchSeniorMatchMarkAsViewed = (req, res) => {
-    const errors = req.validationErrors();
-    var id = req.body.seniormatch_id;
-
-    if(!id || errors) {
-        req.flash('errors', errors || "Missing Id");
-        return res.redirect('/signup'); //TODO 404 page
-    }
+function patchSeniorMatchMarkAsViewed(id) {
+    var id = id;
 
     SeniorMatchModel.findByIdAndUpdate(id,{$set: {
         IsViewed: true

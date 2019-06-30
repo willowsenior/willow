@@ -1,5 +1,53 @@
 const SeniorModel = require('../models/Senior')
 
+//** Start creating a /senior
+//* Create a new local account.
+//
+exports.getSeniorRecordCreate = (req, res) => {
+    if (!req.user.isAdmin) {
+        return res.redirect('/');
+    }
+    var currentSenior = {
+        Senior_Living: false
+    };
+    res.render('account/seniorrecordcreate', {
+        title: 'Create Senior Record',
+        currentSenior,
+        myconstants
+    });
+};
+
+
+exports.viewAllSeniors = (req, res) => {
+    if (!req.user.isAdmin) {
+        return res.redirect('/');
+    }
+    var currentSenior = {
+        Senior_Living: false
+    };
+    res.render('seniors/viewallseniors', {
+        title: 'View All Seniors',
+        myconstants
+    });
+
+};
+
+// exports.viewSeniorMatch = (req, res) => {
+//   console.log('is this hitting');
+//   if (!req.user.isAdmin) {
+//       return res.redirect('/');
+//   }
+//    var currentSenior = {
+//         _id: '23785639487'
+//    };
+//   res.render('seniors/viewseniormatch', {
+//       title: 'View Senior Match',
+//       currentSenior,
+//       myconstants
+//   });
+// };
+
+
 exports.postCreateSenior = (req, res) => {
     const errors = req.validationErrors();
 
@@ -12,12 +60,15 @@ exports.postCreateSenior = (req, res) => {
         FirstName: req.body.firstName,
         LastName: req.body.lastName,
         WhenAreYouLooking: req.body.whenAreYouLooking,
-        ContactFirstName: req.body.contactFirstName,
-        ContactLastName: req.body.contactLastName,
+        ContactName: req.body.contactName,
         ContactEmail: req.body.contactEmail,
+        ContactRelationship: req.body.contactRelationship,
+        ContactPowerOfAttorney: req.body.contactPowerOfAttorney,
+        ContactHealthProxy: req.body.contactHealthProxy,
         Gender: req.body.gender,
         Age: req.body.age,
         Zipcode: req.body.zipCode,
+        LiveWithContact: req.body.liveWithContact,
         ShortTermStay: req.body.shortTermStay,
         InsulinShots: req.body.insulinShots,
         OxygenTank: req.body.oxygenTank,
@@ -82,6 +133,45 @@ exports.postCreateSenior = (req, res) => {
             console.log(error);
         }
     })
+};
+
+exports.getSeniors = (req, res) => {
+    const errors = req.validationErrors();
+    var lastName = req.query.lastName || "",
+        id       = req.query.senior_id || undefined;
+        skipCount = req.query.skipCount || 0;
+
+
+    if (errors) {
+        req.flash('errors', errors);
+        return res.redirect('/signup'); //TODO 404 page
+    }
+
+    if (id) {
+        SeniorModel.findById(id)
+        .then((senior) => {
+        })
+        .catch((error) => {
+            if (error) {
+                console.log(error);
+            }
+        });
+    } else {
+        SeniorModel.find(
+        { 'LastName': { "$regex": lastName, "$options": "i" } },
+        null,
+        { skip: skipCount, limit: 10 })
+        .then((seniors) => {
+            //TODO: Load page with seniors
+        })
+        .catch((error) => {
+            if (error) {
+                console.log(error);
+            }
+        });
+    }
+    
+
 };
 
 exports.getSeniorById = (req, res) => {

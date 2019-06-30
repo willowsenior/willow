@@ -4,9 +4,11 @@ const SeniorSchema = new mongoose.Schema({
     FirstName: String,
     LastName: String,
     WhenAreYouLooking: String,  //TODO: Maybe make into Enum?
-    ContactFirstName: String,
-    ContactLastName: String,
+    contactName: String,
     ContactEmail: String,
+    ContactRelationship: String,
+    ContactPowerOfAttorney: Boolean,
+    ContactHealthProxy: Boolean,
     Gender: String, //TODO: Enum,
     Age: Number,
     Zipcode: String,

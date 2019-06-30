@@ -13,7 +13,7 @@ block content
                 span.step
                 span.step
                 span.step
-    form.body-form.body-form__centered(id='seniorcreate-form', method='POST', action='/createseniorrecord', novalidate)
+    form.body-form.body-form__centered(id='seniorcreate-form', method='POST', action='/seniorsignup', novalidate)
         input(type='hidden', name='_csrf', value=_csrf)
 
         .step-form-tab
@@ -21,19 +21,19 @@ block content
                 .form-group.form-section-header.form-section-header--center
                     h3.text-center Timeframe
                 .form-group.row
-                    label.col-lg-8.col-md-8.col-form-label I am looking for placement in
+                    label.col-lg-8.col-md-8.col-form-label Senior is looking for placement in
                     .col-md-12.full-width-radio
                         .col-md-12
-                            label.form-radio-label.ml-4(for='placement_1month') Less than 1 month
-                                input.form-radio-input(type='radio', name='placement', id='placement_1month' value = 1)
+                            label.form-radio-label.ml-4(for='WhenAreYouLooking_1month') Less than 1 month
+                                input.form-radio-input(type='radio', name='WhenAreYouLooking', id='WhenAreYouLooking_1month' value = 1)
                                 span.radio
                         .col-md-12
-                            label.form-radio-label.ml-4(for='placement_1to3months') 1-3 months
-                                input.form-radio-input(type='radio', name='placement', id='placement_1to3months' value = 2)
+                            label.form-radio-label.ml-4(for='WhenAreYouLooking_1to3months') 1-3 months
+                                input.form-radio-input(type='radio', name='WhenAreYouLooking', id='WhenAreYouLooking_1to3months' value = 2)
                                 span.radio
                         .col-md-12
-                            label.form-radio-label.ml-4(for='placement_morethan3months') More than 3 months
-                                input.form-radio-input(type='radio', name='placement', id='placement_morethan3months' value = 3)
+                            label.form-radio-label.ml-4(for='WhenAreYouLooking_morethan3months') More than 3 months
+                                input.form-radio-input(type='radio', name='WhenAreYouLooking', id='WhenAreYouLooking_morethan3months' value = 3)
                                 span.radio
         .step-form-tab
             .form-section
@@ -46,7 +46,7 @@ block content
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact Email
                     .col-md-10
-                        input.form-control(type='email', name='contactEmail', id='contactEmail', placeholder='Email', autofocus, autocomplete='email')
+                        input.form-control(type='email', name='contactEmail', id='contactEmail', placeholder='Contact Email', autofocus, autocomplete='email')
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact relationship to the senior
                     .col-md-6
@@ -55,23 +55,23 @@ block content
                     label.col-form-label.col-form-label__stacked.check-group-label Please check any of the following that apply
                     .col-md-12
                         .form-check
-                            label.form-check-label(for='power_attorney')= myconstants.constants('Power_attorney')
-                                input.form-check-input(type='checkbox', name='power_attorney', id='power_attorney', placeholder='power_attorney' value=1)
+                            label.form-check-label(for='contactPowerOfAttorney')= myconstants.constants('Power_attorney')
+                                input.form-check-input(type='checkbox', name='contactPowerOfAttorney', id='contactPowerOfAttorney', placeholder='power_attorney' value=1)
                                 span.checkmark
                         .form-check
-                            label.form-check-label(for='healthcare_proxy')= myconstants.constants('Healthcare_proxy')
-                                input.form-check-input(type='checkbox', name='healthcare_proxy', id='healthcare_proxy', placeholder='healthcare_proxy' value=1)
+                            label.form-check-label(for='contactHealthProxy')= myconstants.constants('Healthcare_proxy')
+                                input.form-check-input(type='checkbox', name='contactHealthProxy', id='contactHealthProxy', placeholder='healthcare_proxy' value=1)
                                 span.checkmark
                 .form-group.row
                     label.col-lg-5.col-md-6.col-form-label I would like the Senior to live with me
                     .col-md-4
                         .col-md-12
-                            label.form-radio-label.ml-4(for='senior_living_yes') Yes
-                                input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'Y', checked= currentSenior.Senior_Living==='Y')
+                            label.form-radio-label.ml-4(for='liveWithContact_yes') Yes
+                                input.form-radio-input(type='radio', name='liveWithContact', id='liveWithContact_yes' value = 'Y', checked=liveWithContact==='Y')
                                 span.radio
                         .col-md-12
-                            label.form-radio-label.ml-4(for='senior_living_no') No
-                                input.form-radio-input(type='radio', name='senior_living', id='senior_living_yes' value = 'N', checked= currentSenior.Senior_Living==='N')
+                            label.form-radio-label.ml-4(for='liveWithContact_no') No
+                                input.form-radio-input(type='radio', name='liveWithContact', id='liveWithContact_yes' value = 'N', checked=liveWithContact==='N')
                                 span.radio
         .step-form-tab
             .form-section
@@ -105,23 +105,23 @@ block content
                     .col-md-10
                         .form-check
                             label.form-check-label(for='eating_noassistance')= myconstants.constants('Eating_noassistance')
-                                input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', placeholder='eating_noassistance' value=1, checked= currentSenior.Eating_noassistance)
+                                input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', placeholder='eating_noassistance' value=1, checked=Eating_noassistance)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='eating_intermittent')= myconstants.constants('Eating_intermittent')
-                                input.form-check-input(type='checkbox', name='eating_intermittent', id='eating_intermittent', placeholder='eating_intermittent', value=1, checked= currentSenior.Eating_intermittent)
+                                input.form-check-input(type='checkbox', name='eating_intermittent', id='eating_intermittent', placeholder='eating_intermittent', value=1, checked=Eating_intermittent)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='eating_continual')= myconstants.constants('Eating_continual')
-                                input.form-check-input(type='checkbox', name='eating_continual', id='eating_continual', placeholder='eating_continual' value=1, checked= currentSenior.Eating_continual)
+                                input.form-check-input(type='checkbox', name='eating_continual', id='eating_continual', placeholder='eating_continual' value=1, checked=Eating_continual)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='eating_byhand')= myconstants.constants('Eating_byhand')
-                                input.form-check-input(type='checkbox', name='eating_byhand', id='eating_byhand', placeholder='eating_byhand' value=1, checked= currentSenior.Eating_byhand)
+                                input.form-check-input(type='checkbox', name='eating_byhand', id='eating_byhand', placeholder='eating_byhand' value=1, checked=Eating_byhand)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='eating_tube')= myconstants.constants('Eating_tube')
-                                input.form-check-input(type='checkbox', name='eating_tube', id='eating_tube', placeholder='eating_tube' value=1, checked= currentSenior.Eating_tube)
+                                input.form-check-input(type='checkbox', name='eating_tube', id='eating_tube', placeholder='eating_tube' value=1, checked=Eating_tube)
                                 span.checkmark
                 br 
                 .form-group.row
@@ -129,23 +129,23 @@ block content
                     .col-md-10
                         .form-check
                             label.form-check-label(for='transfers_none')= myconstants.constants('Transfers_none')
-                                input.form-check-input(type='checkbox', name='transfers_none', id='transfers_none', placeholder='transfers_none' value=1, checked= currentSenior.Transfers_none)
+                                input.form-check-input(type='checkbox', name='transfers_none', id='transfers_none', placeholder='transfers_none' value=1, checked=Transfers_none)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='transfers_intermittent')= myconstants.constants('Transfers_intermittent')
-                                input.form-check-input(type='checkbox', name='transfers_intermittent', id='transfers_intermittent', placeholder='transfers_intermittent' value=1, checked= currentSenior.Transfers_intermittent)
+                                input.form-check-input(type='checkbox', name='transfers_intermittent', id='transfers_intermittent', placeholder='transfers_intermittent' value=1, checked=Transfers_intermittent)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='transfers_oneperson')= myconstants.constants('Transfers_oneperson')
-                                input.form-check-input(type='checkbox', name='transfers_oneperson', id='transfers_oneperson', placeholder='transfers_oneperson' value=1, checked= currentSenior.Transfers_oneperson)
+                                input.form-check-input(type='checkbox', name='transfers_oneperson', id='transfers_oneperson', placeholder='transfers_oneperson' value=1, checked=Transfers_oneperson)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='transfers_twoperson')= myconstants.constants('Transfers_twoperson')
-                                input.form-check-input(type='checkbox', name='transfers_twoperson', id='transfers_twoperson', placeholder='transfers_twoperson' value=1, checked= currentSenior.Transfers_twoperson)
+                                input.form-check-input(type='checkbox', name='transfers_twoperson', id='transfers_twoperson', placeholder='transfers_twoperson' value=1, checked=Transfers_twoperson)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='transfers_cannot')= myconstants.constants('Transfers_cannot')
-                                input.form-check-input(type='checkbox', name='transfers_cannot', id='transfers_cannot', placeholder='transfers_cannot' value=1, checked= currentSenior.Transfers_cannot)
+                                input.form-check-input(type='checkbox', name='transfers_cannot', id='transfers_cannot', placeholder='transfers_cannot' value=1, checked=Transfers_cannot)
                                 span.checkmark
                 br    
                 .form-group.row
@@ -153,23 +153,23 @@ block content
                     .col-md-10
                         .form-check
                             label.form-check-label(for='mobiliy_noassisstance')= myconstants.constants('Mobiliy_noassisstance')
-                                input.form-check-input(type='checkbox', name='mobiliy_noassisstance', id='mobiliy_noassisstance', placeholder='mobiliy_noassisstance' value=1, checked= currentSenior.Mobiliy_noassisstance)
+                                input.form-check-input(type='checkbox', name='mobiliy_noassisstance', id='mobiliy_noassisstance', placeholder='mobiliy_noassisstance' value=1, checked=Mobiliy_noassisstance)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='mobiliy_intermittent')= myconstants.constants('Mobiliy_intermittent')
-                                input.form-check-input(type='checkbox', name='mobiliy_intermittent', id='mobiliy_intermittent', placeholder='mobiliy_intermittent' value=1, checked= currentSenior.Mobiliy_intermittent)
+                                input.form-check-input(type='checkbox', name='mobiliy_intermittent', id='mobiliy_intermittent', placeholder='mobiliy_intermittent' value=1, checked=Mobiliy_intermittent)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='mobiliy_continual')= myconstants.constants('Mobiliy_continual')
-                                input.form-check-input(type='checkbox', name='mobiliy_continual', id='mobiliy_continual', placeholder='mobiliy_continual' value=1, checked= currentSenior.Mobiliy_continual)
+                                input.form-check-input(type='checkbox', name='mobiliy_continual', id='mobiliy_continual', placeholder='mobiliy_continual' value=1, checked=Mobiliy_continual)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='mobiliy_wheels')= myconstants.constants('Mobiliy_wheels')
-                                input.form-check-input(type='checkbox', name='mobiliy_wheels', id='mobiliy_wheels', placeholder='mobiliy_wheels' value=1, checked= currentSenior.Mobiliy_wheels)
+                                input.form-check-input(type='checkbox', name='mobiliy_wheels', id='mobiliy_wheels', placeholder='mobiliy_wheels' value=1, checked=Mobiliy_wheels)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='mobiliy_cannotmove')= myconstants.constants('Mobiliy_cannotmove')
-                                input.form-check-input(type='checkbox', name='mobiliy_cannotmove', id='mobiliy_cannotmove', placeholder='mobiliy_cannotmove' value=1, checked= currentSenior.Mobiliy_cannotmove)
+                                input.form-check-input(type='checkbox', name='mobiliy_cannotmove', id='mobiliy_cannotmove', placeholder='mobiliy_cannotmove' value=1, checked=Mobiliy_cannotmove)
                                 span.checkmark
                 br     
                 .form-group.row
@@ -177,23 +177,23 @@ block content
                     .col-md-10
                         .form-check
                             label.form-check-label(for='toileting_noassisstance')= myconstants.constants('Toileting_noassisstance')
-                                input.form-check-input(type='checkbox', name='toileting_noassisstance', id='toileting_noassisstance', placeholder='toileting_noassisstance' value=1, checked= currentSenior.Toileting_noassisstance)
+                                input.form-check-input(type='checkbox', name='toileting_noassisstance', id='toileting_noassisstance', placeholder='toileting_noassisstance' value=1, checked=Toileting_noassisstance)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='toileting_bowel')= myconstants.constants('Toileting_bowel')
-                                input.form-check-input(type='checkbox', name='toileting_bowel', id='toileting_bowel', placeholder='toileting_bowel' value=1, checked= currentSenior.Toileting_bowel)
+                                input.form-check-input(type='checkbox', name='toileting_bowel', id='toileting_bowel', placeholder='toileting_bowel' value=1, checked=Toileting_bowel)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='toileting_continual')= myconstants.constants('Toileting_continual')
-                                input.form-check-input(type='checkbox', name='toileting_continual', id='toileting_continual', placeholder='toileting_continual' value=1, checked= currentSenior.Toileting_continual)
+                                input.form-check-input(type='checkbox', name='toileting_continual', id='toileting_continual', placeholder='toileting_continual' value=1, checked=Toileting_continual)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='toileting_nobathroomincontinent')= myconstants.constants('Toileting_nobathroomincontinent')
-                                input.form-check-input(type='checkbox', name='toileting_nobathroomincontinent', id='toileting_nobathroomincontinent', placeholder='toileting_nobathroomincontinent' value=1, checked= currentSenior.Toileting_nobathroomincontinent)
+                                input.form-check-input(type='checkbox', name='toileting_nobathroomincontinent', id='toileting_nobathroomincontinent', placeholder='toileting_nobathroomincontinent' value=1, checked=Toileting_nobathroomincontinent)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='toileting_bathroomincontinent')= myconstants.constants('Toileting_bathroomincontinent')
-                                input.form-check-input(type='checkbox', name='toileting_bathroomincontinent', id='toileting_bathroomincontinent', placeholder='toileting_bathroomincontinent' value=1, checked= currentSenior.Toileting_bathroomincontinent)
+                                input.form-check-input(type='checkbox', name='toileting_bathroomincontinent', id='toileting_bathroomincontinent', placeholder='toileting_bathroomincontinent' value=1, checked=Toileting_bathroomincontinent)
                                 span.checkmark
         .step-form-tab
             .form-section
@@ -205,23 +205,23 @@ block content
                     .col-md-10
                         .form-check
                             label.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
-                                input.form-check-input(type='checkbox', name='verbal_none', id='verbal_none', placeholder='verbal_none' value=1, , checked= currentSenior.Verbal_none)
+                                input.form-check-input(type='checkbox', name='verbal_none', id='verbal_none', placeholder='verbal_none' value=1, , checked=Verbal_none)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='verbal_infrequent')= myconstants.constants('Verbal_infrequent')
-                                input.form-check-input(type='checkbox', name='verbal_infrequent', id='verbal_infrequent', placeholder='verbal_infrequent' value=1, checked= currentSenior.Verbal_infrequent)
+                                input.form-check-input(type='checkbox', name='verbal_infrequent', id='verbal_infrequent', placeholder='verbal_infrequent' value=1, checked=Verbal_infrequent)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='verbal_predictable')= myconstants.constants('Verbal_predictable')
-                                input.form-check-input(type='checkbox', name='verbal_predictable', id='verbal_predictable', placeholder='verbal_predictable' value=1, checked= currentSenior.Verbal_predictable)
+                                input.form-check-input(type='checkbox', name='verbal_predictable', id='verbal_predictable', placeholder='verbal_predictable' value=1, checked=Verbal_predictable)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='verbal_onceunpredictable')= myconstants.constants('Verbal_onceunpredictable')
-                                input.form-check-input(type='checkbox', name='verbal_onceunpredictable', id='verbal_onceunpredictable', placeholder='verbal_onceunpredictable' value=1, checked= currentSenior.Verbal_onceunpredictable)
+                                input.form-check-input(type='checkbox', name='verbal_onceunpredictable', id='verbal_onceunpredictable', placeholder='verbal_onceunpredictable' value=1, checked=Verbal_onceunpredictable)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='verbal_multipleunpredictable')= myconstants.constants('Verbal_multipleunpredictable')
-                                input.form-check-input(type='checkbox', name='verbal_multipleunpredictable', id='verbal_multipleunpredictable', placeholder='verbal_multipleunpredictable' value=1, checked= currentSenior.Verbal_multipleunpredictable)
+                                input.form-check-input(type='checkbox', name='verbal_multipleunpredictable', id='verbal_multipleunpredictable', placeholder='verbal_multipleunpredictable' value=1, checked=Verbal_multipleunpredictable)
                                 span.checkmark
                 br
                 .form-group.row
@@ -229,23 +229,23 @@ block content
                     .col-md-10
                         .form-check
                             label.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
-                                input.form-check-input(type='checkbox', name='physical_none', id='physical_none', placeholder='physical_none' value=1, checked= currentSenior.Physical_none)
+                                input.form-check-input(type='checkbox', name='physical_none', id='physical_none', placeholder='physical_none' value=1, checked=Physical_none)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='physical_infrequent')= myconstants.constants('Physical_infrequent')
-                                input.form-check-input(type='checkbox', name='physical_infrequent', id='physical_infrequent', placeholder='physical_infrequent' value=1, checked= currentSenior.Physical_infrequent)
+                                input.form-check-input(type='checkbox', name='physical_infrequent', id='physical_infrequent', placeholder='physical_infrequent' value=1, checked=Physical_infrequent)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='physical_predictable')= myconstants.constants('Physical_predictable')
-                                input.form-check-input(type='checkbox', name='physical_predictable', id='physical_predictable', placeholder='physical_predictable' value=1, checked= currentSenior.Physical_predictable)
+                                input.form-check-input(type='checkbox', name='physical_predictable', id='physical_predictable', placeholder='physical_predictable' value=1, checked=Physical_predictable)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='physical_onceunpredictable')= myconstants.constants('Physical_onceunpredictable')
-                                input.form-check-input(type='checkbox', name='physical_onceunpredictable', id='physical_onceunpredictable', placeholder='physical_onceunpredictable' value=1, checked= currentSenior.Physical_onceunpredictable)
+                                input.form-check-input(type='checkbox', name='physical_onceunpredictable', id='physical_onceunpredictable', placeholder='physical_onceunpredictable' value=1, checked=Physical_onceunpredictable)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='physical_multipleunpredictable')= myconstants.constants('Physical_multipleunpredictable')
-                                input.form-check-input(type='checkbox', name='physical_multipleunpredictable', id='physical_multipleunpredictable', placeholder='physical_multipleunpredictable' value=1, checked= currentSenior.Physical_multipleunpredictable)
+                                input.form-check-input(type='checkbox', name='physical_multipleunpredictable', id='physical_multipleunpredictable', placeholder='physical_multipleunpredictable' value=1, checked=Physical_multipleunpredictable)
                                 span.checkmark
                 br
                 .form-group.row
@@ -253,23 +253,23 @@ block content
                     .col-md-10
                         .form-check
                             label.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
-                                input.form-check-input(type='checkbox', name='behaviourial_none', id='behaviourial_none', placeholder='behaviourial_none', value=1, checked= currentSenior.Behaviourial_none)
+                                input.form-check-input(type='checkbox', name='behaviourial_none', id='behaviourial_none', placeholder='behaviourial_none', value=1, checked=Behaviourial_none)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='behaviourial_yesnondisruptive')= myconstants.constants('Behaviourial_yesnondisruptive')
-                                input.form-check-input(type='checkbox', name='behaviourial_yesnondisruptive', id='behaviourial_yesnondisruptive', placeholder='behaviourial_yesnondisruptive' value=1, checked= currentSenior.Behaviourial_yesnondisruptive)
+                                input.form-check-input(type='checkbox', name='behaviourial_yesnondisruptive', id='behaviourial_yesnondisruptive', placeholder='behaviourial_yesnondisruptive' value=1, checked=Behaviourial_yesnondisruptive)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='behaviourial_infrequent')= myconstants.constants('Behaviourial_infrequent')
-                                input.form-check-input(type='checkbox', name='behaviourial_infrequent', id='behaviourial_infrequent', placeholder='behaviourial_infrequent' value=1, checked= currentSenior.Behaviourial_infrequent)
+                                input.form-check-input(type='checkbox', name='behaviourial_infrequent', id='behaviourial_infrequent', placeholder='behaviourial_infrequent' value=1, checked=Behaviourial_infrequent)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='behaviourial_frequent')= myconstants.constants('Behaviourial_frequent')
-                                input.form-check-input(type='checkbox', name='behaviourial_frequent', id='behaviourial_frequent', placeholder='behaviourial_frequent' value=1, checked= currentSenior.Behaviourial_frequent)
+                                input.form-check-input(type='checkbox', name='behaviourial_frequent', id='behaviourial_frequent', placeholder='behaviourial_frequent' value=1, checked=Behaviourial_frequent)
                                 span.checkmark
                         .form-check
                             label.form-check-label(for='behaviourial_unpredictable')= myconstants.constants('Behaviourial_unpredictable')
-                                input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable', placeholder='behaviourial_unpredictable' value=1, checked= currentSenior.Behaviourial_unpredictable)
+                                input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable', placeholder='behaviourial_unpredictable' value=1, checked=Behaviourial_unpredictable)
                                 span.checkmark
                 br
                 .form-group.row
@@ -277,11 +277,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_yes') Yes
-                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked= currentSenior.Hallucination==='Y')
+                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked=Hallucination==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_no') No
-                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N', checked= currentSenior.Hallucination==='N')
+                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N', checked=Hallucination==='N')
                                 span.radio
         .step-form-tab
             .form-section
@@ -291,18 +291,18 @@ block content
                 .form-group.row
                     label.col-lg-6.col-md-6.col-form-label How Many Insulin Shots Can You Administer?
                     .col-md-4
-                        input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', value=currentSenior.InsulinShots)
+                        input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', valueInsulinShots)
                 br 
                 .form-group.row
                     label.col-lg-6.col-md-6.col-form-label Hallucinations
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_yes') Yes
-                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked= currentSenior.Hallucination==='Y')
+                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked=Hallucination==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_no') No
-                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N', checked= currentSenior.Hallucination==='N')
+                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N', checked=Hallucination==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -310,11 +310,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_yes') Yes
-                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked= currentSenior.MemoryCare==='Y')
+                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked=MemoryCare==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_no') No
-                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'N', checked= currentSenior.MemoryCare==='N')
+                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'N', checked=MemoryCare==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -322,11 +322,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='oxygentank_yes') Yes
-                                input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_yes' value = 'Y', checked= currentSenior.OxygenTank==='Y')
+                                input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_yes' value = 'Y', checked=OxygenTank==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='oxygentank_no') No
-                                input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_no' value = 'N', checked= currentSenior.OxygenTank==='N')
+                                input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_no' value = 'N', checked=OxygenTank==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -334,11 +334,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='changeoxygentank_yes') Yes
-                                input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_yes' value = 'Y' checked= currentSenior.ChangeOxygenTank==='Y')
+                                input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_yes' value = 'Y' checked=ChangeOxygenTank==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='changeoxygentank_no') No
-                                input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_no' value = 'N' checked= currentSenior.ChangeOxygenTank==='N')
+                                input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_no' value = 'N' checked=ChangeOxygenTank==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -346,11 +346,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='alltimeoxygen_yes') Yes
-                                input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_yes' value = 'Y',  checked= currentSenior.AllTimeOxygen==='Y')
+                                input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_yes' value = 'Y',  checked=AllTimeOxygen==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='alltimeoxygen_no') No
-                                input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_no' value = 'N' checked= currentSenior.AllTimeOxygen==='N')
+                                input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_no' value = 'N' checked=AllTimeOxygen==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -358,11 +358,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='changecatheter_yes') Yes
-                                input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_yes' value = 'Y' checked= currentSenior.ChangeCatheter==='Y')
+                                input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_yes' value = 'Y' checked=ChangeCatheter==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='changecatheter_no') No
-                                input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_no' value = 'N' checked= currentSenior.ChangeCatheter==='N')
+                                input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_no' value = 'N' checked=ChangeCatheter==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -370,11 +370,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='medicationmanagement_yes') Yes
-                                input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_yes' value = 'Y' checked= currentSenior.MedicationManagement==='Y')
+                                input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_yes' value = 'Y' checked=MedicationManagement==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='medicationmanagement_no') No
-                                input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_no' value = 'N' checked= currentSenior.MedicationManagement==='N')
+                                input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_no' value = 'N' checked=MedicationManagement==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -382,11 +382,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='liquiddiets_yes') Yes
-                                input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_yes' value = 'Y' checked= currentSenior.LiquidDiets==='Y')
+                                input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_yes' value = 'Y' checked=LiquidDiets==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='liquiddiets_no') No
-                                input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_no' value = 'N' checked= currentSenior.LiquidDiets==='N')
+                                input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_no' value = 'N' checked=LiquidDiets==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -394,11 +394,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='grounddiets_yes') Yes
-                                input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_yes' value = 'Y' checked= currentSenior.GroundDiets==='Y')
+                                input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_yes' value = 'Y' checked=GroundDiets==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='grounddiets_no') No
-                                input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_no' value = 'N' checked= currentSenior.GroundDiets==='N')
+                                input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_no' value = 'N' checked=GroundDiets==='N')
                                 span.radio
                                 br 
                 .form-group.row
@@ -406,11 +406,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_yes') Yes
-                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked= currentSenior.MemoryCare==='Y')
+                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked=MemoryCare==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_no') No
-                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'N', checked= currentSenior.MemoryCare==='N')
+                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'N', checked=MemoryCare==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -418,17 +418,17 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_unit_yes') Yes
-                                input.form-radio-input(type='radio', name='memorycare_unit_yes', id='memorycare_yes' value = 'Y', checked= currentSenior.MemoryCareUnit==='Y')
+                                input.form-radio-input(type='radio', name='memorycare_unit_yes', id='memorycare_yes' value = 'Y', checked=MemoryCareUnit==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare__unit_no') No
-                                input.form-radio-input(type='radio', name='memorycare__unit_no', id='memorycare__unit_no' value = 'N', checked= currentSenior.MemoryCareUnit==='N')
+                                input.form-radio-input(type='radio', name='memorycare__unit_no', id='memorycare__unit_no' value = 'N', checked=MemoryCareUnit==='N')
                                 span.radio
                 br
                 .form-group.row
                     label.col-lg-12.col-md-12.col-form-label Any Other Health Information You'd Like to Include?
                     .col-md-12
-                        input.form-control(type='number', name='otherInformation', id='otherInformation', placeholder='Special Diets, Smoket, etc.', value=currentSenior.otherHealthInformation)
+                        input.form-control(type='number', name='otherInformation', id='otherInformation', placeholder='Special Diets, Smoket, etc.', valueotherHealthInformation)
 
 
             //br 
