@@ -25,15 +25,15 @@ block content
                     .col-md-12.full-width-radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='WhenAreYouLooking_1month') Less than 1 month
-                                input.form-radio-input(type='radio', name='WhenAreYouLooking', id='WhenAreYouLooking_1month' value = 1)
+                                input.form-radio-input(type='radio', name='whenAreYouLooking', id='WhenAreYouLooking_1month' value = 1)
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='WhenAreYouLooking_1to3months') 1-3 months
-                                input.form-radio-input(type='radio', name='WhenAreYouLooking', id='WhenAreYouLooking_1to3months' value = 2)
+                                input.form-radio-input(type='radio', name='whenAreYouLooking', id='WhenAreYouLooking_1to3months' value = 2)
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='WhenAreYouLooking_morethan3months') More than 3 months
-                                input.form-radio-input(type='radio', name='WhenAreYouLooking', id='WhenAreYouLooking_morethan3months' value = 3)
+                                input.form-radio-input(type='radio', name='whenAreYouLooking', id='WhenAreYouLooking_morethan3months' value = 3)
                                 span.radio
         .step-form-tab
             .form-section
@@ -382,11 +382,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='liquiddiets_yes') Yes
-                                input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_yes' value = 'Y' checked=LiquidDiets==='Y')
+                                input.form-radio-input(type='radio', name='liquidDiets', id='liquiddiets_yes' value = 'Y' checked=LiquidDiets==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='liquiddiets_no') No
-                                input.form-radio-input(type='radio', name='liquiddiets', id='liquiddiets_no' value = 'N' checked=LiquidDiets==='N')
+                                input.form-radio-input(type='radio', name='liquidDiets', id='liquiddiets_no' value = 'N' checked=LiquidDiets==='N')
                                 span.radio
                 br 
                 .form-group.row
@@ -394,11 +394,11 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='grounddiets_yes') Yes
-                                input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_yes' value = 'Y' checked=GroundDiets==='Y')
+                                input.form-radio-input(type='radio', name='groundDiets', id='grounddiets_yes' value = 'Y' checked=GroundDiets==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='grounddiets_no') No
-                                input.form-radio-input(type='radio', name='grounddiets', id='grounddiets_no' value = 'N' checked=GroundDiets==='N')
+                                input.form-radio-input(type='radio', name='groundDiets', id='grounddiets_no' value = 'N' checked=GroundDiets==='N')
                                 span.radio
                                 br 
                 .form-group.row
@@ -406,11 +406,33 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_yes') Yes
-                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked=MemoryCare==='Y')
+                                input.form-radio-input(type='radio', name='memoryCare', id='memorycare_yes' value = 'Y', checked=MemoryCare==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_no') No
-                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'N', checked=MemoryCare==='N')
+                                input.form-radio-input(type='radio', name='memoryCare', id='memorycare_no' value = 'N', checked=MemoryCare==='N')
+                                span.radio
+                .form-group.row
+                    label.col-sm-3.col-md-2.col-form-label Medicaid Bed
+                    .col-md-3
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='medicaid_yes') Yes
+                                input.form-radio-input(type='radio', checked= MedicAid==='Y', name='medicaid', id='medicaid_yes' value = 'Y')
+                                span.radio
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='medicaid_no') No
+                                input.form-radio-input(type='radio', checked= MedicAid==='N', name='medicaid', id='medicaid_no' value = 'N')
+                                span.radio
+                .form-group.row
+                    label.col-sm-3.col-md-2.col-form-label Does the senior require a secure unit/ unit with a Wanderguard?
+                    .col-md-3
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='wanderguard_yes') Yes
+                                input.form-radio-input(type='radio', checked= Wanderguard==='Y', name='wandergaurd', id='wanderguard_yes' value = 'Y')
+                                span.radio
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='wandergaurd_no') No
+                                input.form-radio-input(type='radio', checked= Wanderguard==='N', name='wandergaurd', id='wandergaurd_no' value = 'N')
                                 span.radio
                 br 
                 .form-group.row
