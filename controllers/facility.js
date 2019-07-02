@@ -11,34 +11,34 @@ exports.getFacility = (req, res, error) => {
     var id = req.params.facility_id;
     var currentFacility;
     var currentRooms;
+    var currentMatches;
 
     Facility.findById(id)
     .then((facility)=>{
         currentFacility = facility;
-        return Promise.resolve(currentFacility);
-    })
-    .then(()=>{
         Room.find({'FacilityID':id})
         .then((rooms)=>{
-           SeniorMatchController.getSeniorMatchesByFacilityId(currentFacility._id).then((matches) => {
-            currentRooms = rooms;
-            res.render('facility', {
-              title: 'Facility',
-              currentFacility,
-              currentRooms,
-              myconstants
-            });
-          })
-          .catch((error) => { 
+          currentRooms = rooms;
+          SeniorMatchController.getSeniorMatchesByFacilityId({id:currentFacility._id})
+          .then((matches) => {
+              currentMatches = matches;
+              res.render('facility', {
+                title: 'Facility',
+                currentFacility,
+                currentRooms,
+                myconstants
+              });
+          }).catch((error) => { 
             console.log(error);
-            res.send('Sorry! Something went wrong.'); })
-        })
-        .catch((err) =>{
-          console.error('Error on fetching rooms: ', err); 
-        });        
+            res.send('Sorry! Something went wrong.'); 
+          });
+
+      }).catch((err) =>{
+        console.error('Error on fetching rooms: ', err); 
+      });        
     }).catch((error) => {
       console.error('Error on fetching facility', err);
-    })
+    });
 };
 
 exports.postFacilitySignup = (req, res, next) => {

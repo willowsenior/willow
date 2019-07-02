@@ -4,7 +4,7 @@ const SeniorMatchSchema  = new mongoose.Schema({
     SeniorID: String,
     RoomId: String,
     FacilityId: String,
-    IsViewed: bool,
+    IsViewed: Boolean,
 }, { timestamps: true });
 
 const SeniorMatch = mongoose.model('SeniorMatch', SeniorMatchSchema);

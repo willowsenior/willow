@@ -42,7 +42,7 @@ exports.postCreateSeniorMatch = (req, res) => {
        .then((currentSenior)=>{
             //Mark as viewed
             patchSeniorMatchMarkAsViewed(currentSenior._id);
-            
+
             res.render('seniors/viewseniormatch', {
               title: 'View Senior Match',
               seniorMatch,
@@ -113,21 +113,20 @@ function patchSeniorMatchMarkAsViewed(id) {
     });
 };
 
-exports.getSeniorMatchesByFacilityId = (req, res) => {
-    const errors = req.validationErrors();
-    var id = req.params.facility_id;
-
-    if(!id || errors) {
-        req.flash('errors', errors || "Missing Facility Id");
-        return res.redirect('/signup'); //TODO 404 page
-    }
+exports.getSeniorMatchesByFacilityId = (params) => {
+    var id = params.id;
+    console.log('hit hereeeee', id);
+    return Promise.resolve([]);
 
     SeniorMatchModel.find({'FacilityID':id})
     .then((seniorMatches)=>{
-        //TODO
+        console.log('did we find anything', seniorMatches);
+        return Promise.resolve(seniorMatches);
     }).catch((errors) => {
-        if(error){
-            console.log(error);
+        console.log('errors in this req', errors);
+        if(errors){
+           console.log(errors);
+           return Promise.resolve([]);
         }
     });
 };
