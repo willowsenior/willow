@@ -1,4 +1,5 @@
-const SeniorModel = require('../models/Senior')
+const SeniorModel = require('../models/Senior');
+const myconstants = require('../utils/constants');
 
 //** Start creating a /senior
 //* Create a new local account.
@@ -49,6 +50,7 @@ exports.viewAllSeniors = (req, res) => {
 
 
 exports.postCreateSenior = (req, res) => {
+    console.log('heres the req', req.body);
     const errors = req.validationErrors();
 
     if (errors) {
@@ -75,7 +77,7 @@ exports.postCreateSenior = (req, res) => {
         ChangeOxygenTank: req.body.changeOxygenTank,
         AllTimeOxygen: req.body.allTimeOxygen,
         ChangeCatheter: req.body.changeCatheter,
-        MedicationManagement: req.body.medicationmManagement,
+        MedicationManagement: req.body.medicationManagement,
         LiquidDiets: req.body.liquidDiets,
         GroundDiets: req.body.groundDiets,
         MemoryCare: req.body.memoryCare,
@@ -126,13 +128,16 @@ exports.postCreateSenior = (req, res) => {
         }
     });
 
-    seniorModel.save().then(() => {
-        //TODO
-    }).catch((error) => {
-        if (error) {
-            console.log(error);
-        }
+    seniorModel.save()
+    .then(()=>{
+      res.redirect('/facility/'+req.params.facility_id);
     })
+    .catch((error)=>{
+      console.log("ERRRRRRR");
+      if(error){
+        console.log(error);
+      }
+    });
 };
 
 exports.getSeniors = (req, res) => {

@@ -98,7 +98,7 @@ block content
                         input.form-control(type='number', pattern='^[0–9]$', name='zipCode', id='zipCode', placeholder='ZipCode')
         .step-form-tab
             .form-section
-                .form-group.form-section-header
+                .form-group.form-section-header.form-section-header--center
                     h3.text-left General Assistance Accomodations
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Eating
@@ -197,7 +197,7 @@ block content
                                 span.checkmark
         .step-form-tab
             .form-section
-                .form-group.form-section-header
+                .form-group.form-section-header.form-section-header--center
                     h3.text-left Behavioral Needs
                 br
                 .form-group.row
@@ -271,21 +271,9 @@ block content
                             label.form-check-label(for='behaviourial_unpredictable')= myconstants.constants('Behaviourial_unpredictable')
                                 input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable', placeholder='behaviourial_unpredictable' value=1, checked=Behaviourial_unpredictable)
                                 span.checkmark
-                br
-                .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Hallucinations
-                    .col-md-6
-                        .col-md-12
-                            label.form-radio-label.ml-4(for='hallucinations_yes') Yes
-                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked=Hallucination==='Y')
-                                span.radio
-                        .col-md-12
-                            label.form-radio-label.ml-4(for='hallucinations_no') No
-                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N', checked=Hallucination==='N')
-                                span.radio
         .step-form-tab
             .form-section
-                .form-group.form-section-header
+                .form-group.form-section-header.form-section-header--center
                     h3.text-left Senior's Health Information
                 br
                 .form-group.row
@@ -298,15 +286,15 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_yes') Yes
-                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked=Hallucination==='Y')
+                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked= Hallucinations==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_no') No
-                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N', checked=Hallucination==='N')
+                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N', checked= Hallucination==='N')
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Memory Care
+                    label.col-lg-6.col-md-6.col-form-label Memory Care
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_yes') Yes
@@ -364,6 +352,11 @@ block content
                             label.form-radio-label.ml-4(for='changecatheter_no') No
                                 input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_no' value = 'N' checked=ChangeCatheter==='N')
                                 span.radio
+
+        .step-form-tab
+            .form-section
+                .form-group.form-section-header.form-section-header--center
+                    h3.text-left Senior's Health Information cont...
                 br 
                 .form-group.row
                     label.col-lg-6.col-md-6.col-form-label Do you provide medication management?
@@ -402,19 +395,8 @@ block content
                                 span.radio
                                 br 
                 .form-group.row
-                    label.col-lg-3.col-md-5.col-form-label Memory Care
+                    label.col-lg-6.col-md-6.col-form-label Medicaid Bed
                     .col-md-6
-                        .col-md-12
-                            label.form-radio-label.ml-4(for='memorycare_yes') Yes
-                                input.form-radio-input(type='radio', name='memoryCare', id='memorycare_yes' value = 'Y', checked=MemoryCare==='Y')
-                                span.radio
-                        .col-md-12
-                            label.form-radio-label.ml-4(for='memorycare_no') No
-                                input.form-radio-input(type='radio', name='memoryCare', id='memorycare_no' value = 'N', checked=MemoryCare==='N')
-                                span.radio
-                .form-group.row
-                    label.col-sm-3.col-md-2.col-form-label Medicaid Bed
-                    .col-md-3
                         .col-md-12
                             label.form-radio-label.ml-4(for='medicaid_yes') Yes
                                 input.form-radio-input(type='radio', checked= MedicAid==='Y', name='medicaid', id='medicaid_yes' value = 'Y')
@@ -424,8 +406,8 @@ block content
                                 input.form-radio-input(type='radio', checked= MedicAid==='N', name='medicaid', id='medicaid_no' value = 'N')
                                 span.radio
                 .form-group.row
-                    label.col-sm-3.col-md-2.col-form-label Does the senior require a secure unit/ unit with a Wanderguard?
-                    .col-md-3
+                    label.col-lg-6.col-md-6.col-form-label Does the senior require a secure unit/ unit with a Wanderguard?
+                    .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='wanderguard_yes') Yes
                                 input.form-radio-input(type='radio', checked= Wanderguard==='Y', name='wandergaurd', id='wanderguard_yes' value = 'Y')
@@ -450,7 +432,7 @@ block content
                 .form-group.row
                     label.col-lg-12.col-md-12.col-form-label Any Other Health Information You'd Like to Include?
                     .col-md-12
-                        input.form-control(type='number', name='otherInformation', id='otherInformation', placeholder='Special Diets, Smoket, etc.', valueotherHealthInformation)
+                        input.form-control(type='text', name='otherInformation', id='otherInformation', placeholder='Special Diets, Smoket, etc.', value=otherHealthInformation)
 
 
             //br 
@@ -517,7 +499,7 @@ block content
           var x = document.getElementsByClassName("step-form-tab");
 
         // Exit the function if any field in the current tab is invalid, only for first tab
-        if (n == 1 && currentTab == 0 && !validateForm(currentTab)) return false;
+        if (n == 1 && (currentTab == 0 || currentTab == 1) && !validateForm(currentTab)) return false;
 
         // Exit the function if we're on the first tab and trying previous
         if (currentTab + n <= 0) return;
