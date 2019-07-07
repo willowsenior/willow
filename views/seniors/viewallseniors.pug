@@ -1,42 +1,26 @@
 extends ../layout
 
 block content
-  
-    .table-search
-			//.row
-				//.inputgroup
-					//span.innericon.searchicon
-					//input(type='text', name='searchSeniors', id='searchSeniors', placeholder='Type senior name or ID')
-			.row
-		    .main-col.col
-		      .main-col-section
-		        .row
-		          .col.col-xs-12
-		            table.match-table
-		              thead
-		                tr
-		                  th Room Name
-		                  th Room Rent
-		                  th Contact ID
-		              tbody
-		                tr
-		                  td Room Testing A
-		                  td $594
-		                  td 23576932
-		                    span.unread
-		                tr
-		                  td Room Testing A
-		                  td $594
-		                  td 23576932
-		                tr
-		                  td Room Testing A
-		                  td $594
-		                  td 23576932
-		                tr
-		                  td Room Testing A
-		                  td $594
-		                  td 23576932
-
+	.table-search
+		.col
+			.inputgroup
+				input.search(type='text', name='searchSeniors', id='searchSeniors', placeholder='Type senior name or ID')
+				span.innericon.searchicon
+		.row
+			.main-col.col
+				.main-col-section
+					.col.col-xs-12
+						table.match-table
+							thead
+								tr
+									th Room Name
+									th Room Rent
+									th Contact ID
+							tbody
+								tr 
+									td Room Testing A
+									td $8376
+									td 23576932
 
 
 

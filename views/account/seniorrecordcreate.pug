@@ -42,11 +42,11 @@ block content
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact Name
                     .col-md-10
-                        input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name')
+                        input.form-control(type='text', name='contactName', id='contactName', placeholder='Contact Name', autofocus)
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact Email
                     .col-md-10
-                        input.form-control(type='email', name='contactEmail', id='contactEmail', placeholder='Contact Email', autofocus, autocomplete='email')
+                        input.form-control(type='email', name='contactEmail', id='contactEmail', placeholder='Contact Email', autocomplete='email')
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact relationship to the senior
                     .col-md-6
@@ -71,22 +71,26 @@ block content
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='liveWithContact_no') No
-                                input.form-radio-input(type='radio', name='liveWithContact', id='liveWithContact_yes' value = 'N', checked=liveWithContact==='N')
+                                input.form-radio-input(type='radio', name='liveWithContact', id='liveWithContact_no' value = 'N', checked=liveWithContact==='N')
                                 span.radio
         .step-form-tab
             .form-section
                 .form-group.form-section-header.form-section-header--center
                     h3.text-center Senior Information
                 .form-group.row
+                    label.col-form-label.col-form-label__stacked Senior Name
+                    .col-md-10
+                        input.form-control(type='text', name='seniorName', id='seniorName', placeholder='Senior Name', autofocus)
+                .form-group.row
                     label.col-sm-3.col-md-2.col-form-label Gender
                     .col-md-3
                         .col-md-12
                             label.form-radio-label.ml-4(for='M') Male
-                                input.form-radio-input(type='radio', name='gender', id = 'M',  value = 'M')
+                                input.form-radio-input(type='radio', name='gender', id='M',  value = 'M')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='F') Female
-                                input.form-radio-input(type='radio', name='gender', id = 'F',  value = 'F')
+                                input.form-radio-input(type='radio', name='gender', id='F',  value = 'F')
                                 span.radio
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Age
@@ -99,7 +103,7 @@ block content
         .step-form-tab
             .form-section
                 .form-group.form-section-header.form-section-header--center
-                    h3.text-left General Assistance Accomodations
+                    h3.text-center General Assistance Accomodations
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Eating
                     .col-md-10
@@ -198,7 +202,7 @@ block content
         .step-form-tab
             .form-section
                 .form-group.form-section-header.form-section-header--center
-                    h3.text-left Behavioral Needs
+                    h3.text-center Behavioral Needs
                 br
                 .form-group.row
                     label.col-form-label.col-form-label__stacked.check-group-label Verbal Disruption
@@ -274,7 +278,7 @@ block content
         .step-form-tab
             .form-section
                 .form-group.form-section-header.form-section-header--center
-                    h3.text-left Senior's Health Information
+                    h3.text-center Senior's Health Information
                 br
                 .form-group.row
                     label.col-lg-6.col-md-6.col-form-label How Many Insulin Shots Can You Administer?
@@ -356,7 +360,7 @@ block content
         .step-form-tab
             .form-section
                 .form-group.form-section-header.form-section-header--center
-                    h3.text-left Senior's Health Information cont...
+                    h3.text-center Senior's Health Information cont...
                 br 
                 .form-group.row
                     label.col-lg-6.col-md-6.col-form-label Do you provide medication management?
@@ -422,7 +426,7 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_unit_yes') Yes
-                                input.form-radio-input(type='radio', name='memorycare_unit_yes', id='memorycare_yes' value = 'Y', checked=MemoryCareUnit==='Y')
+                                input.form-radio-input(type='radio', name='memorycare_unit_yes', id='memorycare_unit_yes' value = 'Y', checked=MemoryCareUnit==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare__unit_no') No
@@ -525,7 +529,7 @@ block content
             x = document.getElementsByClassName("step");
 
           //=== ... and remove the "complete" class from all future steps in case we went backwards
-          if(direction == -1) {
+          if(direction == -1 && n && x[n]) {
             console.log('for i greater than n remove the complete class', x[previousIndex]);
             x[n].className = x[n].className.replace("complete", "");
 

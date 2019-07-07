@@ -150,7 +150,7 @@ app.get('/createseniorrecord', seniorController.getSeniorRecordCreate);
 app.post('/seniorsignup', seniorController.postCreateSenior);
 
 //Senior: Navigate to view all seniors, GET seniors
-app.get('/viewseniors', seniorController.viewAllSeniors);
+//app.get('/viewseniors', seniorController.getAllSeniors);
 app.get('/getseniors', seniorController.getSeniors);
 // app.get('/seniorbyid/:senior_id', seniorController.getSeniorById);
 // app.get('/seniorbylastname', seniorController.getSearchSeniorByName);

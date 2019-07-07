@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 
 const SeniorSchema = new mongoose.Schema({
-    FirstName: String,
-    LastName: String,
+    SeniorName: String,
     WhenAreYouLooking: String,  //TODO: Maybe make into Enum?
-    contactName: String,
+    ContactName: String,
     ContactEmail: String,
     ContactRelationship: String,
     ContactPowerOfAttorney: Boolean,

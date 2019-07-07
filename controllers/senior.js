@@ -18,21 +18,6 @@ exports.getSeniorRecordCreate = (req, res) => {
     });
 };
 
-
-exports.viewAllSeniors = (req, res) => {
-    if (!req.user.isAdmin) {
-        return res.redirect('/');
-    }
-    var currentSenior = {
-        Senior_Living: false
-    };
-    res.render('seniors/viewallseniors', {
-        title: 'View All Seniors',
-        myconstants
-    });
-
-};
-
 // exports.viewSeniorMatch = (req, res) => {
 //   console.log('is this hitting');
 //   if (!req.user.isAdmin) {
@@ -50,7 +35,6 @@ exports.viewAllSeniors = (req, res) => {
 
 
 exports.postCreateSenior = (req, res) => {
-    console.log('heres the req', req.body);
     const errors = req.validationErrors();
 
     if (errors) {
@@ -58,9 +42,11 @@ exports.postCreateSenior = (req, res) => {
         return res.redirect('/signup'); //TODO: Update to Senior Creation Page
     }
 
+
+    console.log('okay setup the senior with the model');
+
     var seniorModel = new SeniorModel({
-        FirstName: req.body.firstName,
-        LastName: req.body.lastName,
+        SeniorName: req.body.seniorName,
         WhenAreYouLooking: req.body.whenAreYouLooking,
         ContactName: req.body.contactName,
         ContactEmail: req.body.contactEmail,
@@ -128,22 +114,38 @@ exports.postCreateSenior = (req, res) => {
         }
     });
 
+    console.log('okay save the senior');
+
     seniorModel.save()
     .then(()=>{
-      res.redirect('/facility/'+req.params.facility_id);
+      console.log('okay redirect');
+      res.redirect('/home');
     })
-    .catch((error)=>{
+    .catch(err =>{
       console.log("ERRRRRRR");
-      if(error){
-        console.log(error);
+      if(err){
+        console.log(err);
       }
     });
 };
 
+exports.viewAllSeniors = (req, res) => {
+    
+    var currentSenior = {
+        Senior_Living: false
+    };
+    
+
+};
+
 exports.getSeniors = (req, res) => {
-    const errors = req.validationErrors();
-    var lastName = req.query.lastName || "",
-        id       = req.query.senior_id || undefined;
+    if (!req.user.isAdmin) {
+        return res.redirect('/');
+    }
+    const errors  = req.validationErrors();
+    var name      = req.query.name || '',
+        id        = req.query.senior_id || undefined,
+        page      = req.query.page,
         skipCount = req.query.skipCount || 0;
 
 
@@ -155,6 +157,13 @@ exports.getSeniors = (req, res) => {
     if (id) {
         SeniorModel.findById(id)
         .then((senior) => {
+            console.log('seniors here for the specific id', seniors);
+            //TODO: Load page with seniors
+            res.render('seniors/viewallseniors', {
+                title: 'View All Seniors',
+                seniors,
+                myconstants
+            });
         })
         .catch((error) => {
             if (error) {
@@ -163,11 +172,18 @@ exports.getSeniors = (req, res) => {
         });
     } else {
         SeniorModel.find(
-        { 'LastName': { "$regex": lastName, "$options": "i" } },
-        null,
-        { skip: skipCount, limit: 10 })
+            { 'ContactName': { "$regex": name, "$options": "i" } },
+            //null,
+            //{ skip: skipCount, limit: 10 }
+         )
         .then((seniors) => {
+            console.log('seniors here?', seniors);
             //TODO: Load page with seniors
+            res.render('seniors/viewallseniors', {
+                title: 'View All Seniors',
+                seniors,
+                myconstants
+            });
         })
         .catch((error) => {
             if (error) {
