@@ -195,7 +195,6 @@ exports.getWillowAdminSignup = (req, res) => {
 };
 
 exports.postWillowAdminSignup = (req, res, next) => {
-    console.log('Here 11111');
     const passcode = 'panache';
     req.assert('email', 'Email is not valid').isEmail();
     req.assert('password', 'Password must be at least 4 characters long').len(4);
@@ -254,7 +253,7 @@ exports.postWillowAdminSignin = (req, res, next) => {
         if (err) { return next(err); }
         
         if(!user.isAdmin){
-            return res.redirect('/login');
+           return res.redirect('/login');
         }
 
         if (!user) {

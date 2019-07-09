@@ -9,11 +9,9 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const logger = require('morgan');
-const dotenv = require('dotenv');
-
 
 const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
+//const MONGODB = 'mongodb://127.0.01:27017/willow'
 
 /**
  * Controllers (route handlers).
@@ -21,28 +19,29 @@ const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds2236
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const facilityController = require('./controllers/facility');
+const seniorController = require('./controllers/senior');
+const seniorMatchController = require('./controllers/seniorMatch');
 
 // Passport Config
 const passportConfig = require('./config/passport');
-
 
 /**
  * Create Express server.
  */
 const app = express();
-
 const PORT = process.env.PORT || 8080;
-
 
 /** Connect to database */
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlparser', true);
 mongoose.connect(MONGODB, (err) => {
-    console.log('Database is connected')
+    if(!err){
+        console.log('Database is connected');
+    }
 });
+
 mongoose.connection.on('error', (err) => {
-    console.error(err);
     console.log('Connection Error Please check database connection', );
     process.exit();
 })
@@ -145,6 +144,20 @@ app.delete('/deleteRoom/:facility_id/:room_id', facilityController.deleteRoom);
 
 app.get('/download', homeController.getDownload);
 
+//Seniors
+app.post('/seniorsignup', seniorController.postCreateSenior);
+app.get('/seniorbyid/:senior_id', seniorController.getSeniorById);
+app.get('/seniorbylastname', seniorController.getSearchSeniorByName);
+app.delete('/deletesenior/:senior_id', seniorController.deleteSenior);
+app.post('/seniorupdate/:senior_id', seniorController.postUpdateSenior);
+
+//SeniorMatches
+app.post('/seniormatchcreate', seniorMatchController.postCreateSeniorMatch);
+app.get('/seniormatchbyid/:seniormatch_id', seniorMatchController.getSeniorMatchById);
+app.get('/seniormatchbyfacilityid/:facility_id', seniorMatchController.getSeniorMatchesByFacilityId);
+app.patch('/seniormatchviewed/:seniormatch_id', seniorMatchController.patchSeniorMatchMarkAsViewed);
+app.delete('/deleteseniormatch/:seniormatch_id', seniorMatchController.deleteSeniorMatch);
+app.post('/updateseniormatch/:seniormatch_id', seniorMatchController.postUpdateSeniorMatch);
 
 ////AUthentication routes
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
