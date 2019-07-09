@@ -27,6 +27,8 @@ exports.postCreateSeniorMatch = (req, res) => {
 
   //Get the match and the senior
   exports.viewSeniorMatch = (req, res) => {
+    console.log('hit the senior match', req.params.seniormatch_id);
+    return;
     const errors = req.validationErrors();
     var id = req.params.seniormatch_id;
 

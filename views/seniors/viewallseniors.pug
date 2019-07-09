@@ -1,11 +1,12 @@
 extends ../layout
 
 block content
+	            
 	.table-search
-		.col
-			.inputgroup
-				input.search(type='text', name='searchSeniors', id='searchSeniors', placeholder='Type senior name or ID')
-				span.innericon.searchicon
+		//.col
+			//.inputgroup
+				//input.search(type='text', name='searchSeniors', id='searchSeniors', placeholder='Type senior name or ID')
+				//span.innericon.searchicon
 		.row
 			.main-col.col
 				.main-col-section
@@ -17,10 +18,15 @@ block content
 									th Room Rent
 									th Contact ID
 							tbody
-								tr 
-									td Room Testing A
-									td $8376
-									td 23576932
+								each senior in seniors
+									tr(onclick='myFunction(\'' + user._id + '\')')
+										td= senior.ContactEmail
+										td= senior.Gender
+										td= senior.Age
 
-
-
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+	script.		
+		function myFunction (senior_id) {
+			console.log('senior id', senior_id);
+			window.location= '/viewseniormatch/' + senior_id;
+		}		
