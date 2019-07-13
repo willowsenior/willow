@@ -156,7 +156,7 @@ app.get('/getseniors', seniorController.getSeniors);
 // app.get('/seniorbylastname', seniorController.getSearchSeniorByName);
 
 // Senior/Match: Navigate to view one senior match, update senior, delete senior
-app.get('/viewseniormatch/:seniormatch_id', seniorMatchController.viewSeniorMatch);
+app.get('/viewseniormatch/:senior_id', seniorMatchController.viewSeniorMatch);
 app.post('/seniorupdate/:senior_id', seniorController.postUpdateSenior);
 app.delete('/deletesenior/:senior_id', seniorController.deleteSenior);
 

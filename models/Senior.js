@@ -11,6 +11,7 @@ const SeniorSchema = new mongoose.Schema({
     Gender: String, //TODO: Enum,
     Age: Number,
     Zipcode: String,
+    LiveWithContact: Boolean,
     ShortTermStay: Boolean,
     InsulinShots: Number,
     OxygenTank: String,

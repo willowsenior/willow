@@ -196,18 +196,19 @@ exports.getSeniors = (req, res) => {
 };
 
 exports.getSeniorById = (req, res) => {
-    const errors = req.validationErrors();
     var id = req.params.senior_id;
 
-    if (!id || errors) {
-        req.flash('errors', errors || "Missing Id");
+    if (!id) {
+        req.flash('errors Missing Id');
         return res.redirect('/signup'); //TODO 404 page
     }
     
     SeniorModel.findById(id)
         .then((senior) => {
+            return senior;
         })
         .catch((error) => {
+            return error;
             if (error) {
                 console.log(error);
             }

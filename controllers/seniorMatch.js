@@ -1,5 +1,7 @@
 const SeniorMatchModel = require('../models/SeniorMatch');
 const SeniorController = require('./senior');
+const SeniorModel = require('../models/Senior');
+const myconstants = require('../utils/constants');
 
 exports.postCreateSeniorMatch = (req, res) => {
     const errors = req.validationErrors();
@@ -27,41 +29,45 @@ exports.postCreateSeniorMatch = (req, res) => {
 
   //Get the match and the senior
   exports.viewSeniorMatch = (req, res) => {
-    console.log('hit the senior match', req.params.seniormatch_id);
-    return;
-    const errors = req.validationErrors();
-    var id = req.params.seniormatch_id;
+    console.log('hit the senior match', req.params.senior_id);
+    //return;
+    var senior_id = req.params.senior_id;
 
-    if(!id || errors) {
-        req.flash('errors', errors || "Missing Id");
+    if(!senior_id) {
+        req.flash('errors Missing Id');
         return res.redirect('/signup'); //TODO 404 page
     }
 
-    SeniorMatchModel.findById(id)
+    SeniorMatchModel.find({SeniorID: senior_id})
     .then((seniorMatch)=>{
-        //Then get the senior (seniorMatch.SeniorID)
-       SeniorController.getSeniorById({params: {senior_id: seniorMatch.SeniorID}})
-       .then((currentSenior)=>{
-            //Mark as viewed
-            patchSeniorMatchMarkAsViewed(currentSenior._id);
+      if (!seniorMatch) console.log('no match');
+      //Then get the senior (seniorMatch.SeniorID)
+      SeniorModel.findById(senior_id)
+      .then((currentSenior)=>{
+          console.log('current senior');
+          if (!currentSenior) console.log('no current senior');
+          //Mark as viewed
+          if (currentSenior) patchSeniorMatchMarkAsViewed(currentSenior._id);
 
-            res.render('seniors/viewseniormatch', {
-              title: 'View Senior Match',
-              seniorMatch,
-              currentSenior,
-              myconstants
-            });
-        })
-        .catch((error)=>{
-            if(error){
-                console.log(error);
-            }
-        });
-     })
+          res.render('seniors/viewseniormatch', {
+            title: 'View Senior Match',
+            seniorMatch,
+            currentSenior,
+            myconstants
+          });
+
+      })
+      .catch((error)=>{
+          if(error){
+              console.log(error);
+          }
+      });
+
+    })
     .catch((error)=>{
-        if(error){
-            console.log(error);
-        }
+      if(error){
+          console.log(error);
+      }
     });
 };
 
