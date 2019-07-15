@@ -10,8 +10,8 @@ const expressValidator = require('express-validator');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
-const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
-//const MONGODB = 'mongodb://127.0.01:27017/willow'
+//const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
+const MONGODB = 'mongodb://127.0.01:27017/willow'
 
 /**
  * Controllers (route handlers).
@@ -73,12 +73,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-/////
 app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
 });
-
 
 app.use((req, res, next) => {
     // After successful login, redirect back to the intended page
@@ -134,7 +132,9 @@ app.get('/facilitysignup', facilityController.getFacilitySignup);
 app.post('/facilitysignup', facilityController.postFacilitySignup);
 app.get('/updatefacility/:facility_id', facilityController.getFacilityUpdate);
 app.put('/updatefacility/:facility_id', facilityController.putFacilityUpdate);
-app.get('/room', facilityController.getRoom);
+
+//Room
+app.get('/getRooms', facilityController.getRooms);
 app.get('/roomsignup/:facility_id', facilityController.getRoomSignup);
 app.post('/roomsignup/:facility_id', facilityController.postRoomSignup);
 app.put('/updateroom/:facility_id/:room_id', facilityController.putRoomUpdate);
@@ -156,12 +156,12 @@ app.get('/getseniors', seniorController.getSeniors);
 // app.get('/seniorbylastname', seniorController.getSearchSeniorByName);
 
 // Senior/Match: Navigate to view one senior match, update senior, delete senior
-app.get('/viewseniormatch/:senior_id', seniorMatchController.viewSeniorMatch);
 app.post('/seniorupdate/:senior_id', seniorController.postUpdateSenior);
 app.delete('/deletesenior/:senior_id', seniorController.deleteSenior);
 
 
 // Senior Matches: Create match, Remove Match, Patch Match
+app.get('/viewseniormatch/:seniormatch_id', seniorMatchController.viewSeniorMatch);
 app.post('/seniormatchcreate', seniorMatchController.postCreateSeniorMatch);
 app.delete('/deleteseniormatch/:seniormatch_id', seniorMatchController.deleteSeniorMatch);
 app.post('/updateseniormatch/:seniormatch_id', seniorMatchController.postUpdateSeniorMatch);

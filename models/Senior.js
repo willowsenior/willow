@@ -34,6 +34,7 @@ const SeniorSchema = new mongoose.Schema({
         default: 0,
         type: Boolean
     },
+    SeniorMatchId: String, 
     FacilityFeatures: {
         Eating_noassistance: Boolean,
         Eating_intermittent: Boolean,

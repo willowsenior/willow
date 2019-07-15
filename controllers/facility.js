@@ -1,6 +1,6 @@
-const Facility = require('../models/Facility');
+const FacilityModel = require('../models/Facility');
 const SeniorMatchController = require('./seniorMatch');
-const Room = require('../models/Room');
+const RoomModel = require('../models/Room');
 const myconstants = require('../utils/constants');
 
 /**
@@ -13,10 +13,10 @@ exports.getFacility = (req, res, error) => {
     var currentRooms;
     var currentMatches;
 
-    Facility.findById(id)
+    FacilityModel.findById(id)
     .then((facility)=>{
         currentFacility = facility;
-        Room.find({'FacilityID':id})
+        RoomModel.find({'FacilityID':id})
         .then((rooms)=>{
           currentRooms = rooms;
           SeniorMatchController.getSeniorMatchesByFacilityId({id:currentFacility._id})
@@ -55,7 +55,7 @@ exports.postFacilitySignup = (req, res, next) => {
       req.flash('errors', errors);
       return res.redirect('/signup');
   }
-  var facility = new Facility({
+  var facility = new FacilityModel({
       FacilityName: req.body.facilityName,
       Address: {
           street: req.body.street,
@@ -134,7 +134,7 @@ exports.putFacilityUpdate = (req, res, next) =>{
   }
 
   var facilityId = req.params.facility_id;
-  Facility.findByIdAndUpdate(facilityId,{$set: {
+  FacilityModel.findByIdAndUpdate(facilityId,{$set: {
     FacilityName: req.body.facilityName,
     Address: {
         street: req.body.street,
@@ -199,7 +199,6 @@ exports.putFacilityUpdate = (req, res, next) =>{
     res.redirect('/facility/'+req.params.facility_id);
   })
   .catch((error)=>{
-    console.log("ERRRRRRR");
     if(error){
       console.log(error);
     }
@@ -209,7 +208,7 @@ exports.putFacilityUpdate = (req, res, next) =>{
 exports.getFacilityUpdate = (req, res, error) => {
   var facility_id = req.params.facility_id;
 
-  Facility.findById(facility_id)
+  FacilityModel.findById(facility_id)
   .then((facility)=>{
     currentFacility = facility;
     var currentTab = 'General';
@@ -223,22 +222,11 @@ exports.getFacilityUpdate = (req, res, error) => {
   }) 
 };
 
-
-exports.getRoom = (req, res, error) => {
-    if (error) {
-        console.log(error);
-    }
-    res.render('room', {
-        title: 'Room'
-    });
-};
-
-
 exports.getRoomSignup = (req, res, error) => {
   var id = req.params.facility_id;
   var currentFacility;
 
-  Facility.findById(id)
+  FacilityModel.findById(id)
   .then((facility)=>{
     currentFacility = facility;
     res.render('roomsignup',{
@@ -254,14 +242,13 @@ exports.getRoomSignup = (req, res, error) => {
   });
 };
 
-
 exports.postRoomSignup = (req, res, error) => {
   const errors = req.validationErrors();
   var id = req.params.facility_id;
   
-  Facility.findById(id)
+  FacilityModel.findById(id)
   .then((facility)=>{
-    var room = new Room({
+    var room = new RoomModel({
       FacilityID: id,
       FacilityName: facility.FacilityName,
       RoomName: req.body.roomName,
@@ -353,7 +340,7 @@ exports.putRoomUpdate = (req, res, error) => {
       return res.redirect('/signup');
   }
   var roomId = req.params.room_id;
-  Room.findByIdAndUpdate(roomId,{$set: {
+  RoomModel.findByIdAndUpdate(roomId,{$set: {
       RoomCount: req.body.count,
       RoomType: req.body.roomtype,
       Range:{
@@ -375,12 +362,12 @@ exports.putRoomUpdate = (req, res, error) => {
 
 exports.deleteRoom = (req, res, error) => {
   var roomId = req.params.room_id;
-  Room.findById(roomId, (err,room) => {
+  RoomModel.findById(roomId, (err,room) => {
     if (err) {
       req.flash('errors', err);
       return res.redirect('/signup');
     }
-    Room.deleteOne(room,(err)=>{
+    RoomModel.deleteOne(room,(err)=>{
       if (err) {
         req.flash('errors', err);
         return res.redirect('/signup');
@@ -407,7 +394,7 @@ exports.putFullRoomUpdate = (req, res, error) => {
       return res.redirect('/signup');
   }
   var roomId = req.params.room_id;
-  Room.findByIdAndUpdate(roomId,{$set: {
+  RoomModel.findByIdAndUpdate(roomId,{$set: {
     RoomName: req.body.roomName,
     RoomCount: req.body.count,
     Gender: req.body.gender,
@@ -485,13 +472,13 @@ exports.getRoomUpdate = (req, res, error) => {
   var currentRoom;
   var currentFacility;
 
-  Facility.findById(facility_id)
+  FacilityModel.findById(facility_id)
   .then((facility)=>{
     currentFacility = facility;
     return Promise.resolve(currentFacility);
   })
   .then(()=>{
-    Room.findById(room_id)
+    RoomModel.findById(room_id)
     .then((room)=>{
       currentRoom = room;
       res.render('updateroom', {
@@ -520,5 +507,38 @@ exports.getFacilitySignup = (req, res, error) => {
     });
 };
 
+exports.getRooms = (req, res) => {
+  if (!req.user || !req.user.isAdmin) {
+      return res.redirect('/');
+  }
 
+  var name      = req.query.name || '',
+  id        = req.query.room_id || undefined,
+  page      = req.query.page || 0;
+
+  var limit = 10;
+  var skipCount = limit * page;
+
+  if (id) {
+    RoomModel.findById(id)
+      .then((room) => {
+          //Display Individual Room
+      })
+      .catch((error) => {
+          console.log(error || "Error finding room by Id: " + id);
+      });
+  } else {
+      RoomModel.find(
+          { 'RoomName': { "$regex": name, "$options": "i" } },
+          null,
+          { skip: skipCount, limit: limit }
+       )
+      .then((rooms) => {
+          //Display list of rooms
+      })
+      .catch((error) => {
+          console.log(error || "Error fetching rooms");      
+      });
+  }
+};
 

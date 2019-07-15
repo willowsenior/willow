@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const SeniorMatchSchema  = new mongoose.Schema({
-    SeniorID: String,
+    SeniorId: String,
     RoomId: String,
     FacilityId: String,
     IsViewed: Boolean,
