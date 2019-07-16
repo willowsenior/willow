@@ -88,52 +88,53 @@ block content
                 -if (this.title == 'Room Details')
                   .main-col-section
                     .row
-                      - for (var i = 0; i < currentRooms.length; i++)
-                        .col-md-12.col-lg-6
-                          .card-deck
-                            .card.mr-4.mt-4.mb-4
-                              .card-body
-                                //a.card-body__edit(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
-                                    //| Room Detail 
-                                    //i.fas.fa-chevron-right.fa-sm
-                                form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
-                                  input(type='hidden', name='_csrf', value=_csrf)
-                                  .form-group.row
-                                    .btn-edit
-                                      a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
-                                        i.fas.fa-edit
-                                        span Edit
-                                    //label.col-form-label.col-form-label__stacked Room Name
-                                    .col-md-8
-                                      p.card-title= currentRooms[i].RoomName
-                                  .form-group.row
-                                    label.col-form-label.col-form-label__stacked Room Count
-                                    .col-md-8
-                                      input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
-                                  .form-group.row
-                                    label.col-form-label.col-form-label__stacked(for='roomtype') Room Type
-                                    .col-md-12
-                                      select.form-control(id='roomtype' name='roomtype' )
-                                        option(selected= currentRooms[i].RoomType==='Private') Private
-                                        option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
-                                        option(selected= currentRooms[i].RoomType==='Suit') Suit
-                                        option(selected= currentRooms[i].RoomType==='Studio Apartment') Studio Apartment
-                                  .form-group.row
-                                    label.col-form-label.col-form-label__stacked Room Rent Rate
-                                    .col-md-8
-                                      input.form-control(type='number', name='rent', id='rent',value=currentRooms[i].Range.min, autofocus, required)
-                                  //.form-group.row
-                                    label.col-form-label.col-form-label__stacked Room Rent Range
-                                    .col-md-12.form-group__inline
-                                      .col-md-5
-                                        input.form-control.text-right(type='number', name='min', id='min', value=currentRooms[i].Range.min, autofocus, required)
-                                      .col-md-2
-                                          label.font-weight-bold.text-right to
-                                      .col-md-5 
-                                        input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
-                                .form-group
-                                        button.btn.btn-secondary(type='submit', form="roomsignup-form1")
-                                            | Update Room
+                      - if (currentRooms)
+                        - for (var i = 0; i < currentRooms.length; i++)
+                          .col-md-12.col-lg-6
+                            .card-deck
+                              .card.mr-4.mt-4.mb-4
+                                .card-body
+                                  //a.card-body__edit(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
+                                      //| Room Detail 
+                                      //i.fas.fa-chevron-right.fa-sm
+                                  form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
+                                    input(type='hidden', name='_csrf', value=_csrf)
+                                    .form-group.row
+                                      .btn-edit
+                                        a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
+                                          i.fas.fa-edit
+                                          span Edit
+                                      //label.col-form-label.col-form-label__stacked Room Name
+                                      .col-md-8
+                                        p.card-title= currentRooms[i].RoomName
+                                    .form-group.row
+                                      label.col-form-label.col-form-label__stacked Room Count
+                                      .col-md-8
+                                        input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
+                                    .form-group.row
+                                      label.col-form-label.col-form-label__stacked(for='roomtype') Room Type
+                                      .col-md-12
+                                        select.form-control(id='roomtype' name='roomtype' )
+                                          option(selected= currentRooms[i].RoomType==='Private') Private
+                                          option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
+                                          option(selected= currentRooms[i].RoomType==='Suit') Suit
+                                          option(selected= currentRooms[i].RoomType==='Studio Apartment') Studio Apartment
+                                    .form-group.row
+                                      label.col-form-label.col-form-label__stacked Room Rent Rate
+                                      .col-md-8
+                                        input.form-control(type='number', name='rent', id='rent',value=currentRooms[i].Range.min, autofocus, required)
+                                    //.form-group.row
+                                      label.col-form-label.col-form-label__stacked Room Rent Range
+                                      .col-md-12.form-group__inline
+                                        .col-md-5
+                                          input.form-control.text-right(type='number', name='min', id='min', value=currentRooms[i].Range.min, autofocus, required)
+                                        .col-md-2
+                                            label.font-weight-bold.text-right to
+                                        .col-md-5 
+                                          input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
+                                  .form-group
+                                          button.btn.btn-secondary(type='submit', form="roomsignup-form1")
+                                              | Update Room
 
                     a.m-t-20(href="/roomsignup/"+currentFacility._id)
                       button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +

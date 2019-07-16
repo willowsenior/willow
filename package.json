@@ -23,6 +23,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",
     "@ladjs/bootstrap-social": "^7.0.2",
+    "async": "^2.6.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.3.1",

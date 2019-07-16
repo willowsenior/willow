@@ -2,44 +2,63 @@ const FacilityModel = require('../models/Facility');
 const SeniorMatchController = require('./seniorMatch');
 const RoomModel = require('../models/Room');
 const myconstants = require('../utils/constants');
+const async = require('async');
 
 /**
  * GET /
  * Home page.
  */
-exports.getFacility = (req, res, error) => {
+exports.getFacility = async (req, res, error) => {
     var id = req.params.facility_id;
     var currentFacility;
     var currentRooms;
     var currentMatches;
 
     FacilityModel.findById(id)
-    .then((facility)=>{
+    .then(async (facility)=>{
         currentFacility = facility;
-        RoomModel.find({'FacilityID':id})
-        .then((rooms)=>{
-          currentRooms = rooms;
-          SeniorMatchController.getSeniorMatchesByFacilityId({id:currentFacility._id})
-          .then((matches) => {
-              currentMatches = matches;
-              res.render('facility', {
-                title: 'Facility',
-                currentFacility,
-                currentRooms,
-                myconstants
-              });
-          }).catch((error) => { 
-            console.log(error);
-            res.send('Sorry! Something went wrong.'); 
+        
+        try {
+          currentRooms = await _getRooms(id);
+          currentMatches = await _getMatches(currentFacility._id);
+          res.render('facility', {
+            title: 'Facility',
+            currentFacility,
+            currentMatches,
+            currentRooms,
+            myconstants
           });
+        } catch (e) {
+          console.log(e);
+        }
+        
 
-      }).catch((err) =>{
-        console.error('Error on fetching rooms: ', err); 
-      });        
-    }).catch((error) => {
-      console.error('Error on fetching facility', err);
-    });
+        
+
+    }).catch((err) =>{
+      console.error('Error on fetching rooms: ', err); 
+    }); 
 };
+
+function _getRooms (id) {
+  RoomModel.find({'FacilityID':id})
+  .then((rooms)=>{
+    return rooms;
+  }).catch((error) => {
+    console.error('Error on fetching facility', err);
+  });
+}
+
+async function _getMatches (id) {
+  try {
+    var matches = await SeniorMatchController.getSeniorMatchesByFacilityId({id: id})
+    return matches;
+  } catch (e)  {
+    console.error('Error on fetching facility', err);
+    return err;
+  }
+  
+}
 
 exports.postFacilitySignup = (req, res, next) => {
   let num;
