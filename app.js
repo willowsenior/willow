@@ -161,7 +161,7 @@ app.delete('/deletesenior/:senior_id', seniorController.deleteSenior);
 
 
 // Senior Matches: Create match, Remove Match, Patch Match
-app.get('/viewseniormatch/:seniormatch_id', seniorMatchController.viewSeniorMatch);
+app.get('/viewseniormatch/:senior_id', seniorMatchController.viewSeniorMatch);
 app.post('/seniormatchcreate', seniorMatchController.postCreateSeniorMatch);
 app.delete('/deleteseniormatch/:seniormatch_id', seniorMatchController.deleteSeniorMatch);
 app.post('/updateseniormatch/:seniormatch_id', seniorMatchController.postUpdateSeniorMatch);
