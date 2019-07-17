@@ -683,6 +683,16 @@ label {
     margin-right: 2px;
 }
 
+table {
+    label.form-check-label {
+        margin: 0px;
+        .checkmark {
+            left: 0px;
+            top: -10px;
+        }
+    }
+}
+
 label.form-check-label, .form-radio-label {
     display: block;
     position: relative;

@@ -156,15 +156,15 @@ app.get('/getseniors', seniorController.getSeniors);
 // app.get('/seniorbylastname', seniorController.getSearchSeniorByName);
 
 // Senior/Match: Navigate to view one senior match, update senior, delete senior
-app.post('/seniorupdate/:senior_id', seniorController.postUpdateSenior);
+app.put('/updateSenior/:senior_id', seniorController.postUpdateSenior);
 app.delete('/deletesenior/:senior_id', seniorController.deleteSenior);
 
 
 // Senior Matches: Create match, Remove Match, Patch Match
-app.get('/viewseniormatch/:senior_id', seniorMatchController.viewSeniorMatch);
+app.get('/viewsenior/:senior_id', seniorMatchController.viewSeniorMatch);
 app.post('/seniormatchcreate', seniorMatchController.postCreateSeniorMatch);
-app.delete('/deleteseniormatch/:seniormatch_id', seniorMatchController.deleteSeniorMatch);
-app.post('/updateseniormatch/:seniormatch_id', seniorMatchController.postUpdateSeniorMatch);
+app.delete('/deletesenior/:senior_id', seniorMatchController.deleteSeniorMatch);
+app.post('/updateseniormatch/:senior_id', seniorMatchController.postUpdateSeniorMatch);
 
 
 // Run this method when loading home facility page

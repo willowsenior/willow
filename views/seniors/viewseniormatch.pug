@@ -31,6 +31,7 @@ block content
     -
         var data = [
             { title: 'Contact', active: true },
+            { title: 'Senior Info'},
             { title: 'Room Assignment' },
             { title: 'Daily Living' },
             { title: 'Behavioral Problems' },
@@ -50,13 +51,17 @@ block content
                     .form-group.form-section-header
                       h3.text-left Senior Info
                     .form-group.row
-                      label.col-form-label.col-form-label__stacked Contact Number
-                      .col-md-8
-                        input.form-control(type='text', name='contactNumber', id='contactNumber',value= currentSenior.contactNumber, placeholder='XXX-XXX-XXXX', maxlength="14")
-                    .form-group.row
                       label.col-form-label.col-form-label__stacked Contact Name
                       .col-md-8
                         input.form-control(type='text', name='contactName', id='contactName',value= currentSenior.ContactName, placeholder='Contact Name')
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Contact Email
+                      .col-md-10
+                        input.form-control(type='email', name='contactEmail', id='contactEmail',,value= currentSenior.ContactEmail, placeholder='Contact Email', autocomplete='email')
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Contact Number
+                      .col-md-8
+                        input.form-control(type='text', name='contactNumber', id='contactNumber',value= currentSenior.ContactNumber, placeholder='XXX-XXX-XXXX', maxlength="14")
                     .form-group.row
                       label.col-form-label.col-form-label__stacked Contact relationship to the senior
                       .col-md-8
@@ -65,29 +70,82 @@ block content
                       label.col-form-label.col-form-label__stacked.check-group-label Please check any of the following that apply
                       .col-md-12
                         .form-check
-                          label.form-check-label(for='contactPowerOfAttorney')= myconstants.constants('Power_attorney')
-                            input.form-check-input(type='checkbox', name='power_attorney', id='contactPowerOfAttorney', checked= currentSenior.ContactPowerOfAttorney, placeholder='power_attorney' value=1)
+                          label.form-check-label(for='power_attorney')= myconstants.constants('Power_attorney')
+                            input.form-check-input(type='checkbox', name='contactPowerOfAttorney', id='power_attorney', checked= currentSenior.ContactPowerOfAttorney, placeholder='power_attorney' value=1)
                             span.checkmark
                         .form-check
                           label.form-check-label(for='healthcare_proxy')= myconstants.constants('Healthcare_proxy')
-                            input.form-check-input(type='checkbox', name='healthcare_proxy', id='healthcare_proxy', checked= currentSenior.ContactHealthProxy placeholder='healthcare_proxy' value=1)
+                            input.form-check-input(type='checkbox', name='contactHealthProxy', id='healthcare_proxy', checked= currentSenior.ContactHealthProxy placeholder='healthcare_proxy' value=1)
                             span.checkmark
                     .form-group.row
                       label.col-lg-5.col-md-8.col-form-label I would like the Senior to live with me
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='LiveWithContact_yes') Yes
-                            input.form-radio-input(type='radio', name='LiveWithContact', id='LiveWithContact_yes' value = 'Y', checked= currentSenior.LiveWithContact==='Y')
+                            input.form-radio-input(type='radio', name='liveWithContact', id='LiveWithContact_yes' value = 'Y', checked= currentSenior.LiveWithContact==='Y')
                             span.radio
                         .col-md-12
                           label.form-radio-label.ml-4(for='LiveWithContact_no') No
-                            input.form-radio-input(type='radio', name='LiveWithContact', id='LiveWithContact_no' value = 'N', checked= currentSenior.LiveWithContact==='N')
+                            input.form-radio-input(type='radio', name='liveWithContact', id='LiveWithContact_no' value = 'N', checked= currentSenior.LiveWithContact==='N')
                             span.radio
+
+                -else if (this.title == 'Senior Info')
+                  .form-section
+                    .form-group.form-section-header.form-section-header--center
+                      h3.text-center Senior Information
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Senior Name
+                      .col-md-10
+                        input.form-control(type='text', name='seniorName', id='seniorName', placeholder='Senior Name',value= currentSenior.SeniorName, autofocus)
+                    .form-group.row
+                      label.col-sm-3.col-md-2.col-form-label Gender
+                      .col-md-3
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='M') Male
+                            input.form-radio-input(type='radio', name='gender', id='M',  value = 'M', checked=currentSenior.Gender==='M')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='F') Female
+                            input.form-radio-input(type='radio', name='gender', id='F',  value = 'F', checked=currentSenior.Gender==='F')
+                            span.radio
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Age
+                      .col-md-4
+                        input.form-control(type='number', pattern='^[0–9]$', name='age', id='age', placeholder='Age', value= currentSenior.Age)
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Zip Code
+                      .col-md-4
+                        input.form-control(type='number', pattern='^[0–9]$', name='zipCode', id='zipCode', placeholder='ZipCode', value= currentSenior.Zipcode)
+
                 -else if (this.title == 'Room Assignment')
                   .form-section
                     .form-group.form-section-header
-                      h3.text-left Activities of Daily Living
-                        h4.text-left What level of assistance does the Senior require?
+                      h3.text-left Rooms
+                    .form-group.row
+                      .table-search(style="width:100%")
+                        .row
+                          .main-col(style="width:100%")
+                            .main-col-section
+                              .col-xs-12
+                                table.match-table(style="width:100%")
+                                  thead
+                                    tr
+                                      th Name
+                                      th Count
+                                      th Type
+                                      th Rent
+                                      th
+                                  tbody
+                                    - for (var i = 0; i < rooms.length; i++)
+                                      tr
+                                        td= rooms[i].name
+                                        td= rooms[i].count
+                                        td= rooms[i].type
+                                        td= rooms[i].rent
+                                        td
+                                          label.form-check-label
+                                            input.form-check-input(type='checkbox', name=i, id=i, checked= rooms[i].selected, placeholder='', value=1, onclick=`selectMatch(${JSON.stringify(rooms[i])})` )
+                                            span.checkmark
 
                 -else if (this.title == 'Daily Living')
                   .form-section
@@ -295,11 +353,11 @@ block content
                       .col-md-4
                         .col-md-12
                           label.form-radio-label.ml-4(for='memorycare_yes') Yes
-                            input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked= currentSenior.MemoryCare==='Y')
+                            input.form-radio-input(type='radio', name='memoryCare', id='memorycare_yes' value = 'Y', checked= currentSenior.MemoryCare==='Y')
                             span.radio
                         .col-md-12
                           label.form-radio-label.ml-4(for='memorycare_no') No
-                            input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'N', checked= currentSenior.MemoryCare==='N')
+                            input.form-radio-input(type='radio', name='memoryCare', id='memorycare_no' value = 'N', checked= currentSenior.MemoryCare==='N')
                             span.radio
                     br 
                     .form-group.row
@@ -385,9 +443,41 @@ block content
                           label.form-radio-label.ml-4(for='grounddiets_no') No
                             input.form-radio-input(type='radio', name='groundDiets', id='grounddiets_no' value = 'N', checked= currentSenior.GroundDiets==='N')
                             span.radio
+                    br
+                    .form-group.row
+                      label.col-lg-6.col-md-6.col-form-label Medicaid Bed
+                      .col-md-6
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='medicaid_yes') Yes
+                            input.form-radio-input(type='radio', checked= currentSenior.MedicAid==='Y', name='medicAid', id='medicaid_yes' value = 'Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='medicaid_no') No
+                            input.form-radio-input(type='radio', checked= currentSenior.MedicAid==='N', name='medicAid', id='medicaid_no' value = 'N')
+                            span.radio
+                    br
+                    .form-group.row
+                      label.col-lg-6.col-md-6.col-form-label Does the senior require a secure unit/ unit with a Wanderguard?
+                      .col-md-6
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='wanderguard_yes') Yes
+                            input.form-radio-input(type='radio', checked= currentSenior.Wandergaurd==='Y', name='wanderGaurd', id='wanderguard_yes' value='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='wandergaurd_no') No
+                            input.form-radio-input(type='radio', checked= currentSenior.Wanderguard==='N', name='wanderGaurd', id='wandergaurd_no' value = 'N')
+                            span.radio
+
+
 
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
     script.
+      function selectMatch (room) {
+        console.log('match here', room);
+        // Run the creatematch or deletematch function here, 
+        // try to do it without leaving the page
+        
+      }
       //Phone Number Parsing
       $(document).ready( function() {
         var phone_input = document.getElementById('contactNumber');
@@ -415,6 +505,9 @@ block content
 
           document.getElementById('contactNumber').value = final_value;
         });
+
+
+        
       });
 
             

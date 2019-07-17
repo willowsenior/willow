@@ -1,5 +1,6 @@
 const SeniorMatchModel = require('../models/SeniorMatch');
 const SeniorModel = require('../models/Senior');
+const FacilityController = require('./facility');
 const myconstants = require('../utils/constants');
 
 exports.postCreateSeniorMatch = (req, res) => {
@@ -34,8 +35,8 @@ exports.postCreateSeniorMatch = (req, res) => {
     })
 };
 
-exports.viewSeniorMatch = (req, res) => {
-    console.log('hit the senior match', req.params.senior_id);
+exports.viewSeniorMatch = async (req, res) => {
+    //console.log('hit the senior match', req.params.senior_id);
     //return;
     var senior_id = req.params.senior_id;
 
@@ -44,37 +45,54 @@ exports.viewSeniorMatch = (req, res) => {
         return res.redirect('/signup'); //TODO 404 page
     }
 
-    SeniorMatchModel.find({SeniorID: senior_id})
-    .then((seniorMatch)=>{
-      if (!seniorMatch) console.log('no match');
-      //Then get the senior (seniorMatch.SeniorID)
-      SeniorModel.findById(senior_id)
-      .then((currentSenior)=>{
-          console.log('current senior');
-          if (!currentSenior) console.log('no current senior');
-          //Mark as viewed
-          if (currentSenior) patchSeniorMatchMarkAsViewed(currentSenior._id);
+    try {
+      
+      var seniorMatch = await SeniorMatchModel.find({SeniorID: senior_id});
+      var currentSenior = await SeniorModel.findById(senior_id);
+      if (!currentSenior) console.log('no current senior');
+      if (currentSenior) patchSeniorMatchMarkAsViewed(currentSenior._id);
 
-          res.render('seniors/viewseniormatch', {
-            title: 'View Senior Match',
-            seniorMatch,
-            currentSenior,
-            myconstants
-          });
-
-      })
-      .catch((error)=>{
-          if(error){
-              console.log(error);
-          }
+      //Also need the rooms somehow, replace this eventually
+      //FacilityController._getRooms
+      var rooms = [
+        {
+          name: 'Room 1',
+          count: 3,
+          type: 'Suite',
+          rent: 500,
+          selected: false
+        },
+        {
+          name: 'Room 2',
+          count: 2,
+          type: 'Suite',
+          rent: 750,
+          selected: true
+        },
+        {
+          name: 'Room 3',
+          count: 1,
+          type: 'Suite',
+          rent: 1000,
+          selected: false
+        }
+      ];
+          
+      res.render('seniors/viewseniormatch', {
+        title: 'View Senior Match',
+        seniorMatch,
+        currentSenior,
+        rooms,
+        myconstants
       });
 
-    })
-    .catch((error)=>{
-      if(error){
-          console.log(error);
+    } catch (e) {
+      if(e){
+        console.log(e);
       }
-    });
+    }
+
+ 
 };
 
 // exports.viewSeniorMatch = (req, res) => {
@@ -122,7 +140,7 @@ exports.viewSeniorMatch = (req, res) => {
 // };
 
 exports.deleteSeniorMatch = (req, res) => {
-    var id = req.params.seniormatch_id;
+    var id = req.params.senior_id;
 
     if (!req.user || !req.user.isAdmin) {
         return res.redirect('/');
@@ -143,7 +161,7 @@ exports.deleteSeniorMatch = (req, res) => {
 }
 
 exports.postUpdateSeniorMatch = (req, res) => {
-    var id = req.params.seniormatch_id;
+    var id = req.params.senior_id;
 
     if(!id ) {
         req.flash('errors', "Missing Id");

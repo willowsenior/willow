@@ -22,7 +22,7 @@ exports.postCreateSenior = async (req, res) => {
     }
     var seniorObj = await createSeniorObject(req);
     var seniorModel = new SeniorModel(seniorObj);
-    console.log('do we have the model', seniorModel);
+    //console.log('do we have the model', seniorModel);
 
     seniorModel.save()
     .then(()=>{
@@ -60,7 +60,7 @@ exports.getSeniors = (req, res) => {
             { skip: skipCount, limit: limit }
          )
         .then((seniors) => {
-            console.log('all the seniors', seniors);
+            //console.log('all the seniors', seniors);
             res.render('seniors/viewallseniors', {
                 title: 'View All Seniors',
                 seniors,
@@ -96,6 +96,12 @@ exports.deleteSenior = (req, res) => {
 exports.postUpdateSenior = async (req, res) => {
     var id = req.params.senior_id;
 
+    console.log('hit the senior to update', id);
+    if (req && req.body && req.body.contactNumber) {
+      num = req.body.contactNumber;
+      req.body.contactNumber = num.replace(/[^0-9.]/g, "");
+    }
+
     if (!req.user || !req.user.isAdmin) {
         return res.redirect('/');
     }
@@ -106,8 +112,9 @@ exports.postUpdateSenior = async (req, res) => {
     }
 
     try {
-
+      console.log('req.body', req.body);
       var seniorObject = await createSeniorObject(req);
+
       SeniorModel.findByIdAndUpdate(id, {
         $set: seniorObject
       }).then(() => { 
@@ -116,6 +123,7 @@ exports.postUpdateSenior = async (req, res) => {
       .catch((errors) => {
           console.log(errors || "Senior Update Error.  ID: " + id);
       });
+
     } catch (e) {
       console.log('errors updating senior', e);
     }
@@ -130,6 +138,7 @@ function createSeniorObject(req) {
         WhenAreYouLooking: req.body.whenAreYouLooking,
         ContactName: req.body.contactName,
         ContactEmail: req.body.contactEmail,
+        ContactNumber: req.body.contactNumber,
         ContactRelationship: req.body.contactRelationship,
         ContactPowerOfAttorney: req.body.contactPowerOfAttorney,
         ContactHealthProxy: req.body.contactHealthProxy,
