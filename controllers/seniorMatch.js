@@ -169,7 +169,7 @@ exports.getSeniorMatchesByFacilityId = (params) => {
 
     SeniorMatchModel.find({'FacilityID':id})
     .then((seniorMatches)=>{
-        console.log('did we find anything', seniorMatches);
+        //console.log('did we find anything', seniorMatches);
         return Promise.resolve(seniorMatches);
     }).catch((errors) => {
         console.log('errors in this req', errors);

@@ -21,7 +21,7 @@ exports.getFacility = async (req, res, error) => {
         try {
           currentRooms = await _getRooms(id);
           currentMatches = await _getMatches(currentFacility._id);
-          console.log('matches??', currentMatches);
+          //console.log('matches??', currentMatches);
           res.render('facility', {
             title: 'Facility',
             currentFacility,

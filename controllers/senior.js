@@ -2,7 +2,7 @@ const SeniorModel = require('../models/Senior');
 const myconstants = require('../utils/constants');
 
 exports.getSeniorRecordCreate = (req, res) => {
-    if (!req.user || req.user.isAdmin) {
+    if (!req.user || !req.user.isAdmin) {
         return res.redirect('/');
     }
     var currentSenior = {
@@ -16,11 +16,13 @@ exports.getSeniorRecordCreate = (req, res) => {
     });
 };
 
-exports.postCreateSenior = (req, res) => {   
-    if (!req.user || req.user.isAdmin) {
+exports.postCreateSenior = async (req, res) => {   
+    if (!req.user || !req.user.isAdmin) {
        return res.redirect('/');
     }
-    var seniorModel = new SeniorModel(createSeniorObject(req));
+    var seniorObj = await createSeniorObject(req);
+    var seniorModel = new SeniorModel(seniorObj);
+    console.log('do we have the model', seniorModel);
 
     seniorModel.save()
     .then(()=>{
@@ -58,6 +60,7 @@ exports.getSeniors = (req, res) => {
             { skip: skipCount, limit: limit }
          )
         .then((seniors) => {
+            console.log('all the seniors', seniors);
             res.render('seniors/viewallseniors', {
                 title: 'View All Seniors',
                 seniors,
@@ -90,7 +93,7 @@ exports.deleteSenior = (req, res) => {
     });
 }
 
-exports.postUpdateSenior = (req, res) => {
+exports.postUpdateSenior = async (req, res) => {
     var id = req.params.senior_id;
 
     if (!req.user || !req.user.isAdmin) {
@@ -101,14 +104,24 @@ exports.postUpdateSenior = (req, res) => {
         req.flash('errors', "Missing Senior Id");
         return res.redirect('/signup'); //TODO 404 page
     }
-    var seniorObject = createSeniorObject(req);
 
-    SeniorModel.findByIdAndUpdate(id, {
+    try {
+
+      var seniorObject = await createSeniorObject(req);
+      SeniorModel.findByIdAndUpdate(id, {
         $set: seniorObject
-    }).then(() => { })
-        .catch((errors) => {
-            console.log(errors || "Senior Update Error.  ID: " + id);
-        });
+      }).then(() => { 
+        res.redirect('/getseniors');
+      })
+      .catch((errors) => {
+          console.log(errors || "Senior Update Error.  ID: " + id);
+      });
+    } catch (e) {
+      console.log('errors updating senior', e);
+    }
+    
+
+    
 };
 
 function createSeniorObject(req) {
@@ -123,6 +136,7 @@ function createSeniorObject(req) {
         Gender: req.body.gender,
         Age: req.body.age,
         Zipcode: req.body.zipCode,
+        Hallucination: req.body.hallucinations,
         LiveWithContact: req.body.liveWithContact,
         ShortTermStay: req.body.shortTermStay,
         InsulinShots: req.body.insulinShots,

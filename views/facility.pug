@@ -32,8 +32,12 @@ block content
           { title: 'Matches' }
       ];
 
-  .pb-2.mt-4.mb-4.border-bottom
+  .page-header.pb-2.mt-4.mb-4.border-bottom
     h1 Manage Facility
+    .facility-notification(id="newMatchNot")
+      h2 New Match
+      button 
+        img.close(src="https://s3.amazonaws.com/willow-assets/close.png")
   .content-with-aside
     .side-col
       .side-col__card
@@ -152,11 +156,11 @@ block content
                           tbody
                             tr
                               td 
-                                a(href='/viewseniormatch/'+ '2385763948576') Room Testing A
+                                a(href='/viewsenior/'+ '2385763948576') Room Testing A
                               td 
-                                a(href='/viewseniormatch/'+ '2385763948576') $594
+                                a(href='/viewsenior/'+ '2385763948576') $594
                               td 
-                                a(href='/viewseniormatch/'+ '2385763948576') 23576932
+                                a(href='/viewsenior/'+ '2385763948576') 23576932
                                 span.unread
                             tr
                               td Room Testing A
@@ -170,6 +174,20 @@ block content
                               td Room Testing A
                               td $594
                               td 23576932
+
+
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+    script.
+      $(document).ready( function() {
+        console.log('does this hit');
+        var notification_element = document.getElementById('newMatchNot');
+
+        setTimeout(function(){ 
+          notification_element.className += " showNot";
+        }, 1500);
+        
+      });
 
 
 

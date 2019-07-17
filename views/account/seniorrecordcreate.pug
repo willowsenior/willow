@@ -281,16 +281,16 @@ block content
                     h3.text-center Senior's Health Information
                 br
                 .form-group.row
-                    label.col-lg-6.col-md-6.col-form-label How Many Insulin Shots Can You Administer?
+                    label.col-lg-6.col-md-6.col-form-label How many daily insulin shots does the senior require?
                     .col-md-4
-                        input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', valueInsulinShots)
+                        input.form-control(type='number', name='insulinShots', id='insulinShots', placeholder='Insulin Shots')
                 br 
                 .form-group.row
                     label.col-lg-6.col-md-6.col-form-label Hallucinations
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_yes') Yes
-                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked= Hallucinations==='Y')
+                                input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked= Hallucination==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='hallucinations_no') No
@@ -302,59 +302,59 @@ block content
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_yes') Yes
-                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_yes' value = 'Y', checked=MemoryCare==='Y')
+                                input.form-radio-input(type='radio', name='memoryCare', id='memorycare_yes' value = 'Y', checked=MemoryCare==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_no') No
-                                input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'N', checked=MemoryCare==='N')
+                                input.form-radio-input(type='radio', name='memoryCare', id='memorycare_no' value = 'N', checked=MemoryCare==='N')
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-6.col-md-6.col-form-label Would you Take a Resident with an Oxygen Tank?
+                    label.col-lg-6.col-md-6.col-form-label Does the senior require an Oxygen Tank?
                     .col-md-6
                         .col-md-12
-                            label.form-radio-label.ml-4(for='oxygentank_yes') Yes
-                                input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_yes' value = 'Y', checked=OxygenTank==='Y')
+                            label.form-radio-label.ml-4(for='oxygenTank_yes') Yes
+                                input.form-radio-input(type='radio', name='oxygenTank', id='oxygenTank_yes' value = 'Y', checked=oxygenTank==='Y')
                                 span.radio
                         .col-md-12
-                            label.form-radio-label.ml-4(for='oxygentank_no') No
-                                input.form-radio-input(type='radio', name='oxygentank', id='oxygentank_no' value = 'N', checked=OxygenTank==='N')
+                            label.form-radio-label.ml-4(for='oxygenTank_no') No
+                                input.form-radio-input(type='radio', name='oxygenTank', id='oxygenTank_no' value = 'N', checked=oxygenTank==='N')
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-6.col-md-6.col-form-label Would you Take a Resident who cannot change an Oxygen Tank by Themselves?
+                    label.col-lg-6.col-md-6.col-form-label Can the senior change their oxygen tank themselves?
                     .col-md-6
                         .col-md-12
-                            label.form-radio-label.ml-4(for='changeoxygentank_yes') Yes
-                                input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_yes' value = 'Y' checked=ChangeOxygenTank==='Y')
+                            label.form-radio-label.ml-4(for='changeOxygenTank_yes') Yes
+                                input.form-radio-input(type='radio', name='changeOxygenTank', id='changeOxygenTank_yes' value = 'Y' checked=changeOxygenTank==='Y')
                                 span.radio
                         .col-md-12
-                            label.form-radio-label.ml-4(for='changeoxygentank_no') No
-                                input.form-radio-input(type='radio', name='changeoxygentank', id='changeoxygentank_no' value = 'N' checked=ChangeOxygenTank==='N')
+                            label.form-radio-label.ml-4(for='changeOxygenTank_no') No
+                                input.form-radio-input(type='radio', name='changeOxygenTank', id='changeOxygenTank_no' value = 'N' checked=changeOxygenTank==='N')
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-6.col-md-6.col-form-label Would you take a Resident who needs to be on oxygen at all times?
+                    label.col-lg-6.col-md-6.col-form-label Does the senior require an oxygen tank at all times?
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='alltimeoxygen_yes') Yes
-                                input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_yes' value = 'Y',  checked=AllTimeOxygen==='Y')
+                                input.form-radio-input(type='radio', name='allTimeOxygen', id='allTimeOxygen_yes' value = 'Y',  checked=AllTimeOxygen==='Y')
                                 span.radio
                         .col-md-12
-                            label.form-radio-label.ml-4(for='alltimeoxygen_no') No
-                                input.form-radio-input(type='radio', name='alltimeoxygen', id='alltimeoxygen_no' value = 'N' checked=AllTimeOxygen==='N')
+                            label.form-radio-label.ml-4(for='allTimeOxygen_no') No
+                                input.form-radio-input(type='radio', name='allTimeOxygen', id='allTimeOxygen_no' value = 'N' checked=allTimeOxygen==='N')
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-6.col-md-6.col-form-label Would you take a Resident who cannot change their own catheter/colostomy bag?
+                    label.col-lg-6.col-md-6.col-form-label Can the senior change their own catheter/colostomy bag?
                     .col-md-6
                         .col-md-12
-                            label.form-radio-label.ml-4(for='changecatheter_yes') Yes
-                                input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_yes' value = 'Y' checked=ChangeCatheter==='Y')
+                            label.form-radio-label.ml-4(for='ChangeCatheter_yes') Yes
+                                input.form-radio-input(type='radio', name='changeCatheter', id='ChangeCatheter_yes' value = 'Y' checked=ChangeCatheter==='Y')
                                 span.radio
                         .col-md-12
-                            label.form-radio-label.ml-4(for='changecatheter_no') No
-                                input.form-radio-input(type='radio', name='changecatheter', id='changecatheter_no' value = 'N' checked=ChangeCatheter==='N')
+                            label.form-radio-label.ml-4(for='ChangeCatheter_no') No
+                                input.form-radio-input(type='radio', name='changeCatheter', id='ChangeCatheter_no' value = 'N' checked=ChangeCatheter==='N')
                                 span.radio
 
         .step-form-tab
@@ -363,35 +363,35 @@ block content
                     h3.text-center Senior's Health Information cont...
                 br 
                 .form-group.row
-                    label.col-lg-6.col-md-6.col-form-label Do you provide medication management?
+                    label.col-lg-6.col-md-6.col-form-label Does the senior require medication management?
                     .col-md-6
                         .col-md-12
-                            label.form-radio-label.ml-4(for='medicationmanagement_yes') Yes
-                                input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_yes' value = 'Y' checked=MedicationManagement==='Y')
+                            label.form-radio-label.ml-4(for='medicationManagement_yes') Yes
+                                input.form-radio-input(type='radio', name='medicationManagement', id='medicationManagement_yes' value = 'Y' checked=medicationManagement==='Y')
                                 span.radio
                         .col-md-12
-                            label.form-radio-label.ml-4(for='medicationmanagement_no') No
-                                input.form-radio-input(type='radio', name='medicationmanagement', id='medicationmanagement_no' value = 'N' checked=MedicationManagement==='N')
+                            label.form-radio-label.ml-4(for='medicationManagement_no') No
+                                input.form-radio-input(type='radio', name='medicationManagement', id='medicationManagement_no' value = 'N' checked=medicationManagement==='N')
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-6.col-md-6.col-md-5.col-form-label Do you provide thickened liquid diets for residents?
+                    label.col-lg-6.col-md-6.col-md-5.col-form-label  Does the senior require a liquid diet?
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='liquiddiets_yes') Yes
-                                input.form-radio-input(type='radio', name='liquidDiets', id='liquiddiets_yes' value = 'Y' checked=LiquidDiets==='Y')
+                                input.form-radio-input(type='radio', name='liquidDiets', id='liquiddiets_yes' value = 'Y' checked=liquidDiets==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='liquiddiets_no') No
-                                input.form-radio-input(type='radio', name='liquidDiets', id='liquiddiets_no' value = 'N' checked=LiquidDiets==='N')
+                                input.form-radio-input(type='radio', name='liquidDiets', id='liquiddiets_no' value = 'N' checked=liquidDiets==='N')
                                 span.radio
                 br 
                 .form-group.row
-                    label.col-lg-6.col-md-6.col-form-label Do you provide ground diets for residents?
+                    label.col-lg-6.col-md-6.col-form-label Does the senior require a ground diet?
                     .col-md-6
                         .col-md-12
                             label.form-radio-label.ml-4(for='grounddiets_yes') Yes
-                                input.form-radio-input(type='radio', name='groundDiets', id='grounddiets_yes' value = 'Y' checked=GroundDiets==='Y')
+                                input.form-radio-input(type='radio', name='groundDiets', id='grounddiets_yes' value = 'Y' checked=groundDiets==='Y')
                                 span.radio
                         .col-md-12
                             label.form-radio-label.ml-4(for='grounddiets_no') No

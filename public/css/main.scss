@@ -614,6 +614,60 @@ label {
 
 }
 
+@keyframes reveal-notification { 
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    100% { 
+        opacity: 1;
+        display: block;
+    } 
+}
+
+// Home Page animation
+.facility-notification {
+    position: absolute;
+    opacity: 0;
+    right: 0px;
+    bottom: 10px;
+    padding: 15px 0px 10px 20px;
+    background-color: $willow-green;
+    color: $white;
+    display: none;
+    border-radius: 3px;
+    max-width: calc(100% - 215px);
+    width: 60%;
+    &.showNot {
+        display: block;
+        opacity: 1;
+        transition: opacity 250ms;
+        animation-name: reveal-notification;
+        animation-duration: 500ms;
+        animation-iteration-count: 1;
+        
+    }
+    > * {
+        margin: 0px;
+    }
+    button {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        opacity: 1;
+        img {
+            height: 25px;
+            opacity: 1;
+            &:hover {
+                opacity: 0.9;
+            };
+        }
+    }
+}
+
 // Custom Checkbox
 .form-check-input {
     width: 17px;
@@ -1163,6 +1217,10 @@ form {
 
 // Home Page
 // --------------------------
+
+.page-header {
+    position: relative;
+}
 
 .hero-image {
     position: fixed;
