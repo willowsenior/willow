@@ -21,6 +21,7 @@ const facilitySchema = new mongoose.Schema({
     MedicationManagement: String,
     LiquidDiets: String,
     GroundDiets: String,
+    NewMatch: Boolean,
     // FacilityPhoto:
     FacilityFeatures: {
         Eating_noassistance: Boolean,

@@ -1090,6 +1090,13 @@ form {
             outline: none;
         }
     }
+    &.btn-header {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: auto;
+        color: $white;
+    }
 }
 
 .btn-edit {

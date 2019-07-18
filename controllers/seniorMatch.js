@@ -102,6 +102,7 @@ exports.viewSeniorMatch = async (req, res) => {
       //     selected: false
       //   }
       // ];
+      currentSenior.rooms = rooms;
           
       res.render('seniors/viewseniormatch', {
         title: 'View Senior',

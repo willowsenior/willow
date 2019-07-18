@@ -1,5 +1,7 @@
 const SeniorModel = require('../models/Senior');
 const myconstants = require('../utils/constants');
+var _ = require('lodash');
+
 
 exports.getSeniorRecordCreate = (req, res) => {
     if (!req.user || !req.user.isAdmin) {
@@ -95,8 +97,21 @@ exports.deleteSenior = (req, res) => {
 
 exports.postUpdateSenior = async (req, res) => {
     var id = req.params.senior_id;
+    var toSearch = 'roomMatch';
+    var dataArray = Array.from(Object.keys(req.body), k=>[`${k}`, req.body[k]]);
 
-    console.log('hit the senior to update', id);
+    // Use these to create or delete matches,
+    // 1. If the value of the match is 1 the room doesn't exist in the Senior.RoomMatches Array:
+    //       - create the match
+    //       - add the room id to Senior.RoomMatches
+    //       - add the senior id to Room.SeniorIds
+    //       - patch the facility (using the id on the room) to have newMatch bool set to true
+    // 2. If the value of the match is 0 and the room exists in the Senior.RoomMatches Array:
+    //    - delete the match, remove room id from Senior.RoomMatches, remove senior id from Room.SeniorIds
+    var roomMatches = await filterIt(dataArray, toSearch);
+
+    console.log('hit the senior to update', roomMatches);
+
     if (req && req.body && req.body.contactNumber) {
       num = req.body.contactNumber;
       req.body.contactNumber = num.replace(/[^0-9.]/g, "");
@@ -128,9 +143,15 @@ exports.postUpdateSenior = async (req, res) => {
       console.log('errors updating senior', e);
     }
     
-
-    
 };
+
+function filterIt(arr, searchKey) {
+  return arr.filter(function(obj) {
+    return Object.keys(obj).some(function(key) {
+      return obj[key].includes(searchKey);
+    })
+  });
+}
 
 function createSeniorObject(req) {
     return {

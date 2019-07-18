@@ -119,8 +119,9 @@ block content
 
                 -else if (this.title == 'Room Assignment')
                   .form-section
-                    .form-group.form-section-header
+                    .form-group.form-section-header.form-section-header__with-button
                       h3.text-left Rooms
+
                     .form-group.row
                       .table-search(style="width:100%")
                         .row
@@ -136,15 +137,15 @@ block content
                                       th Rent
                                       th
                                   tbody
-                                    - for (var i = 0; i < rooms.length; i++)
+                                    - for (var i = 0; i < currentSenior.rooms.length; i++)
                                       tr
-                                        td= rooms[i].RoomName
-                                        td= rooms[i].RoomCount
-                                        td= rooms[i].RoomType
-                                        td= rooms[i].Range.min
+                                        td= currentSenior.rooms[i].RoomName
+                                        td= currentSenior.rooms[i].RoomCount
+                                        td= currentSenior.rooms[i].RoomType
+                                        td= currentSenior.rooms[i].Range.min
                                         td
                                           label.form-check-label
-                                            input.form-check-input(type='checkbox', name=i, id=i, checked= rooms[i].selected, placeholder='', value=1, onclick=`selectMatch(${JSON.stringify(rooms[i])})` )
+                                            input.form-check-input(type='checkbox', id=`roomMatch-${currentSenior.rooms[i]._id}`, checked= currentSenior.rooms[i].selected, placeholder='', value=1, name=`roomMatch-${currentSenior.rooms[i]._id}`  )
                                             span.checkmark
 
                 -else if (this.title == 'Daily Living')
@@ -472,12 +473,8 @@ block content
 
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
     script.
-      function selectMatch (room) {
-        console.log('match here', room);
-        // Run the creatematch or deletematch function here, 
-        // try to do it without leaving the page
-        
-      }
+      
+
       //Phone Number Parsing
       $(document).ready( function() {
         var phone_input = document.getElementById('contactNumber');

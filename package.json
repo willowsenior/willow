@@ -37,6 +37,7 @@
     "fs": "0.0.1-security",
     "jquery": "^3.4.1",
     "json2xls": "^0.1.2",
+    "lodash": "^4.17.14",
     "method-override": "^3.0.0",
     "mongo-xlsx": "^1.0.12",
     "mongoose": "^5.4.1",
