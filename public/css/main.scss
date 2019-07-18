@@ -687,6 +687,7 @@ table {
     label.form-check-label {
         margin: 0px;
         .checkmark {
+            cursor: pointer;
             left: 0px;
             top: -10px;
         }

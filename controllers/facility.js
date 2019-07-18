@@ -19,9 +19,8 @@ exports.getFacility = async (req, res, error) => {
         currentFacility = facility;
         
         try {
-          currentRooms = await _getRooms(id);
-          currentMatches = await _getMatches(currentFacility._id);
-          //console.log('matches??', currentMatches);
+          currentRooms = await RoomModel.find({'FacilityID': id});
+          currentMatches = await SeniorMatchController.getSeniorMatchesByFacilityId({id: id});
           res.render('facility', {
             title: 'Facility',
             currentFacility,
@@ -40,7 +39,7 @@ exports.getFacility = async (req, res, error) => {
 };
 
 function _getRooms (id) {
-  RoomModel.find({'FacilityID':id})
+  RoomModel.find({'FacilityID': id})
   .then((rooms)=>{
     return rooms;
   }).catch((error) => {
@@ -260,13 +259,13 @@ exports.getRoomSignup = (req, res, error) => {
   });
 };
 
-exports.postRoomSignup = (req, res, error) => {
+exports.postRoomSignup = async (req, res, error) => {
   const errors = req.validationErrors();
   var id = req.params.facility_id;
   
-  FacilityModel.findById(id)
-  .then((facility)=>{
-    var room = new RoomModel({
+  try {
+    var facility = await FacilityModel.findById(id);
+    var room = await new RoomModel({
       FacilityID: id,
       FacilityName: facility.FacilityName,
       RoomName: req.body.roomName,
@@ -328,7 +327,8 @@ exports.postRoomSignup = (req, res, error) => {
         Behaviourial_unpredictable : req.body.behaviourial_unpredictable
       }
     });
-  
+
+    console.log('room to save with facility id', facility._id, room);
     room.save(function(err) {
   
       if (err) {
@@ -337,17 +337,11 @@ exports.postRoomSignup = (req, res, error) => {
       }
       res.redirect('/facility/'+id);
     }); 
-  })
-  .catch((error)=>{
-    if(error){
-      console.log(error);
-    }
-  })
 
-  if (errors) {
-      req.flash('errors', errors);
-      return res.redirect('/signup');
+  } catch (e) {
+    console.error('error', e);
   }
+  
 };
 
 exports.putRoomUpdate = (req, res, error) => {

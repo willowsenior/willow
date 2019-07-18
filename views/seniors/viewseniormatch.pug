@@ -138,10 +138,10 @@ block content
                                   tbody
                                     - for (var i = 0; i < rooms.length; i++)
                                       tr
-                                        td= rooms[i].name
-                                        td= rooms[i].count
-                                        td= rooms[i].type
-                                        td= rooms[i].rent
+                                        td= rooms[i].RoomName
+                                        td= rooms[i].RoomCount
+                                        td= rooms[i].RoomType
+                                        td= rooms[i].Range.min
                                         td
                                           label.form-check-label
                                             input.form-check-input(type='checkbox', name=i, id=i, checked= rooms[i].selected, placeholder='', value=1, onclick=`selectMatch(${JSON.stringify(rooms[i])})` )

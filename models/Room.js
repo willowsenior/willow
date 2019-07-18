@@ -23,6 +23,7 @@ const RoomSchema = new mongoose.Schema({
     MedicationManagement: String,
     LiquidDiets: String,
     GroundDiets: String,
+    SeniorMatches: Array, //Array of all SeniorMatch's that have been made to this room
     // FacilityPhoto:
     FacilityFeatures: {
         Eating_noassistance: Boolean,
