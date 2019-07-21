@@ -212,7 +212,7 @@ exports.postUpdateSeniorMatch = (req, res) => {
 exports.getSeniorMatchesByFacilityId = (params) => {
     var id = params.id;
 
-    SeniorMatchModel.find({'FacilityID':id})
+    SeniorMatchModel.find({'FacilityId':id})
     .then((seniorMatches)=>{
         console.log('did we find anything', seniorMatches);
         return Promise.resolve(seniorMatches);

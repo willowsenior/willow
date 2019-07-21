@@ -1,6 +1,7 @@
 const FacilityModel = require('../models/Facility');
 const SeniorMatchController = require('./seniorMatch');
 const RoomModel = require('../models/Room');
+const SeniorMatchModel = require('../models/SeniorMatch');
 const myconstants = require('../utils/constants');
 const async = require('async');
 
@@ -9,18 +10,25 @@ const async = require('async');
  * Home page.
  */
 exports.getFacility = async (req, res, error) => {
-    var id = req.params.facility_id;
+    var facilityId = req.params.facility_id;
     var currentFacility;
     var currentRooms;
     var currentMatches;
 
-    FacilityModel.findById(id)
+    FacilityModel.findById(facilityId)
     .then(async (facility)=>{
         currentFacility = facility;
         
         try {
-          currentRooms = await RoomModel.find({'FacilityID': id});
-          currentMatches = await SeniorMatchController.getSeniorMatchesByFacilityId({id: id});
+          currentRooms = await RoomModel.find({'FacilityID': facilityId});
+          currentMatches = await SeniorMatchModel.find({'FacilityId': facilityId});
+          
+          if(currentMatches.some(isMatchViewed)){
+            currentFacility.NewMatch = true;
+          } else {
+            currentFacility.NewMatch = false;
+          }
+
           res.render('facility', {
             title: 'Facility',
             currentFacility,
@@ -31,8 +39,6 @@ exports.getFacility = async (req, res, error) => {
         } catch (e) {
           console.log(e);
         }
-        
-
     }).catch((err) =>{
       console.error('Error on fetching rooms: ', err); 
     }); 
@@ -553,4 +559,8 @@ exports.getRooms = (req, res) => {
       });
   }
 };
+
+function isMatchViewed (seniorMatch) {
+  return !seniorMatch.IsViewed;
+}
 
