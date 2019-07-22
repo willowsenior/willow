@@ -1,4 +1,5 @@
 const SeniorModel = require('../models/Senior');
+const SeniorMatches = require('../models/SeniorMatch');
 const myconstants = require('../utils/constants');
 var _ = require('lodash');
 
@@ -100,6 +101,7 @@ exports.postUpdateSenior = async (req, res) => {
     var toSearch = 'roomMatch';
     var dataArray = Array.from(Object.keys(req.body), k=>[`${k}`, req.body[k]]);
 
+
     // Use these to create or delete matches,
     // 1. If the value of the match is 1 the room doesn't exist in the Senior.RoomMatches Array:
     //       - create the match
@@ -110,7 +112,29 @@ exports.postUpdateSenior = async (req, res) => {
     //    - delete the match, remove room id from Senior.RoomMatches, remove senior id from Room.SeniorIds
     var roomMatches = await filterIt(dataArray, toSearch);
 
-    console.log('hit the senior to update', roomMatches);
+    //delete all rooms
+    await SeniorMatches.deleteMany({'SeniorId': id});
+
+    if(roomMatches.length > 0) {
+        var seniorMatch = new SeniorMatchModel({
+            SeniorId: id,
+            RoomId: roomMatches[0].room_id,
+            FacilityId: roomMatches[0].facility_id,
+            IsViewed: false
+        });
+
+        seniorMatch.save().then((seniorMatch) => {
+            SeniorModel.findByIdAndUpdate(seniorId, {$set: {
+                SeniorMatchId: seniorMatch._id
+            }}).catch((error) => {
+                console.log(error || "Error updating the SeniorMatchId")
+            });
+        }).catch((error) => {
+            if(error){
+                console.log(error);
+            }
+        });
+    }
 
     if (req && req.body && req.body.contactNumber) {
       num = req.body.contactNumber;
