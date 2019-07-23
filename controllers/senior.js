@@ -1,5 +1,7 @@
 const SeniorModel = require('../models/Senior');
-const SeniorMatches = require('../models/SeniorMatch');
+const RoomModel = require('../models/Room');
+const FacilityModel = require('../models/Facility');
+const SeniorMatch = require('../models/SeniorMatch');
 const myconstants = require('../utils/constants');
 var _ = require('lodash');
 
@@ -97,77 +99,123 @@ exports.deleteSenior = (req, res) => {
 }
 
 exports.postUpdateSenior = async (req, res) => {
-    var id = req.params.senior_id;
+    var senior_id = req.params.senior_id;
     var toSearch = 'roomMatch';
     var dataArray = Array.from(Object.keys(req.body), k=>[`${k}`, req.body[k]]);
-
-
-    // Use these to create or delete matches,
-    // 1. If the value of the match is 1 the room doesn't exist in the Senior.RoomMatches Array:
-    //       - create the match
-    //       - add the room id to Senior.RoomMatches
-    //       - add the senior id to Room.SeniorIds
-    //       - patch the facility (using the id on the room) to have newMatch bool set to true
-    // 2. If the value of the match is 0 and the room exists in the Senior.RoomMatches Array:
-    //    - delete the match, remove room id from Senior.RoomMatches, remove senior id from Room.SeniorIds
-    var roomMatches = await filterIt(dataArray, toSearch);
-
-    //delete all rooms
-    await SeniorMatches.deleteMany({'SeniorId': id});
-
-    if(roomMatches.length > 0) {
-        var seniorMatch = new SeniorMatchModel({
-            SeniorId: id,
-            RoomId: roomMatches[0].room_id,
-            FacilityId: roomMatches[0].facility_id,
-            IsViewed: false
-        });
-
-        seniorMatch.save().then((seniorMatch) => {
-            SeniorModel.findByIdAndUpdate(seniorId, {$set: {
-                SeniorMatchId: seniorMatch._id
-            }}).catch((error) => {
-                console.log(error || "Error updating the SeniorMatchId")
-            });
-        }).catch((error) => {
-            if(error){
-                console.log(error);
-            }
-        });
-    }
-
-    if (req && req.body && req.body.contactNumber) {
-      num = req.body.contactNumber;
-      req.body.contactNumber = num.replace(/[^0-9.]/g, "");
-    }
-
-    if (!req.user || !req.user.isAdmin) {
-        return res.redirect('/');
-    }
-
-    if (!id) {
-        req.flash('errors', "Missing Senior Id");
-        return res.redirect('/signup'); //TODO 404 page
-    }
+    var roomMatches = [];
 
     try {
-      console.log('req.body', req.body);
+      var roomIdArray = await filterIt(dataArray, toSearch);
+
+      //Delete all room matches
+      //await SeniorMatches.deleteMany({'SeniorId': id});
+
+      //Get just the rooms to add
+      var roomsToAddArray = _.remove(roomIdArray, function(room) {
+          return room[1].indexOf('1') > -1;
+      });
+      //Then get just the room ids to add
+      var roomsToAdd = roomsToAddArray.map(room => {
+          return room[0].slice(10);
+      });
+
+      if(roomsToAdd.length > 0) {
+        //1. Create a match for each room we're adding
+        await roomsToAdd.forEach(async (room_id) => {
+
+          var rooms = await _getRoom(room_id),
+              room = rooms[0];
+
+          console.log('found a room', room_id, room);
+          var roomSeniors = await _.union(room.SeniorMatches, senior_id);
+
+          //2. Add senior Id to the room
+          await RoomModel.findByIdAndUpdate(room._id, {$set: {
+            SeniorMatches: roomSeniors
+          }});
+          
+
+          //3. Setup the SeniorMatch object and Update the facility to have new match
+          var seniorMatch = new SeniorMatch({
+              SeniorId: senior_id,
+              RoomId: room_id,
+              FacilityId: room.FacilityID,
+              IsViewed: false
+          });
+          console.log('save this match', seniorMatch);
+          await FacilityModel.findByIdAndUpdate(room.FacilityID, {$set: {
+            NewMatch: true
+          }}).catch((error) => {
+              console.log(error || "Error updating the Facility")
+          });
+
+          //4. Save the senior match
+          seniorMatch.save().then((seniorMatch) => {
+              console.log('saved one', seniorMatch);
+          }).catch((error) => {
+              if(error){
+                console.log(error);
+              }
+          });
+        });
+
+       
+        //5. Get existing rooms matched to senior
+        var matches = await SeniorModel.findById(senior_id).then(async senior => {
+            return senior.RoomMatches;
+        }).catch((error) => {
+            console.log(error || "Error get the senior")
+        });
+
+
+        //console.log('already have some matches', matches);
+        //6. Set new array with rooms passed plus uniq existing
+        roomMatches = _.union(matches, roomsToAdd);
+        req.body.roomMatches = roomMatches;
+
+      }
+
+      if (req && req.body && req.body.contactNumber) {
+        num = req.body.contactNumber;
+        req.body.contactNumber = num.replace(/[^0-9.]/g, "");
+      }
+
+      if (!req.user || !req.user.isAdmin) {
+        return res.redirect('/');
+      }
+
+      if (!senior_id) {
+        req.flash('errors', "Missing Senior Id");
+        return res.redirect('/signup'); //TODO 404 page
+      }
+
+      req.body.roomMatches = roomMatches ? roomMatches : [];
+
+      //7. Create Senior object and Update the senior
       var seniorObject = await createSeniorObject(req);
 
-      SeniorModel.findByIdAndUpdate(id, {
+      console.log('senior object to update', seniorObject);
+
+      SeniorModel.findByIdAndUpdate(senior_id, {
         $set: seniorObject
       }).then(() => { 
         res.redirect('/getseniors');
       })
       .catch((errors) => {
-          console.log(errors || "Senior Update Error.  ID: " + id);
+          console.log(errors || "Senior Update Error.  ID: " + senior_id);
       });
 
     } catch (e) {
       console.log('errors updating senior', e);
     }
     
+    
 };
+
+async function _getRoom(room_id) {
+  console.log('use this id', room_id);
+  return RoomModel.find({_id: room_id}).lean().exec();
+}
 
 function filterIt(arr, searchKey) {
   return arr.filter(function(obj) {
@@ -211,6 +259,7 @@ function createSeniorObject(req) {
         LongTermInsurance: req.body.longTermInsurance,
         LifeInsurance: req.body.lifeInsurance,
         SeniorMatchId: null,
+        RoomMatches: req.body.roomMatches,
         FacilityFeatures: {
             Eating_noassistance: req.body.eating_noassistance,
             Eating_intermittent: req.body.eating_intermittent,

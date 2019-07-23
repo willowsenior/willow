@@ -36,7 +36,7 @@ const SeniorSchema = new mongoose.Schema({
         default: 0,
         type: Boolean
     },
-    SeniorMatchId: String,
+    SeniorMatchId: String, //This is once we implement an ACTUAL match for a senior, aka choose one from the array of RoomMatches
     RoomMatches: Array,
     FacilityFeatures: {
         Eating_noassistance: Boolean,

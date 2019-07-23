@@ -34,10 +34,11 @@ block content
 
   .page-header.pb-2.mt-4.mb-4.border-bottom
     h1 Manage Facility
-    .facility-notification(id="newMatchNot")
-      h2 New Match
-      button 
-        img.close(src="https://s3.amazonaws.com/willow-assets/close.png")
+    - if (currentFacility.NewMatch)
+      .facility-notification(id="newMatchNot")
+        h2 New Match
+        button 
+          img.close(src="https://s3.amazonaws.com/willow-assets/close.png")
   .content-with-aside
     .side-col
       .side-col__card
@@ -152,28 +153,18 @@ block content
                             tr
                               th Room Name
                               th Room Rent
-                              th Contact ID
+                              th Senior ID
                           tbody
-                            tr
-                              td 
-                                a(href='/viewsenior/'+ '2385763948576') Room Testing A
-                              td 
-                                a(href='/viewsenior/'+ '2385763948576') $594
-                              td 
-                                a(href='/viewsenior/'+ '2385763948576') 23576932
-                                span.unread
-                            tr
-                              td Room Testing A
-                              td $594
-                              td 23576932
-                            tr
-                              td Room Testing A
-                              td $594
-                              td 23576932
-                            tr
-                              td Room Testing A
-                              td $594
-                              td 23576932
+                            each match in currentMatches
+                              tr
+                                td 
+                                  a(href='/viewsenior/'+ match.SeniorId)= match.room.RoomName
+                                td 
+                                  a(href='/viewsenior/'+ match.SeniorId)= match.room.Range.min
+                                td 
+                                  a(href='/viewsenior/'+ match.SeniorId)= match.SeniorId
+                                  - if (!match.IsViewed)
+                                      span.unread
 
 
 

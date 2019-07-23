@@ -62,7 +62,7 @@ exports.viewSeniorMatch = async (req, res) => {
 
       if (facility_id) {
         rooms = await RoomModel.find({FacilityID: facility_id});
-        console.log('got rooms', rooms);
+        //console.log('got rooms', rooms);
 
         //Need an array of current rooms that are matched to this senior
         await rooms.map(room => {
@@ -79,29 +79,7 @@ exports.viewSeniorMatch = async (req, res) => {
       } else {
         console.log('no facility');
       } 
-      // var rooms = [
-      //   {
-      //     name: 'Room 1',
-      //     count: 3,
-      //     type: 'Suite',
-      //     rent: 500,
-      //     selected: false
-      //   },
-      //   {
-      //     name: 'Room 2',
-      //     count: 2,
-      //     type: 'Suite',
-      //     rent: 750,
-      //     selected: true
-      //   },
-      //   {
-      //     name: 'Room 3',
-      //     count: 1,
-      //     type: 'Suite',
-      //     rent: 1000,
-      //     selected: false
-      //   }
-      // ];
+
       currentSenior.rooms = rooms;
           
       res.render('seniors/viewseniormatch', {
@@ -214,7 +192,7 @@ exports.getSeniorMatchesByFacilityId = (params) => {
 
     SeniorMatchModel.find({'FacilityId':id})
     .then((seniorMatches)=>{
-        console.log('did we find anything', seniorMatches);
+        console.log('did we find any senior matches', seniorMatches);
         return Promise.resolve(seniorMatches);
     }).catch((errors) => {
         console.log('errors in this req', errors);

@@ -22,20 +22,42 @@ exports.getFacility = async (req, res, error) => {
         try {
           currentRooms = await RoomModel.find({'FacilityID': facilityId});
           currentMatches = await SeniorMatchModel.find({'FacilityId': facilityId});
-          
-          if(currentMatches.some(isMatchViewed)){
-            currentFacility.NewMatch = true;
-          } else {
-            currentFacility.NewMatch = false;
-          }
 
-          res.render('facility', {
-            title: 'Facility',
-            currentFacility,
-            currentMatches,
-            currentRooms,
-            myconstants
+          var mapPromise = new Promise((resolve, reject) => {
+            var newMatches = [];
+            currentMatches.forEach(match => {
+              //console.log('match', match._id);
+              RoomModel.findById(match.RoomId).lean().exec(function (err, room) {
+                match = match.toObject();
+                Object.assign(match, {room: room});
+                console.log('match with room', match);
+                newMatches.push(match);
+                if(newMatches.length === currentMatches.length) {
+                  resolve(newMatches);
+                }
+              });
+            });
+            
           });
+          
+          mapPromise.then(currentMatches => {
+
+            if(currentMatches && currentMatches.some(isMatchViewed)){
+              currentFacility.NewMatch = true;
+            } else {
+              currentFacility.NewMatch = false;
+            }
+            console.log('do we have rooms and matches', currentMatches);
+
+            res.render('facility', {
+              title: 'Facility',
+              currentFacility,
+              currentMatches,
+              currentRooms,
+              myconstants
+            });
+          })
+          
         } catch (e) {
           console.log(e);
         }
@@ -43,6 +65,17 @@ exports.getFacility = async (req, res, error) => {
       console.error('Error on fetching rooms: ', err); 
     }); 
 };
+
+async function _mapMatches (currentMatches) {
+
+
+  promise.then(newMatches => {
+    console.log('newMatches', newMatches);
+    return newMatches;
+  });
+  
+  
+}
 
 function _getRooms (id) {
   RoomModel.find({'FacilityID': id})
