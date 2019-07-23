@@ -55,7 +55,7 @@ exports.viewSeniorMatch = async (req, res) => {
       var facilities = await Facility.find({"Email": req.user.email});
       var facility_id = facilities.length ? facilities[0]._id : undefined;
 
-      var seniorMatches = await SeniorMatchModel.find({SeniorID: senior_id});
+      var seniorMatches = await SeniorMatchModel.find({SeniorId: senior_id});
       var currentSenior = await SeniorModel.findById(senior_id);
       if (!currentSenior) console.log('no current senior');
       if (currentSenior) patchSeniorMatchMarkAsViewed(currentSenior._id);
