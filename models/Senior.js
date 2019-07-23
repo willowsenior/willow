@@ -4,6 +4,7 @@ const SeniorSchema = new mongoose.Schema({
     SeniorName: String,
     WhenAreYouLooking: String,  //TODO: Maybe make into Enum?
     ContactName: String,
+    ContactNumber: String,
     ContactEmail: String,
     ContactRelationship: String,
     ContactPowerOfAttorney: Boolean,
