@@ -1,4 +1,4 @@
-const SeniorMatchModel = require('../models/SeniorMatch');
+const SeniorMatch = require('../models/SeniorMatch');
 const SeniorModel = require('../models/Senior');
 const Facility = require('../models/Facility');
 const FacilityController = require('./facility');
@@ -17,7 +17,7 @@ exports.postCreateSeniorMatch = (req, res) => {
         return res.redirect('/');
     }
 
-    var seniorMatch = new SeniorMatchModel({
+    var seniorMatch = new SeniorMatch({
         SeniorId: seniorId,
         RoomId: req.body.room_id,
         FacilityId: req.body.facility_id,
@@ -38,7 +38,7 @@ exports.postCreateSeniorMatch = (req, res) => {
 };
 
 exports.viewSeniorMatch = async (req, res) => {
-   console.log('req user', req.user);
+   //console.log('req user', req.user);
     //console.log('hit the senior match', req.params.senior_id);
     //return;
     var user = req.user;
@@ -56,10 +56,10 @@ exports.viewSeniorMatch = async (req, res) => {
       var facilities = await Facility.find({"Email": req.user.email});
       var facility_id = facilities.length ? facilities[0]._id : undefined;
 
-      var seniorMatches = await SeniorMatchModel.find({SeniorId: senior_id});
+      var seniorMatches = await SeniorMatch.find({SeniorId: senior_id});
       var currentSenior = await SeniorModel.findById(senior_id);
-      if (!currentSenior) console.log('no current senior');
-      if (currentSenior) patchSeniorMatchMarkAsViewed(currentSenior._id);
+      //if (!currentSenior) console.log('no current senior');
+      //if (currentSenior) patchSeniorMatchMarkAsViewed(currentSenior._id);
 
       _setMatchesViewed(seniorMatches, senior_id);
 
@@ -68,12 +68,14 @@ exports.viewSeniorMatch = async (req, res) => {
         //console.log('got rooms', rooms);
 
 
-        //Need an array of current rooms that are matched to this senior
+        // Need an array of current rooms that are matched to this senior
         rooms = await rooms.map((room, idx) => {
+          if (typeof room !== 'object') room.toObject();
           if (room.SeniorMatches && 
               room.SeniorMatches.length) {
+            console.log('set a room to selected', room.SeniorMatches, currentSenior._id);
             roomMatches = room.SeniorMatches.map(match => {
-              if (match.SeniorId == currentSenior._id) {
+              if (match == currentSenior._id.toString()) {
                 room.selected = true;
                 return match;
               }
@@ -81,14 +83,14 @@ exports.viewSeniorMatch = async (req, res) => {
           }
           return room;
         });
-        console.log('done with rooms');
+        //console.log('done with rooms');
       } else {
         console.log('no facility');
       } 
 
       //console.log('rooms for senior match here', rooms);
       currentSenior.rooms = rooms;
-      //console.log('matches and rooms', rooms);
+      console.log('rooms for the senior match that should be selected or not', rooms);
           
       res.render('seniors/viewseniormatch', {
         title: 'View Senior',
@@ -110,22 +112,22 @@ exports.viewSeniorMatch = async (req, res) => {
 };
 
 function _setMatchesViewed (seniorMatches, senior_id) {
-  seniorMatches.forEach(match => {
-    SeniorMatchModel.find({SeniorId: senior_id}, function (err, match) {
-      SeniorMatchModel.findByIdAndUpdate(match._id, {$set: {
-        IsViewed: true
-      }})
-      .exec()
-      .then(()=>{
-        //console.log('success setting match to viewed');
-      })
-      .catch((error)=>{
-        if(error){
-          console.log(error);
-        }
-      });
+  //Have all the matches
+  //console.log('senior matches to maybe set viewed', seniorMatches);
+  seniorMatches.forEach(senior_match => {
+    SeniorMatch.findByIdAndUpdate(senior_match._id, {$set: {
+      IsViewed: true
+    }})
+    .exec()
+    .then(()=>{
+      //console.log('success setting match to viewed', senior_match);
+    })
+    .catch((error)=>{
+      if(error){
+        console.log(error);
+      }
     });
-  })
+  });
 }
 
 // exports.viewSeniorMatch = (req, res) => {
@@ -141,7 +143,7 @@ function _setMatchesViewed (seniorMatches, senior_id) {
 //         return res.redirect('/');
 //     }
 
-//     SeniorMatchModel.findById({id: seniormatch_id})
+//     SeniorMatch.findById({id: seniormatch_id})
 //     .then((seniorMatch)=>{
 //       if (!seniorMatch){
 //         return console.log('no match'); //TODO: 404 Page
@@ -184,7 +186,7 @@ exports.deleteSeniorMatch = (req, res) => {
         return res.redirect('/signup'); //TODO 404 page
     }
 
-    SeniorMatchModel.findByIdAndDelete(id).then(
+    SeniorMatch.findByIdAndDelete(id).then(
         ()=> {}//TODO Success Page.
     ).catch((error) => {
         if(error){
@@ -205,7 +207,7 @@ exports.postUpdateSeniorMatch = (req, res) => {
        return res.redirect('/');
     }
 
-    SeniorMatchModel.findByIdAndUpdate(id,{$set: {
+    SeniorMatch.findByIdAndUpdate(id,{$set: {
         IsViewed: false,
         RoomId: req.body.room_id,
         FacilityId: req.body.facility_id
@@ -218,9 +220,9 @@ exports.postUpdateSeniorMatch = (req, res) => {
 exports.getSeniorMatchesByFacilityId = (params) => {
     var id = params.id;
 
-    SeniorMatchModel.find({'FacilityId':id})
+    SeniorMatch.find({'FacilityId':id})
     .then((seniorMatches)=>{
-        console.log('did we find any senior matches', seniorMatches);
+        //console.log('did we find any senior matches', seniorMatches);
         return Promise.resolve(seniorMatches);
     }).catch((errors) => {
         console.log('errors in this req', errors);
@@ -234,9 +236,11 @@ exports.getSeniorMatchesByFacilityId = (params) => {
 function patchSeniorMatchMarkAsViewed(id) {
     var id = id;
 
-    SeniorMatchModel.findByIdAndUpdate(id,{$set: {
+    SeniorMatch.findByIdAndUpdate(id,{$set: {
         IsViewed: true
-    }}).then(()=> {})
+    }}).then(()=> {
+      //console.log('success patching isViewed for senior match', id);
+    })
     .catch((errors) => {
         if(errors){
             console.log(errors);

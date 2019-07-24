@@ -42,12 +42,7 @@ exports.getFacility = async (req, res, error) => {
           
           mapPromise.then(currentMatches => {
 
-            // if(currentMatches && currentMatches.some(isMatchViewed)){
-            //   currentFacility.NewMatch = true;
-            // } else {
-            //   currentFacility.NewMatch = false;
-            // }
-            console.log('do we have rooms and matches', currentMatches);
+            //console.log('do we have rooms and matches', currentMatches);
 
             res.render('facility', {
               title: 'Facility',
@@ -106,7 +101,7 @@ exports.postFacilitySignup = (req, res, next) => {
 
   const errors = req.validationErrors();
 
-  console.log('req body for post======>', req.body);
+  //console.log('req body for post======>', req.body);
   if (errors) {
       req.flash('errors', errors);
       return res.redirect('/signup');
@@ -189,7 +184,7 @@ exports.putFacilityNewMatchUpdate = (req, res, next) => {
   }})
   .exec()
   .then(()=>{
-    console.log('success setting facility new match to false');
+    //console.log('success setting facility new match to false');
     res.redirect('/facility/'+req.params.facility_id);
   })
   .catch((error)=>{
@@ -286,7 +281,7 @@ exports.getFacilityUpdate = (req, res, error) => {
   .then((facility)=>{
     currentFacility = facility;
     var currentTab = 'General';
-    console.log('currentTab', currentTab);
+    //console.log('currentTab', currentTab);
     res.render('updatefacility', {
       title: 'Facility Update',
       facility,
@@ -385,7 +380,7 @@ exports.postRoomSignup = async (req, res, error) => {
       }
     });
 
-    console.log('room to save with facility id', facility._id, room);
+    //console.log('room to save with facility id', facility._id, room);
     room.save(function(err) {
   
       if (err) {

@@ -112,10 +112,14 @@ exports.postUpdateSenior = async (req, res) => {
 
       //Get the rooms to add/remove
       var roomsToAddArray = _.remove(roomIdArray, function(room) {
-        return room[1].indexOf('1') > -1; });
+        if (room[1]) {
+          return room[1].indexOf('1') > -1; 
+        }
+      });
       var roomsToRemoveArray = roomIdArray;
       var roomsToAdd = roomsToAddArray.map(room => {
-        return room[0].slice(10); });
+        return room[0].slice(10); 
+      });
       var roomsToRemove = roomsToRemoveArray.map(room => {
         return room[0].slice(10); });
 
@@ -213,8 +217,12 @@ async function _addRooms(roomsToAdd, senior_id) {
           room = rooms[0];
 
       console.log('found a room', room_id, room);
-      var roomSeniors = room.seniorMatches;
-      room.seniorMatches.indexOf(senior_id) < 0 ? roomSeniors.push(senior_id) : console.log('already there');
+      var roomSeniors = room.seniorMatches || [];
+      if (!room.seniorMatches || (room.seniorMatches && room.seniorMatches.indexOf(senior_id) < 0)) {
+        roomSeniors.push(senior_id)
+      } else {
+        console.log('already there');
+      } 
 
       // 2. Add senior Id to the room
       console.log('add seniors to room', room._id, roomSeniors);
