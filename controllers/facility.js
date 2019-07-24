@@ -30,7 +30,7 @@ exports.getFacility = async (req, res, error) => {
               RoomModel.findById(match.RoomId).lean().exec(function (err, room) {
                 match = match.toObject();
                 Object.assign(match, {room: room});
-                console.log('match with room', match);
+                //console.log('match with room', match);
                 newMatches.push(match);
                 if(newMatches.length === currentMatches.length) {
                   resolve(newMatches);
@@ -42,11 +42,11 @@ exports.getFacility = async (req, res, error) => {
           
           mapPromise.then(currentMatches => {
 
-            if(currentMatches && currentMatches.some(isMatchViewed)){
-              currentFacility.NewMatch = true;
-            } else {
-              currentFacility.NewMatch = false;
-            }
+            // if(currentMatches && currentMatches.some(isMatchViewed)){
+            //   currentFacility.NewMatch = true;
+            // } else {
+            //   currentFacility.NewMatch = false;
+            // }
             console.log('do we have rooms and matches', currentMatches);
 
             res.render('facility', {
@@ -70,7 +70,7 @@ async function _mapMatches (currentMatches) {
 
 
   promise.then(newMatches => {
-    console.log('newMatches', newMatches);
+    //console.log('newMatches', newMatches);
     return newMatches;
   });
   
@@ -178,6 +178,24 @@ exports.postFacilitySignup = (req, res, next) => {
         return err;
       }
       res.redirect('/facility/'+facility._id);
+  });
+};
+
+exports.putFacilityNewMatchUpdate = (req, res, next) => {
+  var facilityId = req.params.facility_id;
+
+  FacilityModel.findByIdAndUpdate(facilityId, {$set: {
+    NewMatch: false
+  }})
+  .exec()
+  .then(()=>{
+    console.log('success setting facility new match to false');
+    res.redirect('/facility/'+req.params.facility_id);
+  })
+  .catch((error)=>{
+    if(error){
+      console.log(error);
+    }
   });
 };
 

@@ -13,8 +13,9 @@ block content
 
         div
             ul.nav.nav-tabs(role="tablist")
-                button.btn.btn-secondary(type='submit')
-                  | Update Senior
+                if user.isAdmin
+                  button.btn.btn-secondary(type='submit')
+                    | Update Senior
                 each tab, index in tabsItems
                     li(role="presentation")
                         a(href="#"+"tab-id-" + index, aria-controls="tab-id-" + index, role="tab", data-toggle="tab", class=tabActive(tab))
@@ -40,7 +41,7 @@ block content
         ];
 
     // Here is the actual template logic
-    form.body-form.body-form--with-tabs(id='seniorupdate-form', method='POST', action='/updateSenior/'+currentSenior._id.toString()+'?_method=PUT', novalidate)
+    form.body-form.body-form--with-tabs(id='seniorupdate-form', method='POST', action='/updateSenior/'+currentSenior._id.toString()+'?_method=PUT', novalidate, class=!user.isAdmin && 'locked' class=user.isAdmin && 'editable')
         input(type='hidden', name='_csrf', value=_csrf)
         .side-tabs
           +tabs(data)
@@ -477,6 +478,18 @@ block content
 
       //Phone Number Parsing
       $(document).ready( function() {
+
+        var form = document.getElementById('seniorupdate-form');
+        //console.log('check form here', form);
+        if (form.className.indexOf("locked") > -1) {
+          console.log('disable form inputs');
+          var elements = form.elements;
+          for (var i = 0, len = elements.length; i < len; ++i) {
+            elements[i].disabled = true;
+          }
+        }
+
+        
         var phone_input = document.getElementById('contactNumber');
         phone_input.addEventListener('input', function (evt) {
           var number_value = document.getElementById('contactNumber').value,

@@ -41,6 +41,7 @@ exports.viewSeniorMatch = async (req, res) => {
    console.log('req user', req.user);
     //console.log('hit the senior match', req.params.senior_id);
     //return;
+    var user = req.user;
     var senior_id = req.params.senior_id;
 
     var roomMatches = [];
@@ -60,12 +61,15 @@ exports.viewSeniorMatch = async (req, res) => {
       if (!currentSenior) console.log('no current senior');
       if (currentSenior) patchSeniorMatchMarkAsViewed(currentSenior._id);
 
+      _setMatchesViewed(seniorMatches, senior_id);
+
       if (facility_id) {
-        rooms = await RoomModel.find({FacilityID: facility_id});
+        rooms = await RoomModel.find({FacilityID: facility_id}).lean().exec();
         //console.log('got rooms', rooms);
 
+
         //Need an array of current rooms that are matched to this senior
-        await rooms.map(room => {
+        rooms = await rooms.map((room, idx) => {
           if (room.SeniorMatches && 
               room.SeniorMatches.length) {
             roomMatches = room.SeniorMatches.map(match => {
@@ -75,15 +79,20 @@ exports.viewSeniorMatch = async (req, res) => {
               }
             }) 
           }
-        })
+          return room;
+        });
+        console.log('done with rooms');
       } else {
         console.log('no facility');
       } 
 
+      //console.log('rooms for senior match here', rooms);
       currentSenior.rooms = rooms;
+      //console.log('matches and rooms', rooms);
           
       res.render('seniors/viewseniormatch', {
         title: 'View Senior',
+        user,
         seniorMatches,
         currentSenior,
         rooms,
@@ -99,6 +108,25 @@ exports.viewSeniorMatch = async (req, res) => {
 
  
 };
+
+function _setMatchesViewed (seniorMatches, senior_id) {
+  seniorMatches.forEach(match => {
+    SeniorMatchModel.find({SeniorId: senior_id}, function (err, match) {
+      SeniorMatchModel.findByIdAndUpdate(match._id, {$set: {
+        IsViewed: true
+      }})
+      .exec()
+      .then(()=>{
+        //console.log('success setting match to viewed');
+      })
+      .catch((error)=>{
+        if(error){
+          console.log(error);
+        }
+      });
+    });
+  })
+}
 
 // exports.viewSeniorMatch = (req, res) => {
 //     var seniormatch_id = req.params.seniormatch_id;

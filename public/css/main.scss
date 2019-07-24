@@ -552,12 +552,20 @@ textarea {
 }
 
 input.form-control {
-    border: 1px solid $grey-middle;
-    font-size: $body-font-lg;
-    background-color: white !important;
+    :disabled, &:disabled, [disabled] {
+        background-color: #f0f1f3 !important;
+        &:active, &:focus {
+            border: 1px solid $grey-middle;
+        }
+    }
     &:active, &:focus {
         border-color: #737373;
     }
+    border: 1px solid $grey-middle;
+    font-size: $body-font-lg;
+    background-color: white !important;
+    
+    
 }
 
 input:focus::-webkit-input-placeholder { color:transparent; }

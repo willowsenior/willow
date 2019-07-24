@@ -35,10 +35,11 @@ block content
   .page-header.pb-2.mt-4.mb-4.border-bottom
     h1 Manage Facility
     - if (currentFacility.NewMatch)
-      .facility-notification(id="newMatchNot")
-        h2 New Match
-        button 
-          img.close(src="https://s3.amazonaws.com/willow-assets/close.png")
+        form.body-form.body-form--with-tabs(id='seniorupdate-form', method='POST', action='/updateFacilityNewMatch/'+currentFacility._id.toString()+'?_method=PUT', novalidate)
+          .facility-notification(id="newMatchNot")
+            h2 New Match
+            button(type='submit', form="seniorupdate-form")
+              img.close(src="https://s3.amazonaws.com/willow-assets/close.png")
   .content-with-aside
     .side-col
       .side-col__card
@@ -175,7 +176,7 @@ block content
         var notification_element = document.getElementById('newMatchNot');
 
         setTimeout(function(){ 
-          notification_element.className += " showNot";
+          if (notification_element) notification_element.className += " showNot";
         }, 1500);
         
       });

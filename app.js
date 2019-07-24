@@ -133,6 +133,8 @@ app.post('/facilitysignup', facilityController.postFacilitySignup);
 app.get('/updatefacility/:facility_id', facilityController.getFacilityUpdate);
 app.put('/updatefacility/:facility_id', facilityController.putFacilityUpdate);
 
+app.put('/updateFacilityNewMatch/:facility_id', facilityController.putFacilityNewMatchUpdate);
+
 //Room
 app.get('/getRooms', facilityController.getRooms);
 app.get('/roomsignup/:facility_id', facilityController.getRoomSignup);
