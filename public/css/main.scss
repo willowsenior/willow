@@ -142,8 +142,8 @@ footer {
         position: relative;
         float: right;
         //200px = tab width
-        width: calc(100vw - 250px);
-        max-width: 70%;
+        width: 75%;
+        max-width: calc(100vw - 250px);
         padding-left: 40px;
         //flex-grow: 1;
         .form-section {
@@ -160,7 +160,7 @@ footer {
         border-bottom: none;
         min-height: 50vh;
         width: $tab-width;
-        max-width: 30%;
+        max-width: 25%;
         span {
             line-height: 60px;
         }
@@ -625,10 +625,12 @@ label {
 @keyframes reveal-notification { 
     0% {
         opacity: 0;
+        width: 0;
         display: none;
     }
     100% { 
         opacity: 1;
+        width: 100%;
         display: block;
     } 
 }
@@ -636,23 +638,41 @@ label {
 // Home Page animation
 .facility-notification {
     position: absolute;
-    opacity: 0;
+    //opacity: 0;
     right: 0px;
     bottom: 10px;
-    padding: 15px 0px 10px 20px;
-    background-color: $willow-green;
+    //padding: 15px 0px 10px 20px;
     color: $white;
-    display: none;
+    //display: none;
     border-radius: 3px;
     max-width: calc(100% - 215px);
-    width: 60%;
+    width: 40%;
+
+    height: 50px;
+    h2 {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
     &.showNot {
-        display: block;
-        opacity: 1;
-        transition: opacity 250ms;
-        animation-name: reveal-notification;
-        animation-duration: 500ms;
-        animation-iteration-count: 1;
+        // display: block;
+        // opacity: 1;
+        // transition: opacity 250ms;
+        // animation-name: reveal-notification;
+        // animation-duration: 500ms;
+        // animation-iteration-count: 1;
+        .notification-background {
+            display: block;
+            opacity: 1;
+            transition: opacity 250ms;
+            animation-name: reveal-notification;
+            animation-duration: 500ms;
+            animation-iteration-count: 1;
+            width: 100%;
+            height: 100%;
+            background-color: $willow-green;
+        }
         
     }
     > * {
@@ -672,6 +692,9 @@ label {
             &:hover {
                 opacity: 0.9;
             };
+        }
+        &:focus {
+            outline: none;
         }
     }
 }
