@@ -1,7 +1,7 @@
-const FacilityModel = require('../models/Facility');
+const Facility = require('../models/Facility');
 const SeniorMatchController = require('./seniorMatch');
-const RoomModel = require('../models/Room');
-const SeniorMatchModel = require('../models/SeniorMatch');
+const Room = require('../models/Room');
+const SeniorMatch = require('../models/SeniorMatch');
 const myconstants = require('../utils/constants');
 const async = require('async');
 
@@ -10,24 +10,27 @@ const async = require('async');
  * Home page.
  */
 exports.getFacility = async (req, res, error) => {
+  console.log('getting facility??');
     var facilityId = req.params.facility_id;
     var currentFacility;
     var currentRooms;
     var currentMatches;
 
-    FacilityModel.findById(facilityId)
+    Facility.findById(facilityId)
     .then(async (facility)=>{
+        console.log('got facility', facility);
         currentFacility = facility;
         
         try {
-          currentRooms = await RoomModel.find({'FacilityID': facilityId});
-          currentMatches = await SeniorMatchModel.find({'FacilityId': facilityId});
-
+          currentRooms = await Room.find({'FacilityID': facilityId});
+          currentMatches = await SeniorMatch.find({'FacilityId': facilityId});
+          console.log('got rooms and matches', currentRooms, currentMatches);
           var mapPromise = new Promise((resolve, reject) => {
             var newMatches = [];
+            if (!currentMatches || (currentMatches && !currentMatches.length)) resolve([]);
             currentMatches.forEach(match => {
               //console.log('match', match._id);
-              RoomModel.findById(match.RoomId).lean().exec(function (err, room) {
+              Room.findById(match.RoomId).lean().exec(function (err, room) {
                 match = match.toObject();
                 Object.assign(match, {room: room});
                 //console.log('match with room', match);
@@ -73,7 +76,7 @@ async function _mapMatches (currentMatches) {
 }
 
 function _getRooms (id) {
-  RoomModel.find({'FacilityID': id})
+  Room.find({'FacilityID': id})
   .then((rooms)=>{
     return rooms;
   }).catch((error) => {
@@ -83,7 +86,7 @@ function _getRooms (id) {
 
 async function _getMatches (id) {
   try {
-    var matches = await SeniorMatchController.getSeniorMatchesByFacilityId({id: id})
+    var matches = await SeniorMatchController.getSeniorMatchesByFacilityId({id: id}).exec();
     return matches;
   } catch (e)  {
     console.error('Error on fetching facility', err);
@@ -93,6 +96,7 @@ async function _getMatches (id) {
 }
 
 exports.postFacilitySignup = (req, res, next) => {
+  console.log('req body for post======>', req.body);
   let num;
   if (req && req.body && req.body.contactNumber) {
     num = req.body.contactNumber;
@@ -101,12 +105,12 @@ exports.postFacilitySignup = (req, res, next) => {
 
   const errors = req.validationErrors();
 
-  //console.log('req body for post======>', req.body);
+  console.log('req body for post======>', req.body);
   if (errors) {
       req.flash('errors', errors);
       return res.redirect('/signup');
   }
-  var facility = new FacilityModel({
+  var facility = new Facility({
       FacilityName: req.body.facilityName,
       Address: {
           street: req.body.street,
@@ -179,7 +183,7 @@ exports.postFacilitySignup = (req, res, next) => {
 exports.putFacilityNewMatchUpdate = (req, res, next) => {
   var facilityId = req.params.facility_id;
 
-  FacilityModel.findByIdAndUpdate(facilityId, {$set: {
+  Facility.findByIdAndUpdate(facilityId, {$set: {
     NewMatch: false
   }})
   .exec()
@@ -203,7 +207,7 @@ exports.putFacilityUpdate = (req, res, next) =>{
   }
 
   var facilityId = req.params.facility_id;
-  FacilityModel.findByIdAndUpdate(facilityId,{$set: {
+  Facility.findByIdAndUpdate(facilityId,{$set: {
     FacilityName: req.body.facilityName,
     Address: {
         street: req.body.street,
@@ -277,7 +281,7 @@ exports.putFacilityUpdate = (req, res, next) =>{
 exports.getFacilityUpdate = (req, res, error) => {
   var facility_id = req.params.facility_id;
 
-  FacilityModel.findById(facility_id)
+  Facility.findById(facility_id)
   .then((facility)=>{
     currentFacility = facility;
     var currentTab = 'General';
@@ -295,7 +299,7 @@ exports.getRoomSignup = (req, res, error) => {
   var id = req.params.facility_id;
   var currentFacility;
 
-  FacilityModel.findById(id)
+  Facility.findById(id)
   .then((facility)=>{
     currentFacility = facility;
     res.render('roomsignup',{
@@ -316,8 +320,8 @@ exports.postRoomSignup = async (req, res, error) => {
   var id = req.params.facility_id;
   
   try {
-    var facility = await FacilityModel.findById(id);
-    var room = await new RoomModel({
+    var facility = await Facility.findById(id);
+    var room = await new Room({
       FacilityID: id,
       FacilityName: facility.FacilityName,
       RoomName: req.body.roomName,
@@ -404,7 +408,7 @@ exports.putRoomUpdate = (req, res, error) => {
       return res.redirect('/signup');
   }
   var roomId = req.params.room_id;
-  RoomModel.findByIdAndUpdate(roomId,{$set: {
+  Room.findByIdAndUpdate(roomId,{$set: {
       RoomCount: req.body.count,
       RoomType: req.body.roomtype,
       Range:{
@@ -426,12 +430,12 @@ exports.putRoomUpdate = (req, res, error) => {
 
 exports.deleteRoom = (req, res, error) => {
   var roomId = req.params.room_id;
-  RoomModel.findById(roomId, (err,room) => {
+  Room.findById(roomId, (err,room) => {
     if (err) {
       req.flash('errors', err);
       return res.redirect('/signup');
     }
-    RoomModel.deleteOne(room,(err)=>{
+    Room.deleteOne(room,(err)=>{
       if (err) {
         req.flash('errors', err);
         return res.redirect('/signup');
@@ -458,7 +462,7 @@ exports.putFullRoomUpdate = (req, res, error) => {
       return res.redirect('/signup');
   }
   var roomId = req.params.room_id;
-  RoomModel.findByIdAndUpdate(roomId,{$set: {
+  Room.findByIdAndUpdate(roomId,{$set: {
     RoomName: req.body.roomName,
     RoomCount: req.body.count,
     Gender: req.body.gender,
@@ -536,13 +540,13 @@ exports.getRoomUpdate = (req, res, error) => {
   var currentRoom;
   var currentFacility;
 
-  FacilityModel.findById(facility_id)
+  Facility.findById(facility_id)
   .then((facility)=>{
     currentFacility = facility;
     return Promise.resolve(currentFacility);
   })
   .then(()=>{
-    RoomModel.findById(room_id)
+    Room.findById(room_id)
     .then((room)=>{
       currentRoom = room;
       res.render('updateroom', {
@@ -584,7 +588,7 @@ exports.getRooms = (req, res) => {
   var skipCount = limit * page;
 
   if (id) {
-    RoomModel.findById(id)
+    Room.findById(id)
       .then((room) => {
           //Display Individual Room
       })
@@ -592,7 +596,7 @@ exports.getRooms = (req, res) => {
           console.log(error || "Error finding room by Id: " + id);
       });
   } else {
-      RoomModel.find(
+      Room.find(
           { 'RoomName': { "$regex": name, "$options": "i" } },
           null,
           { skip: skipCount, limit: limit }

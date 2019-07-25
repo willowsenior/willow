@@ -33,15 +33,14 @@ block content
       ];
       
   .page-header.pb-2.mt-4.mb-4.border-bottom
-
     h1 Manage Facility
-      - if (currentFacility.NewMatch)
-        form.body-form.body-form--with-tabs(id='seniorupdate-form', method='POST', action='/updateFacilityNewMatch/'+currentFacility._id.toString()+'?_method=PUT', novalidate)
-          .facility-notification(id="newMatchNot")
-            .notification-background
-            h2 New Willow Match
-            button(type='submit', form="seniorupdate-form")
-              img.close(src="https://s3.amazonaws.com/willow-assets/close.png")
+    - if (currentFacility.NewMatch)
+      form.body-form.body-form--with-tabs(id='seniorupdate-form', method='POST', action='/updateFacilityNewMatch/'+currentFacility._id.toString()+'?_method=PUT', novalidate)
+        .facility-notification(id="newMatchNot")
+          .notification-background
+          h2 New Willow Match
+          button(type='submit', form="seniorupdate-form")
+            img.close(src="https://s3.amazonaws.com/willow-assets/close.png")
   .content-with-aside
     .side-col
       .side-col__card

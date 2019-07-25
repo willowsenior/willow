@@ -12,7 +12,7 @@ exports.index = (req, res, error) => {
     if(error){
         console.log(error);
     }
-
+    console.log('do we not have a user??', req.user);
     if(!req.user){
       console.log('Simple Home');
       res.render('home', {
@@ -21,8 +21,14 @@ exports.index = (req, res, error) => {
     } else {
       Facility.find({"Email" : req.user.email})
       .then((facilities)=>{
-        if(facilities.length === 1){
-          res.redirect('/facility/'+facilities[0]._id);
+        console.log('facilities here', facilities);
+        if(facilities.length){
+          if (typeof facilities[0]._id !== 'string') {
+            res.redirect('/facility/'+facilities[0]._id.toString());
+          } else {
+            res.redirect('/facility/'+facilities[0]._id);
+          }
+          
         }else{
           res.render('home', {
             title: 'Home',
