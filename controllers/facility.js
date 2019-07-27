@@ -13,8 +13,9 @@ exports.getFacility = async (req, res, error) => {
   console.log('getting facility??');
     var facilityId = req.params.facility_id;
     var currentFacility;
-    var currentRooms;
-    var currentMatches;
+    var currentRooms = [];
+    var currentMatches = [];
+    var existingMatches = [];
 
     Facility.findById(facilityId)
     .then(async (facility)=>{
@@ -22,39 +23,19 @@ exports.getFacility = async (req, res, error) => {
         currentFacility = facility;
         
         try {
-          currentRooms = await Room.find({'FacilityID': facilityId});
-          currentMatches = await SeniorMatch.find({'FacilityId': facilityId});
-          console.log('got rooms and matches', currentRooms, currentMatches);
-          var mapPromise = new Promise((resolve, reject) => {
-            var newMatches = [];
-            if (!currentMatches || (currentMatches && !currentMatches.length)) resolve([]);
-            currentMatches.forEach(match => {
-              //console.log('match', match._id);
-              Room.findById(match.RoomId).lean().exec(function (err, room) {
-                match = match.toObject();
-                Object.assign(match, {room: room});
-                //console.log('match with room', match);
-                newMatches.push(match);
-                if(newMatches.length === currentMatches.length) {
-                  resolve(newMatches);
-                }
-              });
-            });
-            
+          currentRooms = await _roomPromise(facilityId);
+          existingMatches = await _matchPromise(facilityId);
+          console.log('got rooms and matches', currentRooms.length, existingMatches.length);
+          var currentMatches;
+          if (existingMatches && existingMatches.length) currentMatches = await _mapMatchesPromise(existingMatches);
+         
+          res.render('facility', {
+            title: 'Facility',
+            currentFacility,
+            currentMatches,
+            currentRooms,
+            myconstants
           });
-          
-          mapPromise.then(currentMatches => {
-
-            //console.log('do we have rooms and matches', currentMatches);
-
-            res.render('facility', {
-              title: 'Facility',
-              currentFacility,
-              currentMatches,
-              currentRooms,
-              myconstants
-            });
-          })
           
         } catch (e) {
           console.log(e);
@@ -64,15 +45,44 @@ exports.getFacility = async (req, res, error) => {
     }); 
 };
 
-async function _mapMatches (currentMatches) {
+function _roomPromise (facilityId) {
+  return new Promise((resolve, reject) => {
+    Room.find({'FacilityID': facilityId}).lean().exec(function (err, rooms) {
+      if (err) reject(err);
+      console.log('got rooms');
+      resolve(rooms);
+    });
+  });
+}
 
-
-  promise.then(newMatches => {
-    //console.log('newMatches', newMatches);
-    return newMatches;
+function _matchPromise (facilityId) {
+  return new Promise((resolve, reject) => {
+    SeniorMatch.find({'FacilityId': facilityId}).lean().exec(function (err, matches) {
+      if (err) reject(err);
+      console.log('got matches');
+      resolve(matches);
+    });
   });
   
-  
+}
+
+function _mapMatchesPromise (existingMatches) {
+  return new Promise((resolve, reject) => {
+    var finalMatches = [];
+    existingMatches.forEach(match => {
+      //console.log('match', match._id);
+      if (!match.RoomId) return;
+      Room.findById(match.RoomId).lean().exec(function (err, room) {
+        match = match.toObject();
+        Object.assign(match, {room: room});
+        //console.log('match with room', match);
+        finalMatches.push(match);
+        if(finalMatches.length === existingMatches.length) {
+          resolve(finalMatches);
+        }
+      });
+    });
+  });
 }
 
 function _getRooms (id) {

@@ -95,7 +95,7 @@ block content
                 -if (this.title == 'Room Details')
                   .main-col-section
                     .row
-                      - if (currentRooms)
+                      - if (currentRooms && currentRooms.length)
                         - for (var i = 0; i < currentRooms.length; i++)
                           .col-md-12.col-lg-6
                             .card-deck
@@ -147,26 +147,28 @@ block content
                       button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
 
                 -else if (this.title == 'Matches')
-                  .main-col-section
-                    .row
-                      .col.col-xs-12
-                        table.match-table
-                          thead
-                            tr
-                              th Room Name
-                              th Room Rent
-                              th Senior ID
-                          tbody
-                            each match in currentMatches
+                  - if (currentMatches && currentMatches.length)
+                    .main-col-section
+                      .row
+                        .col.col-xs-12
+                          table.match-table
+                            thead
                               tr
-                                td 
-                                  a(href='/viewsenior/'+ match.SeniorId)= match.room.RoomName
-                                td 
-                                  a(href='/viewsenior/'+ match.SeniorId)= match.room.Range.min
-                                td 
-                                  a(href='/viewsenior/'+ match.SeniorId)= match.SeniorId
-                                  - if (!match.IsViewed)
-                                      span.unread
+                                th Room Name
+                                th Room Rent
+                                th Senior ID
+                            tbody
+                              each match in currentMatches
+                                tr
+                                  td 
+                                    a(href='/viewsenior/'+ match.SeniorId)= match.room.RoomName
+                                  td 
+                                    a(href='/viewsenior/'+ match.SeniorId)= match.room.Range.min
+                                  td 
+                                    a(href='/viewsenior/'+ match.SeniorId)= match.SeniorId
+                                    - if (!match.IsViewed)
+                                        span.unread
+
 
 
 

@@ -37,7 +37,7 @@ block content
             { title: 'Daily Living' },
             { title: 'Behavioral Problems' },
             { title: 'Additional Care' },
-            //{ title: 'Financial Information' }
+            { title: 'Financial Information' }
         ];
 
     // Here is the actual template logic
@@ -254,7 +254,7 @@ block content
                   .form-section
                     .form-group.form-section-header
                       h3.text-left Behavioral Problems
-                        h4.text-left Does Your Senior Exhibit any Behavioral Problems?
+                        h4.text-left Does the Senior Exhibit any Behavioral Problems?
                     
                     .form-group.row
                       label.col-form-label.col-form-label__stacked.check-group-label Verbal Disruption
@@ -331,7 +331,7 @@ block content
                   .form-section
                     .form-group.form-section-header
                       h3.text-left Additional Health Accomodations
-                        h4.text-left What types of special assistance can your Senior provide?
+                        h4.text-left What types of special assistance does the Senior require?
                     br 
                     .form-group.row
                       label.col-lg-6.col-md-8.col-form-label How many daily insulin shots does the senior require?
@@ -469,7 +469,85 @@ block content
                           label.form-radio-label.ml-4(for='wandergaurd_no') No
                             input.form-radio-input(type='radio', checked= currentSenior.Wanderguard==='N', name='wanderGaurd', id='wandergaurd_no' value = 'N')
                             span.radio
-
+                - else if (this.title == 'Financial Information')
+                  .form-group.form-section-header.form-section-header--center
+                    h3.text-center Senior Financial Information
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label What is the senior's monthly income
+                    .col-md-4
+                      input.form-control(type='number', name='monthlyIncome', id='monthlyIncome', placeholder='Monthly Income', value=currentSenior.MonthlyIncome)
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Medicaid
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='medicAid_yes') Yes
+                          input.form-radio-input(type='radio', name='medicAid', id='medicAid_yes' value = 'Y', checked= currentSenior.MedicAid==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='medicAid_no') No
+                          input.form-radio-input(type='radio', name='medicAid', id='medicAid_no' value = 'N', checked= currentSenior.MedicAid==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Pension
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='pension_yes') Yes
+                          input.form-radio-input(type='radio', name='pension', id='pension_yes' value = 'Y', checked= currentSenior.Pension==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='pension_no') No
+                          input.form-radio-input(type='radio', name='pension', id='pension_no' value = 'N', checked= currentSenior.Pension==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Veteran or Veteran Spouse
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='veteranOrVeteranSpouse_yes') Yes
+                          input.form-radio-input(type='radio', name='veteranOrVeteranSpouse', id='veteranOrVeteranSpouse_yes' value = 'Y', checked= currentSenior.VeteranOrVeteranSpouse==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='veteranOrVeteranSpouse_no') No
+                          input.form-radio-input(type='radio', name='veteranOrVeteranSpouse', id='veteranOrVeteranSpouse_no' value = 'N', checked= currentSenior.VeteranOrVeteranSpouse==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Property Owner
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='propertyOwner_yes') Yes
+                          input.form-radio-input(type='radio', name='propertyOwner', id='propertyOwner_yes' value = 'Y', checked= currentSenior.PropertyOwner==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='propertyOwner_no') No
+                          input.form-radio-input(type='radio', name='propertyOwner', id='propertyOwner_no' value = 'N', checked= currentSenior.PropertyOwner==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Long-term Care Insurance
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='longTermInsurance_yes') Yes
+                          input.form-radio-input(type='radio', name='longTermInsurance', id='longTermInsurance_yes' value = 'Y', checked= currentSenior.LongTermInsurance==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='propertyOwner_no') No
+                          input.form-radio-input(type='radio', name='longTermInsurance', id='longTermInsurance_no' value = 'N', checked= currentSenior.LongTermInsurance==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Life Insurance
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='lifeInsurance_yes') Yes
+                          input.form-radio-input(type='radio', name='lifeInsurance', id='lifeInsurance_yes' value = 'Y', checked= currentSenior.LifeInsurance==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='lifeInsurance_no') No
+                          input.form-radio-input(type='radio', name='lifeInsurance', id='lifeInsurance_no' value = 'N', , checked= currentSenior.LifeInsurance==='N')
+                          span.radio
 
 
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')

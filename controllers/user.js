@@ -252,6 +252,7 @@ exports.postWillowAdminSignin = (req, res, next) => {
     }
 
     passport.authenticate('local', (err, user, info) => {
+        console.log('got the user here', user);
         if (err) { return next(err); }
         
         if(!user.isAdmin){

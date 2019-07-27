@@ -13,6 +13,7 @@ block content
                 span.step
                 span.step
                 span.step
+                span.step
     form.body-form.body-form__centered(id='seniorcreate-form', method='POST', action='/seniorsignup', novalidate)
         input(type='hidden', name='_csrf', value=_csrf)
 
@@ -50,7 +51,8 @@ block content
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact Number
                     .col-md-10
-                        input.form-control(type='email', name='contactNumber', id='contactNumber', placeholder='Contact Number')
+                        input.form-control(type='text', name='contactNumber', id='contactNumber', placeholder='XXX-XXX-XXXX', maxlength="14")
+
                 .form-group.row
                     label.col-form-label.col-form-label__stacked Contact relationship to the senior
                     .col-md-6
@@ -104,6 +106,87 @@ block content
                     label.col-form-label.col-form-label__stacked Zip Code
                     .col-md-4
                         input.form-control(type='number', pattern='^[0–9]$', name='zipCode', id='zipCode', placeholder='ZipCode')
+        .step-form-tab
+            .form-section
+                .form-group.form-section-header.form-section-header--center
+                    h3.text-center Senior Financial Information
+                .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label What is the senior's monthly income
+                    .col-md-6
+                        input.form-control(type='number', name='monthlyIncome', id='monthlyIncome', placeholder='$$')
+                br 
+                .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Medicaid
+                    .col-md-6
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='medicAid_yes') Yes
+                                input.form-radio-input(type='radio', name='medicAid', id='medicAid_yes' value = 'Y')
+                                span.radio
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='medicAid_no') No
+                                input.form-radio-input(type='radio', name='medicAid', id='medicAid_no' value = 'N')
+                                span.radio
+                br 
+                .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Pension
+                    .col-md-6
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='pension_yes') Yes
+                                input.form-radio-input(type='radio', name='pension', id='pension_yes' value = 'Y')
+                                span.radio
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='pension_no') No
+                                input.form-radio-input(type='radio', name='pension', id='pension_no' value = 'N')
+                                span.radio
+                br 
+                .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Veteran or Veteran Spouse
+                    .col-md-6
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='veteranOrVeteranSpouse_yes') Yes
+                                input.form-radio-input(type='radio', name='veteranOrVeteranSpouse', id='veteranOrVeteranSpouse_yes' value = 'Y')
+                                span.radio
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='veteranOrVeteranSpouse_no') No
+                                input.form-radio-input(type='radio', name='veteranOrVeteranSpouse', id='veteranOrVeteranSpouse_no' value = 'N')
+                                span.radio
+                br 
+                .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Property Owner
+                    .col-md-6
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='propertyOwner_yes') Yes
+                                input.form-radio-input(type='radio', name='propertyOwner', id='propertyOwner_yes' value = 'Y')
+                                span.radio
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='propertyOwner_no') No
+                                input.form-radio-input(type='radio', name='propertyOwner', id='propertyOwner_no' value = 'N')
+                                span.radio
+                br 
+                .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Long-term Care Insurance
+                    .col-md-6
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='longTermInsurance_yes') Yes
+                                input.form-radio-input(type='radio', name='longTermInsurance', id='longTermInsurance_yes' value = 'Y')
+                                span.radio
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='longTermInsurance_no') No
+                                input.form-radio-input(type='radio', name='longTermInsurance', id='longTermInsurance_no' value = 'N')
+                                span.radio
+                br 
+                .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Life Insurance
+                    .col-md-6
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='lifeInsurance_yes') Yes
+                                input.form-radio-input(type='radio', name='lifeInsurance', id='lifeInsurance_yes' value = 'Y')
+                                span.radio
+                        .col-md-12
+                            label.form-radio-label.ml-4(for='lifeInsurance_no') No
+                                input.form-radio-input(type='radio', name='lifeInsurance', id='lifeInsurance_no' value = 'N')
+                                span.radio
+                
         .step-form-tab
             .form-section
                 .form-group.form-section-header.form-section-header--center
@@ -341,7 +424,7 @@ block content
                     label.col-lg-6.col-md-6.col-form-label Does the senior require an oxygen tank at all times?
                     .col-md-6
                         .col-md-12
-                            label.form-radio-label.ml-4(for='alltimeoxygen_yes') Yes
+                            label.form-radio-label.ml-4(for='allTimeOxygen_yes') Yes
                                 input.form-radio-input(type='radio', name='allTimeOxygen', id='allTimeOxygen_yes' value = 'Y',  checked=AllTimeOxygen==='Y')
                                 span.radio
                         .col-md-12
@@ -424,18 +507,6 @@ block content
                             label.form-radio-label.ml-4(for='wandergaurd_no') No
                                 input.form-radio-input(type='radio', checked= Wanderguard==='N', name='wandergaurd', id='wandergaurd_no' value = 'N')
                                 span.radio
-                br 
-                .form-group.row
-                    label.col-lg-6.col-md-6.col-form-label Does Your Senior Need a Secure Memory Care Unit (Do They Wander Off?)
-                    .col-md-6
-                        .col-md-12
-                            label.form-radio-label.ml-4(for='memorycare_unit_yes') Yes
-                                input.form-radio-input(type='radio', name='memorycare_unit_yes', id='memorycare_unit_yes' value = 'Y', checked=MemoryCareUnit==='Y')
-                                span.radio
-                        .col-md-12
-                            label.form-radio-label.ml-4(for='memorycare__unit_no') No
-                                input.form-radio-input(type='radio', name='memorycare__unit_no', id='memorycare__unit_no' value = 'N', checked=MemoryCareUnit==='N')
-                                span.radio
                 br
                 .form-group.row
                     label.col-lg-12.col-md-12.col-form-label Any Other Health Information You'd Like to Include?
@@ -474,6 +545,35 @@ block content
         $(document).ready( function() {
             showTab(currentTab); // Display the current tab
         });
+
+      //Phone Number Parsing
+      $(document).ready( function() {
+        var phone_input = document.getElementById('contactNumber');
+        phone_input.addEventListener('input', function (evt) {
+          var number_value = document.getElementById('contactNumber').value,
+              final_value;
+          if (number_value.length >= 14) return;
+
+          if (number_value.length == 3) {
+            //reformat and return phone number
+            number_value = number_value.replace(/[^\d]/g, "");
+            final_value = number_value.replace(/(\d{3})/, "($1) ");
+          } else if (number_value.length == 10) {
+
+            number_value = number_value.replace(/[^\d]/g, "");
+            final_value = number_value.replace(/(\d{3})(\d{3})/, "($1) $2-");
+
+          } else if (number_value.length == 14) {
+            //reformat and return phone number
+            number_value = number_value.replace(/[^\d]/g, "");
+            final_value = number_value.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+          } else {
+            final_value = number_value
+          }
+
+          document.getElementById('contactNumber').value = final_value;
+        });
+      });
 
 
       function showTab(n, direction) {
