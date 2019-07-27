@@ -147,17 +147,17 @@ block content
                       button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
 
                 -else if (this.title == 'Matches')
-                  - if (currentMatches && currentMatches.length)
-                    .main-col-section
-                      .row
-                        .col.col-xs-12
-                          table.match-table
-                            thead
-                              tr
-                                th Room Name
-                                th Room Rent
-                                th Senior ID
-                            tbody
+                  .main-col-section
+                    .row
+                      .col.col-xs-12
+                        table.match-table
+                          thead
+                            tr
+                              th Room Name
+                              th Room Rent
+                              th Senior ID
+                          tbody
+                            - if (currentMatches && currentMatches.length)
                               each match in currentMatches
                                 tr
                                   td 
