@@ -21,6 +21,8 @@ exports.getFacility = async (req, res, error) => {
     .then(async (facility)=>{
         console.log('got facility', facility);
         currentFacility = facility;
+        var features = await _mapFeatures(currentFacility.FacilityFeatures);
+        console.log('facility features', features);
         
         try {
           currentRooms = await _roomPromise(facilityId);
@@ -44,6 +46,45 @@ exports.getFacility = async (req, res, error) => {
       console.error('Error on fetching rooms: ', err); 
     }); 
 };
+
+function _mapFeatures (features) {
+  return new Promise((resolve, reject) => {
+    var newFeatures = {
+      'Eating': [],
+      'Mobility': [],
+      'Transfers': [],
+      'Toileting': [],
+      'Verbal': [],
+      'Physical': [],
+      'Behaviourial': []
+    };
+    var newFeatures = Object.keys(features).forEach(key => {
+      if (key.indexOf('eating') > -1) {
+        var obj = [ key,features[key] ];
+        newFeatures['Eating'].push(obj);
+      } else if (key.indexOf('mobility') > -1) {
+        var obj = [ key,features[key] ];
+        newFeatures['Mobility'].push(obj);
+      } else if (key.indexOf('transfers') > -1) {
+        var obj = [ key,features[key] ];
+        newFeatures['Transfers'].push(obj);
+      } else if (key.indexOf('toileting') > -1) {
+        var obj = [ key,features[key] ];
+        newFeatures['Toileting'].push(obj);
+      } else if (key.indexOf('verbal') > -1) {
+        var obj = [ key,features[key] ];
+        newFeatures['Verbal'].push(obj);
+      } else if (key.indexOf('physical') > -1) {
+        var obj = [ key,features[key] ];
+        newFeatures['Physical'].push(obj);
+      } else if (key.indexOf('behavioural') > -1) {
+        var obj = [ key,features[key] ];
+        newFeatures['Behaviourial'].push(obj);
+      }
+    });
+    resolve(newFeatures);
+  });
+}
 
 function _roomPromise (facilityId) {
   return new Promise((resolve, reject) => {
@@ -73,7 +114,7 @@ function _mapMatchesPromise (existingMatches) {
       //console.log('match', match._id);
       if (!match.RoomId) return;
       Room.findById(match.RoomId).lean().exec(function (err, room) {
-        match = match.toObject();
+        //if(typeof match !== 'object') match = match.toObject();
         Object.assign(match, {room: room});
         //console.log('match with room', match);
         finalMatches.push(match);
