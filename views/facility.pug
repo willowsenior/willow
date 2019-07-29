@@ -52,7 +52,6 @@ block content
           .img-container
             img.logo(src="https://s3.amazonaws.com/willow-assets/large-building.png")
         .side-col__body
-              
           .row.border-bottom.m-b-20
             .col.col-md-12.text-center
               h5.m-b-10= currentFacility.FacilityName
@@ -60,32 +59,58 @@ block content
                 h4.m-b-20= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
           .row
             .col
-              h5.p-l-15.pb-2.m-b-15.text-left.font-weight-bold Level of Assistance :
-              - for (var key in currentFacility.FacilityFeatures)
-                -if(key != '$init')
-                  -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
-                    table.table
-                      thead.thead-light
-                        .col-md-6
-                          tr
-                            -if(key.indexOf('Eating') > -1)
-                              p.m-b-5.table-label.text-left= 'Eating'
-                            -else if (key.indexOf('Mobility') > -1 || key.indexOf('Mobiliy') > -1)
-                              p.m-b-5.table-label.text-left= 'Mobility'
-                            -else if (key.indexOf('Transfers') > -1)
-                              p.m-b-5.table-label.text-left= 'Transfers'
-                            -else if (key.indexOf('Toileting') > -1)
-                              p.m-b-5.table-label.text-left= 'Toileting'
-                            -else if (key.indexOf('Verbal') > -1)
-                              p.m-b-5.table-label.text-left-left= 'Verbal'
-                            -else if (key.indexOf('Physical') > -1)
-                              p.m-b-5.table-label.text-left= 'Physical'
-                            -else if (key.indexOf('Behaviourial') > -1)
-                              p.m-b-5.table-label.text-left= 'Behaviourial'
-                            -else
-                              p.m-b-5.table-label.text-left= key
-                          tr
-                            td.text-left= myconstants.constants(key)
+              h5.p-l-0.pb-2.m-b-15.text-left.font-weight-bold Level of Assistance :
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Eating'
+                  each feature in features['Eating']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Mobility'
+                  each feature in features['Mobility']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Transfers'
+                  each feature in features['Transfers']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Toileting'
+                  each feature in features['Toileting']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Verbal'
+                  each feature in features['Verbal']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Physical'
+                  each feature in features['Physical']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Behavioral'
+                  each feature in features['Behavioral']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+             
+
 
     .main-col.col
       .top-tabs

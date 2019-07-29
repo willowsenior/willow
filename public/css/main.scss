@@ -38,6 +38,21 @@ footer {
   }
 }
 
+p.table-label {
+    color: $black;
+    font-size: $table-label;
+    font-weight: normal;
+}
+p.table-body {
+    color: $grey;
+    font-size: $table-text;
+    border: none;
+    padding-top: 0px;
+    margin-bottom: 8px;
+    padding-left: 0px;
+    font-weight: normal;
+}
+
 .content-with-aside {
     position: relative;
     width: 100%;
@@ -107,21 +122,16 @@ footer {
             font-color: $section-header;
             color: $black;
         }
-        p.table-label {
-            color: $black;
-            font-size: $table-label;
-            margin-bottom: 0px !important;
-        }
-        table {
+        // table {
             
-            td {
-                color: $grey;
-                font-size: $table-text;
-                border: none;
-                padding-top: 0px;
-                padding-left: 0px;
-            }
-        }
+        //     td {
+        //         color: $grey;
+        //         font-size: $table-text;
+        //         border: none;
+        //         padding-top: 0px;
+        //         padding-left: 0px;
+        //     }
+        // }
     }
     
 }

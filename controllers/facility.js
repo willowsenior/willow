@@ -19,10 +19,10 @@ exports.getFacility = async (req, res, error) => {
 
     Facility.findById(facilityId)
     .then(async (facility)=>{
-        console.log('got facility', facility);
+        //console.log('got facility', facility);
         currentFacility = facility;
         var features = await _mapFeatures(currentFacility.FacilityFeatures);
-        console.log('facility features', features);
+        //console.log('facility features', features);
         
         try {
           currentRooms = await _roomPromise(facilityId);
@@ -33,6 +33,7 @@ exports.getFacility = async (req, res, error) => {
          
           res.render('facility', {
             title: 'Facility',
+            features,
             currentFacility,
             currentMatches,
             currentRooms,
@@ -56,32 +57,36 @@ function _mapFeatures (features) {
       'Toileting': [],
       'Verbal': [],
       'Physical': [],
-      'Behaviourial': []
+      'Behavioral': []
     };
-    var newFeatures = Object.keys(features).forEach(key => {
-      if (key.indexOf('eating') > -1) {
-        var obj = [ key,features[key] ];
+    var setupThings = Object.keys(features).forEach(key => {
+      
+      var obj = {};
+      if (key.indexOf('Eating') > -1 && features[key]) {
+        obj[key] = features[key];
         newFeatures['Eating'].push(obj);
-      } else if (key.indexOf('mobility') > -1) {
-        var obj = [ key,features[key] ];
+      } else if (key.indexOf('Mobiliy') > -1 && features[key]) {
+        obj[key] = features[key];
         newFeatures['Mobility'].push(obj);
-      } else if (key.indexOf('transfers') > -1) {
-        var obj = [ key,features[key] ];
+      } else if (key.indexOf('Transfers') > -1 && features[key]) {
+        obj[key] = features[key];
         newFeatures['Transfers'].push(obj);
-      } else if (key.indexOf('toileting') > -1) {
-        var obj = [ key,features[key] ];
+      } else if (key.indexOf('Toileting') > -1 && features[key]) {
+        obj[key] = features[key];
         newFeatures['Toileting'].push(obj);
-      } else if (key.indexOf('verbal') > -1) {
-        var obj = [ key,features[key] ];
+      } else if (key.indexOf('Verbal') > -1 && features[key]) {
+        obj[key] = features[key];
         newFeatures['Verbal'].push(obj);
-      } else if (key.indexOf('physical') > -1) {
-        var obj = [ key,features[key] ];
+      } else if (key.indexOf('Physical') > -1 && features[key]) {
+        obj[key] = features[key];
         newFeatures['Physical'].push(obj);
-      } else if (key.indexOf('behavioural') > -1) {
-        var obj = [ key,features[key] ];
-        newFeatures['Behaviourial'].push(obj);
+      } else if (key.indexOf('Behaviourial') > -1 && features[key]) {
+        obj[key] = features[key];
+        newFeatures['Behavioral'].push(obj);
       }
+      //console.log('obj here', obj);
     });
+    console.log('new features here', newFeatures);
     resolve(newFeatures);
   });
 }
