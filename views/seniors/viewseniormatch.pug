@@ -119,35 +119,65 @@ block content
                         input.form-control(type='number', pattern='^[0–9]$', name='zipCode', id='zipCode', placeholder='ZipCode', value= currentSenior.Zipcode)
 
                 -else if (this.title == 'Room Assignment')
-                  .form-section
-                    .form-group.form-section-header.form-section-header__with-button
-                      h3.text-left Rooms
+                  -if (user.isAdmin)
+                    .form-section
+                      .form-group.form-section-header.form-section-header__with-button
+                        h3.text-left Rooms
 
-                    .form-group.row
-                      .table-search(style="width:100%")
-                        .row
-                          .main-col(style="width:100%")
-                            .main-col-section
-                              .col-xs-12
-                                table.match-table(style="width:100%")
-                                  thead
-                                    tr
-                                      th Name
-                                      th Count
-                                      th Type
-                                      th Rent
-                                      th
-                                  tbody
-                                    - for (var i = 0; i < currentSenior.rooms.length; i++)
+                      .form-group.row
+                        .table-search(style="width:100%")
+                          .row
+                            .main-col(style="width:100%")
+                              .main-col-section
+                                .col-xs-12
+                                  table.match-table(style="width:100%")
+                                    thead
                                       tr
-                                        td= currentSenior.rooms[i].RoomName
-                                        td= currentSenior.rooms[i].RoomCount
-                                        td= currentSenior.rooms[i].RoomType
-                                        td= currentSenior.rooms[i].Range.min
-                                        td
-                                          label.form-check-label
-                                            input.form-check-input(type='checkbox', id=`roomMatch-${currentSenior.rooms[i]._id}`, checked= currentSenior.rooms[i].selected, placeholder='', value=1, name=`roomMatch-${currentSenior.rooms[i]._id}`  )
-                                            span.checkmark
+                                        th Name
+                                        th Count
+                                        th Type
+                                        th Rent
+                                        th
+                                    tbody
+                                      - for (var i = 0; i < currentSenior.rooms.length; i++)
+                                        tr
+                                          td= currentSenior.rooms[i].RoomName
+                                          td= currentSenior.rooms[i].RoomCount
+                                          td= currentSenior.rooms[i].RoomType
+                                          td= currentSenior.rooms[i].Range.min
+                                          td
+                                            label.form-check-label
+                                              input.form-check-input(type='checkbox', id=`roomMatch-${currentSenior.rooms[i]._id}`, checked= currentSenior.rooms[i].selected, placeholder='', value=1, name=`roomMatch-${currentSenior.rooms[i]._id}`  )
+                                              span.checkmark
+                  -else
+                    .form-section
+                      .form-group.form-section-header.form-section-header__with-button
+                        h3.text-left Rooms
+                      .form-group.row
+                        .table-search(style="width:100%")
+                          .row
+                            .main-col(style="width:100%")
+                              .main-col-section
+                                .col-xs-12
+                                  table.match-table(style="width:100%")
+                                    thead
+                                      tr
+                                        th Name
+                                        th Count
+                                        th Type
+                                        th Rent
+                                        th
+                                    tbody
+                                      - for (var i = 0; i < facilityRooms.length; i++)
+                                        tr
+                                          td= facilityRooms[i].RoomName
+                                          td= facilityRooms[i].RoomCount
+                                          td= facilityRooms[i].RoomType
+                                          td= facilityRooms[i].Range.min
+                                          td
+                                            label.form-check-label
+                                              input.form-check-input(type='checkbox', id=`roomMatch-${facilityRooms[i]._id}`, checked= facilityRooms[i].selected, placeholder='', value=1, name=`roomMatch-${facilityRooms[i]._id}`  )
+                                              span.checkmark
 
                 -else if (this.title == 'Daily Living')
                   .form-section

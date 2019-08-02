@@ -45,6 +45,7 @@ exports.viewSeniorMatch = async (req, res) => {
     var senior_id = req.params.senior_id;
 
     var roomMatches = [];
+    var allRooms = [];
     var rooms = [];
 
     if(!senior_id) {
@@ -63,41 +64,52 @@ exports.viewSeniorMatch = async (req, res) => {
 
       _setMatchesViewed(seniorMatches, senior_id);
 
-      if (facility_id) {
+      // If not admin (Will), then get facility rooms and attach to currentSenior
+      if (facility_id && !user.isAdmin) {
         rooms = await RoomModel.find({FacilityID: facility_id}).lean().exec();
         //console.log('got rooms', rooms);
+      } else if (user.isAdmin) {
+        rooms = await RoomModel.find().lean().exec();
+      }
+
+      // Need an array of current rooms that are matched to this senior
+      rooms = await rooms.map((room, idx) => {
+        if (typeof room !== 'object') room.toObject();
+        if (room.SeniorMatches && 
+            room.SeniorMatches.length) {
+          console.log('set a room to selected', room.SeniorMatches, currentSenior._id);
+          roomMatches = room.SeniorMatches.map(match => {
+            if (match == currentSenior._id.toString()) {
+              room.selected = true;
+              return match;
+            }
+          }) 
+        }
+        return room;
+      });
 
 
-        // Need an array of current rooms that are matched to this senior
-        rooms = await rooms.map((room, idx) => {
-          if (typeof room !== 'object') room.toObject();
-          if (room.SeniorMatches && 
-              room.SeniorMatches.length) {
-            console.log('set a room to selected', room.SeniorMatches, currentSenior._id);
-            roomMatches = room.SeniorMatches.map(match => {
-              if (match == currentSenior._id.toString()) {
-                room.selected = true;
-                return match;
-              }
-            }) 
-          }
-          return room;
-        });
-        //console.log('done with rooms');
+
+
+      if (user.isAdmin) {
+
+        //Editable for Will
+        currentSenior.rooms = rooms;
+
       } else {
-        console.log('no facility');
-      } 
 
-      //console.log('rooms for senior match here', rooms);
-      currentSenior.rooms = rooms;
-      console.log('rooms for the senior match that should be selected or not', rooms);
+        //Read only for the facility user
+        facilityRooms = rooms;
+      }
+      
+      //console.log('rooms for the senior match that should be selected or not', rooms);
           
       res.render('seniors/viewseniormatch', {
         title: 'View Senior',
         user,
         seniorMatches,
         currentSenior,
-        rooms,
+        allRooms,
         myconstants,
         roomMatches
       });
