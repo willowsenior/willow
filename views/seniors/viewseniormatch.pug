@@ -133,7 +133,8 @@ block content
                                   table.match-table(style="width:100%")
                                     thead
                                       tr
-                                        th Name
+                                        th Room
+                                        th Facility
                                         th Count
                                         th Type
                                         th Rent
@@ -142,6 +143,7 @@ block content
                                       - for (var i = 0; i < currentSenior.rooms.length; i++)
                                         tr
                                           td= currentSenior.rooms[i].RoomName
+                                          td= currentSenior.rooms[i].FacilityName
                                           td= currentSenior.rooms[i].RoomCount
                                           td= currentSenior.rooms[i].RoomType
                                           td= currentSenior.rooms[i].Range.min
@@ -162,7 +164,7 @@ block content
                                   table.match-table(style="width:100%")
                                     thead
                                       tr
-                                        th Name
+                                        th Room
                                         th Count
                                         th Type
                                         th Rent
