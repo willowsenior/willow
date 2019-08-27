@@ -9,7 +9,7 @@ block content
         form.body-form(id="login" method='POST' action='/willowadminsignin')
           input(type='hidden', name='_csrf', value=_csrf)
           .input-wrapper.has-value#email-wrapper
-            input(type='email', name='email', id='email', value="", autofocus, autocomplete='email', required)
+            input(type='email', name='email', id='email', autofocus, autocomplete='email', required)
             span.focus-action(data-placeholder="Email")
           .input-wrapper.has-value#password-wrapper
             input(type='password', name='password', id='password', autocomplete='current-password', required)

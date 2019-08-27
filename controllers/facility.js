@@ -19,7 +19,7 @@ exports.getFacility = async (req, res, error) => {
 
     Facility.findById(facilityId)
     .then(async (facility)=>{
-        //console.log('got facility', facility);
+       console.log('got facility', facility);
         currentFacility = facility;
         var features = await _mapFeatures(currentFacility.FacilityFeatures);
         //console.log('facility features', features);
@@ -27,7 +27,7 @@ exports.getFacility = async (req, res, error) => {
         try {
           currentRooms = await _roomPromise(facilityId);
           existingMatches = await _matchPromise(facilityId);
-          console.log('got rooms and matches', currentRooms.length, existingMatches.length);
+          //console.log('got rooms and matches', currentRooms.length, existingMatches.length);
           var currentMatches;
           if (existingMatches && existingMatches.length) currentMatches = await _mapMatchesPromise(existingMatches);
          
@@ -86,7 +86,7 @@ function _mapFeatures (features) {
       }
       //console.log('obj here', obj);
     });
-    console.log('new features here', newFeatures);
+    //console.log('new features here', newFeatures);
     resolve(newFeatures);
   });
 }
@@ -152,7 +152,7 @@ async function _getMatches (id) {
 }
 
 exports.postFacilitySignup = (req, res, next) => {
-  console.log('req body for post======>', req.body);
+  //console.log('req body for post======>', req.body);
   let num;
   if (req && req.body && req.body.contactNumber) {
     num = req.body.contactNumber;
@@ -161,7 +161,7 @@ exports.postFacilitySignup = (req, res, next) => {
 
   const errors = req.validationErrors();
 
-  console.log('req body for post======>', req.body);
+  console.log('create facility======>');
   if (errors) {
       req.flash('errors', errors);
       return res.redirect('/signup');
@@ -187,6 +187,7 @@ exports.postFacilitySignup = (req, res, next) => {
       MedicationManagement: req.body.medicationmanagement,
       LiquidDiets: req.body.liquiddiets,
       GroundDiets: req.body.grounddiets,
+      NewMatch: false,
       // FacilityPhoto:
       FacilityFeatures: {
         Eating_noassistance: req.body.eating_noassistance,
