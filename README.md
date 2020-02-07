@@ -8,3 +8,11 @@ Steps to start:
 1. `npm install` (Do it first time OR whenever there is new change in `package.json`)
 2. node run app.js
 
+# To Commit to Damp-Reef
+
+`heroku login`
+`git remote add damp-reef <branch-url>`
+`git push damp-reef master`
+
+
+

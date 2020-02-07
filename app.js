@@ -9,11 +9,9 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const logger = require('morgan');
-const dotenv = require('dotenv');
 
-
-const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
+//const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
+const MONGODB = 'mongodb://127.0.01:27017/willow'
 
 /**
  * Controllers (route handlers).
@@ -21,28 +19,29 @@ const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds2236
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const facilityController = require('./controllers/facility');
+const seniorController = require('./controllers/senior');
+const seniorMatchController = require('./controllers/seniorMatch');
 
 // Passport Config
 const passportConfig = require('./config/passport');
-
 
 /**
  * Create Express server.
  */
 const app = express();
-
 const PORT = process.env.PORT || 8080;
-
 
 /** Connect to database */
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlparser', true);
 mongoose.connect(MONGODB, (err) => {
-    console.log('Database is connected')
+    if(!err){
+        console.log('Database is connected');
+    }
 });
+
 mongoose.connection.on('error', (err) => {
-    console.error(err);
     console.log('Connection Error Please check database connection', );
     process.exit();
 })
@@ -74,12 +73,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-/////
 app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
 });
-
 
 app.use((req, res, next) => {
     // After successful login, redirect back to the intended page
@@ -135,7 +132,11 @@ app.get('/facilitysignup', facilityController.getFacilitySignup);
 app.post('/facilitysignup', facilityController.postFacilitySignup);
 app.get('/updatefacility/:facility_id', facilityController.getFacilityUpdate);
 app.put('/updatefacility/:facility_id', facilityController.putFacilityUpdate);
-app.get('/room', facilityController.getRoom);
+
+app.put('/updateFacilityNewMatch/:facility_id', facilityController.putFacilityNewMatchUpdate);
+
+//Room
+app.get('/getRooms', facilityController.getRooms);
 app.get('/roomsignup/:facility_id', facilityController.getRoomSignup);
 app.post('/roomsignup/:facility_id', facilityController.postRoomSignup);
 app.put('/updateroom/:facility_id/:room_id', facilityController.putRoomUpdate);
@@ -144,6 +145,35 @@ app.put('/updatefullroom/:facility_id/:room_id', facilityController.putFullRoomU
 app.delete('/deleteRoom/:facility_id/:room_id', facilityController.deleteRoom);
 
 app.get('/download', homeController.getDownload);
+
+
+//Senior: Navigate to create senior and create senior
+app.get('/createseniorrecord', seniorController.getSeniorRecordCreate);
+app.post('/seniorsignup', seniorController.postCreateSenior);
+
+//Senior: Navigate to view all seniors, GET seniors
+//app.get('/viewseniors', seniorController.getAllSeniors);
+app.get('/getseniors', seniorController.getSeniors);
+// app.get('/seniorbyid/:senior_id', seniorController.getSeniorById);
+// app.get('/seniorbylastname', seniorController.getSearchSeniorByName);
+
+// Senior/Match: Navigate to view one senior match, update senior, delete senior
+app.put('/updateSenior/:senior_id', seniorController.postUpdateSenior);
+app.delete('/deletesenior/:senior_id', seniorController.deleteSenior);
+
+
+// Senior Matches: Create match, Remove Match, Patch Match
+app.get('/viewsenior/:senior_id', seniorMatchController.viewSeniorMatch);
+app.post('/seniormatchcreate', seniorMatchController.postCreateSeniorMatch);
+app.delete('/deletesenior/:senior_id', seniorMatchController.deleteSeniorMatch);
+app.post('/updateseniormatch/:senior_id', seniorMatchController.postUpdateSeniorMatch);
+
+
+// Run this method when loading home facility page
+//app.get('/seniormatchbyfacilityid/:facility_id', seniorMatchController.getSeniorMatchesByFacilityId);
+// Run this method when you GET a match
+//app.patch('/seniormatchviewed/:seniormatch_id', seniorMatchController.patchSeniorMatchMarkAsViewed);
+
 
 
 ////AUthentication routes

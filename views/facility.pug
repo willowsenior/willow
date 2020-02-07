@@ -1,109 +1,214 @@
 extends layout
 
 block content
-  .pb-2.mt-4.mb-4.border-bottom
+  mixin tabs(tabsItems)
+      - var tabActive = function (t) { return t.active ? 'active' : '' }
+
+      mixin tab(index)
+          - tabsItems[index].body = block;
+
+      block
+
+      - tabsItems[0].active = tabsItems[0].active || !tabsItems.some(function (t) { return t.active; })
+
+      div
+          ul.nav.nav-tabs(role="tablist")
+              each tab, index in tabsItems
+                  li(role="presentation")
+                      a(href="#"+"tab-id-" + index, aria-controls="tab-id-" + index, role="tab", data-toggle="tab", class=tabActive(tab))
+                        if tab.icon
+                            span.icon(class=tab.icon)
+                        span= tab.title
+              
+
+          .tab-content
+              each tab, index in tabsItems
+                  .tab-pane(id="tab-id-" + index, role="tabpanel", class=tabActive(tab))
+                      - tab.body && tab.body()
+
+  -
+      var data = [
+          { title: 'Room Details', active: true },
+          { title: 'Matches' }
+      ];
+      
+  .page-header.pb-2.mt-4.mb-4.border-bottom
     h1 Manage Facility
+    - if (currentFacility.NewMatch)
+      form.body-form.body-form--with-tabs(id='seniorupdate-form', method='POST', action='/updateFacilityNewMatch/'+currentFacility._id.toString()+'?_method=PUT', novalidate)
+        .facility-notification(id="newMatchNot")
+          .notification-background
+          h2 New Willow Match
+          button(type='submit', form="seniorupdate-form")
+            img.close(src="https://s3.amazonaws.com/willow-assets/close.png")
   .content-with-aside
     .side-col
-      .row
-        .col
-          h3.side-col__card-header Facility Info
-          button.btn-edit
+      .side-col__card
+        .side-col__updated-card-banner
+          button.btn-edit.no-border
             a(href="/updatefacility/"+currentFacility._id) 
               i.fas.fa-edit
               span Edit
-              
-      .side-col__card
-        .row
-          .col
-            h5.font-weight-bold Name :  
-            h5.m-b-40= currentFacility.FacilityName
-            
-        .row
-          .col
-            h5.font-weight-bold Address :  
-            h5.m-b-40= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
-        .row
-          .col
-              h5.pb-2.m-b-15.border-bottom.font-weight-bold Level of Assistance :
-              - for (var key in currentFacility.FacilityFeatures)
-                -if(key != '$init')
-                  -if(currentFacility.FacilityFeatures.hasOwnProperty(key) && currentFacility.FacilityFeatures[key] == true)
-                    table.table
-                      thead.thead-light
-                        .col-md-6
-                          tr
-                            -if(key.indexOf('Eating') > -1)
-                              p.m-b-5.table-label.text-left= 'Eating'
-                            -else if (key.indexOf('Mobility') > -1 || key.indexOf('Mobiliy') > -1)
-                              p.m-b-5.table-label.text-left= 'Mobility'
-                            -else if (key.indexOf('Transfers') > -1)
-                              p.m-b-5.table-label.text-left= 'Transfers'
-                            -else if (key.indexOf('Toileting') > -1)
-                              p.m-b-5.table-label.text-left= 'Toileting'
-                            -else if (key.indexOf('Verbal') > -1)
-                              p.m-b-5.table-label.text-left-left= 'Verbal'
-                            -else if (key.indexOf('Physical') > -1)
-                              p.m-b-5.table-label.text-left= 'Physical'
-                            -else if (key.indexOf('Behaviourial') > -1)
-                              p.m-b-5.table-label.text-left= 'Behaviourial'
-                            -else
-                              p.m-b-5.table-label.text-left= key
-                          tr
-                            td.text-left= myconstants.constants(key)
+          .img-container
+            img.logo(src="https://s3.amazonaws.com/willow-assets/large-building.png")
+        .side-col__body
+          .row.border-bottom.m-b-20
+            .col.col-md-12.text-center
+              h5.m-b-10= currentFacility.FacilityName
+              if(currentFacility.Address && currentFacility.Address.street)
+                h4.m-b-20= currentFacility.Address.street +', ' + currentFacility.Address.city +', ' +currentFacility.Address.state+', '+currentFacility.Address.zip
+          .row
+            .col
+              h5.p-l-0.pb-2.m-b-15.text-left.font-weight-bold Level of Assistance :
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Eating'
+                  each feature in features['Eating']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Mobility'
+                  each feature in features['Mobility']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Transfers'
+                  each feature in features['Transfers']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Toileting'
+                  each feature in features['Toileting']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Verbal'
+                  each feature in features['Verbal']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Physical'
+                  each feature in features['Physical']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+                .row.m-t-15
+                  .col-md-6
+                    p.m-b-10.table-label.text-left= 'Behavioral'
+                  each feature in features['Behavioral']
+                    - for (var key in feature)
+                      .col-md-12
+                        p.table-body.text-left= myconstants.constants(key)
+             
+
 
     .main-col.col
-      .main-col-section
-        .main-col-section-header
-          p Room Details
-        .row
-          - for (var i = 0; i < currentRooms.length; i++)
-            .col-md-12.col-lg-6
-              .card-deck
-                .card.mr-4.mt-4.mb-4
-                  .card-body
-                    //a.card-body__edit(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
-                        //| Room Detail 
-                        //i.fas.fa-chevron-right.fa-sm
-                    form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
-                      input(type='hidden', name='_csrf', value=_csrf)
-                      .form-group.row
-                        .btn-edit
-                          a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
-                            i.fas.fa-edit
-                            span Edit
-                        //label.col-form-label.col-form-label__stacked Room Name
-                        .col-md-8
-                          p.card-title= currentRooms[i].RoomName
-                      .form-group.row
-                        label.col-form-label.col-form-label__stacked Room Count
-                        .col-md-8
-                          input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
-                      .form-group.row
-                        label.col-form-label.col-form-label__stacked(for='roomtype') Room Type
-                        .col-md-12
-                          select.form-control(id='roomtype' name='roomtype' )
-                            option(selected= currentRooms[i].RoomType==='Private') Private
-                            option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
-                            option(selected= currentRooms[i].RoomType==='Suit') Suit
-                            option(selected= currentRooms[i].RoomType==='Studio Apartment') Studio Apartment
-                      .form-group.row
-                        label.col-form-label.col-form-label__stacked Room Rent Rate
-                        .col-md-8
-                          input.form-control(type='number', name='rent', id='rent',value=currentRooms[i].Range.min, autofocus, required)
-                      //.form-group.row
-                        label.col-form-label.col-form-label__stacked Room Rent Range
-                        .col-md-12.form-group__inline
-                          .col-md-5
-                            input.form-control.text-right(type='number', name='min', id='min', value=currentRooms[i].Range.min, autofocus, required)
-                          .col-md-2
-                              label.font-weight-bold.text-right to
-                          .col-md-5 
-                            input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
-                    .form-group
-                            button.btn.btn-secondary(type='submit', form="roomsignup-form1")
-                                | Update Room
+      .top-tabs
+          +tabs(data)
+            each tab, index in data
+              +tab(index)
+                -if (this.title == 'Room Details')
+                  .main-col-section
+                    .row
+                      - if (currentRooms && currentRooms.length)
+                        - for (var i = 0; i < currentRooms.length; i++)
+                          .col-md-12.col-lg-6
+                            .card-deck
+                              .card.mr-4.mt-4.mb-4
+                                .card-body
+                                  //a.card-body__edit(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
+                                      //| Room Detail 
+                                      //i.fas.fa-chevron-right.fa-sm
+                                  form(id='roomsignup-form1', method='POST', action='/updateroom/'+currentFacility._id.toString()+'/'+currentRooms[i]._id.toString()+'?_method=PUT')
+                                    input(type='hidden', name='_csrf', value=_csrf)
+                                    .form-group.row
+                                      .btn-edit
+                                        a(href="/updateroom/"+currentFacility._id+"/"+currentRooms[i]._id)
+                                          i.fas.fa-edit
+                                          span Edit
+                                      //label.col-form-label.col-form-label__stacked Room Name
+                                      .col-md-8
+                                        p.card-title= currentRooms[i].RoomName
+                                    .form-group.row
+                                      label.col-form-label.col-form-label__stacked Room Count
+                                      .col-md-8
+                                        input.form-control(type='number', name='count', id='count', value=currentRooms[i].RoomCount, autofocus, required)
+                                    .form-group.row
+                                      label.col-form-label.col-form-label__stacked(for='roomtype') Room Type
+                                      .col-md-12
+                                        select.form-control(id='roomtype' name='roomtype' )
+                                          option(selected= currentRooms[i].RoomType==='Private') Private
+                                          option(selected= currentRooms[i].RoomType==='Semi-Private') Semi-Private
+                                          option(selected= currentRooms[i].RoomType==='Suit') Suit
+                                          option(selected= currentRooms[i].RoomType==='Studio Apartment') Studio Apartment
+                                    .form-group.row
+                                      label.col-form-label.col-form-label__stacked Room Rent Rate
+                                      .col-md-8
+                                        input.form-control(type='number', name='rent', id='rent',value=currentRooms[i].Range.min, autofocus, required)
+                                    //.form-group.row
+                                      label.col-form-label.col-form-label__stacked Room Rent Range
+                                      .col-md-12.form-group__inline
+                                        .col-md-5
+                                          input.form-control.text-right(type='number', name='min', id='min', value=currentRooms[i].Range.min, autofocus, required)
+                                        .col-md-2
+                                            label.font-weight-bold.text-right to
+                                        .col-md-5 
+                                          input.form-control.text-right(type='number', name='max', id='max', value=currentRooms[i].Range.max, autofocus, required)
+                                  .form-group
+                                          button.btn.btn-secondary(type='submit', form="roomsignup-form1")
+                                              | Update Room
 
-        a(href="/roomsignup/"+currentFacility._id)
-            button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
+                    a.m-t-20(href="/roomsignup/"+currentFacility._id)
+                      button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
+
+                -else if (this.title == 'Matches')
+                  .main-col-section
+                    .row
+                      .col.col-xs-12
+                        table.match-table
+                          thead
+                            tr
+                              th Room Name
+                              th Room Rent
+                              th Senior ID
+                          tbody
+                            - if (currentMatches && currentMatches.length)
+                              each match in currentMatches
+                                tr
+                                  td 
+                                    a(href='/viewsenior/'+ match.SeniorId)= match.room.RoomName
+                                  td 
+                                    a(href='/viewsenior/'+ match.SeniorId)= match.room.Range.min
+                                  td 
+                                    a(href='/viewsenior/'+ match.SeniorId)= match.SeniorId
+                                    - if (!match.IsViewed)
+                                        span.unread
+
+
+
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+    script.
+      $(document).ready( function() {
+        console.log('does this hit');
+        var notification_element = document.getElementById('newMatchNot');
+
+        setTimeout(function(){ 
+          if (notification_element) notification_element.className += " showNot";
+        }, 1500);
+        
+      });
+
+
+
 

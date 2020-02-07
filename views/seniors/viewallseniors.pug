@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+	            
+	.table-search
+		//.col
+			//.inputgroup
+				//input.search(type='text', name='searchSeniors', id='searchSeniors', placeholder='Type senior name or ID')
+				//span.innericon.searchicon
+		.row
+			.main-col.col
+				.main-col-section
+					.col.col-xs-12
+						table.match-table
+							thead
+								tr
+									th Contact Name
+									th Contact Email
+									th Senior Name
+							tbody
+								each senior in seniors
+									tr(onclick='myFunction(\'' + senior._id + '\')')
+										td= senior.ContactName
+										td= senior.ContactEmail
+										td= senior.SeniorName
+
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+	script.		
+		function myFunction (senior_id) {
+			console.log('senior id', senior_id);
+			window.location= '/viewsenior/' + senior_id;
+		}		

@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/User');
+const myconstants = require('../utils/constants');
 
 
 /**
@@ -61,13 +62,13 @@ exports.postLogin = (req, res, next) => {
  */
 exports.logout = (req, res) => {
     if(!req.user){
-        res.redirect('/');
+      res.redirect('/home');
     }
     req.logout();
     req.session.destroy((err) => {
       if (err) console.log('Error : Failed to destroy the session during logout.', err);
       req.user = null;
-      res.redirect('/');
+      res.redirect('/home');
     });
 };
 
@@ -83,6 +84,7 @@ exports.getSignup = (req, res) => {
         title: 'Create Account'
     });
 };
+
 
 //** * POST /signup
 //* Create a new local account.
@@ -195,7 +197,6 @@ exports.getWillowAdminSignup = (req, res) => {
 };
 
 exports.postWillowAdminSignup = (req, res, next) => {
-    console.log('Here 11111');
     const passcode = 'panache';
     req.assert('email', 'Email is not valid').isEmail();
     req.assert('password', 'Password must be at least 4 characters long').len(4);
@@ -251,10 +252,11 @@ exports.postWillowAdminSignin = (req, res, next) => {
     }
 
     passport.authenticate('local', (err, user, info) => {
+        console.log('got the user here', user);
         if (err) { return next(err); }
         
         if(!user.isAdmin){
-            return res.redirect('/login');
+           return res.redirect('/login');
         }
 
         if (!user) {

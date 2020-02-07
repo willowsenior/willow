@@ -27,12 +27,15 @@
               =user.profile.name || user.email || user.id
               i.caret.m-l-2
             ul.dropdown-menu
-              li.divider.dropdown-item
               if user.isAdmin
+                li.dropdown-item
+                  a(href='/createseniorrecord') Add a Senior
+                li.dropdown-item
+                  a(href='/getseniors') View Seniors
                 li.dropdown-item
                   a(href='/admincustomersignup') Create Customer Signup
                 li.dropdown-item
                   a(href='/download') Export
-              li.divider.dropdown-item
+              .divider
               li.dropdown-item
                 a(href='/logout') Logout

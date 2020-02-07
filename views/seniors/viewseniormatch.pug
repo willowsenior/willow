@@ -1,0 +1,633 @@
+extends ../layout
+
+block content
+    mixin tabs(tabsItems)
+        - var tabActive = function (t) { return t.active ? 'active' : '' }
+
+        mixin tab(index)
+            - tabsItems[index].body = block;
+
+        block
+
+        - tabsItems[0].active = tabsItems[0].active || !tabsItems.some(function (t) { return t.active; })
+
+        div
+            ul.nav.nav-tabs(role="tablist")
+                if user.isAdmin
+                  button.btn.btn-secondary(type='submit')
+                    | Update Senior
+                each tab, index in tabsItems
+                    li(role="presentation")
+                        a(href="#"+"tab-id-" + index, aria-controls="tab-id-" + index, role="tab", data-toggle="tab", class=tabActive(tab))
+                          if tab.icon
+                              span.icon(class=tab.icon)
+                          span= tab.title
+                
+
+            .tab-content
+                each tab, index in tabsItems
+                    .tab-pane(id="tab-id-" + index, role="tabpanel", class=tabActive(tab))
+                        - tab.body && tab.body()
+
+    -
+        var data = [
+            { title: 'Contact', active: true },
+            { title: 'Senior Info'},
+            { title: 'Room Assignment' },
+            { title: 'Daily Living' },
+            { title: 'Behavioral Problems' },
+            { title: 'Additional Care' },
+            { title: 'Financial Information' }
+        ];
+
+    // Here is the actual template logic
+    form.body-form.body-form--with-tabs(id='seniorupdate-form', method='POST', action='/updateSenior/'+currentSenior._id.toString()+'?_method=PUT', novalidate, class=!user.isAdmin && 'locked' class=user.isAdmin && 'editable')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .side-tabs
+          +tabs(data)
+            each tab, index in data
+              +tab(index)
+                -if (this.title == 'Contact')
+                  .form-section
+                    .form-group.form-section-header
+                      h3.text-left Senior Info
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Contact Name
+                      .col-md-8
+                        input.form-control(type='text', name='contactName', id='contactName',value= currentSenior.ContactName, placeholder='Contact Name')
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Contact Email
+                      .col-md-10
+                        input.form-control(type='email', name='contactEmail', id='contactEmail',,value= currentSenior.ContactEmail, placeholder='Contact Email', autocomplete='email')
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Contact Number
+                      .col-md-8
+                        input.form-control(type='text', name='contactNumber', id='contactNumber',value= currentSenior.ContactNumber, placeholder='XXX-XXX-XXXX', maxlength="14")
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Contact relationship to the senior
+                      .col-md-8
+                        input.form-control(type='text', name='contactRelationship', id='contactRelationship',value= currentSenior.ContactRelationship, placeholder='Contact Relationship')
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked.check-group-label Please check any of the following that apply
+                      .col-md-12
+                        .form-check
+                          label.form-check-label(for='power_attorney')= myconstants.constants('Power_attorney')
+                            input.form-check-input(type='checkbox', name='contactPowerOfAttorney', id='power_attorney', checked= currentSenior.ContactPowerOfAttorney, placeholder='power_attorney' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='healthcare_proxy')= myconstants.constants('Healthcare_proxy')
+                            input.form-check-input(type='checkbox', name='contactHealthProxy', id='healthcare_proxy', checked= currentSenior.ContactHealthProxy placeholder='healthcare_proxy' value=1)
+                            span.checkmark
+                    .form-group.row
+                      label.col-lg-5.col-md-8.col-form-label I would like the Senior to live with me
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='LiveWithContact_yes') Yes
+                            input.form-radio-input(type='radio', name='liveWithContact', id='LiveWithContact_yes' value = 'Y', checked= currentSenior.LiveWithContact==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='LiveWithContact_no') No
+                            input.form-radio-input(type='radio', name='liveWithContact', id='LiveWithContact_no' value = 'N', checked= currentSenior.LiveWithContact==='N')
+                            span.radio
+
+                -else if (this.title == 'Senior Info')
+                  .form-section
+                    .form-group.form-section-header.form-section-header--center
+                      h3.text-center Senior Information
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Senior Name
+                      .col-md-10
+                        input.form-control(type='text', name='seniorName', id='seniorName', placeholder='Senior Name',value= currentSenior.SeniorName, autofocus)
+                    .form-group.row
+                      label.col-sm-3.col-md-2.col-form-label Gender
+                      .col-md-3
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='M') Male
+                            input.form-radio-input(type='radio', name='gender', id='M',  value = 'M', checked=currentSenior.Gender==='M')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='F') Female
+                            input.form-radio-input(type='radio', name='gender', id='F',  value = 'F', checked=currentSenior.Gender==='F')
+                            span.radio
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Age
+                      .col-md-4
+                        input.form-control(type='number', pattern='^[0–9]$', name='age', id='age', placeholder='Age', value= currentSenior.Age)
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked Zip Code
+                      .col-md-4
+                        input.form-control(type='number', pattern='^[0–9]$', name='zipCode', id='zipCode', placeholder='ZipCode', value= currentSenior.Zipcode)
+
+                -else if (this.title == 'Room Assignment')
+                  -if (user.isAdmin)
+                    .form-section
+                      .form-group.form-section-header.form-section-header__with-button
+                        h3.text-left Rooms
+
+                      .form-group.row
+                        .table-search(style="width:100%")
+                          .row
+                            .main-col(style="width:100%")
+                              .main-col-section
+                                .col-xs-12
+                                  table.match-table(style="width:100%")
+                                    thead
+                                      tr
+                                        th Room
+                                        th Facility
+                                        th Count
+                                        th Type
+                                        th Rent
+                                        th
+                                    tbody
+                                      - for (var i = 0; i < currentSenior.rooms.length; i++)
+                                        tr
+                                          td= currentSenior.rooms[i].RoomName
+                                          td= currentSenior.rooms[i].FacilityName
+                                          td= currentSenior.rooms[i].RoomCount
+                                          td= currentSenior.rooms[i].RoomType
+                                          td= currentSenior.rooms[i].Range.min
+                                          td
+                                            label.form-check-label
+                                              input.form-check-input(type='checkbox', id=`roomMatch-${currentSenior.rooms[i]._id}`, checked= currentSenior.rooms[i].selected, placeholder='', value=1, name=`roomMatch-${currentSenior.rooms[i]._id}`  )
+                                              span.checkmark
+                  -else
+                    .form-section
+                      .form-group.form-section-header.form-section-header__with-button
+                        h3.text-left Rooms
+                      .form-group.row
+                        .table-search(style="width:100%")
+                          .row
+                            .main-col(style="width:100%")
+                              .main-col-section
+                                .col-xs-12
+                                  table.match-table(style="width:100%")
+                                    thead
+                                      tr
+                                        th Room
+                                        th Count
+                                        th Type
+                                        th Rent
+                                        th
+                                    tbody
+                                      - for (var i = 0; i < facilityRooms.length; i++)
+                                        tr
+                                          td= facilityRooms[i].RoomName
+                                          td= facilityRooms[i].RoomCount
+                                          td= facilityRooms[i].RoomType
+                                          td= facilityRooms[i].Range.min
+                                          td
+                                            label.form-check-label
+                                              input.form-check-input(type='checkbox', id=`roomMatch-${facilityRooms[i]._id}`, checked= facilityRooms[i].selected, placeholder='', value=1, name=`roomMatch-${facilityRooms[i]._id}`  )
+                                              span.checkmark
+
+                -else if (this.title == 'Daily Living')
+                  .form-section
+                    .form-group.form-section-header
+                      h3.text-left Activities of Daily Living
+                        h4.text-left What level of assistance does the Senior require?
+
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked.check-group-label Eating
+                      .col-md-8
+                        .form-check
+                          label.form-check-label(for='eating_noassistance')= myconstants.constants('Eating_noassistance')
+                            input.form-check-input(type='checkbox', name='eating_noassistance', id='eating_noassistance', checked= currentSenior.FacilityFeatures.Eating_noassistance, placeholder='eating_noassistance' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='eating_intermittent')= myconstants.constants('Eating_intermittent')
+                            input.form-check-input(type='checkbox', name='eating_intermittent', id='eating_intermittent',checked= currentSenior.FacilityFeatures.Eating_intermittent, placeholder='eating_intermittent' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='eating_continual')= myconstants.constants('Eating_continual')
+                            input.form-check-input(type='checkbox', name='eating_continual', id='eating_continual',checked= currentSenior.FacilityFeatures.Eating_continual, placeholder='eating_continual' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='eating_byhand')= myconstants.constants('Eating_byhand')
+                            input.form-check-input(type='checkbox', name='eating_byhand', id='eating_byhand',checked= currentSenior.FacilityFeatures.Eating_byhand, placeholder='eating_byhand' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='eating_tube')= myconstants.constants('Eating_tube')
+                            input.form-check-input(type='checkbox', name='eating_tube', id='eating_tube',checked= currentSenior.FacilityFeatures.Eating_tube, placeholder='eating_tube' value=1)
+                            span.checkmark
+                    br 
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked.check-group-label Transfers
+                      .col-md-8
+                        .form-check
+                          label.form-check-label(for='transfers_none')= myconstants.constants('Transfers_none')
+                            input.form-check-input(type='checkbox', name='transfers_none', id='transfers_none',checked= currentSenior.FacilityFeatures.Transfers_none, placeholder='transfers_none' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='transfers_intermittent')= myconstants.constants('Transfers_intermittent')
+                            input.form-check-input(type='checkbox', name='transfers_intermittent', id='transfers_intermittent',checked= currentSenior.FacilityFeatures.Transfers_intermittent, placeholder='transfers_intermittent' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='transfers_oneperson')= myconstants.constants('Transfers_oneperson')
+                            input.form-check-input(type='checkbox', name='transfers_oneperson', id='transfers_oneperson',checked= currentSenior.FacilityFeatures.Transfers_oneperson, placeholder='transfers_oneperson' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='transfers_twoperson')= myconstants.constants('Transfers_twoperson')
+                            input.form-check-input(type='checkbox', name='transfers_twoperson', id='transfers_twoperson',checked= currentSenior.FacilityFeatures.Transfers_twoperson, placeholder='transfers_twoperson' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='transfers_cannot')= myconstants.constants('Transfers_cannot')
+                            input.form-check-input(type='checkbox', name='transfers_cannot', id='transfers_cannot',checked= currentSenior.FacilityFeatures.Transfers_cannot, placeholder='transfers_cannot' value=1)
+                            span.checkmark
+                    br    
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked.check-group-label Mobility
+                      .col-md-8
+                        .form-check
+                          label.form-check-label(for='mobiliy_noassisstance')= myconstants.constants('Mobiliy_noassisstance')
+                            input.form-check-input(type='checkbox', name='mobiliy_noassisstance', id='mobiliy_noassisstance',checked= currentSenior.FacilityFeatures.Mobiliy_noassisstance, placeholder='mobiliy_noassisstance' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='mobiliy_intermittent')= myconstants.constants('Mobiliy_intermittent')
+                            input.form-check-input(type='checkbox', name='mobiliy_intermittent', id='mobiliy_intermittent',checked= currentSenior.FacilityFeatures.Mobiliy_intermittent, placeholder='mobiliy_intermittent' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='mobiliy_continual')= myconstants.constants('Mobiliy_continual')
+                            input.form-check-input(type='checkbox', name='mobiliy_continual', id='mobiliy_continual',checked= currentSenior.FacilityFeatures.Mobiliy_continual, placeholder='mobiliy_continual' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='mobiliy_wheels')= myconstants.constants('Mobiliy_wheels')
+                            input.form-check-input(type='checkbox', name='mobiliy_wheels', id='mobiliy_wheels',checked= currentSenior.FacilityFeatures.Mobiliy_wheels, placeholder='mobiliy_wheels' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='mobiliy_cannotmove')= myconstants.constants('Mobiliy_cannotmove')
+                            input.form-check-input(type='checkbox', name='mobiliy_cannotmove', id='mobiliy_cannotmove',checked= currentSenior.FacilityFeatures.Mobiliy_cannotmove, placeholder='mobiliy_cannotmove' value=1)
+                            span.checkmark
+                    br     
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked.check-group-label Toileting
+                      .col-md-8
+                        .form-check
+                          label.form-check-label(for='toileting_noassisstance')= myconstants.constants('Toileting_noassisstance')
+                            input.form-check-input(type='checkbox', name='toileting_noassisstance', id='toileting_noassisstance',checked= currentSenior.FacilityFeatures.Toileting_noassisstance, placeholder='toileting_noassisstance' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='toileting_bowel')= myconstants.constants('Toileting_bowel')
+                            input.form-check-input(type='checkbox', name='toileting_bowel', id='toileting_bowel',checked= currentSenior.FacilityFeatures.Toileting_bowel, placeholder='Toileting_bowel' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='toileting_continual')= myconstants.constants('Toileting_continual')
+                            input.form-check-input(type='checkbox', name='toileting_continual', id='toileting_continual',checked= currentSenior.FacilityFeatures.Toileting_continual, placeholder='toileting_continual' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='toileting_nobathroomincontinent')= myconstants.constants('Toileting_nobathroomincontinent')
+                            input.form-check-input(type='checkbox', name='toileting_nobathroomincontinent', id='toileting_nobathroomincontinent',checked= currentSenior.FacilityFeatures.Toileting_nobathroomincontinent, placeholder='toileting_nobathroomincontinent' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='toileting_bathroomincontinent')= myconstants.constants('Toileting_bathroomincontinent')
+                            input.form-check-input(type='checkbox', name='toileting_bathroomincontinent', id='toileting_bathroomincontinent',checked= currentSenior.FacilityFeatures.Toileting_bathroomincontinent, placeholder='toileting_bathroomincontinent' value=1)
+                            span.checkmark
+                -else if (this.title == 'Behavioral Problems')
+                  .form-section
+                    .form-group.form-section-header
+                      h3.text-left Behavioral Problems
+                        h4.text-left Does the Senior Exhibit any Behavioral Problems?
+                    
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked.check-group-label Verbal Disruption
+                      .col-md-8
+                        .form-check
+                          label.form-check-label(for='verbal_none')= myconstants.constants('Verbal_none')
+                            input.form-check-input(type='checkbox', name='verbal_none', id='verbal_none',checked= currentSenior.FacilityFeatures.Verbal_none, placeholder='verbal_none' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='verbal_infrequent')= myconstants.constants('Verbal_infrequent')
+                            input.form-check-input(type='checkbox', name='verbal_infrequent', id='verbal_infrequent',checked= currentSenior.FacilityFeatures.Verbal_infrequent, placeholder='verbal_infrequent' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='verbal_predictable')= myconstants.constants('Verbal_predictable')
+                            input.form-check-input(type='checkbox', name='verbal_predictable', id='verbal_predictable',checked= currentSenior.FacilityFeatures.Verbal_predictable, placeholder='verbal_predictable' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='verbal_onceunpredictable')= myconstants.constants('Verbal_onceunpredictable')
+                            input.form-check-input(type='checkbox', name='verbal_onceunpredictable', id='verbal_onceunpredictable',checked= currentSenior.FacilityFeatures.Verbal_onceunpredictable, placeholder='verbal_onceunpredictable' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='verbal_multipleunpredictable')= myconstants.constants('Verbal_multipleunpredictable')
+                            input.form-check-input(type='checkbox', name='verbal_multipleunpredictable', id='verbal_multipleunpredictable',checked= currentSenior.FacilityFeatures.Verbal_multipleunpredictable, placeholder='verbal_multipleunpredictable' value=1)
+                            span.checkmark
+                    br 
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked.check-group-label Physical Aggression
+                      .col-md-8
+                        .form-check
+                          label.form-check-label(for='physical_none')= myconstants.constants('Physical_none')
+                            input.form-check-input(type='checkbox', name='physical_none', id='physical_none',checked= currentSenior.FacilityFeatures.Physical_none, placeholder='physical_none' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='physical_infrequent')= myconstants.constants('Physical_infrequent')
+                            input.form-check-input(type='checkbox', name='physical_infrequent', id='physical_infrequent',checked= currentSenior.FacilityFeatures.Physical_infrequent, placeholder='physical_infrequent' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='physical_predictable')= myconstants.constants('Physical_predictable')
+                            input.form-check-input(type='checkbox', name='physical_predictable', id='physical_predictable',checked= currentSenior.FacilityFeatures.Physical_predictable, placeholder='physical_predictable' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='physical_onceunpredictable')= myconstants.constants('Physical_onceunpredictable')
+                            input.form-check-input(type='checkbox', name='physical_onceunpredictable', id='physical_onceunpredictable',checked= currentSenior.FacilityFeatures.Physical_onceunpredictable, placeholder='physical_onceunpredictable' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='physical_multipleunpredictable')= myconstants.constants('Physical_multipleunpredictable')
+                            input.form-check-input(type='checkbox', name='physical_multipleunpredictable', id='physical_multipleunpredictable',checked= currentSenior.FacilityFeatures.Physical_multipleunpredictable, placeholder='physical_multipleunpredictable' value=1)
+                            span.checkmark
+                    br 
+                    .form-group.row
+                      label.col-form-label.col-form-label__stacked.check-group-label Inappropriate Behavior
+                      .col-md-8
+                        .form-check
+                          label.form-check-label(for='behaviourial_none')= myconstants.constants('Behaviourial_none')
+                            input.form-check-input(type='checkbox', name='behaviourial_none', id='behaviourial_none',checked= currentSenior.FacilityFeatures.Behaviourial_none, placeholder='behaviourial_none' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='behaviourial_yesnondisruptive')= myconstants.constants('Behaviourial_yesnondisruptive')
+                            input.form-check-input(type='checkbox', name='behaviourial_yesnondisruptive', id='behaviourial_yesnondisruptive',checked= currentSenior.FacilityFeatures.Behaviourial_yesnondisruptive, placeholder='behaviourial_yesnondisruptive' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='behaviourial_infrequent')= myconstants.constants('Behaviourial_infrequent')
+                            input.form-check-input(type='checkbox', name='behaviourial_infrequent', id='behaviourial_infrequent',checked= currentSenior.FacilityFeatures.Behaviourial_infrequent, placeholder='behaviourial_infrequent' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='behaviourial_frequent')= myconstants.constants('Behaviourial_frequent')
+                            input.form-check-input(type='checkbox', name='behaviourial_frequent', id='behaviourial_frequent',checked= currentSenior.Behaviourial_frequent, placeholder='behaviourial_frequent' value=1)
+                            span.checkmark
+                        .form-check
+                          label.form-check-label(for='behaviourial_unpredictable')= myconstants.constants('Behaviourial_unpredictable')
+                            input.form-check-input(type='checkbox', name='behaviourial_unpredictable', id='behaviourial_unpredictable',checked= currentSenior.FacilityFeatures.Behaviourial_unpredictable, placeholder='behaviourial_unpredictable' value=1)
+                            span.checkmark
+                - else if (this.title == 'Additional Care')
+                  .form-section
+                    .form-group.form-section-header
+                      h3.text-left Additional Health Accomodations
+                        h4.text-left What types of special assistance does the Senior require?
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-form-label How many daily insulin shots does the senior require?
+                      .col-md-4
+                        input.form-control(type='number', name='insulinShots', id='insulinShots', placeholder='Insulin Shots', autofocus, required, value=currentSenior.InsulinShots)
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-form-label Hallucinations
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='hallucinations_yes') Yes
+                            input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_yes' value = 'Y', checked= currentSenior.Hallucination==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='hallucinations_no') No
+                            input.form-radio-input(type='radio', name='hallucinations', id='hallucinations_no' value = 'N', checked= currentSenior.Hallucination==='N')
+                            span.radio
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-form-label Memory Care
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='memorycare_yes') Yes
+                            input.form-radio-input(type='radio', name='memoryCare', id='memorycare_yes' value = 'Y', checked= currentSenior.MemoryCare==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='memorycare_no') No
+                            input.form-radio-input(type='radio', name='memoryCare', id='memorycare_no' value = 'N', checked= currentSenior.MemoryCare==='N')
+                            span.radio
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-form-label Does the senior require an Oxygen Tank?
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='oxygentank_yes') Yes
+                            input.form-radio-input(type='radio', name='oxygenTank', id='oxygentank_yes' value = 'Y', checked= currentSenior.OxygenTank==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='oxygentank_no') No
+                            input.form-radio-input(type='radio', name='oxygenTank', id='oxygentank_no' value = 'N', checked= currentSenior.OxygenTank==='N')
+                            span.radio
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-form-label Can the senior change their oxygen tank themselves?
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='changeoxygentank_yes') Yes
+                            input.form-radio-input(type='radio', name='changeOxygenTank', id='changeoxygentank_yes' value = 'Y', checked= currentSenior.ChangeOxygenTank==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='changeoxygentank_no') No
+                            input.form-radio-input(type='radio', name='changeOxygenTank', id='changeoxygentank_no' value = 'N', checked= currentSenior.ChangeOxygenTank==='N')
+                            span.radio
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-form-label Does the senior require an oxygen tank at all times?
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='alltimeoxygen_yes') Yes
+                            input.form-radio-input(type='radio', name='allTimeOxygen', id='alltimeoxygen_yes' value = 'Y', checked= currentSenior.AllTimeOxygen==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='alltimeoxygen_no') No
+                            input.form-radio-input(type='radio', name='allTimeOxygen', id='alltimeoxygen_no' value = 'N', checked= currentSenior.AllTimeOxygen==='N')
+                            span.radio
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-form-label Can the senior change their own catheter/colostomy bag?
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='changecatheter_yes') Yes
+                            input.form-radio-input(type='radio', name='changeCatheter', id='changecatheter_yes' value = 'Y', checked= currentSenior.ChangeCatheter==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='changecatheter_no') No
+                            input.form-radio-input(type='radio', name='changeCatheter', id='changecatheter_no' value = 'N', checked= currentSenior.ChangeCatheter==='N')
+                            span.radio
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-form-label Does the senior require medication management?
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='medicationmanagement_yes') Yes
+                            input.form-radio-input(type='radio', name='medicationManagement', id='medicationmanagement_yes' value = 'Y', checked= currentSenior.MedicationManagement==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='medicationmanagement_no') No
+                            input.form-radio-input(type='radio', name='medicationManagement', id='medicationmanagement_no' value = 'N', checked= currentSenior.MedicationManagement==='N')
+                            span.radio
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-md-5.col-form-label Does the senior require a liquid diet?
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='liquiddiets_yes') Yes
+                            input.form-radio-input(type='radio', name='liquidDiets', id='liquiddiets_yes' value = 'Y', checked= currentSenior.LiquidDiets==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='liquiddiets_no') No
+                            input.form-radio-input(type='radio', name='liquidDiets', id='liquiddiets_no' value = 'N', checked= currentSenior.LiquidDiets==='N')
+                            span.radio
+                    br 
+                    .form-group.row
+                      label.col-lg-6.col-md-8.col-form-label Does the senior require a ground diet?
+                      .col-md-4
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='grounddiets_yes') Yes
+                            input.form-radio-input(type='radio', name='groundDiets', id='grounddiets_yes' value = 'Y', checked= currentSenior.GroundDiets==='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='grounddiets_no') No
+                            input.form-radio-input(type='radio', name='groundDiets', id='grounddiets_no' value = 'N', checked= currentSenior.GroundDiets==='N')
+                            span.radio
+                    br
+                    .form-group.row
+                      label.col-lg-6.col-md-6.col-form-label Medicaid Bed
+                      .col-md-6
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='medicaid_yes') Yes
+                            input.form-radio-input(type='radio', checked= currentSenior.MedicAid==='Y', name='medicAid', id='medicaid_yes' value = 'Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='medicaid_no') No
+                            input.form-radio-input(type='radio', checked= currentSenior.MedicAid==='N', name='medicAid', id='medicaid_no' value = 'N')
+                            span.radio
+                    br
+                    .form-group.row
+                      label.col-lg-6.col-md-6.col-form-label Does the senior require a secure unit/ unit with a Wanderguard?
+                      .col-md-6
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='wanderguard_yes') Yes
+                            input.form-radio-input(type='radio', checked= currentSenior.Wandergaurd==='Y', name='wanderGaurd', id='wanderguard_yes' value='Y')
+                            span.radio
+                        .col-md-12
+                          label.form-radio-label.ml-4(for='wandergaurd_no') No
+                            input.form-radio-input(type='radio', checked= currentSenior.Wanderguard==='N', name='wanderGaurd', id='wandergaurd_no' value = 'N')
+                            span.radio
+                - else if (this.title == 'Financial Information')
+                  .form-group.form-section-header.form-section-header--center
+                    h3.text-center Senior Financial Information
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label What is the senior's monthly income
+                    .col-md-4
+                      input.form-control(type='number', name='monthlyIncome', id='monthlyIncome', placeholder='Monthly Income', value=currentSenior.MonthlyIncome)
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Medicaid
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='medicAid_yes') Yes
+                          input.form-radio-input(type='radio', name='medicAid', id='medicAid_yes' value = 'Y', checked= currentSenior.MedicAid==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='medicAid_no') No
+                          input.form-radio-input(type='radio', name='medicAid', id='medicAid_no' value = 'N', checked= currentSenior.MedicAid==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Pension
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='pension_yes') Yes
+                          input.form-radio-input(type='radio', name='pension', id='pension_yes' value = 'Y', checked= currentSenior.Pension==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='pension_no') No
+                          input.form-radio-input(type='radio', name='pension', id='pension_no' value = 'N', checked= currentSenior.Pension==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Veteran or Veteran Spouse
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='veteranOrVeteranSpouse_yes') Yes
+                          input.form-radio-input(type='radio', name='veteranOrVeteranSpouse', id='veteranOrVeteranSpouse_yes' value = 'Y', checked= currentSenior.VeteranOrVeteranSpouse==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='veteranOrVeteranSpouse_no') No
+                          input.form-radio-input(type='radio', name='veteranOrVeteranSpouse', id='veteranOrVeteranSpouse_no' value = 'N', checked= currentSenior.VeteranOrVeteranSpouse==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Property Owner
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='propertyOwner_yes') Yes
+                          input.form-radio-input(type='radio', name='propertyOwner', id='propertyOwner_yes' value = 'Y', checked= currentSenior.PropertyOwner==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='propertyOwner_no') No
+                          input.form-radio-input(type='radio', name='propertyOwner', id='propertyOwner_no' value = 'N', checked= currentSenior.PropertyOwner==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Long-term Care Insurance
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='longTermInsurance_yes') Yes
+                          input.form-radio-input(type='radio', name='longTermInsurance', id='longTermInsurance_yes' value = 'Y', checked= currentSenior.LongTermInsurance==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='propertyOwner_no') No
+                          input.form-radio-input(type='radio', name='longTermInsurance', id='longTermInsurance_no' value = 'N', checked= currentSenior.LongTermInsurance==='N')
+                          span.radio
+                  br 
+                  .form-group.row
+                    label.col-lg-6.col-md-6.col-form-label Life Insurance
+                    .col-md-6
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='lifeInsurance_yes') Yes
+                          input.form-radio-input(type='radio', name='lifeInsurance', id='lifeInsurance_yes' value = 'Y', checked= currentSenior.LifeInsurance==='Y')
+                          span.radio
+                      .col-md-12
+                        label.form-radio-label.ml-4(for='lifeInsurance_no') No
+                          input.form-radio-input(type='radio', name='lifeInsurance', id='lifeInsurance_no' value = 'N', , checked= currentSenior.LifeInsurance==='N')
+                          span.radio
+
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+    script.
+      
+
+      //Phone Number Parsing
+      $(document).ready( function() {
+
+        var form = document.getElementById('seniorupdate-form');
+        //console.log('check form here', form);
+        if (form.className.indexOf("locked") > -1) {
+          console.log('disable form inputs');
+          var elements = form.elements;
+          for (var i = 0, len = elements.length; i < len; ++i) {
+            elements[i].disabled = true;
+          }
+        }
+
+        
+        var phone_input = document.getElementById('contactNumber');
+        phone_input.addEventListener('input', function (evt) {
+          var number_value = document.getElementById('contactNumber').value,
+              final_value;
+          if (number_value.length >= 14) return;
+
+          if (number_value.length == 3) {
+            //reformat and return phone number
+            number_value = number_value.replace(/[^\d]/g, "");
+            final_value = number_value.replace(/(\d{3})/, "($1) ");
+          } else if (number_value.length == 10) {
+
+            number_value = number_value.replace(/[^\d]/g, "");
+            final_value = number_value.replace(/(\d{3})(\d{3})/, "($1) $2-");
+
+          } else if (number_value.length == 14) {
+            //reformat and return phone number
+            number_value = number_value.replace(/[^\d]/g, "");
+            final_value = number_value.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+          } else {
+            final_value = number_value
+          }
+
+          document.getElementById('contactNumber').value = final_value;
+        });
+
+
+        
+      });
+
+            
