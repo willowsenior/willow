@@ -142,49 +142,6 @@ function _setMatchesViewed (seniorMatches, senior_id) {
   });
 }
 
-// exports.viewSeniorMatch = (req, res) => {
-//     var seniormatch_id = req.params.seniormatch_id;
-//     console.log('use this id', seniormatch_id);
-
-//     if(!seniormatch_id) {
-//         req.flash('errors Missing Id');
-//         return res.redirect('/'); //TODO 404 page
-//     }
-
-//     if (!req.user || !req.user.isAdmin) {
-//         return res.redirect('/');
-//     }
-
-//     SeniorMatch.findById({id: seniormatch_id})
-//     .then((seniorMatch)=>{
-//       if (!seniorMatch){
-//         return console.log('no match'); //TODO: 404 Page
-//       } else {
-//           patchSeniorMatchMarkAsViewed(seniorMatch._id);
-//       }
-//       console.log('got senior match this id', seniorMatch);
-
-//       SeniorModel.findById(seniorMatch.SeniorId)
-//       .then((currentSenior)=>{
-//           if (!currentSenior) {
-//             console.log('No senior found for Id: ' + senior_id);
-//           }
-//           res.render('seniors/viewseniormatch', {
-//             title: 'View Senior Match',
-//             seniorMatch,
-//             currentSenior,
-//             myconstants
-//           });
-//       })
-//       .catch((error)=>{
-//           console.log(error || "Error viewing seniorId: " +senior_id );
-//       });
-
-//     })
-//     .catch((error)=>{
-//         console.log(error || "Error viewing seniorMatch for seniorId: " +senior_id );
-//     });
-// };
 
 exports.deleteSeniorMatch = (req, res) => {
     var id = req.params.senior_id;

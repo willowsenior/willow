@@ -20,20 +20,17 @@ exports.getFacility = async (req, res, error) => {
     Facility.findById(facilityId)
     .then(async (facility)=>{
        console.log('got facility', facility);
-        currentFacility = facility;
-        var features = await _mapFeatures(currentFacility.FacilityFeatures);
+        var features = await _mapFeatures(facility);
         //console.log('facility features', features);
         
         try {
           currentRooms = await _roomPromise(facilityId);
           existingMatches = await _matchPromise(facilityId);
           //console.log('got rooms and matches', currentRooms.length, existingMatches.length);
-          var currentMatches;
           if (existingMatches && existingMatches.length) currentMatches = await _mapMatchesPromise(existingMatches);
          
           res.render('facility', {
             title: 'Facility',
-            features,
             currentFacility,
             currentMatches,
             currentRooms,
@@ -48,7 +45,7 @@ exports.getFacility = async (req, res, error) => {
     }); 
 };
 
-function _mapFeatures (features) {
+/*function _mapFeatures (features) {
   return new Promise((resolve, reject) => {
     var newFeatures = {
       'Eating': [],
@@ -89,7 +86,7 @@ function _mapFeatures (features) {
     //console.log('new features here', newFeatures);
     resolve(newFeatures);
   });
-}
+} */
 
 function _roomPromise (facilityId) {
   return new Promise((resolve, reject) => {
@@ -177,55 +174,18 @@ exports.postFacilitySignup = (req, res, next) => {
       Contact: req.body.contactNumber,
       ContactName: req.body.contactName,
       Email: req.user.email,
-      Hallucination: req.body.hallucinations,
-      MemoryCare: req.body.memorycare,
-      InsulinShots: req.body.insulinshots,
-      OxygenTank: req.body.oxygentank,
-      ChangeOxygenTank: req.body.changeoxygentank,
-      AllTimeOxygen: req.body.alltimeoxygen,
-      ChangeCatheter: req.body.changecatheter,
-      MedicationManagement: req.body.medicationmanagement,
-      LiquidDiets: req.body.liquiddiets,
-      GroundDiets: req.body.grounddiets,
-      NewMatch: false,
-      // FacilityPhoto:
-      FacilityFeatures: {
-        Eating_noassistance: req.body.eating_noassistance,
-        Eating_intermittent: req.body.eating_intermittent,
-        Eating_continual: req.body.eating_continual,
-        Eating_byhand: req.body.eating_byhand,
-        Eating_tube: req.body.eating_tube,
-        Transfers_none: req.body.transfers_none,
-        Transfers_intermittent: req.body.transfers_intermittent,
-        Transfers_oneperson: req.body.transfers_oneperson,
-        Transfers_twoperson: req.body.transfers_twoperson,
-        Transfers_cannot: req.body.transfers_cannot,
-        Mobiliy_noassisstance: req.body.mobiliy_noassisstance,
-        Mobiliy_intermittent: req.body.mobiliy_intermittent,
-        Mobiliy_continual: req.body.mobiliy_continual,
-        Mobiliy_wheels: req.body.mobiliy_wheels,
-        Mobiliy_cannotmove: req.body.mobiliy_cannotmove,
-        Toileting_noassisstance: req.body.toileting_noassisstance,
-        Toileting_bowel: req.body.toileting_bowel,
-        Toileting_continual: req.body.toileting_continual,
-        Toileting_nobathroomincontinent: req.body.toileting_nobathroomincontinent,
-        Toileting_bathroomincontinent: req.body.toileting_bathroomincontinent,
-        Verbal_none: req.body.verbal_none,
-        Verbal_infrequent: req.body.verbal_infrequent,
-        Verbal_predictable: req.body.verbal_predictable,
-        Verbal_onceunpredictable: req.body.verbal_onceunpredictable,
-        Verbal_multipleunpredictable: req.body.verbal_multipleunpredictable,
-        Physical_none: req.body.physical_none,
-        Physical_infrequent: req.body.physical_infrequent,
-        Physical_predictable: req.body.physical_predictable,
-        Physical_onceunpredictable: req.body.physical_onceunpredictable,
-        Physical_multipleunpredictable: req.body.physical_multipleunpredictable,
-        Behaviourial_none : req.body.behaviourial_none,
-        Behaviourial_yesnondisruptive : req.body.behaviourial_yesnondisruptive,
-        Behaviourial_infrequent : req.body.behaviourial_infrequent,
-        Behaviourial_frequent : req.body.behaviourial_frequent,
-        Behaviourial_unpredictable : req.body.behaviourial_unpredictable
-      }
+      MedicAid: req.body.medicaid,
+      AssistedActivites: req.body.assistedActivites,
+      BehaviorProblems: req.body.behaviorProblems,
+      PhysicalAggressive: req.body.physicalAggressive,
+      SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
+      MemoryCare: req.body.memoryCare,
+      AddititonalIssues: req.body.addititonalIssues,
+      InsulinShots: req.body.insulinShots,
+      ChangeCatheterOrColostomyBag: req.body.changeCatheterOrColostomyBag,
+      OxygenTank: req.body.oxygenTank,
+      ContinousOxygen: req.body.continousOxygen,
+      DesiredRent: req.body.desiredRent,
   });
 
   facility.save(function(err) {
@@ -266,63 +226,27 @@ exports.putFacilityUpdate = (req, res, next) =>{
   var facilityId = req.params.facility_id;
   Facility.findByIdAndUpdate(facilityId,{$set: {
     FacilityName: req.body.facilityName,
-    Address: {
-        street: req.body.street,
-        city: req.body.city,
-        state: req.body.state,
-        zip: req.body.zip
-    },
-    Contact: req.body.contactNumber,
-    ContactName: req.body.contactName,
-    Email: req.user.email,
-    Hallucination: req.body.hallucinations,
-    MemoryCare: req.body.memorycare,
-    InsulinShots: req.body.insulinshots,
-    OxygenTank: req.body.oxygentank,
-    ChangeOxygenTank: req.body.changeoxygentank,
-    AllTimeOxygen: req.body.alltimeoxygen,
-    ChangeCatheter: req.body.changecatheter,
-    MedicationManagement: req.body.medicationmanagement,
-    LiquidDiets: req.body.liquiddiets,
-    GroundDiets: req.body.grounddiets,
-    // FacilityPhoto:
-    FacilityFeatures: {
-      Eating_noassistance: req.body.eating_noassistance,
-      Eating_intermittent: req.body.eating_intermittent,
-      Eating_continual: req.body.eating_continual,
-      Eating_byhand: req.body.eating_byhand,
-      Eating_tube: req.body.eating_tube,
-      Transfers_none: req.body.transfers_none,
-      Transfers_intermittent: req.body.transfers_intermittent,
-      Transfers_oneperson: req.body.transfers_oneperson,
-      Transfers_twoperson: req.body.transfers_twoperson,
-      Transfers_cannot: req.body.transfers_cannot,
-      Mobiliy_noassisstance: req.body.mobiliy_noassisstance,
-      Mobiliy_intermittent: req.body.mobiliy_intermittent,
-      Mobiliy_continual: req.body.mobiliy_continual,
-      Mobiliy_wheels: req.body.mobiliy_wheels,
-      Mobiliy_cannotmove: req.body.mobiliy_cannotmove,
-      Toileting_noassisstance: req.body.toileting_noassisstance,
-      Toileting_bowel: req.body.toileting_bowel,
-      Toileting_continual: req.body.toileting_continual,
-      Toileting_nobathroomincontinent: req.body.toileting_nobathroomincontinent,
-      Toileting_bathroomincontinent: req.body.toileting_bathroomincontinent,
-      Verbal_none: req.body.verbal_none,
-      Verbal_infrequent: req.body.verbal_infrequent,
-      Verbal_predictable: req.body.verbal_predictable,
-      Verbal_onceunpredictable: req.body.verbal_onceunpredictable,
-      Verbal_multipleunpredictable: req.body.verbal_multipleunpredictable,
-      Physical_none: req.body.physical_none,
-      Physical_infrequent: req.body.physical_infrequent,
-      Physical_predictable: req.body.physical_predictable,
-      Physical_onceunpredictable: req.body.physical_onceunpredictable,
-      Physical_multipleunpredictable: req.body.physical_multipleunpredictable,
-      Behaviourial_none : req.body.behaviourial_none,
-      Behaviourial_yesnondisruptive : req.body.behaviourial_yesnondisruptive,
-      Behaviourial_infrequent : req.body.behaviourial_infrequent,
-      Behaviourial_frequent : req.body.behaviourial_frequent,
-      Behaviourial_unpredictable : req.body.behaviourial_unpredictable
-    }
+      Address: {
+          street: req.body.street,
+          city: req.body.city,
+          state: req.body.state,
+          zip: req.body.zip
+      },
+      Contact: req.body.contactNumber,
+      ContactName: req.body.contactName,
+      Email: req.user.email,
+      MedicAid: req.body.medicaid,
+      AssistedActivites: req.body.assistedActivites,
+      BehaviorProblems: req.body.behaviorProblems,
+      PhysicalAggressive: req.body.physicalAggressive,
+      SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
+      MemoryCare: req.body.memoryCare,
+      AddititonalIssues: req.body.addititonalIssues,
+      InsulinShots: req.body.insulinShots,
+      ChangeCatheterOrColostomyBag: req.body.changeCatheterOrColostomyBag,
+      OxygenTank: req.body.oxygenTank,
+      ContinousOxygen: req.body.continousOxygen,
+      DesiredRent: req.body.desiredRent
   }})
   .exec()
   .then(()=>{
@@ -389,56 +313,18 @@ exports.postRoomSignup = async (req, res, error) => {
         min: req.body.rent,
         max: req.body.max
       },
-      MedicAid: req.body.medicaid,
-      Wandergaurd: req.body.wandergaurd,
-      Hallucination: req.body.hallucinations,
-      MemoryCare: req.body.memorycare,
-      InsulinShots: req.body.insulinshots,
-      OxygenTank: req.body.oxygentank,
-      ChangeOxygenTank: req.body.changeoxygentank,
-      AllTimeOxygen: req.body.alltimeoxygen,
-      ChangeCatheter: req.body.changecatheter,
-      MedicationManagement: req.body.medicationmanagement,
-      LiquidDiets: req.body.liquiddiets,
-      GroundDiets: req.body.grounddiets,
-      // FacilityPhoto:
-      FacilityFeatures: {
-        Eating_noassistance: req.body.eating_noassistance,
-        Eating_intermittent: req.body.eating_intermittent,
-        Eating_continual: req.body.eating_continual,
-        Eating_byhand: req.body.eating_byhand,
-        Eating_tube: req.body.eating_tube,
-        Transfers_none: req.body.transfers_none,
-        Transfers_intermittent: req.body.transfers_intermittent,
-        Transfers_oneperson: req.body.transfers_oneperson,
-        Transfers_twoperson: req.body.transfers_twoperson,
-        Transfers_cannot: req.body.transfers_cannot,
-        Mobiliy_noassisstance: req.body.mobiliy_noassisstance,
-        Mobiliy_intermittent: req.body.mobiliy_intermittent,
-        Mobiliy_continual: req.body.mobiliy_continual,
-        Mobiliy_wheels: req.body.mobiliy_wheels,
-        Mobiliy_cannotmove: req.body.mobiliy_cannotmove,
-        Toileting_noassisstance: req.body.toileting_noassisstance,
-        Toileting_bowel: req.body.toileting_bowel,
-        Toileting_continual: req.body.toileting_continual,
-        Toileting_nobathroomincontinent: req.body.toileting_nobathroomincontinent,
-        Toileting_bathroomincontinent: req.body.toileting_bathroomincontinent,
-        Verbal_none: req.body.verbal_none,
-        Verbal_infrequent: req.body.verbal_infrequent,
-        Verbal_predictable: req.body.verbal_predictable,
-        Verbal_onceunpredictable: req.body.verbal_onceunpredictable,
-        Verbal_multipleunpredictable: req.body.verbal_multipleunpredictable,
-        Physical_none: req.body.physical_none,
-        Physical_infrequent: req.body.physical_infrequent,
-        Physical_predictable: req.body.physical_predictable,
-        Physical_onceunpredictable: req.body.physical_onceunpredictable,
-        Physical_multipleunpredictable: req.body.physical_multipleunpredictable,
-        Behaviourial_none : req.body.behaviourial_none,
-        Behaviourial_yesnondisruptive : req.body.behaviourial_yesnondisruptive,
-        Behaviourial_infrequent : req.body.behaviourial_infrequent,
-        Behaviourial_frequent : req.body.behaviourial_frequent,
-        Behaviourial_unpredictable : req.body.behaviourial_unpredictable
-      }
+      Medicaid: facility.MedicAid,
+      AssistedActivites: facility.AssistedActivites,
+      BehaviorProblems: facility.BehaviorProblems,
+      PhysicalAggressive: facility.PhysicalAggressive,
+      SevereOrFrequentBehaviors: facility.SevereOrFrequentBehaviors,
+      MemoryCare: facility.MemoryCare,
+      AddititonalIssues: facility.AddititonalIssues,
+      InsulinShots: facility.InsulinShots,
+      ChangeCatheterOrColostomyBag: facility.ChangeCatheterOrColostomyBag,
+      OxygenTank: facility.OxygenTank,
+      ContinousOxygen: facility.ContinousOxygen,
+      DesiredRent: facility.DesiredRent
     });
 
     //console.log('room to save with facility id', facility._id, room);
@@ -529,55 +415,17 @@ exports.putFullRoomUpdate = (req, res, error) => {
       max: req.body.max
     },
     MedicAid: req.body.medicaid,
-    Wandergaurd: req.body.wandergaurd,
-    Hallucination: req.body.hallucinations,
-    MemoryCare: req.body.memorycare,
-    InsulinShots: req.body.insulinshots,
-    OxygenTank: req.body.oxygentank,
-    ChangeOxygenTank: req.body.changeoxygentank,
-    AllTimeOxygen: req.body.alltimeoxygen,
-    ChangeCatheter: req.body.changecatheter,
-    MedicationManagement: req.body.medicationmanagement,
-    LiquidDiets: req.body.liquiddiets,
-    GroundDiets: req.body.grounddiets,
-    // FacilityPhoto:
-    FacilityFeatures: {
-      Eating_noassistance: req.body.eating_noassistance,
-      Eating_intermittent: req.body.eating_intermittent,
-      Eating_continual: req.body.eating_continual,
-      Eating_byhand: req.body.eating_byhand,
-      Eating_tube: req.body.eating_tube,
-      Transfers_none: req.body.transfers_none,
-      Transfers_intermittent: req.body.transfers_intermittent,
-      Transfers_oneperson: req.body.transfers_oneperson,
-      Transfers_twoperson: req.body.transfers_twoperson,
-      Transfers_cannot: req.body.transfers_cannot,
-      Mobiliy_noassisstance: req.body.mobiliy_noassisstance,
-      Mobiliy_intermittent: req.body.mobiliy_intermittent,
-      Mobiliy_continual: req.body.mobiliy_continual,
-      Mobiliy_wheels: req.body.mobiliy_wheels,
-      Mobiliy_cannotmove: req.body.mobiliy_cannotmove,
-      Toileting_noassisstance: req.body.toileting_noassisstance,
-      Toileting_bowel: req.body.toileting_bowel,
-      Toileting_continual: req.body.toileting_continual,
-      Toileting_nobathroomincontinent: req.body.toileting_nobathroomincontinent,
-      Toileting_bathroomincontinent: req.body.toileting_bathroomincontinent,
-      Verbal_none: req.body.verbal_none,
-      Verbal_infrequent: req.body.verbal_infrequent,
-      Verbal_predictable: req.body.verbal_predictable,
-      Verbal_onceunpredictable: req.body.verbal_onceunpredictable,
-      Verbal_multipleunpredictable: req.body.verbal_multipleunpredictable,
-      Physical_none: req.body.physical_none,
-      Physical_infrequent: req.body.physical_infrequent,
-      Physical_predictable: req.body.physical_predictable,
-      Physical_onceunpredictable: req.body.physical_onceunpredictable,
-      Physical_multipleunpredictable: req.body.physical_multipleunpredictable,
-      Behaviourial_none : req.body.behaviourial_none,
-      Behaviourial_yesnondisruptive : req.body.behaviourial_yesnondisruptive,
-      Behaviourial_infrequent : req.body.behaviourial_infrequent,
-      Behaviourial_frequent : req.body.behaviourial_frequent,
-      Behaviourial_unpredictable : req.body.behaviourial_unpredictable
-    }
+      AssistedActivites: req.body.assistedActivites,
+      BehaviorProblems: req.body.behaviorProblems,
+      PhysicalAggressive: req.body.physicalAggressive,
+      SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
+      MemoryCare: req.body.memoryCare,
+      AddititonalIssues: req.body.addititonalIssues,
+      InsulinShots: req.body.insulinShots,
+      ChangeCatheterOrColostomyBag: req.body.changeCatheterOrColostomyBag,
+      OxygenTank: req.body.oxygenTank,
+      ContinousOxygen: req.body.continousOxygen,
+      DesiredRent: req.body.desiredRent
   }})
   .exec()
   .then((room)=>{

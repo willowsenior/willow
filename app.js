@@ -10,8 +10,8 @@ const expressValidator = require('express-validator');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
-const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
-//const MONGODB = 'mongodb://127.0.01:27017/willow'
+//const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
+const MONGODB = 'mongodb://127.0.01:27017/willow'
 
 /**
  * Controllers (route handlers).
