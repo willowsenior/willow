@@ -10,19 +10,16 @@ const async = require('async');
  * Home page.
  */
 exports.getFacility = async (req, res, error) => {
-  console.log('getting facility??');
     var facilityId = req.params.facility_id;
-    var currentFacility;
+    var currentFacility = {}; // apparently this is useless maybe?
     var currentRooms = [];
     var currentMatches = [];
     var existingMatches = [];
 
     Facility.findById(facilityId)
     .then(async (facility)=>{
-       console.log('got facility', facility);
-        var features = await _mapFeatures(facility);
-        //console.log('facility features', features);
-        
+        let features = await _mapFeatures(facility);
+
         try {
           currentRooms = await _roomPromise(facilityId);
           existingMatches = await _matchPromise(facilityId);
@@ -34,7 +31,9 @@ exports.getFacility = async (req, res, error) => {
             currentFacility,
             currentMatches,
             currentRooms,
-            myconstants
+            myconstants,
+            features,
+            facilityId
           });
           
         } catch (e) {
@@ -45,7 +44,8 @@ exports.getFacility = async (req, res, error) => {
     }); 
 };
 
-/*function _mapFeatures (features) {
+//TODO: This?
+function _mapFeatures (features) {
   return new Promise((resolve, reject) => {
     var newFeatures = {
       'Eating': [],
@@ -56,8 +56,7 @@ exports.getFacility = async (req, res, error) => {
       'Physical': [],
       'Behavioral': []
     };
-    var setupThings = Object.keys(features).forEach(key => {
-      
+    Object.keys(features).forEach(key => {
       var obj = {};
       if (key.indexOf('Eating') > -1 && features[key]) {
         obj[key] = features[key];
@@ -86,7 +85,7 @@ exports.getFacility = async (req, res, error) => {
     //console.log('new features here', newFeatures);
     resolve(newFeatures);
   });
-} */
+}
 
 function _roomPromise (facilityId) {
   return new Promise((resolve, reject) => {
@@ -148,8 +147,8 @@ async function _getMatches (id) {
   
 }
 
+//TODO: update
 exports.postFacilitySignup = (req, res, next) => {
-  //console.log('req body for post======>', req.body);
   let num;
   if (req && req.body && req.body.contactNumber) {
     num = req.body.contactNumber;
@@ -196,7 +195,6 @@ exports.postFacilitySignup = (req, res, next) => {
       res.redirect('/facility/'+facility._id);
   });
 };
-
 exports.putFacilityNewMatchUpdate = (req, res, next) => {
   var facilityId = req.params.facility_id;
 
@@ -205,7 +203,6 @@ exports.putFacilityNewMatchUpdate = (req, res, next) => {
   }})
   .exec()
   .then(()=>{
-    //console.log('success setting facility new match to false');
     res.redirect('/facility/'+req.params.facility_id);
   })
   .catch((error)=>{
@@ -234,7 +231,7 @@ exports.putFacilityUpdate = (req, res, next) =>{
       },
       Contact: req.body.contactNumber,
       ContactName: req.body.contactName,
-      Email: req.user.email,
+      Email: req.body.emailAddress,
       MedicAid: req.body.medicaid,
       AssistedActivites: req.body.assistedActivites,
       BehaviorProblems: req.body.behaviorProblems,
@@ -264,9 +261,8 @@ exports.getFacilityUpdate = (req, res, error) => {
 
   Facility.findById(facility_id)
   .then((facility)=>{
-    currentFacility = facility;
-    var currentTab = 'General';
-    //console.log('currentTab', currentTab);
+    facility._id = facility_id;
+    let currentTab = 'General';
     res.render('updatefacility', {
       title: 'Facility Update',
       facility,
@@ -277,15 +273,19 @@ exports.getFacilityUpdate = (req, res, error) => {
 };
 
 exports.getRoomSignup = (req, res, error) => {
-  var id = req.params.facility_id;
-  var currentFacility;
+  let facilityId = req.params.facility_id;
+  let currentFacility;
 
-  Facility.findById(id)
+  Facility.findById(facilityId)
   .then((facility)=>{
     currentFacility = facility;
+
+    console.log('yo: \n')
+    console.log(currentFacility);
     res.render('roomsignup',{
       title: 'Room Sign up',
       currentFacility,
+      facilityId,
       myconstants
     });
   })
@@ -298,11 +298,11 @@ exports.getRoomSignup = (req, res, error) => {
 
 exports.postRoomSignup = async (req, res, error) => {
   const errors = req.validationErrors();
-  var id = req.params.facility_id;
-  
+  let id = req.params.facility_id;
+
   try {
-    var facility = await Facility.findById(id);
-    var room = await new Room({
+    const facility = await Facility.findById(id);
+    let room = await new Room({
       FacilityID: id,
       FacilityName: facility.FacilityName,
       RoomName: req.body.roomName,
@@ -314,7 +314,7 @@ exports.postRoomSignup = async (req, res, error) => {
         max: req.body.max
       },
       Medicaid: facility.MedicAid,
-      AssistedActivites: facility.AssistedActivites,
+      AssistedActivites: facility.AssistedActivites,// need to add dropdown
       BehaviorProblems: facility.BehaviorProblems,
       PhysicalAggressive: facility.PhysicalAggressive,
       SevereOrFrequentBehaviors: facility.SevereOrFrequentBehaviors,
@@ -327,7 +327,6 @@ exports.postRoomSignup = async (req, res, error) => {
       DesiredRent: facility.DesiredRent
     });
 
-    //console.log('room to save with facility id', facility._id, room);
     room.save(function(err) {
   
       if (err) {

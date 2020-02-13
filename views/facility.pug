@@ -46,7 +46,7 @@ block content
       .side-col__card
         .side-col__updated-card-banner
           button.btn-edit.no-border
-            a(href="/updatefacility/"+currentFacility._id) 
+            a(href="/updatefacility/"+facilityId)
               i.fas.fa-edit
               span Edit
           .img-container
@@ -168,7 +168,7 @@ block content
                                           button.btn.btn-secondary(type='submit', form="roomsignup-form1")
                                               | Update Room
 
-                    a.m-t-20(href="/roomsignup/"+currentFacility._id)
+                    a.m-t-20(href="/roomsignup/"+facilityId)
                       button.btn.btn-willow.btn-willow-sm.mt-3(type='button') Add Room +
 
                 -else if (this.title == 'Matches')

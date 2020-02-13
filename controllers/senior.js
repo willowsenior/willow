@@ -6,6 +6,7 @@ const myconstants = require('../utils/constants');
 var _ = require('lodash');
 
 
+//TODO: update
 exports.getSeniorRecordCreate = (req, res) => {
     if (!req.user || !req.user.isAdmin) {
         return res.redirect('/');
@@ -38,6 +39,7 @@ exports.postCreateSenior = async (req, res) => {
     });
 };
 
+//TODO: update
 exports.getSeniors = (req, res) => {
     if (!req.user || !req.user.isAdmin) {
         return res.redirect('/');

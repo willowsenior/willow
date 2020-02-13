@@ -10,8 +10,7 @@ const expressValidator = require('express-validator');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
-//const MONGODB = process.env.MONGODB_URI || 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
-const MONGODB = 'mongodb://127.0.01:27017/willow'
+const MONGODB = 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
 
 /**
  * Controllers (route handlers).
@@ -44,7 +43,7 @@ mongoose.connect(MONGODB, (err) => {
 mongoose.connection.on('error', (err) => {
     console.log('Connection Error Please check database connection', );
     process.exit();
-})
+});
 
 /**
  * Express configuration.
