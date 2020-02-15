@@ -277,9 +277,6 @@ exports.getRoomSignup = (req, res, error) => {
   Facility.findById(facilityId)
   .then((facility)=>{
     currentFacility = facility;
-
-    console.log('yo: \n')
-    console.log(currentFacility);
     res.render('roomsignup',{
       title: 'Room Sign up',
       currentFacility,
@@ -311,18 +308,18 @@ exports.postRoomSignup = async (req, res, error) => {
         min: req.body.rent,
         max: req.body.max
       },
-      Medicaid: facility.MedicAid,
-      AssistedActivites: facility.AssistedActivites,// need to add dropdown
-      BehaviorProblems: facility.BehaviorProblems,
-      PhysicalAggressive: facility.PhysicalAggressive,
-      SevereOrFrequentBehaviors: facility.SevereOrFrequentBehaviors,
-      MemoryCare: facility.MemoryCare,
-      AddititonalIssues: facility.AddititonalIssues,
-      InsulinShots: facility.InsulinShots,
-      ChangeCatheterOrColostomyBag: facility.ChangeCatheterOrColostomyBag,
-      OxygenTank: facility.OxygenTank,
-      ContinousOxygen: facility.ContinousOxygen,
-      DesiredRent: facility.DesiredRent
+      Medicaid: req.body.medicAid,
+      AssistedActivites: req.body.assistedActivites,// need to add dropdown
+      BehaviorProblems: req.body.behaviorProblems,
+      PhysicalAggressive: req.body.physicalAggressive,
+      SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
+      MemoryCare: req.body.memoryCare,
+      AddititonalIssues: req.body.addititonalIssues,
+      InsulinShots: req.body.insulinShots,
+      ChangeCatheterOrColostomyBag: req.body.changeCatheterOrColostomyBag,
+      OxygenTank: req.body.oxygenTank,
+      ContinousOxygen: req.body.continousOxygen,
+      DesiredRent: req.body.desiredRent
     });
 
     room.save(function(err) {
@@ -436,6 +433,7 @@ exports.putFullRoomUpdate = (req, res, error) => {
   });
 };
 
+// here
 exports.getRoomUpdate = (req, res, error) => {
   var facility_id = req.params.facility_id;
   var room_id = req.params.room_id;
@@ -450,6 +448,9 @@ exports.getRoomUpdate = (req, res, error) => {
   .then(()=>{
     Room.findById(room_id)
     .then((room)=>{
+
+      console.log('current room');
+      console.log(room);
       currentRoom = room;
       res.render('updateroom', {
         title: 'Room',

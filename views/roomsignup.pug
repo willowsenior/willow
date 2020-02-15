@@ -36,7 +36,7 @@ block content
 
     .form-section
       .form-group.form-section-header
-          h3.text-left General Assistance Accomodations
+          h3.text-left General Assistance Accommodations
               h4.text-left What level of assistance can your facility provide?
       .form-group.row
             label.col-sm-3.col-md-2.col-form-label Medicaid Bed
@@ -96,7 +96,7 @@ block content
       .form-group.row
           label.col-lg-3.col-md-5.col-form-label How Many Insulin Shots Can You Administer?
           .col-md-4
-            input.form-control(type='number', name='insulinshots', id='insulinshots', placeholder='Insulin Shots', autofocus, required, value=currentFacility.InsulinShots)
+            input.form-control(type='number', name='insulinShots', id='insulinshots', placeholder='Insulin Shots', autofocus, required, value=currentFacility.InsulinShots)
       br
       .form-group.row
           label.col-lg-3.col-md-5.col-form-label Does Your Senior Need a Secure Memory Care Unit?
@@ -107,7 +107,7 @@ block content
                   span.radio
               .col-md-12
                 label.form-radio-label.ml-4(for='memorycare_no') No
-                  input.form-radio-input(type='radio', name='memorycare', id='memorycare_no' value = 'false', checked= !currentFacility.MemoryCare)
+                  input.form-radio-input(type='radio', name='memoryCare', id='memorycare_no' value = 'false', checked= !currentFacility.MemoryCare)
                   span.radio
       br
       .form-group.row
