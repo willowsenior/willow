@@ -309,7 +309,7 @@ exports.postRoomSignup = async (req, res, error) => {
         max: req.body.max
       },
       Medicaid: req.body.medicAid,
-      AssistedActivites: req.body.assistedActivites,// need to add dropdown
+      AssistedActivites: req.body.assistedActivites, // need to add dropdown
       BehaviorProblems: req.body.behaviorProblems,
       PhysicalAggressive: req.body.physicalAggressive,
       SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
@@ -433,7 +433,6 @@ exports.putFullRoomUpdate = (req, res, error) => {
   });
 };
 
-// here
 exports.getRoomUpdate = (req, res, error) => {
   var facility_id = req.params.facility_id;
   var room_id = req.params.room_id;
@@ -448,9 +447,6 @@ exports.getRoomUpdate = (req, res, error) => {
   .then(()=>{
     Room.findById(room_id)
     .then((room)=>{
-
-      console.log('current room');
-      console.log(room);
       currentRoom = room;
       res.render('updateroom', {
         title: 'Room',
