@@ -348,10 +348,7 @@ exports.putRoomUpdate = (req, res, error) => {
   Room.findByIdAndUpdate(roomId,{$set: {
       RoomCount: req.body.count,
       RoomType: req.body.roomtype,
-      Range:{
-        min: req.body.rent,
-        max: req.body.max
-      }
+      DesiredRent: req.body.desiredRent
   }})
   .exec()
   .then((room)=>{

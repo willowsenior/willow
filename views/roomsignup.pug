@@ -23,6 +23,10 @@ block content
               option Suite
               option Studio Apartment
     .form-group.row
+      label.col-form-label.col-form-label__stacked Room Rent Rate
+      .col-md-4
+        input.form-control(type='number', name='desiredRent', id='rent',value=currentFacility.DesiredRent, placeholder='$0.00', autofocus, required)
+    .form-group.row
       label.col-sm-3.col-md-2.col-form-label Gender
       .col-md-3
         .col-md-12
