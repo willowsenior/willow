@@ -19,11 +19,11 @@ exports.getFacility = async (req, res, error) => {
     Facility.findById(facilityId)
     .then(async (facility)=>{
         let features = await _mapFeatures(facility);
+        currentFacility = facility;
 
         try {
           currentRooms = await _roomPromise(facilityId);
           existingMatches = await _matchPromise(facilityId);
-          //console.log('got rooms and matches', currentRooms.length, existingMatches.length);
           if (existingMatches && existingMatches.length) currentMatches = await _mapMatchesPromise(existingMatches);
          
           res.render('facility', {
@@ -80,9 +80,7 @@ function _mapFeatures (features) {
         obj[key] = features[key];
         newFeatures['Behavioral'].push(obj);
       }
-      //console.log('obj here', obj);
     });
-    //console.log('new features here', newFeatures);
     resolve(newFeatures);
   });
 }
@@ -394,7 +392,7 @@ exports.deleteRoom = (req, res, error) => {
       console.log(error);
     }
   });
-}
+};
 
 exports.putFullRoomUpdate = (req, res, error) => {
   const errors = req.validationErrors();
