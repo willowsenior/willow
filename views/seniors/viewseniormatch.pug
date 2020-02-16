@@ -105,7 +105,7 @@ block content
                                           td= currentSenior.rooms[i].FacilityName
                                           td= currentSenior.rooms[i].RoomCount
                                           td= currentSenior.rooms[i].RoomType
-                                          td= currentSenior.rooms[i].Range.min
+                                          td= currentSenior.rooms[i].DesiredRent
                                           td
                                             label.form-check-label
                                               input.form-check-input(type='checkbox', id=`roomMatch-${currentSenior.rooms[i]._id}`, checked= currentSenior.rooms[i].selected, placeholder='', value=1, name=`roomMatch-${currentSenior.rooms[i]._id}`  )
@@ -134,7 +134,7 @@ block content
                                           td= facilityRooms[i].RoomName
                                           td= facilityRooms[i].RoomCount
                                           td= facilityRooms[i].RoomType
-                                          td= facilityRooms[i].Range.min
+                                          td= facilityRooms[i].DesiredRent
                                           td
                                             label.form-check-label
                                               input.form-check-input(type='checkbox', id=`roomMatch-${facilityRooms[i]._id}`, checked= facilityRooms[i].selected, placeholder='', value=1, name=`roomMatch-${facilityRooms[i]._id}`  )

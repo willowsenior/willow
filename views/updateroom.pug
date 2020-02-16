@@ -52,15 +52,15 @@ block content
                 h3.text-left General Assistance Accommodations
                     h4.text-left What level of assistance can your facility provide?
             .form-group.row
-                label.col-sm-3.col-md-2.col-form-label Medicaid Bed
+                label.col-sm-3.col-md-2.col-form-label Medicaid
                 .col-md-3
                     .col-md-12
                         label.form-radio-label.ml-4(for='medicaid_yes') Yes
-                            input.form-radio-input(type='radio', checked= currentRoom.MedicAid, name='medicaid', id='medicaid_yes' value = 'true')
+                            input.form-radio-input(type='radio', checked= currentRoom.Medicaid, name='medicaid', id='medicaid_yes' value = 'true')
                             span.radio
                     .col-md-12
                         label.form-radio-label.ml-4(for='medicaid_no') No
-                            input.form-radio-input(type='radio', checked= !currentRoom.MedicAid, name='medicaid', id='medicaid_no' value = 'false')
+                            input.form-radio-input(type='radio', checked= !currentRoom.Medicaid, name='medicaid', id='medicaid_no' value = 'false')
                             span.radio
         .form-section
             .form-group.form-section-header
@@ -111,7 +111,7 @@ block content
                     input.form-control(type='number', name='insulinShots', id='insulinshots', placeholder='Insulin Shots', autofocus, required, value=currentRoom.InsulinShots)
             br
             .form-group.row
-                label.col-lg-3.col-md-5.col-form-label Does Your Senior Need a Secure Memory Care Unit?
+                label.col-lg-3.col-md-5.col-form-label Is this room part of a Secure Memory Care Unit?
                     .col-md-4
                         .col-md-12
                             label.form-radio-label.ml-4(for='memorycare_yes') Yes

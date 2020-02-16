@@ -405,18 +405,18 @@ exports.putFullRoomUpdate = (req, res, error) => {
       min: req.body.rent,
       max: req.body.max
     },
-    MedicAid: req.body.medicaid,
-      AssistedActivites: req.body.assistedActivites,
-      BehaviorProblems: req.body.behaviorProblems,
-      PhysicalAggressive: req.body.physicalAggressive,
-      SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
-      MemoryCare: req.body.memoryCare,
-      AddititonalIssues: req.body.addititonalIssues,
-      InsulinShots: req.body.insulinShots,
-      ChangeCatheterOrColostomyBag: req.body.changeCatheterOrColostomyBag,
-      OxygenTank: req.body.oxygenTank,
-      ContinousOxygen: req.body.continousOxygen,
-      DesiredRent: req.body.desiredRent
+    Medicaid: req.body.medicaid,
+    AssistedActivites: req.body.assistedActivites,
+    BehaviorProblems: req.body.behaviorProblems,
+    PhysicalAggressive: req.body.physicalAggressive,
+    SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
+    MemoryCare: req.body.memoryCare,
+    AddititonalIssues: req.body.addititonalIssues,
+    InsulinShots: req.body.insulinShots,
+    ChangeCatheterOrColostomyBag: req.body.changeCatheterOrColostomyBag,
+    OxygenTank: req.body.oxygenTank,
+    ContinousOxygen: req.body.continousOxygen,
+    DesiredRent: req.body.desiredRent
   }})
   .exec()
   .then((room)=>{
