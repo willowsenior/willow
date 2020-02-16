@@ -38,9 +38,6 @@ exports.postCreateSeniorMatch = (req, res) => {
 };
 
 exports.viewSeniorMatch = async (req, res) => {
-   //console.log('req user', req.user);
-    //console.log('hit the senior match', req.params.senior_id);
-    //return;
     var user = req.user;
     var senior_id = req.params.senior_id;
 
@@ -101,9 +98,7 @@ exports.viewSeniorMatch = async (req, res) => {
         //Read only for the facility user
         facilityRooms = rooms;
       }
-      
-      //console.log('rooms for the senior match that should be selected or not', rooms);
-          
+
       res.render('seniors/viewseniormatch', {
         title: 'View Senior',
         user,
@@ -162,7 +157,7 @@ exports.deleteSeniorMatch = (req, res) => {
             console.log(error);
         }
     });
-}
+};
 
 exports.postUpdateSeniorMatch = (req, res) => {
     var id = req.params.senior_id;

@@ -6,7 +6,6 @@ const myconstants = require('../utils/constants');
 var _ = require('lodash');
 
 
-//TODO: update
 exports.getSeniorRecordCreate = (req, res) => {
     if (!req.user || !req.user.isAdmin) {
         return res.redirect('/');
@@ -28,7 +27,6 @@ exports.postCreateSenior = async (req, res) => {
     }
     var seniorObj = await createSeniorObject(req);
     var seniorModel = new SeniorModel(seniorObj);
-    //console.log('do we have the model', seniorModel);
 
     seniorModel.save()
     .then(()=>{
@@ -67,7 +65,6 @@ exports.getSeniors = (req, res) => {
             { skip: skipCount, limit: limit }
          )
         .then((seniors) => {
-            //console.log('all the seniors', seniors);
             res.render('seniors/viewallseniors', {
                 title: 'View All Seniors',
                 seniors,
@@ -151,13 +148,9 @@ exports.postUpdateSenior = async (req, res) => {
         return res.redirect('/signup'); //TODO 404 page
       }
 
-
-
       req.body.roomMatches = roomMatches ? roomMatches : [];
       //Create Senior object and Update the senior
       var seniorObject = await createSeniorObject(req);
-
-      console.log('senior object to update', seniorObject);
 
       SeniorModel.findByIdAndUpdate(senior_id, {
         $set: seniorObject
@@ -291,8 +284,8 @@ function createSeniorObject(req) {
         SeniorName: req.body.seniorName,
         Gender: req.body.gender, //TODO: Enum,
         Age: req.body.age,
-        Zipcode: req.body.zipcode,
-        FamilyEmail: req.user.email,
+        Zipcode: req.body.zipCode,
+        FamilyEmail: req.body.email,
         RespiteCare: req.body.respiteCare,
         Medicaid: req.body.medicaid,
         AssistedActivites: req.body.assistedActivites,
