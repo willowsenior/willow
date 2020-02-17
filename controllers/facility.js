@@ -160,6 +160,8 @@ exports.postFacilitySignup = (req, res, next) => {
       req.flash('errors', errors);
       return res.redirect('/signup');
   }
+  let assistedActivities = getAssistedActivities(req);
+
   var facility = new Facility({
       FacilityName: req.body.facilityName,
       Address: {
@@ -172,7 +174,7 @@ exports.postFacilitySignup = (req, res, next) => {
       ContactName: req.body.contactName,
       Email: req.user.email,
       MedicAid: req.body.medicaid,
-      AssistedActivites: req.body.assistedActivites,
+      AssistedActivites: assistedActivities,
       BehaviorProblems: req.body.behaviorProblems,
       PhysicalAggressive: req.body.physicalAggressive,
       SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
