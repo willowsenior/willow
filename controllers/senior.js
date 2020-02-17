@@ -279,6 +279,27 @@ function filterIt(arr, searchKey) {
   });
 }
 
+const getAssistedActivities = req => {
+    let currentActivities = [
+        'eating',
+        'dressing',
+        'bathing',
+        'transfers',
+        'moving',
+        'toileting'
+    ];
+
+    let assistedActivities = [];
+
+    currentActivities.forEach(activity => {
+        if (req.body[activity] === 'true') {
+            assistedActivities.push(activity);
+        }
+    });
+
+    return assistedActivities;
+};
+
 function createSeniorObject(req) {
     return {
         SeniorName: req.body.seniorName,
@@ -288,7 +309,7 @@ function createSeniorObject(req) {
         FamilyEmail: req.body.email,
         RespiteCare: req.body.respiteCare,
         Medicaid: req.body.medicaid,
-        AssistedActivites: req.body.assistedActivites,
+        AssistedActivites: getAssistedActivities(req),
         BehaviorProblems: req.body.behaviorProblems,
         PhysicalAggressive: req.body.physicalAggressive,
         SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,

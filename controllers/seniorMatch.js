@@ -56,6 +56,22 @@ exports.viewSeniorMatch = async (req, res) => {
 
       var seniorMatches = await SeniorMatch.find({SeniorId: senior_id});
       var currentSenior = await SeniorModel.findById(senior_id);
+
+        let currentActivities = [
+            'eating',
+            'dressing',
+            'bathing',
+            'transfers',
+            'moving',
+            'toileting'
+        ];
+
+        currentActivities.forEach(activity => {
+            if (Array.isArray(currentSenior.AssistedActivites)) {
+                currentSenior[activity] = currentSenior.AssistedActivites.indexOf(activity) > -1;
+            }
+        });
+
       //if (!currentSenior) console.log('no current senior');
       //if (currentSenior) patchSeniorMatchMarkAsViewed(currentSenior._id);
 

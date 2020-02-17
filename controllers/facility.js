@@ -481,7 +481,9 @@ exports.getRoomUpdate = (req, res, error) => {
       ];
 
       currentActivities.forEach(activity => {
-        currentRoom[activity] = currentRoom.AssistedActivites.indexOf(activity) > -1;
+        if (Array.isArray(currentRoom.AssistedActivites)) {
+          currentRoom[activity] = currentRoom.AssistedActivites.indexOf(activity) > -1;
+        }
       });
 
       res.render('updateroom', {
