@@ -629,6 +629,12 @@ label {
     &.check-group-label {
         top: -10px;
     }
+    &.col-form-inner {
+        font-size: $body-font-sm;
+        color: $black-medium;
+        padding-left: 15px;
+        padding-top: 15px;
+    }
 
 }
 

@@ -295,6 +295,8 @@ exports.postRoomSignup = async (req, res, error) => {
   const errors = req.validationErrors();
   let id = req.params.facility_id;
 
+  let assistedActivities = getAssistedActivities(req);
+
   try {
     const facility = await Facility.findById(id);
     let room = await new Room({
@@ -309,7 +311,7 @@ exports.postRoomSignup = async (req, res, error) => {
         max: req.body.max
       },
       Medicaid: req.body.medicAid,
-      AssistedActivites: req.body.assistedActivites, // need to add dropdown
+      AssistedActivites: assistedActivities,
       BehaviorProblems: req.body.behaviorProblems,
       PhysicalAggressive: req.body.physicalAggressive,
       SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
@@ -396,6 +398,9 @@ exports.putFullRoomUpdate = (req, res, error) => {
       return res.redirect('/signup');
   }
   var roomId = req.params.room_id;
+
+  let assistedActivities = getAssistedActivities(req);
+
   Room.findByIdAndUpdate(roomId,{$set: {
     RoomName: req.body.roomName,
     RoomCount: req.body.count,
@@ -406,7 +411,7 @@ exports.putFullRoomUpdate = (req, res, error) => {
       max: req.body.max
     },
     Medicaid: req.body.medicaid,
-    AssistedActivites: req.body.assistedActivites,
+    AssistedActivites: assistedActivities,
     BehaviorProblems: req.body.behaviorProblems,
     PhysicalAggressive: req.body.physicalAggressive,
     SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
@@ -445,6 +450,20 @@ exports.getRoomUpdate = (req, res, error) => {
     Room.findById(room_id)
     .then((room)=>{
       currentRoom = room;
+
+      let currentActivities = [
+        'eating',
+        'dressing',
+        'bathing',
+        'transfers',
+        'moving',
+        'toileting'
+      ];
+
+      currentActivities.forEach(activity => {
+        currentRoom[activity] = currentRoom.AssistedActivites.indexOf(activity) > -1;
+      });
+
       res.render('updateroom', {
         title: 'Room',
         currentFacility,
@@ -504,6 +523,28 @@ exports.getRooms = (req, res) => {
           console.log(error || "Error fetching rooms");      
       });
   }
+};
+
+
+const getAssistedActivities = req => {
+  let currentActivities = [
+    'eating',
+    'dressing',
+    'bathing',
+    'transfers',
+    'moving',
+    'toileting'
+  ];
+
+  let assistedActivities = [];
+
+  currentActivities.forEach(activity => {
+    if (req.body[activity] === 'true') {
+      assistedActivities.push(activity);
+    }
+  });
+
+  return assistedActivities;
 };
 
 function isMatchViewed (seniorMatch) {
