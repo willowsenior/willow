@@ -218,6 +218,8 @@ exports.putFacilityUpdate = (req, res, next) =>{
       return res.redirect('/signup');
   }
 
+  let assistedActivities = getAssistedActivities(req);
+
   var facilityId = req.params.facility_id;
   Facility.findByIdAndUpdate(facilityId,{$set: {
     FacilityName: req.body.facilityName,
@@ -231,7 +233,7 @@ exports.putFacilityUpdate = (req, res, next) =>{
       ContactName: req.body.contactName,
       Email: req.body.emailAddress,
       MedicAid: req.body.medicaid,
-      AssistedActivites: req.body.assistedActivites,
+      AssistedActivites: assistedActivities,
       BehaviorProblems: req.body.behaviorProblems,
       PhysicalAggressive: req.body.physicalAggressive,
       SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
@@ -260,6 +262,22 @@ exports.getFacilityUpdate = (req, res, error) => {
   Facility.findById(facility_id)
   .then((facility)=>{
     facility._id = facility_id;
+
+    let currentActivities = [
+      'eating',
+      'dressing',
+      'bathing',
+      'transfers',
+      'moving',
+      'toileting'
+    ];
+
+    if (Array.isArray(facility.AssistedActivites)) {
+      currentActivities.forEach(activity => {
+        facility[activity] = facility.AssistedActivites.indexOf(activity) > -1;
+      });
+    }
+
     let currentTab = 'General';
     res.render('updatefacility', {
       title: 'Facility Update',
