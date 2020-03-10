@@ -6,9 +6,11 @@ const session = require('express-session'); //session management
 const sass = require('node-sass-middleware');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const Auth0Strategy = require('passport-auth0');
 const expressValidator = require('express-validator');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const dotenv = require('dotenv');
 
 const MONGODB = 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtest1';
 
@@ -16,18 +18,18 @@ const MONGODB = 'mongodb://avneesh:willow_1234@ds223685.mlab.com:23685/willowtes
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
-const userController = require('./controllers/user');
+//const userController = require('./controllers/user');
 const facilityController = require('./controllers/facility');
 const seniorController = require('./controllers/senior');
 const seniorMatchController = require('./controllers/seniorMatch');
+const authRouter = require('./routes/auth');
 
-// Passport Config
-const passportConfig = require('./config/passport');
 
 /**
  * Create Express server.
  */
 const app = express();
+
 const PORT = process.env.PORT || 8080;
 
 /** Connect to database */
@@ -58,18 +60,51 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(expressValidator());
+
+  
 app.use(session({
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     secret: 'adfvsvsdv', //process.env.SESSION_SECRET,
     cookie: { maxAge: 1209600000 } // two weeks in milliseconds
-    // store: new MongoStore({
-    //   url: process.env.MONGODB_URI,
-    //   autoReconnect: true,
-    // })
 }));
+
+
+// Passport Config
+dotenv.config();
+var strategy = new Auth0Strategy(
+    {
+      domain: process.env.AUTH0_DOMAIN,
+      clientID: process.env.AUTH0_CLIENT_ID,
+      clientSecret: process.env.AUTH0_CLIENT_SECRET,
+      callbackURL:
+        process.env.AUTH0_CALLBACK_URL || 'http://localhost:8080/callback'
+    },
+    function (accessToken, refreshToken, extraParams, profile, done) {
+      // accessToken is the token to call Auth0 API (not needed in the most cases)
+      // extraParams.id_token has the JSON Web Token
+      // profile has all the information from the user
+      return done(null, profile);
+    }
+  );
+
+passport.use(strategy);
+
+// You can use this section to keep a smaller payload
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+  
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/', authRouter);
+
+
+//Flask
 app.use(flash());
 
 app.use((req, res, next) => {
@@ -77,20 +112,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    // After successful login, redirect back to the intended page
-    if (!req.user &&
-        req.path !== '/login' &&
-        req.path !== '/signup' &&
-        !req.path.match(/^\/auth/) &&
-        !req.path.match(/\./)) {
-        req.session.returnTo = req.originalUrl;
-    } else if (req.user &&
-        (req.path === '/account' || req.path.match(/^\/api/))) {
-        req.session.returnTo = req.originalUrl;
-    }
-    next();
-});
 /////
 app.use(sass({
     src: path.join(__dirname, 'public'),
@@ -106,11 +127,11 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  * Primary app routes.
  */
 app.get('/home', homeController.index);
-app.get('/', userController.getLogin);
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
-app.get('/logout', userController.logout);
-app.get('/customersignup', userController.getCustomerSignup);
+//app.get('/', userController.getLogin);
+//app.get('/login', userController.getLogin);
+//app.post('/login', userController.postLogin);
+//app.get('/logout', userController.logout);
+//app.get('/customersignup', userController.getCustomerSignup);
 app.get('/contact', homeController.getContact);
 // app.get('/forgot', userController.getForgot);
 // app.post('/forgot', userController.postForgot);
@@ -118,12 +139,12 @@ app.get('/contact', homeController.getContact);
 // app.post('/reset/:token', userController.postReset);
 
 //Admin
-app.get('/willowadminsignup', userController.getWillowAdminSignup);
-app.post('/willowadminsignup', userController.postWillowAdminSignup);
-app.get('/willowadminsignin', userController.getWillowAdminSignin);
-app.post('/willowadminsignin', userController.postWillowAdminSignin);
-app.get('/admincustomersignup', userController.getAdminCustomerSignup);
-app.post('/admincustomersignup', userController.postAdminCustomerSignup);
+//app.get('/willowadminsignup', userController.getWillowAdminSignup);
+//app.post('/willowadminsignup', userController.postWillowAdminSignup);
+//app.get('/willowadminsignin', userController.getWillowAdminSignin);
+//app.post('/willowadminsignin', userController.postWillowAdminSignin);
+//app.get('/admincustomersignup', userController.getAdminCustomerSignup);
+//app.post('/admincustomersignup', userController.postAdminCustomerSignup);
 
 //Facility
 app.get('/facility/:facility_id', facilityController.getFacility);
@@ -153,8 +174,6 @@ app.post('/seniorsignup', seniorController.postCreateSenior);
 //Senior: Navigate to view all seniors, GET seniors
 //app.get('/viewseniors', seniorController.getAllSeniors);
 app.get('/getseniors', seniorController.getSeniors);
-// app.get('/seniorbyid/:senior_id', seniorController.getSeniorById);
-// app.get('/seniorbylastname', seniorController.getSearchSeniorByName);
 
 // Senior/Match: Navigate to view one senior match, update senior, delete senior
 app.put('/updateSenior/:senior_id', seniorController.postUpdateSenior);
@@ -168,20 +187,10 @@ app.delete('/deletesenior/:senior_id', seniorMatchController.deleteSeniorMatch);
 app.post('/updateseniormatch/:senior_id', seniorMatchController.postUpdateSeniorMatch);
 
 
-// Run this method when loading home facility page
-//app.get('/seniormatchbyfacilityid/:facility_id', seniorMatchController.getSeniorMatchesByFacilityId);
-// Run this method when you GET a match
-//app.patch('/seniormatchviewed/:seniormatch_id', seniorMatchController.patchSeniorMatchMarkAsViewed);
-
 
 
 ////AUthentication routes
-app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
-app.get('/auth/google/callback', passport.authenticate('google', {
-    failureRedirect: '/login'
-}), (req, res) => {
-    res.redirect(req.session.returnTo || '/');
-});
+
 
 /**
  * Start Express server.

@@ -1,6 +1,5 @@
 const Facility = require('../models/Facility');
 const SeniorMatchController = require('./seniorMatch');
-const User = require('../models/User');
 const Rooms = require('../models/Room');
 const mongoXlsx = require('mongo-xlsx');
 
@@ -19,7 +18,7 @@ exports.index = (req, res, error) => {
         title: 'Home'
       });
     } else {
-      Facility.find({"Email" : req.user.email})
+      Facility.find({"Email" : req.user.emails[0].value   })
       .then((facilities)=>{
         console.log('facilities here', facilities);
         if(facilities.length){
@@ -50,16 +49,7 @@ exports.getContact = (req, res) => {
 
 exports.getDownload = (req,res) => {
   var doc = [];
-  User.find({}, function (err, user) {
-    for(var i = 0; i < user.length; i++) {
-      delete user[i].createdAt;
-      delete user[i].updatedAt;
-    }
-    var model = mongoXlsx.buildDynamicModel(user);
-    var xlsxData = mongoXlsx.mongoData2XlsxData(user, model);
-    doc.push(xlsxData);
-  }).lean();
-
+  
   Facility.find({}, function (err, facility) {
     for(var i = 0; i < facility.length; i++) {
       delete facility[i].createdAt;

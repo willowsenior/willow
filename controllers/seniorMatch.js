@@ -51,7 +51,7 @@ exports.viewSeniorMatch = async (req, res) => {
     }
 
     try {
-      var facilities = await Facility.find({"Email": req.user.email});
+      var facilities = await Facility.find({"Email": req.user.emails[0].value});
       var facility_id = facilities.length ? facilities[0]._id : undefined;
 
       var seniorMatches = await SeniorMatch.find({SeniorId: senior_id});

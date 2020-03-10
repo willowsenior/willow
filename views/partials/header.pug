@@ -14,17 +14,15 @@
       ul.nav.navbar-nav.ml-auto
         if !user
           li.nav-item(class=(title === 'Login') ? 'active' : undefined)
-            a.nav-link(href='/login') Login
-          li.nav-item(class=(title === 'Create Account') ? 'active' : undefined)
-            a.nav-link(href='/customersignup') Create Account
+            a.nav-link(href='/login') Login/Sign up
         else
           li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
             a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
-              if user.profile.picture
-                img(src=user.profile.picture)
+              if user.picture
+                img(src=user.picture)
               //else
                 img(src=user.gravatar(60))
-              =user.profile.name || user.email || user.id
+              =user.displayName || user.email
               i.caret.m-l-2
             ul.dropdown-menu
               if user.isAdmin
