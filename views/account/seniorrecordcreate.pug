@@ -180,68 +180,26 @@ block content
                                 span.radio
                 br
                 .form-group.row
-                    label.col-md-12.col-form-label Does the senior require assistance with:
-                        .col-md-12
-                            .col-md-12
-                                label.col-md-12.col-md-2.col-form-inner Eating
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='eating_yes') Yes
-                                            input.form-radio-input(type='radio', name='eating', id='eating_yes', value = 'true')
-                                            span.radio
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='eating_no') No
-                                            input.form-radio-input(type='radio', name='eating', id='eating_no', value = 'false')
-                                            span.radio
-                            .col-md-12
-                                label.col-md-12.col-md-2.col-form-inner Dressing
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='dressing_yes') Yes
-                                            input.form-radio-input(type='radio', name='dressing', id='dressing_yes', value = 'true')
-                                            span.radio
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='dressing_no') No
-                                            input.form-radio-input(type='radio', name='dressing', id='dressing_no', value = 'false')
-                                            span.radio
-                            .col-md-12
-                                label.col-md-12.col-md-2.col-form-inner Bathing
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='bathing_yes') Yes
-                                            input.form-radio-input(type='radio', name='bathing', id='bathing_yes', value = 'true')
-                                            span.radio
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='bathing_no') No
-                                            input.form-radio-input(type='radio', name='bathing', id='bathing_no', value = 'false')
-                                            span.radio
-                            .col-md-12
-                                label.col-md-12.col-md-2.col-form-inner Transfers (Moving between furniture)
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='transfers_yes') Yes
-                                            input.form-radio-input(type='radio', name='transfers', id='transfers_yes', value = 'true')
-                                            span.radio
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='transfers_no') No
-                                            input.form-radio-input(type='radio', name='transfers', id='transfers_no', value = 'false')
-                                            span.radio
-                            .col-md-12
-                                label.col-md-12.col-md-2.col-form-inner Moving (Moving around in general)
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='moving_yes') Yes
-                                            input.form-radio-input(type='radio', name='moving', id='moving_yes', value = 'true')
-                                            span.radio
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='moving_no') No
-                                            input.form-radio-input(type='radio', name='moving', id='moving_no', value = 'false')
-                                            span.radio
-                            .col-md-12
-                                label.col-md-12.col-md-2.col-form-inner Toileting
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='toileting_yes') Yes
-                                            input.form-radio-input(type='radio', name='toileting', id='toileting_yes', value = 'true')
-                                            span.radio
-                                    .col-md-12
-                                        label.form-radio-label.ml-4(for='toileting_no') No
-                                            input.form-radio-input(type='radio', name='toileting', id='toileting_no', value = 'false')
-                                            span.radio
+                    label.col-md-12.col-form-label Which activities of Daily Living do they need 1 on 1 Assistance?
+                        .col-md-4
+                            label.form-check-label Eating
+                                input.form-check-input(type='checkbox', id=`eating`, name='eating' value='true' )
+                                span.checkmark
+                            label.form-check-label Dressing
+                                input.form-check-input(type='checkbox', id=`dressing`, name='dressing' value='true' )
+                                span.checkmark
+                            label.form-check-label Bathing
+                                input.form-check-input(type='checkbox', id=`bathing`, name='bathing' value='true' )
+                                span.checkmark
+                            label.form-check-label Transfers
+                                input.form-check-input(type='checkbox', id=`transfers`, name='transfers' value='true' )
+                                span.checkmark
+                            label.form-check-label Moving
+                                input.form-check-input(type='checkbox', id=`moving`, name='moving' value='true' )
+                                span.checkmark
+                            label.form-check-label Toileting
+                                input.form-check-input(type='checkbox', id=`toileting`, name='toileting' value='true' )
+                                span.checkmark
         .step-form-tab
             .form-section
                 .form-group.form-section-header.form-section-header--center

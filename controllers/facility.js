@@ -297,7 +297,10 @@ exports.getRoomSignup = (req, res, error) => {
   Facility.findById(facilityId)
   .then((facility)=>{
     currentFacility = facility;
-    res.render('roomsignup',{
+    currentFacility.AssistedActivites.forEach(activity => {
+      currentFacility[activity] = true;
+    });
+      res.render('roomsignup',{
       title: 'Room Sign up',
       currentFacility,
       facilityId,
