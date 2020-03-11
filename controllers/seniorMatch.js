@@ -13,7 +13,7 @@ exports.postCreateSeniorMatch = (req, res) => {
         return res.redirect('/'); //TODO 404 page
     }
 
-    if (!req.user || !req.user.isAdmin) {
+    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
         return res.redirect('/');
     }
 
@@ -39,6 +39,7 @@ exports.postCreateSeniorMatch = (req, res) => {
 
 exports.viewSeniorMatch = async (req, res) => {
     var user = req.user;
+    var isAdmin = req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin;
     var senior_id = req.params.senior_id;
 
     var roomMatches = [];
@@ -78,10 +79,10 @@ exports.viewSeniorMatch = async (req, res) => {
       _setMatchesViewed(seniorMatches, senior_id);
 
       // If not admin (Will), then get facility rooms and attach to currentSenior
-      if (facility_id && !user.isAdmin) {
+      if (facility_id && !isAdmin) {
         rooms = await RoomModel.find({FacilityID: facility_id}).lean().exec();
         //console.log('got rooms', rooms);
-      } else if (user.isAdmin) {
+      } else if (isAdmin) {
         rooms = await RoomModel.find().lean().exec();
       }
 
@@ -104,7 +105,7 @@ exports.viewSeniorMatch = async (req, res) => {
 
 
 
-      if (user.isAdmin) {
+      if (user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
 
         //Editable for Will
         currentSenior.rooms = rooms;
@@ -157,7 +158,7 @@ function _setMatchesViewed (seniorMatches, senior_id) {
 exports.deleteSeniorMatch = (req, res) => {
     var id = req.params.senior_id;
 
-    if (!req.user || !req.user.isAdmin) {
+    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
         return res.redirect('/');
     }
 
@@ -183,7 +184,7 @@ exports.postUpdateSeniorMatch = (req, res) => {
         return res.redirect('/'); //TODO 404 page
     }
 
-    if (!req.user || !req.user.isAdmin) {
+    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
        return res.redirect('/');
     }
 

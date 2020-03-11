@@ -7,7 +7,7 @@ var _ = require('lodash');
 
 
 exports.getSeniorRecordCreate = (req, res) => {
-    if (!req.user || !req.user.isAdmin) {
+    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
         return res.redirect('/');
     }
     var currentSenior = {
@@ -22,7 +22,7 @@ exports.getSeniorRecordCreate = (req, res) => {
 };
 
 exports.postCreateSenior = async (req, res) => {   
-    if (!req.user || !req.user.isAdmin) {
+    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
        return res.redirect('/');
     }
     var seniorObj = await createSeniorObject(req);
@@ -39,7 +39,7 @@ exports.postCreateSenior = async (req, res) => {
 
 //TODO: update
 exports.getSeniors = (req, res) => {
-    if (!req.user || !req.user.isAdmin) {
+    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
         return res.redirect('/');
     }
 
@@ -77,14 +77,15 @@ exports.getSeniors = (req, res) => {
     }
 };
 
-exports.deleteSenior = (req, res) => {
+exports.deleteSenior = async (req, res) => {
     var id = req.params.senior_id;
     if (!id ) {
         req.flash('errors',  "Missing Id");
         return res.redirect('/signup'); //TODO 404 page
     }
+    var isFamily = await checkSeniorForRelative(id, req.user.emails[0].value);
 
-    if (!req.user || !req.user.isAdmin) {
+    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin || !isFamily) {
        return res.redirect('/');
     }
 
@@ -104,6 +105,17 @@ exports.postUpdateSenior = async (req, res) => {
     var roomMatches = [];
 
     try {
+      var isFamily = await checkSeniorForRelative(senior_id, req.user.emails[0].value);
+
+      if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin || !isFamily) {
+        return res.redirect('/');
+      }
+
+      if (!senior_id) {
+        req.flash('errors', "Missing Senior Id");
+        return res.redirect('/signup'); //TODO 404 page
+      }
+
       var roomIdArray = await filterIt(dataArray, toSearch);
 
       //Delete all room matches
@@ -137,15 +149,6 @@ exports.postUpdateSenior = async (req, res) => {
       if (req && req.body && req.body.contactNumber) {
         num = req.body.contactNumber;
         req.body.contactNumber = num.replace(/[^0-9.]/g, "");
-      }
-
-      if (!req.user || !req.user.isAdmin) {
-        return res.redirect('/');
-      }
-
-      if (!senior_id) {
-        req.flash('errors', "Missing Senior Id");
-        return res.redirect('/signup'); //TODO 404 page
       }
 
       req.body.roomMatches = roomMatches ? roomMatches : [];
@@ -298,6 +301,21 @@ const getAssistedActivities = req => {
     });
 
     return assistedActivities;
+};
+
+async function checkSeniorForRelative(senior_id, relative_email) {
+  await SeniorModel.findById(senior_id).then((senior)=>{
+    if(senior.FamilyEmail == relative_email){
+      return true;
+    }
+    return false;
+  }).catch((err) =>{
+    console.log('checkSeniorForRelative: error'); 
+    if (err) {
+      console.log(err);
+    }
+    return false
+  }); 
 };
 
 function createSeniorObject(req) {

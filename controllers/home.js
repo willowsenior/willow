@@ -75,7 +75,3 @@ exports.getDownload = (req,res) => {
     });
   }).lean();
 }
-
-
-
-  

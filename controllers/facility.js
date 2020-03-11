@@ -172,7 +172,7 @@ exports.postFacilitySignup = (req, res, next) => {
       },
       Contact: req.body.contactNumber,
       ContactName: req.body.contactName,
-      Email: req.user.email,
+      Email: req.user.emails[0].value,
       MedicAid: req.body.medicaid,
       AssistedActivites: assistedActivities,
       BehaviorProblems: req.body.behaviorProblems,
@@ -513,7 +513,7 @@ exports.getFacilitySignup = (req, res, error) => {
 };
 
 exports.getRooms = (req, res) => {
-  if (!req.user || !req.user.isAdmin) {
+  if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
       return res.redirect('/');
   }
 

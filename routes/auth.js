@@ -41,7 +41,7 @@ router.get('/logout', (req, res) => {
     returnTo += ':' + port;
   }
   var logoutURL = new url.URL(
-    util.format('https://%s/v2/logout', process.env.AUTH0_DOMAIN)
+    util.format('https://%s/v2/logout', 'willowsenior.auth0.com')
   );
   var searchString = querystring.stringify({
     client_id: process.env.AUTH0_CLIENT_ID,
@@ -49,7 +49,7 @@ router.get('/logout', (req, res) => {
   });
   logoutURL.search = searchString;
 
-  res.redirect(logoutURL);
+  res.redirect('/home');
 });
 
 module.exports = router;

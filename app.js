@@ -74,9 +74,9 @@ app.use(session({
 dotenv.config();
 var strategy = new Auth0Strategy(
     {
-      domain: process.env.AUTH0_DOMAIN,
-      clientID: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
+      domain: 'willowsenior.auth0.com',
+      clientID: 'YY509UmZNKj1aKW3JjqPA47A5bOFtELZ',
+      clientSecret: '6n23aGD37yB0z04pkTqRUZG_BBqMQf0wPowV0I1q97ysiVocyGK01O1aFwvMGPow',
       callbackURL:
         process.env.AUTH0_CALLBACK_URL || 'http://localhost:8080/callback'
     },

@@ -25,7 +25,7 @@
               =user.displayName || user.email
               i.caret.m-l-2
             ul.dropdown-menu
-              if user.isAdmin
+              if user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin
                 li.dropdown-item
                   a(href='/createseniorrecord') Add a Senior
                 li.dropdown-item

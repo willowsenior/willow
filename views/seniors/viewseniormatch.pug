@@ -13,7 +13,7 @@ block content
 
         div
             ul.nav.nav-tabs(role="tablist")
-                if user.isAdmin
+                if user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin
                   button.btn.btn-secondary(type='submit')
                     | Update Senior
                 each tab, index in tabsItems
@@ -39,7 +39,7 @@ block content
         ];
 
     // Here is the actual template logic
-    form.body-form.body-form--with-tabs(id='seniorupdate-form', method='POST', action='/updateSenior/'+currentSenior._id.toString()+'?_method=PUT', novalidate, class=!user.isAdmin && 'locked' class=user.isAdmin && 'editable')
+    form.body-form.body-form--with-tabs(id='seniorupdate-form', method='POST', action='/updateSenior/'+currentSenior._id.toString()+'?_method=PUT', novalidate, class=!user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin && 'locked' class=user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin && 'editable')
         input(type='hidden', name='_csrf', value=_csrf)
         .side-tabs
           +tabs(data)
@@ -78,7 +78,7 @@ block content
                         input.form-control(type='text', name='email', id='emailAddresss', placeholder='Email Address', value=currentSenior.FamilyEmail)
 
                 -else if (this.title == 'Room Assignment')
-                  -if (user.isAdmin)
+                  -if (user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin)
                     .form-section
                       .form-group.form-section-header.form-section-header__with-button
                         h3.text-left Rooms
