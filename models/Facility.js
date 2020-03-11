@@ -11,18 +11,24 @@ const facilitySchema = new mongoose.Schema({
     Contact: Number,
     ContactName: String,
     Email: { type: String },
-    MedicAid: String,
-    AssistedActivites: Array,
+
+    // Finance
+    MedicAid: Boolean,
+    DesiredRent: Number,
+
     BehaviorProblems: Boolean,
     PhysicalAggressive: Boolean,
     SevereOrFrequentBehaviors: Boolean,
-    MemoryCare: Boolean,
-    AddititonalIssues: String,
+    //Additional
     InsulinShots: Number,
-    ChangeCatheterOrColostomyBag: Boolean,
+
+    //Behavior Problems
+    AssistedActivites: Array, // what goes into this array?
+    MemoryCare: Boolean,
     OxygenTank: Boolean,
     ContinousOxygen: Boolean,
-    DesiredRent: Number,
+    ChangeCatheterOrColostomyBag: Boolean,
+    AddititonalIssues: String,
 }, { timestamps: true });
 
 

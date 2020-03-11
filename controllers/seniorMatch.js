@@ -38,9 +38,6 @@ exports.postCreateSeniorMatch = (req, res) => {
 };
 
 exports.viewSeniorMatch = async (req, res) => {
-   //console.log('req user', req.user);
-    //console.log('hit the senior match', req.params.senior_id);
-    //return;
     var user = req.user;
     var senior_id = req.params.senior_id;
 
@@ -59,6 +56,22 @@ exports.viewSeniorMatch = async (req, res) => {
 
       var seniorMatches = await SeniorMatch.find({SeniorId: senior_id});
       var currentSenior = await SeniorModel.findById(senior_id);
+
+        let currentActivities = [
+            'eating',
+            'dressing',
+            'bathing',
+            'transfers',
+            'moving',
+            'toileting'
+        ];
+
+        currentActivities.forEach(activity => {
+            if (Array.isArray(currentSenior.AssistedActivites)) {
+                currentSenior[activity] = currentSenior.AssistedActivites.indexOf(activity) > -1;
+            }
+        });
+
       //if (!currentSenior) console.log('no current senior');
       //if (currentSenior) patchSeniorMatchMarkAsViewed(currentSenior._id);
 
@@ -101,9 +114,7 @@ exports.viewSeniorMatch = async (req, res) => {
         //Read only for the facility user
         facilityRooms = rooms;
       }
-      
-      //console.log('rooms for the senior match that should be selected or not', rooms);
-          
+
       res.render('seniors/viewseniormatch', {
         title: 'View Senior',
         user,
@@ -162,7 +173,7 @@ exports.deleteSeniorMatch = (req, res) => {
             console.log(error);
         }
     });
-}
+};
 
 exports.postUpdateSeniorMatch = (req, res) => {
     var id = req.params.senior_id;

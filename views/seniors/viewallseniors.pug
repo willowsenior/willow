@@ -15,13 +15,13 @@ block content
 							thead
 								tr
 									th Contact Name
-									th Contact Email
+									th Email
 									th Senior Name
 							tbody
 								each senior in seniors
 									tr(onclick='myFunction(\'' + senior._id + '\')')
 										td= senior.ContactName
-										td= senior.ContactEmail
+										td= senior.FamilyEmail
 										td= senior.SeniorName
 
 	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')

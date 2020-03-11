@@ -10,23 +10,20 @@ const async = require('async');
  * Home page.
  */
 exports.getFacility = async (req, res, error) => {
-  console.log('getting facility??');
     var facilityId = req.params.facility_id;
-    var currentFacility;
+    var currentFacility = {}; // apparently this is useless maybe?
     var currentRooms = [];
     var currentMatches = [];
     var existingMatches = [];
 
     Facility.findById(facilityId)
     .then(async (facility)=>{
-       console.log('got facility', facility);
-        var features = await _mapFeatures(facility);
-        //console.log('facility features', features);
-        
+        let features = await _mapFeatures(facility);
+        currentFacility = facility;
+
         try {
           currentRooms = await _roomPromise(facilityId);
           existingMatches = await _matchPromise(facilityId);
-          //console.log('got rooms and matches', currentRooms.length, existingMatches.length);
           if (existingMatches && existingMatches.length) currentMatches = await _mapMatchesPromise(existingMatches);
          
           res.render('facility', {
@@ -34,7 +31,9 @@ exports.getFacility = async (req, res, error) => {
             currentFacility,
             currentMatches,
             currentRooms,
-            myconstants
+            myconstants,
+            features,
+            facilityId
           });
           
         } catch (e) {
@@ -45,7 +44,8 @@ exports.getFacility = async (req, res, error) => {
     }); 
 };
 
-/*function _mapFeatures (features) {
+//TODO: This?
+function _mapFeatures (features) {
   return new Promise((resolve, reject) => {
     var newFeatures = {
       'Eating': [],
@@ -56,8 +56,7 @@ exports.getFacility = async (req, res, error) => {
       'Physical': [],
       'Behavioral': []
     };
-    var setupThings = Object.keys(features).forEach(key => {
-      
+    Object.keys(features).forEach(key => {
       var obj = {};
       if (key.indexOf('Eating') > -1 && features[key]) {
         obj[key] = features[key];
@@ -81,12 +80,10 @@ exports.getFacility = async (req, res, error) => {
         obj[key] = features[key];
         newFeatures['Behavioral'].push(obj);
       }
-      //console.log('obj here', obj);
     });
-    //console.log('new features here', newFeatures);
     resolve(newFeatures);
   });
-} */
+}
 
 function _roomPromise (facilityId) {
   return new Promise((resolve, reject) => {
@@ -148,8 +145,8 @@ async function _getMatches (id) {
   
 }
 
+//TODO: update
 exports.postFacilitySignup = (req, res, next) => {
-  //console.log('req body for post======>', req.body);
   let num;
   if (req && req.body && req.body.contactNumber) {
     num = req.body.contactNumber;
@@ -163,6 +160,8 @@ exports.postFacilitySignup = (req, res, next) => {
       req.flash('errors', errors);
       return res.redirect('/signup');
   }
+  let assistedActivities = getAssistedActivities(req);
+
   var facility = new Facility({
       FacilityName: req.body.facilityName,
       Address: {
@@ -175,7 +174,7 @@ exports.postFacilitySignup = (req, res, next) => {
       ContactName: req.body.contactName,
       Email: req.user.email,
       MedicAid: req.body.medicaid,
-      AssistedActivites: req.body.assistedActivites,
+      AssistedActivites: assistedActivities,
       BehaviorProblems: req.body.behaviorProblems,
       PhysicalAggressive: req.body.physicalAggressive,
       SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
@@ -196,7 +195,6 @@ exports.postFacilitySignup = (req, res, next) => {
       res.redirect('/facility/'+facility._id);
   });
 };
-
 exports.putFacilityNewMatchUpdate = (req, res, next) => {
   var facilityId = req.params.facility_id;
 
@@ -205,7 +203,6 @@ exports.putFacilityNewMatchUpdate = (req, res, next) => {
   }})
   .exec()
   .then(()=>{
-    //console.log('success setting facility new match to false');
     res.redirect('/facility/'+req.params.facility_id);
   })
   .catch((error)=>{
@@ -223,6 +220,8 @@ exports.putFacilityUpdate = (req, res, next) =>{
       return res.redirect('/signup');
   }
 
+  let assistedActivities = getAssistedActivities(req);
+
   var facilityId = req.params.facility_id;
   Facility.findByIdAndUpdate(facilityId,{$set: {
     FacilityName: req.body.facilityName,
@@ -234,9 +233,9 @@ exports.putFacilityUpdate = (req, res, next) =>{
       },
       Contact: req.body.contactNumber,
       ContactName: req.body.contactName,
-      Email: req.user.email,
+      Email: req.body.emailAddress,
       MedicAid: req.body.medicaid,
-      AssistedActivites: req.body.assistedActivites,
+      AssistedActivites: assistedActivities,
       BehaviorProblems: req.body.behaviorProblems,
       PhysicalAggressive: req.body.physicalAggressive,
       SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
@@ -264,9 +263,24 @@ exports.getFacilityUpdate = (req, res, error) => {
 
   Facility.findById(facility_id)
   .then((facility)=>{
-    currentFacility = facility;
-    var currentTab = 'General';
-    //console.log('currentTab', currentTab);
+    facility._id = facility_id;
+
+    let currentActivities = [
+      'eating',
+      'dressing',
+      'bathing',
+      'transfers',
+      'moving',
+      'toileting'
+    ];
+
+    if (Array.isArray(facility.AssistedActivites)) {
+      currentActivities.forEach(activity => {
+        facility[activity] = facility.AssistedActivites.indexOf(activity) > -1;
+      });
+    }
+
+    let currentTab = 'General';
     res.render('updatefacility', {
       title: 'Facility Update',
       facility,
@@ -277,15 +291,19 @@ exports.getFacilityUpdate = (req, res, error) => {
 };
 
 exports.getRoomSignup = (req, res, error) => {
-  var id = req.params.facility_id;
-  var currentFacility;
+  let facilityId = req.params.facility_id;
+  let currentFacility;
 
-  Facility.findById(id)
+  Facility.findById(facilityId)
   .then((facility)=>{
     currentFacility = facility;
-    res.render('roomsignup',{
+    currentFacility.AssistedActivites.forEach(activity => {
+      currentFacility[activity] = true;
+    });
+      res.render('roomsignup',{
       title: 'Room Sign up',
       currentFacility,
+      facilityId,
       myconstants
     });
   })
@@ -298,11 +316,13 @@ exports.getRoomSignup = (req, res, error) => {
 
 exports.postRoomSignup = async (req, res, error) => {
   const errors = req.validationErrors();
-  var id = req.params.facility_id;
-  
+  let id = req.params.facility_id;
+
+  let assistedActivities = getAssistedActivities(req);
+
   try {
-    var facility = await Facility.findById(id);
-    var room = await new Room({
+    const facility = await Facility.findById(id);
+    let room = await new Room({
       FacilityID: id,
       FacilityName: facility.FacilityName,
       RoomName: req.body.roomName,
@@ -313,21 +333,20 @@ exports.postRoomSignup = async (req, res, error) => {
         min: req.body.rent,
         max: req.body.max
       },
-      Medicaid: facility.MedicAid,
-      AssistedActivites: facility.AssistedActivites,
-      BehaviorProblems: facility.BehaviorProblems,
-      PhysicalAggressive: facility.PhysicalAggressive,
-      SevereOrFrequentBehaviors: facility.SevereOrFrequentBehaviors,
-      MemoryCare: facility.MemoryCare,
-      AddititonalIssues: facility.AddititonalIssues,
-      InsulinShots: facility.InsulinShots,
-      ChangeCatheterOrColostomyBag: facility.ChangeCatheterOrColostomyBag,
-      OxygenTank: facility.OxygenTank,
-      ContinousOxygen: facility.ContinousOxygen,
-      DesiredRent: facility.DesiredRent
+      Medicaid: req.body.medicAid,
+      AssistedActivites: assistedActivities,
+      BehaviorProblems: req.body.behaviorProblems,
+      PhysicalAggressive: req.body.physicalAggressive,
+      SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
+      MemoryCare: req.body.memoryCare,
+      AddititonalIssues: req.body.addititonalIssues,
+      InsulinShots: req.body.insulinShots,
+      ChangeCatheterOrColostomyBag: req.body.changeCatheterOrColostomyBag,
+      OxygenTank: req.body.oxygenTank,
+      ContinousOxygen: req.body.continousOxygen,
+      DesiredRent: req.body.desiredRent
     });
 
-    //console.log('room to save with facility id', facility._id, room);
     room.save(function(err) {
   
       if (err) {
@@ -354,10 +373,7 @@ exports.putRoomUpdate = (req, res, error) => {
   Room.findByIdAndUpdate(roomId,{$set: {
       RoomCount: req.body.count,
       RoomType: req.body.roomtype,
-      Range:{
-        min: req.body.rent,
-        max: req.body.max
-      }
+      DesiredRent: req.body.desiredRent
   }})
   .exec()
   .then((room)=>{
@@ -395,7 +411,7 @@ exports.deleteRoom = (req, res, error) => {
       console.log(error);
     }
   });
-}
+};
 
 exports.putFullRoomUpdate = (req, res, error) => {
   const errors = req.validationErrors();
@@ -405,6 +421,9 @@ exports.putFullRoomUpdate = (req, res, error) => {
       return res.redirect('/signup');
   }
   var roomId = req.params.room_id;
+
+  let assistedActivities = getAssistedActivities(req);
+
   Room.findByIdAndUpdate(roomId,{$set: {
     RoomName: req.body.roomName,
     RoomCount: req.body.count,
@@ -414,18 +433,18 @@ exports.putFullRoomUpdate = (req, res, error) => {
       min: req.body.rent,
       max: req.body.max
     },
-    MedicAid: req.body.medicaid,
-      AssistedActivites: req.body.assistedActivites,
-      BehaviorProblems: req.body.behaviorProblems,
-      PhysicalAggressive: req.body.physicalAggressive,
-      SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
-      MemoryCare: req.body.memoryCare,
-      AddititonalIssues: req.body.addititonalIssues,
-      InsulinShots: req.body.insulinShots,
-      ChangeCatheterOrColostomyBag: req.body.changeCatheterOrColostomyBag,
-      OxygenTank: req.body.oxygenTank,
-      ContinousOxygen: req.body.continousOxygen,
-      DesiredRent: req.body.desiredRent
+    Medicaid: req.body.medicaid,
+    AssistedActivites: assistedActivities,
+    BehaviorProblems: req.body.behaviorProblems,
+    PhysicalAggressive: req.body.physicalAggressive,
+    SevereOrFrequentBehaviors: req.body.severeOrFrequentBehaviors,
+    MemoryCare: req.body.memoryCare,
+    AddititonalIssues: req.body.addititonalIssues,
+    InsulinShots: req.body.insulinShots,
+    ChangeCatheterOrColostomyBag: req.body.changeCatheterOrColostomyBag,
+    OxygenTank: req.body.oxygenTank,
+    ContinousOxygen: req.body.continousOxygen,
+    DesiredRent: req.body.desiredRent
   }})
   .exec()
   .then((room)=>{
@@ -454,6 +473,22 @@ exports.getRoomUpdate = (req, res, error) => {
     Room.findById(room_id)
     .then((room)=>{
       currentRoom = room;
+
+      let currentActivities = [
+        'eating',
+        'dressing',
+        'bathing',
+        'transfers',
+        'moving',
+        'toileting'
+      ];
+
+      currentActivities.forEach(activity => {
+        if (Array.isArray(currentRoom.AssistedActivites)) {
+          currentRoom[activity] = currentRoom.AssistedActivites.indexOf(activity) > -1;
+        }
+      });
+
       res.render('updateroom', {
         title: 'Room',
         currentFacility,
@@ -513,6 +548,28 @@ exports.getRooms = (req, res) => {
           console.log(error || "Error fetching rooms");      
       });
   }
+};
+
+
+const getAssistedActivities = req => {
+  let currentActivities = [
+    'eating',
+    'dressing',
+    'bathing',
+    'transfers',
+    'moving',
+    'toileting'
+  ];
+
+  let assistedActivities = [];
+
+  currentActivities.forEach(activity => {
+    if (req.body[activity] === 'true') {
+      assistedActivities.push(activity);
+    }
+  });
+
+  return assistedActivities;
 };
 
 function isMatchViewed (seniorMatch) {
