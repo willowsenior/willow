@@ -127,12 +127,13 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  * Primary app routes.
  */
 app.get('/home', homeController.index);
-//app.get('/', userController.getLogin);
+app.get('/', homeController.index);
 //app.get('/login', userController.getLogin);
 //app.post('/login', userController.postLogin);
 //app.get('/logout', userController.logout);
 //app.get('/customersignup', userController.getCustomerSignup);
 app.get('/contact', homeController.getContact);
+
 // app.get('/forgot', userController.getForgot);
 // app.post('/forgot', userController.postForgot);
 // app.get('/reset/:token', userController.getReset);
