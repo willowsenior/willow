@@ -18,6 +18,7 @@ exports.index = (req, res, error) => {
         title: 'Home'
       });
     } else {
+      if(req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin){
       Facility.find({"Email" : req.user.emails[0].value   })
       .then((facilities)=>{
         console.log('facilities here', facilities);
@@ -27,7 +28,6 @@ exports.index = (req, res, error) => {
           } else {
             res.redirect('/facility/'+facilities[0]._id);
           }
-          
         }else{
           res.render('home', {
             title: 'Home',
@@ -38,6 +38,9 @@ exports.index = (req, res, error) => {
       .catch((error) => { 
         console.log(error);
         res.send('Sorry! Something went wrong.'); })
+      } else {
+        res.redirect('/createseniorrecord');
+      }
     }
   };
 

@@ -7,7 +7,7 @@ var _ = require('lodash');
 
 
 exports.getSeniorRecordCreate = (req, res) => {
-    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
+    if (!req.user) {
         return res.redirect('/');
     }
     var currentSenior = {
@@ -22,7 +22,7 @@ exports.getSeniorRecordCreate = (req, res) => {
 };
 
 exports.postCreateSenior = async (req, res) => {   
-    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
+    if (!req.user) {
        return res.redirect('/');
     }
     var seniorObj = await createSeniorObject(req);
@@ -39,7 +39,7 @@ exports.postCreateSenior = async (req, res) => {
 
 //TODO: update
 exports.getSeniors = (req, res) => {
-    if (!req.user || !req.user._json['https://willowsenior:auth0:com/user_metadata'].isAdmin) {
+    if (!req.user) {
         return res.redirect('/');
     }
 
